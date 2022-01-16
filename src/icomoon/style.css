@@ -1,0 +1,102 @@
+@font-face {
+    font-family: 'icomoon';
+    src: url('fonts/icomoon.eot?vzk1io');
+    src: url('fonts/icomoon.eot?vzk1io#iefix') format('embedded-opentype'),
+        url('fonts/icomoon.ttf?vzk1io') format('truetype'), url('fonts/icomoon.woff?vzk1io') format('woff'),
+        url('fonts/icomoon.svg?vzk1io#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+[class^='icon-'],
+[class*=' icon-'] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: never;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-search:before {
+    content: '\e901';
+}
+.icon-trashcan:before {
+    content: '\e904';
+}
+.icon-remove:before {
+    content: '\e904';
+}
+.icon-delete:before {
+    content: '\e904';
+}
+.icon-cancel:before {
+    content: '\e905';
+}
+.icon-close:before {
+    content: '\e905';
+}
+.icon-remove1:before {
+    content: '\e905';
+}
+.icon-dismiss:before {
+    content: '\e905';
+}
+.icon-delete1:before {
+    content: '\e90e';
+}
+.icon-account_circle:before {
+    content: '\e913';
+}
+.icon-shopping-bag:before {
+    content: '\e903';
+}
+.icon-log-in:before {
+    content: '\e914';
+}
+.icon-sign-in:before {
+    content: '\e916';
+}
+.icon-heart-o:before {
+    content: '\e918';
+}
+.icon-user-circle-o:before {
+    content: '\e91b';
+}
+.icon-profile:before {
+    content: '\e923';
+}
+.icon-cart:before {
+    content: '\e93a';
+}
+.icon-address-book:before {
+    content: '\e944';
+}
+.icon-user-check:before {
+    content: '\e975';
+}
+.icon-user-tie:before {
+    content: '\e976';
+}
+.icon-star-empty:before {
+    content: '\e9d7';
+}
+.icon-star-full:before {
+    content: '\e9d9';
+}
+.icon-plus:before {
+    content: '\ea0a';
+}
+.icon-minus:before {
+    content: '\ea0b';
+}
+.icon-enter:before {
+    content: '\ea13';
+}

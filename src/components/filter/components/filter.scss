@@ -1,0 +1,42 @@
+.slide-in {
+    z-index: 10; /* to position it in front of the other content */
+    position: absolute;
+    overflow: hidden; /* to prevent scrollbar appearing */
+  }
+  
+  .slide-in.from-left {
+    left: 0;
+  }
+  
+  .slide-in.from-right {
+    right: 0;
+  }
+  
+  .slide-in.from-left .slide-in-content {
+    -webkit-animation: slide 1.5s forwards;
+    animation: slide 1.5s forwards;
+    transition: all 3s;
+  }
+  
+  .slide-in.show .slide-in-content {
+    -webkit-animation: hideSlide 1.5s forwards;
+    animation: hideSlide 1.5s forwards;
+    transition: all 3s;
+  }
+
+  @-webkit-keyframes slide {
+    100% { left: 0; }
+}
+
+@keyframes slide {
+    100% { left: 0; }
+}
+
+@-webkit-keyframes hideSlide {
+  100% { left: -100%; }
+}
+
+@keyframes hideSlide {
+  100% { left: -100%; }
+}
+  

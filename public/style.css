@@ -1,0 +1,21 @@
+@font-face {
+    font-family: "AdihausDIN";
+    src: url("./fonts/729-font.ttf") format("ttf")
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-scroll-behavior: smooth;
+}
+
+body {
+    background: #2f2f2f;
+    margin:0;
+    display:flex;
+    flex-direction:column;
+    height:100vh;
+}
+
+button {
+    outline: none !important;
+}

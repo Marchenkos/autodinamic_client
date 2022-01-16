@@ -1,0 +1,39 @@
+{
+    "checkout": {
+        "basket": {
+            "tableHeaders": ["Товар", "Цена", "Количество", "Общая стоимость"],
+            "header": "Корзина",
+            "resultCard": {
+                "resultHeader": "Итого",
+                "continueShopping": "Продолжить покупки",
+                "confirmOrder": "Оформить заказ"
+            },
+            "resultLabels": {
+                "quantity": "Количество товаров:",
+                "totalPrice": "Общая стоимость:"
+            },
+            "preview": {
+                "header": "КОРЗИНА"
+            }
+        }
+    },
+    "productList": {
+        "buttons": {
+            "addToBasket": "В корзину",
+            "showDetails": "Подробнее"
+        }
+    },
+    "account": {
+        "headers": {
+            "login": "ВХОД В АККАУНТ"
+        },
+        "buttons": {
+            "login": "ВХОД"
+        }
+    },
+    "header": {
+        "search": {
+            "placeholder": "Поиск товаров здесь..."
+        }
+    }
+}
