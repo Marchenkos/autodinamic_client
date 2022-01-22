@@ -51,8 +51,6 @@ export function* getProductByIdSaga(action: ReturnType<typeof FETCH_PRODUCT_BY_I
             }
         }
 
-        console.log(productDetails);
-
         yield put(FETCH_SPECIFIC_PRODUCT_FIELDS.TRIGGER(product.category_name));
 
         yield put(

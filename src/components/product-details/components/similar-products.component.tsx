@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { LocaleStrings } from '../../../locale';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Carousel, { arrowsPlugin, slidesToShowPlugin, slidesToScrollPlugin } from '@brainhubeu/react-carousel';

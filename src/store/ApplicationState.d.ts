@@ -1,4 +1,3 @@
-import { locationReducer } from '../components/location/reducer';
 import { reducer as productReducer } from '../components/product-list/reducers/index';
 import { basketReducer } from '../components/checkout/basket/reducers/basket.reducer';
 import { toastReducer } from '../components/toast/reducer';
@@ -14,7 +13,6 @@ import { productCategoryReducer } from '../components/product-category/reducer';
 import { reducer as promotionsReducer } from '../components/promotions/reducers';
 
 export interface ApplicationState {
-    location: ReturnType<typeof locationReducer>;
     products: ReturnType<typeof productReducer>;
     basket: ReturnType<typeof basketReducer>;
     toast: ReturnType<typeof toastReducer>;

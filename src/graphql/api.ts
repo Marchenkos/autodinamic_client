@@ -591,8 +591,6 @@ export class GraphQLApi {
             fetchPolicy: 'network-only',
         });
 
-        console.log(this.client)
-
         return response.data.categoryNames;
     };
 

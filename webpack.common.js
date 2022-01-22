@@ -1,20 +1,18 @@
 const path = require('path');
 
 const TerserPlugin = require('terser-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
     entry: path.resolve(__dirname, './src/index.tsx'),
-    target: 'web',
     output: {
-        path: path.resolve(__dirname, 'build'),
-        filename: '[name].chunkhash.bundle.js',
-        publicPath: '/',
+        filename: '[name].[contenthash].bundle.js',
+        chunkFilename: '[name].[contenthash].bundle.js',
+        path: path.resolve(__dirname, './build'),
+        publicPath: '/'
     },
     resolve: {
         extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
-        alias: {
-            assets: path.resolve('./public/assets'), // Makes it easier to reference our assets in jsx files
-        },
     },
     module: {
         rules: [
@@ -57,6 +55,11 @@ module.exports = {
             },
         ],
     },
+    plugins: [
+        new Dotenv({
+            path: path.resolve(__dirname,'.env'),
+        }),
+    ],
     optimization: {
         minimizer: [new TerserPlugin({})],
         usedExports: true,

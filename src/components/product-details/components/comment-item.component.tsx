@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
 import { BodyText, TitleText, TextColor, TextSize, TextWeight } from '../../../ui/text';
-import UserAvatar from '../../../../public/assets/user-avatar/user-avatar-1.png';
 
 const CommentItemWrapper = styled.div`
     box-sizing: border-box;
@@ -43,7 +42,9 @@ export const CommentItem: React.FC<CommentItemProps> = React.memo(function Comme
     return (
         <CommentItemWrapper>
             <UseInfo>
-                <UserAvatarImage src={comment.userAvatar ? comment.userAvatar : UserAvatar} />
+                {comment.userAvatar && (
+                    <UserAvatarImage src={comment.userAvatar} />
+                )}
                 <UserName>{comment.userName}</UserName>
                 <CommentTime>{parseDate()}</CommentTime>
             </UseInfo>

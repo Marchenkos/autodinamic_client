@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { BodyText, TextColor, TextSize, TitleText, TextWeight, TitleLink } from '../../../../ui/text';
-import CImage from '../../../../../public/assets/img/complete-order.png';
 import { OrderDetailsResponse } from '../../../../graphql/interfaces';
 import { StyledButton } from '../../../../ui/new-styled';
 

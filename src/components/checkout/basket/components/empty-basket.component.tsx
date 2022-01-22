@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { device } from '../../../../../public/screen-sizes';
 import { LocaleStrings } from '../../../../locale';
 import { BodyText, BodyLink, TextColor, TextSize, TextWeight, TitleText } from '../../../../ui/text';
-import EmptyBasketIcon from '../../../../../public/assets/img/empty-basket.png';
+import EmptyBasketIcon from '../../../../../public/assets/empty-basket.png';
 
 export const BasketWrapper = styled.div`
     display: flex;

@@ -1,5 +1,4 @@
 const { merge } = require('webpack-merge');
-const Dotenv = require('dotenv-webpack');
 
 const common = require('./webpack.common.js');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -15,10 +14,6 @@ module.exports = merge(common, {
         historyApiFallback: true,
     },
     plugins: [
-        new Dotenv({
-            path: path.resolve(__dirname,'.env'),
-            safe: true, 
-        }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, 'public', 'index.html'),
             favicon: path.resolve(__dirname, 'public', 'favicon.ico'),
