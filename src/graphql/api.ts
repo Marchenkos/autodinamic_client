@@ -82,6 +82,7 @@ export class GraphQLApi {
         categoryName: string,
         sort: string,
         isNew: boolean,
+        isHasDiscount: boolean,
         filters?: SelectedFilterSection[],
         searchTerms?: string[]
     ): Promise<ProductList> => {
@@ -95,13 +96,12 @@ export class GraphQLApi {
                     sort,
                     filters,
                     isNew,
+                    isHasDiscount,
                     searchTerms
                 },
             },
             fetchPolicy: 'network-only',
         });
-
-        console.log('res', response);
 
         return response.data.products;
     };

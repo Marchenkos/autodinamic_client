@@ -4,12 +4,15 @@ import styled from 'styled-components';
 
 import { BodyText, TextSize, TextWeight, TitleText } from '../../ui/text';
 import { useHistory } from 'react-router-dom';
-import { CarouselItem } from '../product-details/components/carousel-item.component';
 import { useDispatch, useSelector } from 'react-redux';
-import { NewsBanners } from './components/news-banner-carousel.component';
 import { isSmallDevice } from '../../utils/check-device-size';
 import { NewestProductCarousel } from './components/newest-products.component';
-import { gql, useSubscription } from '@apollo/client';
+import { CategoryPromo } from './components/category-promo.component';
+import { getDiscountProductList } from '../product-list/selectors';
+import { FETCH_DISCOUNT_PRODUCT_LIST } from '../product-list/actions';
+import { PRODUCT_CATEGORY_TYPE } from '../../graphql/entities';
+import { DiscountProductList } from './components/discount-product-list.component';
+import BannerImg from '../../../public/assets/banner.png';
 
 const Wrapper = styled.div`
     flex-grow: 1;
@@ -17,14 +20,12 @@ const Wrapper = styled.div`
     background: white;
 `;
 
-const NewProductsWrapper = styled.div`
-    flex-grow: 1;
-    width: 80%;
-    margin: 60px auto 0;
-    background: white;
+const MainBannerImage = styled.img`
+    max-width: 100%;
 `;
 
 const SaleWrapper = styled.div`
+    box-sizing: border-box;
     margin: 50px 0 50px;
     padding: 7% 5%;
     width: 100%;
@@ -37,6 +38,22 @@ const SaleWrapper = styled.div`
         flex-direction: column;
         margin: 50px 0 30px;
     }
+`;
+
+const PromoSection = styled.div`
+    width: 100%;
+    margin-top: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    box-sizing: border-box;
+    padding: 0 50px;
+`;
+
+const MainBanner = styled.div`
+    width: 100%;
+    margin: 15px 0 20px;
 `;
 
 export const ProductCarousel = styled.div`
@@ -77,7 +94,7 @@ const SaleText = styled(BodyText).attrs({ size: TextSize.LARGE, weight: TextWeig
 `;
 
 const HeaderText = styled(TitleText).attrs({ weight: TextWeight.BOLD })`
-    margin-bottom: 30px;
+    margin-bottom: 35px;
     text-align: center;
     font-size: 25px;
 
@@ -95,21 +112,21 @@ const styledButton: React.CSSProperties = {
     textTransform: 'initial',
 };
 
-const COMMENTS_SUBSCRIPTION = gql`
-    subscription MessageSent {
-        messageSent
-    }
-`;
-
 const HomeScreen: React.FC = React.memo(function HomeScreen() {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    // React.useEffect(() => {
-    //     if (!newestProducts) {
-    //         dispatch(FETCH_NEWEST_PRODUCTS.TRIGGER());
-    //     }
-    // }, [dispatch, newestProducts]);
+    const discountProductList = useSelector(getDiscountProductList);
+
+    React.useEffect(() => {
+        dispatch(FETCH_DISCOUNT_PRODUCT_LIST.TRIGGER({
+            limit: 8,
+            next: 0,
+            categoryName: PRODUCT_CATEGORY_TYPE.ALL,
+            sort: '',
+            isHasDiscount: true
+        }));
+    }, [dispatch, discountProductList]);
 
     const navigateToCatalog = React.useCallback(() => {
         history.push('/catalog/all');
@@ -117,12 +134,25 @@ const HomeScreen: React.FC = React.memo(function HomeScreen() {
 
     return (
         <Wrapper>
+            <MainBanner>
+                <MainBannerImage src={BannerImg} />
+            </MainBanner>
             <SaleWrapper>
                 <SaleText>Зарегистрируйся, оформи свой первый заказ и получи скидку 5%</SaleText>
                 <Button style={styledButton} variant="contained" onClick={navigateToCatalog} color="primary">
                     Выбрать товар
                 </Button>
             </SaleWrapper>
+            <PromoSection>
+                <HeaderText>Категории товаров</HeaderText>
+                <CategoryPromo />
+
+            </PromoSection>
+
+            <PromoSection>
+                <HeaderText>Выгодные предложения</HeaderText>
+                <DiscountProductList products={discountProductList} />
+            </PromoSection>
         </Wrapper>
     );
 });

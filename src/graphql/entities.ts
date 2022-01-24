@@ -1,4 +1,8 @@
 import { Address } from '../mockData/user';
+import MagnitolsImage from '../../public/assets/category/magnitol.png';
+import SoundSpeakerImage from '../../public/assets/category/sound-speaker.png';
+import SumpliferImage from '../../public/assets/category/sumplifer.png';
+import SignalisationImage from '../../public/assets/category/signalisation.png';
 
 export enum DELIVERY_METHODS {
     POST = 'Доставка почтой',
@@ -17,8 +21,27 @@ export interface DescriptionSectionFields {
     unit?: string;
 }
 
+export enum PRODUCT_CATEGORY_TYPE {
+    ALL = 'all',
+    MAGNITOLS = 'magnitols',
+    SOUND_SPEAKER = 'sound_speakers',
+    SUB = 'subwoofers',
+    DVRS = 'dvrs',
+    SIGNALISATION = 'signalisation',
+    AUTO_AMPLIFIER = 'auto_amplifiers'
+}
+
+export const PRODUCT_CATEGORY_TO_CATEGORY_IMAGES = {
+    [PRODUCT_CATEGORY_TYPE.AUTO_AMPLIFIER]: SumpliferImage,
+    [PRODUCT_CATEGORY_TYPE.DVRS]: MagnitolsImage,
+    [PRODUCT_CATEGORY_TYPE.MAGNITOLS]: MagnitolsImage,
+    [PRODUCT_CATEGORY_TYPE.SIGNALISATION]: SignalisationImage,
+    [PRODUCT_CATEGORY_TYPE.SOUND_SPEAKER]: SoundSpeakerImage,
+    [PRODUCT_CATEGORY_TYPE.SUB]: MagnitolsImage,
+};
+
 export interface Category {
-    category_name: string;
+    category_name: PRODUCT_CATEGORY_TYPE;
     title: string;
     description_sections: string[];
     description_section_fields: DescriptionSectionFields[];

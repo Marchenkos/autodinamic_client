@@ -12,13 +12,6 @@ import {
     signalisationFields,
 } from './fields';
 
-export interface LoadProductsPayload {
-    limit: number;
-    next: number;
-    categoryName: string;
-    sort: string;
-}
-
 export interface GetOrdersByEmailPayload {
     email: string;
 }

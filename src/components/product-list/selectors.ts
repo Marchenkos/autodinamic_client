@@ -17,9 +17,19 @@ const getProductListState: Selector<ApplicationState, ProductListState> = create
     (products) => products.productList
 );
 
+const getDiscountProductListState: Selector<ApplicationState, ProductListState> = createSelector(
+    getProductRootState,
+    (products) => products.discountProductList
+);
+
 export const getProductList: Selector<ApplicationState, GeneralProduct[]> = createSelector(
     getProductListState,
     (productList) => productList.productList
+);
+
+export const getDiscountProductList: Selector<ApplicationState, GeneralProduct[]> = createSelector(
+    getDiscountProductListState,
+    (discountProductList) => discountProductList.productList
 );
 
 export const getIsProductListFetching: Selector<ApplicationState, boolean> = createSelector(

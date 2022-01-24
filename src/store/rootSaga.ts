@@ -29,6 +29,7 @@ import { listenForToggleCompareListTrigger } from '../components/compare-product
 import { listenForCategoryTriggers } from '../components/product-category/sagas';
 import { listenForFetchSpecificProductsFieldsTrigger } from '../components/product-details/sagas/fetch-product-fields.saga';
 import { listenForAccountTriggers } from '../components/account/sagas/index.saga';
+import { listenForFetchDiscountProductListTrigger } from '../components/product-list/sagas/get-discount-product-list.saga';
 
 export function* rootSaga(): SagaIterator {
     yield spawn(listenForFetchProductListTrigger);
@@ -57,6 +58,7 @@ export function* rootSaga(): SagaIterator {
     yield spawn(listenForToggleCompareListTrigger);
     yield spawn(listenForCategoryTriggers);
     yield spawn(listenForFetchSpecificProductsFieldsTrigger);
+    yield spawn(listenForFetchDiscountProductListTrigger);
 
     yield call(initialisationSaga);
 }
