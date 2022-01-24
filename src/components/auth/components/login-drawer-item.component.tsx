@@ -15,27 +15,7 @@ const RegisterFormWrapper = styled.div`
     justify-content: center;
 `;
 
-const TextButton = styled.button`
-    border: none;
-    background: none;
-    font-size: 16px;
-    font-family: 'Manrope';
-    margin-top: 100px;
-    cursor: pointer;
-    padding: 20px;
-
-    :hover {
-        color: #7aa0a1;
-    }
-`;
-
-interface LoginDrawerItemProps {
-    toggleForms: () => void;
-}
-
-export const LoginDrawerItem: React.FC<LoginDrawerItemProps> = React.memo(function LoginDrawerItem({
-    toggleForms,
-}: LoginDrawerItemProps) {
+export const LoginDrawerItem: React.FC = React.memo(function LoginDrawerItem() {
     const dispatch = useDispatch();
     const token = useSelector(getToken);
     const history = useHistory();
@@ -50,7 +30,6 @@ export const LoginDrawerItem: React.FC<LoginDrawerItemProps> = React.memo(functi
     return (
         <RegisterFormWrapper>
             <Login />
-            <TextButton onClick={toggleForms}>Еще нет аккаунта?</TextButton>
         </RegisterFormWrapper>
     );
 });

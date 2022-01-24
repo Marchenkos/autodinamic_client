@@ -5,17 +5,23 @@ import { StyledLink } from '../../../ui/styled-link.component';
 import { BodyText, TextSize, TextColor } from '../../../ui/text';
 import { capitalizeString } from '../../filter/utilites/formated-string';
 
-const MenuItem = styled(BodyText).attrs({ size: TextSize.SMALL, color: TextColor.WHITE })`
+const MenuWrapper = styled.div`
+    margin-top: 25px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+`;
+
+const MenuItem = styled(BodyText).attrs({ size: TextSize.SMALL, color: TextColor.DARK })`
     margin-right: 35px;
-    padding: 1px 0;
-    text-transform: lowercase;
-    padding: 20px 0;
+    padding: 0 0 10px;
     border-bottom: none;
     box-sizing: border-box;
-    border-bottom: 2px solid #363636;
+    border-bottom: 2px solid #ffff;
 
     &:focus, &:hover, &:visited, &:link, &:active {
-        border-bottom: 2px solid white;
+        border-bottom: 2px solid #363636;
     }
 
     @media (max-width: 1200px) {
@@ -25,29 +31,29 @@ const MenuItem = styled(BodyText).attrs({ size: TextSize.SMALL, color: TextColor
 
 const menuConfig = [
     {
-        name: 'каталог',
+        name: 'Каталог',
         url: '/catalog/all',
     },
     {
-        name: 'новинки',
+        name: 'Новинки',
         url: '/new/all',
     },
     {
-        name: 'акции',
+        name: 'Акции',
         url: '/promotions',
     },
     {
-        name: 'проверить заказ',
+        name: 'Проверить заказ',
         url: '/check-order',
     },
 
     {
-        name: 'доставка',
+        name: 'Доставка',
         url: '/delivery',
     },
 
     {
-        name: 'наш магазин',
+        name: 'Наш магазин',
         url: '/contacts',
     },
     // {
@@ -58,12 +64,12 @@ const menuConfig = [
 
 export const Menu: React.FC = React.memo(function Menu() {
     return (
-        <>
+        <MenuWrapper>
             {menuConfig.map((item, index: number) => (
                 <StyledLink key={index} to={item.url}>
                     <MenuItem>{capitalizeString(item.name)}</MenuItem>
                 </StyledLink>
             ))}
-        </>
+        </MenuWrapper>
     );
 });

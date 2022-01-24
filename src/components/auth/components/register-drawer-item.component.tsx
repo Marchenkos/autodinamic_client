@@ -56,7 +56,6 @@ export const RegisterDrawerItem: React.FC<RegisterDrawerItemProps> = React.memo(
     return (
         <RegisterFormWrapper>
             <Registration />
-            <TextButton onClick={toggleForms}>Уже зарегистрированы?</TextButton>
         </RegisterFormWrapper>
     );
 });

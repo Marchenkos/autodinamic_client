@@ -10,10 +10,6 @@ const LogoTextSection = styled.div<{ isFooter?: boolean }>`
     justify-content: center;
     width: 250px;
 
-    @media (max-width: 1400px) {
-        display: ${(props) => (!props.isFooter ? 'none' : 'flex')};
-    }
-
     @media (max-width: 850px) {
         display: flex;
         padding-left: 5px;
@@ -40,10 +36,6 @@ const LogoText = styled(TitleText).attrs({ color: TextColor.BLUE })`
 
 const LogoDescriptionText = styled(BodyText).attrs({ size: TextSize.EXTRA_EXTRA_SMALL })`
     color: #bfbfbf;
-
-    @media (max-width: 850px) {
-        display: none;
-    }
 `;
 
 const LogoWrapper = styled.div`

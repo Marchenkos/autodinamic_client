@@ -3,6 +3,8 @@ import MagnitolsImage from '../../public/assets/category/magnitol.png';
 import SoundSpeakerImage from '../../public/assets/category/sound-speaker.png';
 import SumpliferImage from '../../public/assets/category/sumplifer.png';
 import SignalisationImage from '../../public/assets/category/signalisation.png';
+import VideoRegImage from '../../public/assets/category/video-registration.png';
+import SubImage from '../../public/assets/category/sub.png';
 
 export enum DELIVERY_METHODS {
     POST = 'Доставка почтой',
@@ -33,11 +35,11 @@ export enum PRODUCT_CATEGORY_TYPE {
 
 export const PRODUCT_CATEGORY_TO_CATEGORY_IMAGES = {
     [PRODUCT_CATEGORY_TYPE.AUTO_AMPLIFIER]: SumpliferImage,
-    [PRODUCT_CATEGORY_TYPE.DVRS]: MagnitolsImage,
+    [PRODUCT_CATEGORY_TYPE.DVRS]: VideoRegImage,
     [PRODUCT_CATEGORY_TYPE.MAGNITOLS]: MagnitolsImage,
     [PRODUCT_CATEGORY_TYPE.SIGNALISATION]: SignalisationImage,
     [PRODUCT_CATEGORY_TYPE.SOUND_SPEAKER]: SoundSpeakerImage,
-    [PRODUCT_CATEGORY_TYPE.SUB]: MagnitolsImage,
+    [PRODUCT_CATEGORY_TYPE.SUB]: SubImage,
 };
 
 export interface Category {

@@ -10,37 +10,38 @@ import { LogoComponentWithText } from './components/logo-text.component';
 import { SearchMobile } from '../search/components/search-mobile.component';
 import { AccountPreview } from '../account/component/account-preview.component';
 import { Search } from '../search/components/search.component';
+import { SearchInput } from '../search/components/search-input.component';
 
 const CommonHeaderWrapper = styled.div`
     width: 100%;
-`;
-
-const MenuSectionWrapper = styled.div`
-    display: flex;
-    width: 100%;
-    align-items: center;
-    box-sizing: border-box;
-    padding: ${(props: { white?: boolean }) => (props.white ? '15px 50px' : '10px 50px')};
-
-    background: ${(props: { white?: boolean }) => (props.white ? '#272727' : '#F1F1F1')};
+    border-bottom: 1px solid #bdbdbd;
+    padding-bottom: 10px;
 `;
 
 const FirstMenu = styled.div`
     display: flex;
     width: 100%;
     align-items: center;
-    padding: 10px 50px;
-    background: #fff;
+    padding: 0 50px;
+    background: #464646;
     box-sizing: border-box;
-    justify-content: flex-start;
+    justify-content: space-between;
 `;
 
 const SecondMenu = styled.div`
     display: flex;
+    flex-direction: column;
+    padding: 20px 50px 0;
+    width: 100%;
+    background: #ffff;
+    box-sizing: border-box;
+`;
+
+const SecondMenuSection = styled.div`
+    display: flex;
     width: 100%;
     align-items: center;
-    justify-content: center;
-    background: #363636;
+    justify-content: flex-start;
 `;
 
 const FirstMenuIconsWrapper = styled.div`
@@ -50,11 +51,9 @@ const FirstMenuIconsWrapper = styled.div`
 `;
 
 const LogoWrapper = styled.div`
-    flex-grow: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 50px;
 `;
 
 const ContactBodyLink = styled(BodyLink).attrs({ weight: TextWeight.BOLD, color: TextColor.BLUE })`
@@ -75,23 +74,27 @@ export const CommonHeader: React.FC = React.memo(function CommonHeader() {
     }
 
     return (
-        <>
-            <CommonHeaderWrapper>
-                <FirstMenu>
-                    <ContactBodyLink href="tel:+375 29 660-39-59">+375 29 660-39-59</ContactBodyLink>
+        <CommonHeaderWrapper>
+            <FirstMenu>
+                <ContactBodyLink href="tel:+375 29 660-39-59">+375 29 660-39-59</ContactBodyLink>
+            
+                <FirstMenuIconsWrapper>
+                    <AccountPreview />
+                </FirstMenuIconsWrapper>
+            </FirstMenu>
+            <SecondMenu>
+                <SecondMenuSection>
                     <LogoWrapper>
                         <LogoComponentWithText />
                     </LogoWrapper>
-                    <FirstMenuIconsWrapper>
-                        <Search />
-                        <AccountPreview />
-                        <BasketPreview />
-                    </FirstMenuIconsWrapper>
-                </FirstMenu>
-                <SecondMenu>
+                    <SearchInput />
+                    <BasketPreview />
+                </SecondMenuSection>
+
+                <SecondMenuSection>
                     <Menu />
-                </SecondMenu>
-            </CommonHeaderWrapper>
-        </>
+                </SecondMenuSection>
+            </SecondMenu>
+        </CommonHeaderWrapper>
     );
 });

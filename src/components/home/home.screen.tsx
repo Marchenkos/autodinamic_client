@@ -53,7 +53,6 @@ const PromoSection = styled.div`
 
 const MainBanner = styled.div`
     width: 100%;
-    margin: 15px 0 20px;
 `;
 
 export const ProductCarousel = styled.div`

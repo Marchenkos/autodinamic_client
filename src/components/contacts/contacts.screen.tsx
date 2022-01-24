@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { ContactComponent } from './component/contact.comonent';
+import MessageImage from '../../../public/assets/contacts/message.png';
 import styled from 'styled-components';
 import { CallbackForm } from './component/callback-form.component';
-import { TitleText, TextColor, TextSize, TextWeight } from '../../ui/text';
+import { TitleText, TextColor, TextSize, TextWeight, BodyText } from '../../ui/text';
 
 export const API_KEY = 'AIzaSyBbVtUQaQ7u7ytsbB6OQ_0IRqOscjICMKQ';
 
@@ -12,12 +12,44 @@ const Wrapper = styled.div`
     background: white;
 `;
 
-const ContentWrapper = styled.div`
-    padding: 40px 200px 80px;
+const Section = styled.div<{ noPadding?: boolean }>`
+    ${props => !props.noPadding && `
+        padding: 40px 200px 0px;
 
-    @media (max-width: 850px) {
-        padding: 20px 20px 30px;
-    }
+        @media (max-width: 850px) {
+            padding: 20px 20px 0px;
+        }
+    `}
+`;
+
+const ContactInfoWtapper = styled.div`
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 50px;
+`;
+
+const ContactInfoSection = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`;
+
+const ContactTextWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`;
+
+const ContactImage = styled.img`
+    max-width: 50%;
+`;
+
+const DescriptionText = styled(BodyText)`
+    font-size: 15px;
+    line-height: 25px;
 `;
 
 const PageTitleText = styled(TitleText)`
@@ -27,6 +59,11 @@ const PageTitleText = styled(TitleText)`
     @media (max-width: 850px) {
         margin: 20px 0 20px;
     }
+`;
+
+const ContactText = styled(BodyText)`
+    font-size: 14px;
+    text-align: center;
 `;
 
 const ContactScreen: React.FC = React.memo(function ContactScreen() {
@@ -39,11 +76,73 @@ const ContactScreen: React.FC = React.memo(function ContactScreen() {
             style={{ border: '0'}}
             loading="lazy"
         ></iframe> */}
-            <ContentWrapper>
-                <ContactComponent />
-                <PageTitleText>Форма для связи с продавцом</PageTitleText>
+            <Section>
+                <PageTitleText>О нас</PageTitleText>
+                <DescriptionText>
+                    <b>АвтоДинамик</b> - интернет-магазин техники для автомобилей. Мы предлагаем большое разнообразие товаров, которые помогут 
+                    сделать Ваш автомобиль комфортнее и современнее. В нашем интернет-магазине Вы можете найти качественную аудиотехнику, выбрать товар по определенным характеристикам, а также защитить себя и Ваш автомобиль с помощью видеорегистраторов и современной сигнализации.
+
+                </DescriptionText>
+            </Section>
+
+            <Section>
+                <PageTitleText>Контактная информация</PageTitleText>
+                <DescriptionText>
+                    При возникновении вопросов, касающихся оформления или доставки заказа, а также для получения дополнительной консультации при выборе товара, Вы можете обратиться к продавцу, воспользовавшись нашими контактами, либо заполните форму <b>Обратной связи</b> и мы сами свяжемся с Вами. Будем рады помочь!
+                </DescriptionText>
+
+                <ContactInfoWtapper>
+                    <ContactInfoSection>
+                        <ContactImage src={MessageImage} />
+                        <ContactTextWrapper>
+                            <ContactText>
+                                <b>Позвоните нам</b>
+                            </ContactText>
+                            <ContactText>
+                                +375(29)-660-39-59  - продавец
+                            </ContactText>
+                            <ContactText>
+                                +375(29)-161-97-61  - для вопросов по сайту
+                            </ContactText>
+                        </ContactTextWrapper>
+                    </ContactInfoSection>
+
+                    <ContactInfoSection>
+                        <ContactImage src={MessageImage} />
+                        <ContactTextWrapper>
+                            <ContactText>
+                                <b>Напишите нам</b>
+                            </ContactText>
+                            <ContactText>
+                                mar-cer@yandex.ru  - продавец
+                            </ContactText>
+                            <ContactText>
+                                auto-dinamic-sup@mail.ru  - техподдержка
+                            </ContactText>
+                        </ContactTextWrapper>
+                    </ContactInfoSection>
+
+                    <ContactInfoSection>
+                        <ContactImage src={MessageImage} />
+                        <ContactTextWrapper>
+                            <ContactText>
+                                <b>Приезжайте</b>
+                            </ContactText>
+                            <ContactText>
+                            Мы находимся по адресу
+                            </ContactText>
+                            <ContactText>
+                                г.Гомель, ул. Карповича 28.
+                            </ContactText>
+                        </ContactTextWrapper>
+                    </ContactInfoSection>
+
+                </ContactInfoWtapper>
+            </Section>
+
+            <Section noPadding>
                 <CallbackForm />
-            </ContentWrapper>
+            </Section>
         </Wrapper>
     );
 });

@@ -45,7 +45,7 @@ export const CustomInput = styled(CssTextField)`
     }
 `;
 
-const CustomMultipleInput = styled(CustomInput)`
+const FullWidthInput = styled(CustomInput)`
     width: 100%;
 `;
 
@@ -146,7 +146,7 @@ export const AppTextAreaInput: React.FC<FormInputTextProps> = React.memo(functio
     const classes = useStyles();
 
     return (
-        <CustomMultipleInput
+        <FullWidthInput
             {...props}
             id="outlined-multiline-static"
             label={props.label}
@@ -154,7 +154,6 @@ export const AppTextAreaInput: React.FC<FormInputTextProps> = React.memo(functio
             rows={6}
             rowsMax={6}
             InputLabelProps={{ shrink: true, style: { fontSize: '16px' } }}
-            variant="outlined"
         />
     );
 });
@@ -165,9 +164,8 @@ export const MobileInput: React.FC<FormInputTextProps> = React.memo(function For
     return (
         <InputMask {...inpProps} mask="+375 99 999 99 99" disabled={false}>
             {() => (
-                <CustomInput
+                <FullWidthInput
                     className={classes.margin}
-                    variant="outlined"
                     label={inpProps.label}
                     InputProps={{
                         classes: {
