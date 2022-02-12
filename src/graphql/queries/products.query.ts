@@ -65,8 +65,8 @@ export const getProductListQuery = gql`
 `;
 
 export const getProductListByTermsQuery = gql`
-    query($input: SearchProductsPayload!) {
-        searchProduct(input: $input) {
+    query($input: ProductsBySearchInput!) {
+        productsBySearchTerm(input: $input) {
             products {
                 ${productFields}
             }

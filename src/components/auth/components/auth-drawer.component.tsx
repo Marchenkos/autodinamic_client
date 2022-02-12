@@ -3,6 +3,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { StyledIcons } from '../../../ui/styled-icon.component';
+import { getDeviceSize } from '../../../utils/check-device-size';
 
 import { TOGGLE_AUTH_DRAWER } from '../actions';
 import { getIsShowAuthDrawer } from '../selectors';
@@ -15,12 +16,26 @@ const CloseButtonWrapper = styled.div`
     position: absolute;
     top: 20px;
     right: 50px;
+
+	@media (max-width: 900px) {
+		top: 60px;
+	}
+`;
+
+const ContentWrapper = styled.div`
+	@media (max-width: 900px) {
+		margin-top: 70px;
+	}
 `;
 
 const QuestionButtonWrapper = styled.div`
     position: absolute;
     top: 20px;
     left: 50px;
+
+	@media (max-width: 900px) {
+		top: 60px;
+	}
 `;
 
 const TextButton = styled.button`
@@ -50,6 +65,7 @@ const RegisterFormWrapper = styled(LoginFormWrapper)`
 
 export const AuthDrawer: React.FC = React.memo(function AuthDrawer() {
     const dispatch = useDispatch();
+    const isMobile = getDeviceSize();
 
     const isShowAuthDrawer = useSelector(getIsShowAuthDrawer);
     const [isRegisterForm, setRegisterForm] = useState(false);
@@ -71,7 +87,7 @@ export const AuthDrawer: React.FC = React.memo(function AuthDrawer() {
 
     return (
         <Drawer
-            PaperProps={{ style: { width: '50%' } }}
+            PaperProps={{ style: { width: isMobile ? '100%' : '50%' } }}
             anchor="right"
             open={isShowAuthDrawer}
             onClose={toggleAuthDrawer}
@@ -84,7 +100,9 @@ export const AuthDrawer: React.FC = React.memo(function AuthDrawer() {
             <CloseButtonWrapper>
                 <StyledIcons className="icon-close" size={30} onClick={toggleAuthDrawer} />
             </CloseButtonWrapper>
-            {renderForm}
+			<ContentWrapper>
+            	{renderForm}
+			</ContentWrapper>
         </Drawer>
     );
 });

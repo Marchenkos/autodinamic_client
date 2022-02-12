@@ -17,27 +17,20 @@ export const BasketItemDetails = styled.div`
     justify-content: flex-start;
 `;
 
-const ImageWrapper = styled.div`
-    height: 200px;
-    overflow: hidden;
-
-    @media ${device.laptop} {
-        height: 350px;
-    }
-`;
-
 const BasketItemImage = styled.img`
-    max-width: 20%;
+    max-width: 30%;
     height: auto;
     align-self: flex-start;
     margin-right: 20px;
 `;
 
 const BasketText = styled(BodyText).attrs({
-    size: TextSize.EXTRA_SMALL,
+    size: TextSize.SMALL,
     color: TextColor.DARK,
-    weight: TextWeight.MEDIUM,
-})``;
+    weight: TextWeight.BOLD,
+})`
+    margin-bottom: 10px;
+`;
 
 const BlueBasketText = styled(BodyText).attrs({
     size: TextSize.EXTRA_SMALL,
@@ -56,20 +49,17 @@ export const BasketBodyText = styled(BasketText).attrs({ weight: TextWeight.DEFA
 
 export interface BasketItemProps {
     product: OrderProduct;
-    handleRemove: () => void;
 }
 
 export const BasketItemDetailInfo: React.FC<BasketItemProps> = React.memo(function BasketItemDetailInfo({
     product,
-    handleRemove,
 }: BasketItemProps) {
     return (
         <BasketItemWrapper>
             <BasketItemImage src={product.images ? product.images[0].displayUrl : NULLABLE_IMAGE} />
             <BasketItemDetails>
                 <BasketText>{product.full_name}</BasketText>
-                <BasketBodyText>{product.code}</BasketBodyText>
-                <BlueBasketText onClick={handleRemove}>Удалить</BlueBasketText>
+                <BasketBodyText>Код товара - {product.code}</BasketBodyText>
             </BasketItemDetails>
         </BasketItemWrapper>
     );

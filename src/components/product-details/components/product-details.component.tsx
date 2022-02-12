@@ -57,7 +57,7 @@ export const ProductDetails: React.FC = React.memo(function ProductDetails() {
                 </ProductHeaderTextWrapper>
 
                 <ProductDetailsImage images={product.product.images} />
-                <ProductDescription />
+                <ProductDescription productDescription={product.product} />
             </Wrapper>
             <ProductSpecifications />
             <SimilarProductCarousel />

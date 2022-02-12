@@ -43,11 +43,11 @@ const SearchIcon = styled.span`
 const CleanIcon = styled.span`
     color: #c9c7c7;
     font-size: 23px;
-
-    position: absolute;
-    top: 10px;
-    left: 62%;
     cursor: pointer;
+
+	margin-left: -50px;
+    margin-top: 10px;
+    margin-right: 28px;
 `;
 
 const StyledInput = styled.input`
@@ -93,32 +93,35 @@ export const SearchInput: React.FC = React.memo(function SearchInput() {
         [handleSearch]
     );
 
-    const handleOnChange = useCallback(
-        (event) => {
-            setShowClearButton(event.target.value.length > 0)
-        },[]
-    );
-
 
     const handleOnClear = useCallback(() => {
-        if (searchRef.current) {
+        if (searchRef.current && searchRef.current.value.length > 0) {
             searchRef.current.value = '';
+			history.push('/catalog');
+			setShowClearButton(false);
+        }
+    },[searchRef]);
+
+	const handleOnBlure = useCallback(() => {
+        if (searchRef.current && searchRef.current.value.length < 1) {
+            setShowClearButton(false)
         }
     },[searchRef]);
 
     return (
         <SearchInputWrapper>
             <SearchIcon className="icon-search" />
-            {
-                showClearButton && <CleanIcon className="icon-cancel" onClick={handleOnClear} />
-            }
             
             <StyledInput
                 ref={searchRef}
                 placeholder="Поиск..."
                 onKeyDown={handleKeyDown}
-                onChange={handleOnChange}
+				onFocus={() => setShowClearButton(true)}
+				onBlur={handleOnBlure}
             />
+			{
+                showClearButton && <CleanIcon className="icon-cancel" onClick={handleOnClear} />
+            }
             <SearchButton onClick={handleSearch}>Найти</SearchButton>
         </SearchInputWrapper>
     );

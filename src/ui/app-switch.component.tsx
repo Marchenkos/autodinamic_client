@@ -8,8 +8,6 @@ import { BodyText, TextSize } from './text';
 export const CounterWrapper = styled.div`
     display: flex;
     width: 100px;
-    border: 2px solid #f2f2f2;
-    padding: 5px;
 
     @media ${device.laptop} {
         width: 70px;

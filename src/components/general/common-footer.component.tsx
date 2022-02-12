@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useCallback } from 'react';
 import styled from 'styled-components';
 
 import { StyledLink } from '../../ui/styled-link.component';
@@ -8,40 +9,76 @@ import { LogoComponentWithText } from './components/logo-text.component';
 
 const FooterWrapper = styled.div`
     width: 100%;
-    padding: 50px 0 15px;
+	padding: 30px 50px;
+    box-sizing: border-box;
+	align-items: flex-start;
     display: flex;
     flex-direction: column;
-    background: #080808;
-    justify-content: center;
-    align-items: center;
+    background: #222222;
     position: absolute;
     bottom: 0;
-    height: 180px;
+
+	@media (max-width: 800px) {
+		padding: 30px 50px 80px;
+    }
+`;
+
+const FooterContent = styled.div`
+    width: 100%;
+    box-sizing: border-box;
+	align-items: flex-start;
+    display: flex;
+
+	margin: 40px 0 30px;
+    padding-left: 5px;
+	flex-wrap: wrap;
+`;
+
+const CustomerInfoWrapper = styled.div`
+    box-sizing: border-box;
+	display: flex;
+    align-items: center;
+	flex-direction: column;
+
+	flex-grow: 1;
+	align-items: end;
+
+	@media (max-width: 800px) {
+		justify-content: flex-start;
+		align-items: flex-start;
+		margin-top: 50px;
+    }
 `;
 
 const FooterMenu = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 35px 0 50px;
-
-    @media (max-width: 810px) {
-        flex-direction: column;
-    }
+	align-items: self-start;
+    margin-right: 50px;
+	flex-direction: column;
 `;
 
 const FooterCopyrightWrapper = styled.div`
     display: flex;
-    justify-content: center;
     align-items: center;
 
-    @media (max-width: 980px) {
+	width: 100%;
+    justify-content: space-between;
+
+    @media (max-width: 800px) {
         flex-direction: column;
+		justify-content: center;
     }
 `;
 
-export const MenuText = styled(BodyText).attrs({ size: TextSize.SMALL, color: TextColor.LIGHT })`
-    padding: 1px 0;
+const MenuText = styled(BodyText).attrs({ color: TextColor.LIGHT })`
+	margin-bottom: 5px;
+	font-size: 14px;	
+
+	@media (max-width: 800px) {
+		font-size: 13px;
+    }
 
     &:focus, &:hover, &:visited, &:link, &:active {
         color: #5da5a7;
@@ -65,7 +102,7 @@ const CopyriterTextDescription = styled(BodyTextSpan).attrs({
     }
 }`;
 
-export const MenuItemLink = styled(StyledLink)`
+const MenuItemLink = styled(StyledLink)`
     margin-right: 20px;
     margin-bottom: 0px;
 
@@ -76,32 +113,44 @@ export const MenuItemLink = styled(StyledLink)`
 `;
 
 const menuConfig = [
-    {
-        name: 'каталог',
-        url: '/catalog/all',
-    },
-    {
-        name: 'сравнение товаров',
-        url: '/delivery',
-    },
-    {
-        name: 'проверить заказ',
-        url: '/check-order',
-    },
-    {
-        name: 'доставка',
-        url: '/delivery',
-    },
-    {
-        name: 'контакты',
-        url: '/contacts',
-    },
+	[
+		{
+			name: 'о нас',
+			url: '/catalog/all',
+		},
+		{
+			name: 'проверка заказа',
+			url: '/catalog/all',
+		},
+		{
+			name: 'условия доставки',
+			url: '/delivery',
+		},
+		{
+			name: 'оплата и возврат',
+			url: '/check-order',
+		},
+	],
+	[
+		{
+			name: 'служба поддержки',
+			url: '/',
+		},
+		{
+			name: 'условия соглашения',
+			url: '/',
+		},
+		{
+			name: 'политика безопасности',
+			url: '/',
+		},
+	]
 ];
 
 export const CommonFooter: React.FC = React.memo(function CommonFooter() {
-    const menuContent = useMemo(
-        () =>
-            menuConfig.map((item, index: number) => (
+    const menuContent = useCallback(
+        (index: number) =>
+            menuConfig[index].map((item, index: number) => (
                 <MenuItemLink key={index} to={item.url}>
                     <MenuText>{capitalizeString(item.name)}</MenuText>
                 </MenuItemLink>
@@ -111,10 +160,22 @@ export const CommonFooter: React.FC = React.memo(function CommonFooter() {
 
     return (
         <FooterWrapper>
-            <StyledLink to="/home" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+			<StyledLink to="/home" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <LogoComponentWithText isFooter={true} />
             </StyledLink>
-            <FooterMenu>{menuContent}</FooterMenu>
+			<FooterContent>
+				<FooterMenu>{menuContent(0)}</FooterMenu>
+				<FooterMenu>{menuContent(1)}</FooterMenu>
+				<CustomerInfoWrapper>
+					<MenuText>
+						ИП Марченко С.И. УНП #######
+					</MenuText>
+					<MenuText>
+						Зарегистрирован в торговом реестре от ##.##.#### за номером ###.
+					</MenuText>
+				</CustomerInfoWrapper>
+			</FooterContent>
+
             <FooterCopyrightWrapper>
                 <CopyriterText>© Марсенко Ксения, 2021. Все права защищены.</CopyriterText>
                 <CopyriterTextDescription>

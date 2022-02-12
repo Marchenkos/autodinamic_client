@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 
-import './search.style.scss';
 import { useHistory, useLocation } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import { FETCH_BY_SEARCH } from '../actions';
@@ -59,7 +58,7 @@ const StyledIcon = styled(SearchIcon)`
 `;
 
 const Wrapper = styled.div`
-    padding-top: 70px;
+    padding-top: 90px;
     padding-bottom: 10px;
     width: 100%;
     background: #4a4747;

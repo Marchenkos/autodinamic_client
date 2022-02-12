@@ -9,7 +9,6 @@ import { CategoryNames } from 'src/graphql/interfaces';
 import { BodyText, TextWeight } from '../../../ui/text';
 
 const CategoryPromoItemWrapper = styled.div`
-    min-width: 15%;
     margin: 0 10px;
     display: flex;
     flex-direction: column;
@@ -23,11 +22,20 @@ const CategoryNameText = styled(BodyText).attrs({ weight: TextWeight.MEDIUM })`
     color: #4a4a4a;
     text-transform: capitalize;
     font-size: 15px;
+
+	@media (max-width: 800px) {
+		margin: 10px 0;
+		font-size: 14px;
+    }
 `;
 
 const CategoryImage = styled.img`
     max-width: 170px;
     border-radius: 50%;
+
+	@media (max-width: 800px) {
+		max-width: 100px;
+    }
 `;
 
 interface CategoryPromoItemProps {

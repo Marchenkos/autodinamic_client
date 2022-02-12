@@ -18,7 +18,7 @@ import { OrderPaymentInfo } from './components/payment-type-info';
 import { StyledButton } from '../../../ui/new-styled';
 
 const OrderConfirmationWrapper = styled.div`
-    padding: 40px 10%;
+    padding: 40px 50px;
 `;
 
 const OrderConfirmationHeader = styled.div`
@@ -146,6 +146,7 @@ export const OrderConfirmation: React.FC = React.memo(function OrderConfirmation
             <OrderConfirmationHeader>
                 <StyledTitleText>Оформление заказа</StyledTitleText>
                 <StyledButton
+				additionalStyles={{ width: '300px' }}
                     isSecondary
                     onClick={handleOnBackToBasket}
                     label="Вернуться к корзине"

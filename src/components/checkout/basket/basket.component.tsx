@@ -13,9 +13,10 @@ import { isTemplateTail } from 'typescript';
 import { StyledButton } from '../../../ui/new-styled';
 
 const BasketWrapper = styled.div`
-    width: 80%;
-    margin: 0 auto;
-    padding: 40px 0;
+    padding: 20px 50px;
+`;
+
+const BasketBodyWrapper = styled.div`
     display: flex;
     flex-direction: row;
     min-height: 85vh;
@@ -26,11 +27,10 @@ const BasketWrapper = styled.div`
         flex-direction: column;
     }
 `;
-
 const BasketItems = styled.div`
     display: flex;
     flex-direction: column;
-    margin-right: 100px;
+    margin-right: 50px;
 
     @media ${device.laptop} {
         margin-right: 0;
@@ -43,7 +43,7 @@ const ResultBasketWrapper = styled.div`
     padding: 20px;
     border: 2px solid #f2f2f2;
     margin-top: 0px;
-    align-self: flex-end;
+	height: 270px;
 
     @media ${device.laptop} {
         margin-top: 40px;
@@ -78,6 +78,12 @@ const BasketBodyText = styled(BodyText).attrs({ size: TextSize.SMALL })`
     margin-right: 5px;
 `;
 
+const HeaderWrapper = styled.div`
+    display: flex;
+    width: 100%;
+    margin: 20px 0;
+`;
+
 export const Basket: React.FC = React.memo(function Basket() {
     const basket = useSelector(getBasket);
     const history = useHistory();
@@ -102,14 +108,18 @@ export const Basket: React.FC = React.memo(function Basket() {
 
     return (
         <BasketWrapper>
+            <HeaderWrapper>
+                <TitleText>Корзина</TitleText>
+            </HeaderWrapper>
+            <BasketBodyWrapper>
             <BasketItems>
                 <BasketHeaders>
-                    <BodyText style={{ width: '60%' }}>1 товар</BodyText>
+                <BodyText size={TextSize.EXTRA_SMALL} weight={TextWeight.DEFAULT} style={{ width: '50%'}}>товар</BodyText>
                     <BodyText size={TextSize.EXTRA_SMALL} weight={TextWeight.DEFAULT}>
                         количество
                     </BodyText>
-                    <BodyText size={TextSize.EXTRA_SMALL} weight={TextWeight.DEFAULT}>
-                        цена
+                    <BodyText size={TextSize.EXTRA_SMALL} weight={TextWeight.DEFAULT} style={{ width: '18%', marginLeft: '-100px'}}>
+                        стоимость
                     </BodyText>
                 </BasketHeaders>
                 {basket.orderItems.map((item, index) => (
@@ -135,6 +145,8 @@ export const Basket: React.FC = React.memo(function Basket() {
                     />
                 </ResultItemButtonWrapper>
             </ResultBasketWrapper>
+            </BasketBodyWrapper>
+            
         </BasketWrapper>
     );
 });

@@ -17,6 +17,10 @@ const PrimaryButton = styled.button`
         color: #b5b3b3;
         cursor: auto;
     }
+
+	:active {
+		background: #3d3d3d;
+	}
 `;
 
 const SecondaryButton = styled(PrimaryButton)`

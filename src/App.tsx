@@ -15,22 +15,34 @@ import { getDeviceSize } from './utils/check-device-size';
 import styled from 'styled-components';
 import { AppSimpleModal } from './components/modal/components/app-simple-modal.component';
 import { AuthDrawer } from './components/auth/components/auth-drawer.component';
+import ScrollToTop from './ScrollToTop';
+import { ScrollToTopButton } from './ui/scroll-to-top-button.component';
 
 const Wrapper = styled.div`
     width: 100%;
     background: white;
     min-height: 100vh;
     position: relative;
+
+	min-width: 440px;
 `;
 
 const ContentWrapper = styled.div`
-    padding-bottom: 300px;
+    padding-bottom: 400px;
     min-height: 90vh;
+	padding-top: 0px;
+
+	@media (max-width: 800px) {
+		padding-top: 60px;
+		padding-bottom: 500px;
+
+    }
 `;
 
 export const App: React.FC = React.memo(function App() {
     return (
         <Wrapper>
+            <ScrollToTop />
             <CommonHeader />
             <ContentWrapper>
                 <RenderRoutes routes={routes} />
@@ -41,6 +53,7 @@ export const App: React.FC = React.memo(function App() {
             <FormModal />
             <CommonFooter />
             <AuthDrawer />
+			<ScrollToTopButton />
         </Wrapper>
     );
 });

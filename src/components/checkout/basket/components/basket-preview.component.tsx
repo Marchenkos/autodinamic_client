@@ -11,6 +11,7 @@ import { useHistory } from 'react-router-dom';
 const BasketPreviewWrapper = styled.button`
     display: flex;
     align-items: center;
+	flex-direction: row;
 
     border: 1px solid #dddddd;
     border-radius: 5px;
@@ -18,6 +19,12 @@ const BasketPreviewWrapper = styled.button`
     position: relative;
     cursor: pointer;
     background: none;
+
+	@media (max-width: 800px) {
+		flex-direction: column;
+		border: none;
+		padding: 10px 0;
+    }
 `;
 
 const BasketDetailsWrapper = styled.div`
@@ -31,6 +38,12 @@ const BasketDetailsWrapper = styled.div`
     top: 5px;
     left: 11px;
     background: #343434;
+
+	@media (max-width: 800px) {
+		top: 3px;
+    	left: 39px;
+		background: none;
+    }
 `;
 
 const MessageBlock = styled.div`
@@ -49,10 +62,19 @@ const SectionHeader = styled(BodyText).attrs({ color: TextColor.DARK })`
     font-size: 14px;
     margin-left: -5px;
     margin-right: 10px;
+
+	@media (max-width: 800px) {
+		display: none;
+    }
 `;
 
 const BasketBodyText = styled(BodyText).attrs({ color: TextColor.BLUE })`
     font-size: 14px;
+	
+	@media (max-width: 800px) {
+		color: #41a4a6;
+    	font-weight: 600;
+    }
 `;
 
 export const BasketPreview: React.FC = React.memo(function BasketPreview() {

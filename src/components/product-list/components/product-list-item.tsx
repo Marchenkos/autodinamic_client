@@ -7,6 +7,7 @@ import { GeneralProduct, OrderProduct } from '../../../graphql/entities';
 import { NULLABLE_IMAGE } from '../../product-details/components/product-detail-image.component';
 import { SHOW_CONFIRM_MODAL, SHOW_SIMPLE_MODAL } from '../../modal/actions';
 import { ProductAddToWishlistButton } from '../../product-details/components/product-buttons.component';
+import { useIsInWishlist } from '../../product-details/hooks/useIsInWishlist';
 
 export const ProductListItemWrapper = styled.div<{ small?: boolean }>`
     flex-basis: 22%;
@@ -23,19 +24,15 @@ export const ProductListItemWrapper = styled.div<{ small?: boolean }>`
     }
 
     @media (max-width: 1150px) {
-        flex-basis: 40%;
-        min-width: 40%;
+        flex-basis: 28%;
+        min-width: 28%;
     }
 
-    @media (min-width: 450px) and (max-width: 850px) {
-        flex-basis: 45%;
-        min-width: 45%;
+    @media (max-width: 650px) {
+		min-width: 40%;
+		flex-basis: 40%;
     }
 
-    @media (max-width: 450px) {
-        flex-basis: 100%;
-        min-width: 100%;
-    }
 
     ${({ small }) =>
         small &&
@@ -117,6 +114,7 @@ export const ProductListItem: React.FC<ProductListItemProps> = React.memo(functi
 }: ProductListItemProps) {
     const [isOver, setIsOver] = useState(false);
     let history = useHistory();
+	const isInWishlist = useIsInWishlist({ productId: product.id });
 
     const navigateToTheProductDetails = useCallback(() => {
         history.push(`/product-details/${product.id}`);
@@ -126,7 +124,7 @@ export const ProductListItem: React.FC<ProductListItemProps> = React.memo(functi
         <ProductListItemWrapper onMouseOver={() => setIsOver(true)} onMouseOut={() => setIsOver(false)}>
             <ProductImageWrapper>
                 <SectionIcons show={isOver}>
-                    <ProductAddToWishlistButton product={product} />
+                    <ProductAddToWishlistButton isInWishlist={isInWishlist} productId={product.id} />
                 </SectionIcons>
                 {product.discount && <DiscountLabel>{`-${product.discount}%`}</DiscountLabel>}
                 {isNew && <NewLabel isSecondLabel={!!product.discount}>{`NEW`}</NewLabel>}

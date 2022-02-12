@@ -3,14 +3,12 @@ import styled from 'styled-components';
 
 import { ProductListItem } from './product-list-item';
 import { useSelector } from 'react-redux';
-import { getIsProductListFetching, getProductList, getProductsCount } from '../selectors';
+import { getIsSearchProductListFetching, getSearchProductList, getSearchProductsCount } from '../selectors';
 import { GeneralProduct } from '../../../graphql/entities';
 import { ProductListEmpty } from './product-list-empty';
 import { LoadingState } from '../../../ui/loading-state';
 import { BodyText, TitleText } from '../../../ui/text';
-import { capitalizeString } from '../../filter/utilites/formated-string';
 import { Sorting } from '../../filter/sort/sorting.component';
-import { CategoryNames } from '../../../graphql/interfaces';
 
 const CatalogWrapper = styled.div`
     display: flex;
@@ -65,50 +63,37 @@ const CountText = styled(BodyText)`
     margin: 0 30px 20px;
 `;
 
-interface ProductListCatalogProps {
-    isNew: boolean,
-    searchTerms?: string[]
-    category: CategoryNames;
+interface SearchProductListCatalogProps {
+    searchTerms: string[]
 }
 
-export const ProductListCatalog: React.FC<ProductListCatalogProps> = React.memo(function ProductListCatalog({
-    isNew,
+export const SearchProductListCatalog: React.FC<SearchProductListCatalogProps> = React.memo(function SearchProductListCatalog({
     searchTerms,
-    category
-}: ProductListCatalogProps) {
-    const productList = useSelector(getProductList);
-    const isFetching = useSelector(getIsProductListFetching);
-    const productsCount = useSelector(getProductsCount);
+}: SearchProductListCatalogProps) {
+    const productList = useSelector(getSearchProductList);
+    const isFetching = useSelector(getIsSearchProductListFetching);
+    const searchString = useMemo(() => searchTerms.join(" "), [searchTerms]);
+    const productsCount = useSelector(getSearchProductsCount);
 
     const renderList = useMemo(() => productList.map((item: GeneralProduct, index: number) => (
-        <ProductListItem isNew={isNew} key={index} product={item} />
+        <ProductListItem isNew={false} key={index} product={item} />
     )), [productList]);
 
     if (isFetching) {
         <LoadingState />
     }
 
-
-    if (productList.length < 1) {
-        return <ProductListEmpty />;
-    }
-
-
     return (
         <CatalogWrapper>
             <HeaderWrapper>
                 <ProductHeader>
-                {searchTerms ? <TitleText>Результаты поиска по запросу "{searchTerms.join(" ")}"</TitleText> :
-                    <TitleText>{capitalizeString(category.title)}</TitleText>}
+                    <TitleText>Поиск "{searchString}"</TitleText>
                 </ProductHeader>
-
                 <ConditionSection>
                     <Sorting />
                 </ConditionSection>
             </HeaderWrapper>
-            {
-                !searchTerms && (<CountText>{`Найдено ${productsCount} товаров`}</CountText>)
-            }
+            <CountText>{`Найдено ${productsCount} товаров по запросу ${searchString}`}</CountText>
             <ProductsWrapper>
                 {renderList}
             </ProductsWrapper>

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { MenuMobile } from './menu/menu.mobile.component';
+import { MobileMenuHeader } from './menu/mobile-menu-header.component';
 import { BasketPreview } from '../checkout/basket/components/basket-preview.component';
 import { BodyLink, TextColor, TextWeight } from '../../ui/text';
 import { Menu } from './menu/menu.component';
@@ -9,13 +9,26 @@ import { getDeviceSize } from '../../utils/check-device-size';
 import { LogoComponentWithText } from './components/logo-text.component';
 import { SearchMobile } from '../search/components/search-mobile.component';
 import { AccountPreview } from '../account/component/account-preview.component';
-import { Search } from '../search/components/search.component';
 import { SearchInput } from '../search/components/search-input.component';
+import { MobileMenuFooter } from './menu/mobile-menu-footer.component';
 
 const CommonHeaderWrapper = styled.div`
     width: 100%;
-    border-bottom: 1px solid #bdbdbd;
+    border-bottom: 1px solid #ebebeb;
     padding-bottom: 10px;
+    position: relative;
+
+	@media (max-width: 800px) {
+		display: none;
+	}
+`;
+
+const MobileMenuWrapper = styled.div`
+	display: none;
+
+	@media (max-width: 800px) {
+		display: block;
+	}
 `;
 
 const FirstMenu = styled.div`
@@ -62,18 +75,8 @@ const ContactBodyLink = styled(BodyLink).attrs({ weight: TextWeight.BOLD, color:
 `;
 
 export const CommonHeader: React.FC = React.memo(function CommonHeader() {
-    const isMobile = getDeviceSize();
-
-    if (isMobile < 850) {
-        return (
-            <>
-                <MenuMobile />
-                <SearchMobile />
-            </>
-        );
-    }
-
     return (
+		<>
         <CommonHeaderWrapper>
             <FirstMenu>
                 <ContactBodyLink href="tel:+375 29 660-39-59">+375 29 660-39-59</ContactBodyLink>
@@ -96,5 +99,10 @@ export const CommonHeader: React.FC = React.memo(function CommonHeader() {
                 </SecondMenuSection>
             </SecondMenu>
         </CommonHeaderWrapper>
+		<MobileMenuWrapper>
+ 			<MobileMenuHeader />
+			<MobileMenuFooter />
+		</MobileMenuWrapper>
+		</>
     );
 });

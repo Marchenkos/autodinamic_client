@@ -115,7 +115,8 @@ export const OrderUserInfo: React.FC<OrderUserInfoProps> = React.memo(function O
                         isError={fieldState.error}
                         placeholder="Имя"
                         onPressInter={handleOnPressInter}
-                    />
+						withoutBorders
+					/>
                 )}
                 name="firstName"
                 defaultValue={defaultValues.firstName}
@@ -131,6 +132,7 @@ export const OrderUserInfo: React.FC<OrderUserInfoProps> = React.memo(function O
                         isError={fieldState.error}
                         id="oreder-input-last-name"
                         nextFieldName="email"
+						withoutBorders
                     />
                 )}
                 name="lastName"
@@ -147,6 +149,7 @@ export const OrderUserInfo: React.FC<OrderUserInfoProps> = React.memo(function O
                         id="oreder-input-email"
                         nextFieldName="phoneNumber"
                         placeholder="Email"
+						withoutBorders
                     />
                 )}
                 name="email"

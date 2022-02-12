@@ -40,7 +40,7 @@ export const AppSimpleModal: React.FC = React.memo(function AppSimpleModal() {
             ) : null}
 
             <DialogActions>
-                <StyledButton onClick={handleClose} label="Окей" />
+                <StyledButton additionalStyles={{ width: '100px' }} onClick={handleClose} label="Окей" />
             </DialogActions>
         </CssDialog>
     );

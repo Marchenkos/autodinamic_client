@@ -21,6 +21,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getUser } from '../../account/selectors';
+import { MobileAccountPreview } from '../../account/component/mobile-account-preview.component';
 
 const MenuItemLink = styled(StyledLink)`
     display: flex;
@@ -72,15 +73,18 @@ const useStyles = makeStyles({
     },
 });
 
-export const MenuWrapper = styled.div`
+const MenuWrapper = styled.div`
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
     padding: 15px 20px;
-    background: ${(props) => props.theme.colors.background.dark};
+    background: #ffffff;
     position: fixed;
     z-index: 5;
     width: 100%;
+	box-sizing: border-box;
+
+	border-bottom: 1.5px solid #ddddddcc;
 `;
 
 export const IconBarWrapper = styled.div`
@@ -89,41 +93,21 @@ export const IconBarWrapper = styled.div`
     justify-content: flex-end;
 `;
 
-const StyledPersonIcon = styled(PersonIcon)`
-    color: white;
-    margin-right: 10px;
-    margin-top: 4px;
-
-    @media (max-width: 850px) {
-        margin-top: 0;
-    }
-`;
-
 const menuConfig = [
     {
-        name: 'главная',
-        url: '/',
-        icon: <HomeIcon style={{ color: 'white' }} />,
-    },
-    {
         name: 'акции',
-        url: '/news',
+        url: '/promotions',
         icon: <LoyaltyIcon style={{ color: 'white' }} />,
     },
     {
         name: 'каталог',
-        url: '/catalog/all',
+        url: '/catalog',
         icon: <FormatListBulletedIcon style={{ color: 'white' }} />,
     },
     {
         name: 'проверить заказ',
         url: '/check-order',
         icon: <LibraryAddCheckIcon style={{ color: 'white' }} />,
-    },
-    {
-        name: 'сравнить товары',
-        url: '/compare',
-        icon: <CompareIcon style={{ color: 'white' }} />,
     },
     {
         name: 'доставка',
@@ -137,16 +121,11 @@ const menuConfig = [
     },
 ];
 
-export const MenuMobile: React.FC = React.memo(function Menu() {
+export const MobileMenuHeader: React.FC = React.memo(function MobileMenuHeader() {
     const classes = useStyles();
     const [state, setState] = useState(false);
     const userData = useSelector(getUser);
     const history = useHistory();
-    const dispatch = useDispatch();
-
-    const navigateToAccount = useCallback(() => {
-        history.push('/account');
-    }, [userData, history]);
 
     const toggleDrawer = (value: boolean) => (event: any) => {
         if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -185,17 +164,14 @@ export const MenuMobile: React.FC = React.memo(function Menu() {
                     {menuContent}
                 </SwipeableDrawer>
             </React.Fragment>
-            <MenuIcon onClick={toggleDrawer(true)} style={{ color: 'white', marginRight: '10px', marginTop: '4px' }} />
-            <StyledLink
+			<StyledLink
                 to="/home"
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexGrow: 1 }}
+                style={{ flexGrow: 1 }}
             >
                 <LogoComponentWithText />
             </StyledLink>
-            <IconBarWrapper>
-                <StyledPersonIcon onClick={navigateToAccount} />
-                <BasketPreview />
-            </IconBarWrapper>
+            <MenuIcon onClick={toggleDrawer(true)} style={{ color: 'black', marginRight: '10px', marginTop: '4px' }} />
+
         </MenuWrapper>
     );
 });

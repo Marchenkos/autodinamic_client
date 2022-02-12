@@ -11,6 +11,8 @@ import {
 } from './product-buttons.component';
 import { TitleText, BodyText, TextColor, TextWeight, TextSize, BoldSmallText } from '../../../ui/text';
 import { ProductPrice } from './product-price.component';
+import { GeneralProduct } from '../../../graphql/entities';
+import { useIsInWishlist } from '../hooks/useIsInWishlist';
 
 const ShortDetailSectionWrapper = styled.div`
     width: 40%;
@@ -82,38 +84,38 @@ const ButtonWrapper = styled.div`
     margin-top: 50px;
 `;
 
-export const ProductDescription: React.FC = React.memo(function ProductDescription() {
-    const selectedProduct = useSelector(getSelectedProduct);
+interface ProductDescriptionProps {
+	productDescription: GeneralProduct; 
+}
+
+export const ProductDescription: React.FC<ProductDescriptionProps> = React.memo(function ProductDescription({
+	productDescription
+}) {
     const deviceSize = getDeviceSize();
-
-    if (!selectedProduct) {
-        return null;
-    }
-
-    const { product } = selectedProduct;
+	const isInWishlist = useIsInWishlist({ productId: productDescription.id })
 
     return (
         <ShortDetailSectionWrapper>
             {deviceSize > 809 ? (
                 <>
-                    {product.discount && <DiscountLabel>{`Скидка ${product.discount}%`}</DiscountLabel>}
-                    <ProductHeaderText>{product.full_name}</ProductHeaderText>
+                    {productDescription.discount && <DiscountLabel>{`Скидка ${productDescription.discount}%`}</DiscountLabel>}
+                    <ProductHeaderText>{productDescription.full_name}</ProductHeaderText>
                     <ProductCodeText>
-                        код товара: <BoldSmallText>{product.code}</BoldSmallText>
+                        код товара: <BoldSmallText>{productDescription.code}</BoldSmallText>
                     </ProductCodeText>
                 </>
             ) : null}
-            <OtherDescriptionText>{product.description}</OtherDescriptionText>
+            <OtherDescriptionText>{productDescription.description}</OtherDescriptionText>
             <PriceSection>
-                <ProductPrice price={product.price} discount={product.discount} />
+                <ProductPrice price={productDescription.price} discount={productDescription.discount} />
             </PriceSection>
 
-            {product.maker ? <DescriptionText>Производитель - {product.maker}</DescriptionText> : null}
-            {product.guarantee ? <DescriptionText>Гарантия - {product.guarantee} месяцев</DescriptionText> : null}
+            {productDescription.maker ? <DescriptionText>Производитель - {productDescription.maker}</DescriptionText> : null}
+            {productDescription.guarantee ? <DescriptionText>Гарантия - {productDescription.guarantee} месяцев</DescriptionText> : null}
 
             <ButtonWrapper>
-                <ProductAddToBasketButton product={product} />
-                <ProductAddToWishlistButton product={product} />
+                <ProductAddToBasketButton product={productDescription} />
+                <ProductAddToWishlistButton isInWishlist={isInWishlist} productId={productDescription.id} />
             </ButtonWrapper>
 
             {/* <ProductAddToCompareButton product={product} withLabel /> */}

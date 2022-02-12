@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { GeneralProduct } from '../../../graphql/entities';
 
 import { BodyText, TextColor, TextSize, TextWeight, TitleLink, TitleText } from '../../../ui/text';
+import { useIsInWishlist } from '../hooks/useIsInWishlist';
 import { ProductAddToWishlistButton, ProductAddToBasketButton } from './product-buttons.component';
 import { NULLABLE_IMAGE } from './product-detail-image.component';
 import './product-details.style.scss';
@@ -64,6 +65,7 @@ export interface SimilarProductItemProps {
 export const SimilarProductItem: React.FC<SimilarProductItemProps> = React.memo(function SimilarProductItem({
     item,
 }: SimilarProductItemProps) {
+	const isInWishlist = useIsInWishlist({ productId: item.id })
     const [isOver, setIsOver] = useState(false);
     let history = useHistory();
 
@@ -75,7 +77,7 @@ export const SimilarProductItem: React.FC<SimilarProductItemProps> = React.memo(
         <CarouselItemWrapper onMouseOver={() => setIsOver(true)} onMouseOut={() => setIsOver(false)}>
             <ImageBlock>
                 <OverBlock show={isOver}>
-                    <ProductAddToWishlistButton product={item} />
+                    <ProductAddToWishlistButton isInWishlist={isInWishlist} productId={item.id} />
                 </OverBlock>
                 <ProductImage
                     onClick={navigateToTheProductDetails}

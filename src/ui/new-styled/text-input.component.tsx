@@ -11,6 +11,7 @@ export interface FormInputTextProps {
     onPressInter?: (fieldName: string) => void;
     id: string;
     withoutBorders?: boolean;
+	pattern?: string;
 }
 
 const TextInputWrapper = styled.div`
@@ -61,7 +62,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, FormInputTextProps>(
     props: FormInputTextProps,
     ref
 ) {
-    const { isError, labelName, nextFieldName, onPressInter, withoutBorders = false, ...otherProps } = props;
+    const { isError, labelName, nextFieldName, onPressInter, withoutBorders = false, pattern, ...otherProps } = props;
 
     const handleOnKeyPress = useCallback(
         (event: any) => {
@@ -80,6 +81,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, FormInputTextProps>(
                 ref={ref}
                 onKeyPress={handleOnKeyPress}
                 isError={!!isError}
+				pattern={pattern}
             />
             {labelName || isError ? (
                 <StyledInputLabel isError={!!isError} htmlFor={otherProps.id}>

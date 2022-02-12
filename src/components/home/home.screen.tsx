@@ -13,6 +13,7 @@ import { FETCH_DISCOUNT_PRODUCT_LIST } from '../product-list/actions';
 import { PRODUCT_CATEGORY_TYPE } from '../../graphql/entities';
 import { DiscountProductList } from './components/discount-product-list.component';
 import BannerImg from '../../../public/assets/banner.png';
+import { StyledButton } from '../../ui/new-styled';
 
 const Wrapper = styled.div`
     flex-grow: 1;
@@ -27,14 +28,15 @@ const MainBannerImage = styled.img`
 const SaleWrapper = styled.div`
     box-sizing: border-box;
     margin: 50px 0 50px;
-    padding: 7% 5%;
     width: 100%;
     background: #ede735;
     display: flex;
     justify-content: center;
     align-items: center;
+	padding: 50px;
+	flex-direction: row;
 
-    @media (max-width: 850px) {
+    @media (max-width: 800px) {
         flex-direction: column;
         margin: 50px 0 30px;
     }
@@ -80,15 +82,21 @@ export const ProductCarousel = styled.div`
 const SaleText = styled(BodyText).attrs({ size: TextSize.LARGE, weight: TextWeight.BOLD })`
     text-transform: uppercase;
     color: black;
-    margin-bottom: 10px;
     max-width: 500px;
-    font-size: 25px;
-    margin-right: 20%;
 
-    @media (max-width: 850px) {
-        font-size: 12px;
-        margin-right: 0;
+	font-size: 18px;
+    padding-right: 40px;
+    box-sizing: border-box;
+
+    @media (max-width: 800px) {
+		margin-bottom: 10px;
+
+		font-size: 15px;
+		line-height: 27px;
         margin-bottom: 20px;
+		text-align: center;
+
+		padding-right: 0px;
     }
 `;
 
@@ -138,9 +146,11 @@ const HomeScreen: React.FC = React.memo(function HomeScreen() {
             </MainBanner>
             <SaleWrapper>
                 <SaleText>Зарегистрируйся, оформи свой первый заказ и получи скидку 5%</SaleText>
-                <Button style={styledButton} variant="contained" onClick={navigateToCatalog} color="primary">
-                    Выбрать товар
-                </Button>
+				<StyledButton
+                    additionalStyles={{ width: '200px' }}
+                    onClick={navigateToCatalog}
+                    label="Выбрать товар"
+                />
             </SaleWrapper>
             <PromoSection>
                 <HeaderText>Категории товаров</HeaderText>

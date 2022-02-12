@@ -1,25 +1,35 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import MessageImage from '../../../public/assets/contacts/message.png';
 import styled from 'styled-components';
 import { CallbackForm } from './component/callback-form.component';
-import { TitleText, TextColor, TextSize, TextWeight, BodyText } from '../../ui/text';
+import { TitleText, TextColor, TextSize, TextWeight, BodyText, TitleLink } from '../../ui/text';
+import { IHeaderLink } from '../product-details/components/similar-products.component';
+import { useLocation } from 'react-router-dom';
 
 export const API_KEY = 'AIzaSyBbVtUQaQ7u7ytsbB6OQ_0IRqOscjICMKQ';
 
 const Wrapper = styled.div`
     flex-grow: 1;
     background: white;
+	padding: 50px;
+
+    @media (max-width: 980px) {
+        padding: 20px;
+    }
 `;
 
-const Section = styled.div<{ noPadding?: boolean }>`
-    ${props => !props.noPadding && `
-        padding: 40px 200px 0px;
+const PageTitleText = styled(TitleText)`
+    font-size: 25px;
+    margin-bottom: 20px;
 
-        @media (max-width: 850px) {
-            padding: 20px 20px 0px;
-        }
-    `}
+    @media (max-width: 850px) {
+        font-size: 20px;
+    }
+`;
+
+const Section = styled.div`
+	margin-bottom: 50px;
 `;
 
 const ContactInfoWtapper = styled.div`
@@ -49,16 +59,12 @@ const ContactImage = styled.img`
 
 const DescriptionText = styled(BodyText)`
     font-size: 15px;
-    line-height: 25px;
+    line-height: 27px;
 `;
 
-const PageTitleText = styled(TitleText)`
+const PageSubTitleText = styled(TitleText)`
     font-size: 20px;
-    margin: 40px 0 20px;
-
-    @media (max-width: 850px) {
-        margin: 20px 0 20px;
-    }
+    margin-bottom: 30px;
 `;
 
 const ContactText = styled(BodyText)`
@@ -66,83 +72,186 @@ const ContactText = styled(BodyText)`
     text-align: center;
 `;
 
+
+const PadeDetailWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+	margin-top: 50px;
+
+    @media (max-width: 980px) {
+        flex-direction: column;
+    }
+`;
+
+const TabBarBlock = styled.div`
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width: 980px) {
+        flex-direction: row;
+        width: 100%;
+        padding-left: 0px;
+        margin-bottom: 20px;
+    }
+`;
+
+
+const MainInfo = styled.div`
+    display: flex;
+    width: 75%;
+    flex-direction: column;
+
+    @media (max-width: 980px) {
+        width: 90%;
+    }
+`;
+
+const UnitLink = styled(TitleLink).attrs({
+    color: TextColor.MEDIUM,
+})<{ selected?: boolean }>`
+    ${({ selected }) => (selected ? 'border-bottom: 2px solid #1e1e1e' : '')};
+    margin-right: 10px;
+    padding: 10px;
+	text-decoration: underline;
+    font-weight: 500;
+    font-family: 'Manrope';
+    font-size: 15px;
+    margin-right: 60px;
+    margin-bottom: 20px;
+
+    &:hover {
+        color: #808080;
+		border-bottom: 2px solid #1e1e1e;
+    }
+
+    @media (max-width: 850px) {
+        font-size: 14px;
+        width: 30%;
+        padding: 0px;
+    }
+`;
+
 const ContactScreen: React.FC = React.memo(function ContactScreen() {
-    return (
+	let location = useLocation();
+    const [selectedUnit, setSelectedUnit] = useState(0);
+
+	const units: IHeaderLink[] = [
+        {
+            id: 1,
+            header: '- О нас',
+            link: '#about',
+        },
+        {
+            id: 2,
+            header: '- Контактная информация',
+            link: '#contact-info',
+        },
+        {
+            id: 3,
+            header: '- Форма обратной связи',
+            link: '#callback-form',
+        },
+    ];
+
+    useEffect(() => {
+        units.map((item) => {
+            if (location.pathname.includes(item.link)) {
+                setSelectedUnit(item.id);
+            }
+        });
+    }, [location.pathname, units]);
+
+    const renderUnitHeaders = useMemo(
+        () =>
+            units.map((item, index) => (
+                <UnitLink
+                    key={index}
+                    onClick={() => setSelectedUnit(item.id)}
+                    href={item.link}
+                    selected={item.id === selectedUnit}
+                >
+                    {item.header}
+                </UnitLink>
+            )),
+    [units, selectedUnit]);
+	
+	return (
         <Wrapper>
-            {/* <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2432.973504149803!2d30.99558911604926!3d52.425277779796346!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46d469b28ef0c581%3A0x7658a3adaf497ffe!2z0KbQtdC90YLRgNCw0LvRjNC90YvQuSDQoNGL0L3QvtC6!5e0!3m2!1sru!2sby!4v1620577565549!5m2!1sru!2sby"
-            width="100%"
-            height="100%"
-            style={{ border: '0'}}
-            loading="lazy"
-        ></iframe> */}
-            <Section>
-                <PageTitleText>О нас</PageTitleText>
-                <DescriptionText>
-                    <b>АвтоДинамик</b> - интернет-магазин техники для автомобилей. Мы предлагаем большое разнообразие товаров, которые помогут 
-                    сделать Ваш автомобиль комфортнее и современнее. В нашем интернет-магазине Вы можете найти качественную аудиотехнику, выбрать товар по определенным характеристикам, а также защитить себя и Ваш автомобиль с помощью видеорегистраторов и современной сигнализации.
+			<PageTitleText>Наш магазин</PageTitleText>
+            <PadeDetailWrapper>
+				<TabBarBlock>{renderUnitHeaders}</TabBarBlock>
 
-                </DescriptionText>
-            </Section>
+				<MainInfo>
+					<Section id="about">
+						<PageSubTitleText>О нас</PageSubTitleText>
+						<DescriptionText>
+							<b>АвтоДинамик</b> - интернет-магазин техники для автомобилей. Мы предлагаем большое разнообразие товаров, которые помогут 
+							сделать Ваш автомобиль комфортнее и современнее. В нашем интернет-магазине Вы можете найти качественную аудиотехнику, выбрать товар по определенным характеристикам, а также защитить себя и Ваш автомобиль с помощью видеорегистраторов и современной сигнализации.
 
-            <Section>
-                <PageTitleText>Контактная информация</PageTitleText>
-                <DescriptionText>
-                    При возникновении вопросов, касающихся оформления или доставки заказа, а также для получения дополнительной консультации при выборе товара, Вы можете обратиться к продавцу, воспользовавшись нашими контактами, либо заполните форму <b>Обратной связи</b> и мы сами свяжемся с Вами. Будем рады помочь!
-                </DescriptionText>
+						</DescriptionText>
+					</Section>
 
-                <ContactInfoWtapper>
-                    <ContactInfoSection>
-                        <ContactImage src={MessageImage} />
-                        <ContactTextWrapper>
-                            <ContactText>
-                                <b>Позвоните нам</b>
-                            </ContactText>
-                            <ContactText>
-                                +375(29)-660-39-59  - продавец
-                            </ContactText>
-                            <ContactText>
-                                +375(29)-161-97-61  - для вопросов по сайту
-                            </ContactText>
-                        </ContactTextWrapper>
-                    </ContactInfoSection>
+					<Section id="contact-info">
+						<PageSubTitleText>Контактная информация</PageSubTitleText>
+						<DescriptionText>
+							При возникновении вопросов, касающихся оформления или доставки заказа, а также для получения дополнительной консультации при выборе товара, Вы можете обратиться к продавцу, воспользовавшись нашими контактами, либо заполните форму <b>Обратной связи</b> и мы сами свяжемся с Вами. Будем рады помочь!
+						</DescriptionText>
 
-                    <ContactInfoSection>
-                        <ContactImage src={MessageImage} />
-                        <ContactTextWrapper>
-                            <ContactText>
-                                <b>Напишите нам</b>
-                            </ContactText>
-                            <ContactText>
-                                mar-cer@yandex.ru  - продавец
-                            </ContactText>
-                            <ContactText>
-                                auto-dinamic-sup@mail.ru  - техподдержка
-                            </ContactText>
-                        </ContactTextWrapper>
-                    </ContactInfoSection>
+						<ContactInfoWtapper>
+							<ContactInfoSection>
+								<ContactImage src={MessageImage} />
+								<ContactTextWrapper>
+									<ContactText>
+										<b>Позвоните нам</b>
+									</ContactText>
+									<ContactText>
+										+375(29)-660-39-59  - продавец
+									</ContactText>
+									<ContactText>
+										+375(29)-161-97-61  - для вопросов по сайту
+									</ContactText>
+								</ContactTextWrapper>
+							</ContactInfoSection>
 
-                    <ContactInfoSection>
-                        <ContactImage src={MessageImage} />
-                        <ContactTextWrapper>
-                            <ContactText>
-                                <b>Приезжайте</b>
-                            </ContactText>
-                            <ContactText>
-                            Мы находимся по адресу
-                            </ContactText>
-                            <ContactText>
-                                г.Гомель, ул. Карповича 28.
-                            </ContactText>
-                        </ContactTextWrapper>
-                    </ContactInfoSection>
+							<ContactInfoSection>
+								<ContactImage src={MessageImage} />
+								<ContactTextWrapper>
+									<ContactText>
+										<b>Напишите нам</b>
+									</ContactText>
+									<ContactText>
+										mar-cer@yandex.ru  - продавец
+									</ContactText>
+									<ContactText>
+										auto-dinamic-sup@mail.ru  - техподдержка
+									</ContactText>
+								</ContactTextWrapper>
+							</ContactInfoSection>
 
-                </ContactInfoWtapper>
-            </Section>
+							<ContactInfoSection>
+								<ContactImage src={MessageImage} />
+								<ContactTextWrapper>
+									<ContactText>
+										<b>Приезжайте</b>
+									</ContactText>
+									<ContactText>
+									Мы находимся по адресу
+									</ContactText>
+									<ContactText>
+										г.Гомель, ул. Карповича 28.
+									</ContactText>
+								</ContactTextWrapper>
+							</ContactInfoSection>
 
-            <Section noPadding>
-                <CallbackForm />
-            </Section>
+						</ContactInfoWtapper>
+					</Section>
+
+					<Section id="callback-form">
+						<CallbackForm />
+					</Section>
+				</MainInfo>
+			</PadeDetailWrapper>
         </Wrapper>
     );
 });

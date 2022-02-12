@@ -39,7 +39,8 @@ export const routes: IRoute[] = [
     {
         path: '/catalog',
         exact: true,
-        redirect: '/catalog/all',
+        component: lazy(() => import('../components/product-list/screens/catalog.screen')),
+        private: false,
         fallback: <LoadingComponent />,
     },
     {

@@ -10,8 +10,8 @@ export const accountDetailsQuery = gql`
 `;
 
 export const getOrderByIdQuery = gql`
-    query($input: GetOrderByIdPayload!) {
-        orderById(input: $input) {
+    query($id: String!) {
+        orderById(id: $id) {
             ${orderFields}
         }
     }

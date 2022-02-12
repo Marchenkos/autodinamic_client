@@ -11,7 +11,7 @@ import { FilterRange } from './filter-range.component';
 import { FilterSelector } from './filter-selector.component';
 import { FilterObject } from '../../../graphql/interfaces';
 import { FilterSwitch } from '../../../ui/controller.component';
-import { BodyText, TextSize, TextWeight, TextColor } from '../../../ui/text';
+import { BodyText, TextSize, TextWeight, TextColor, TitleText } from '../../../ui/text';
 import { getFilters } from '../selector';
 import { capitalizeString } from '../utilites/formated-string';
 import { StyledButton } from '../../../ui/new-styled';
@@ -22,7 +22,18 @@ const Section = styled.div`
     margin-bottom: 25px;
 `;
 
+const HeaderWrapper = styled.div`
+    display: flex;
+    width: 100%;
+    margin: 40px 0 30px;
+    box-sizing: border-box;
+    align-items: center;
+`;
+
 export const FilterValueText = styled(BodyText).attrs({ size: TextSize.EXTRA_SMALL, color: TextColor.DARK })``;
+const FilterTitle= styled(TitleText)`
+    font-size: 22px;
+`;
 
 const FilterWrapper = styled.div`
     width: 250px;
@@ -83,6 +94,9 @@ export const FilterDesktop: React.FC<FilterProps> = React.memo(function SimpleFi
 
     return (
         <FilterWrapper>
+            <HeaderWrapper>
+                <FilterTitle>Фильтры</FilterTitle>
+            </HeaderWrapper>
             {renderSections()}
             <StyledButton
                 additionalStyles={{ width: '60%', margin: '0 auto', padding: '5px' }}

@@ -106,20 +106,28 @@ export class GraphQLApi {
         return response.data.products;
     };
 
-    fetchProductListByTerms = async (limit: number, next: number, terms: string[]): Promise<ProductList> => {
-        const response = await this.client.query<SimpleGQLResponse<'searchProduct', ProductList>>({
+    fetchProductListByTerms = async (
+        limit: number,
+        next: number,
+        sort: string,
+        searchTerms: string[],
+        filters?: SelectedFilterSection[],
+    ): Promise<ProductList> => {
+        const response = await this.client.query<SimpleGQLResponse<'productsBySearchTerm', ProductList>>({
             query: getProductListByTermsQuery,
             variables: {
                 input: {
                     limit,
                     next,
-                    terms,
+                    sort,
+                    searchTerms,
+                    filters
                 },
             },
             fetchPolicy: 'network-only',
         });
 
-        return response.data.searchProduct;
+        return response.data.productsBySearchTerm;
     };
 
     fetchProductListWithFilter = async (
@@ -405,12 +413,11 @@ export class GraphQLApi {
     };
 
     getOrderById = async (id: string): Promise<Order> => {
+		console.log('LALLA')
         const response = await this.client.query<SimpleGQLResponse<'orderById', Order>>({
             query: getOrderByIdQuery,
             variables: {
-                input: {
-                    id,
-                },
+                id,
             },
             fetchPolicy: 'network-only',
         });

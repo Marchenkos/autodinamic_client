@@ -5,17 +5,16 @@ import { Pagination } from '@material-ui/lab';
 import { TextSize, TextColor, BodyText, TitleText } from '../../../ui/text';
 import { ProductListItem } from './product-list-item';
 import { useDispatch, useSelector } from 'react-redux';
-import { getIsProductListFetching, getProductList, getProductsCount, getProductListError } from '../selectors';
-import { FETCH_PRODUCT_LIST } from '../actions';
-import { ProductListEmpty } from './product-list-empty';
+import { getIsProductListFetching, getProductList, getSearchProductsCount, getProductListError } from '../selectors';
+
 import { SET_FILTER_SECTIONS } from '../../filter/actions';
 import { FilterDesktop } from '../../filter/components/filter.desktop.component';
 import { getDeviceSize } from '../../../utils/check-device-size';
 
 import { getSelectedFilters, getSelectedSort } from '../../filter/selector';
 import { GenericError } from '../../errorUI/generic-error.component';
-import { CategoryNames } from '../../../graphql/interfaces';
-import { ProductListCatalog } from './product-list-catalog';
+import { FETCH_PRODUCT_LIST_BY_SEARCH } from '../../search/actions';
+import { SearchProductListCatalog } from './search-product-list-catalog';
 
 const ProductListWrapper = styled.div`
     display: flex;
@@ -62,49 +61,38 @@ export const SortTitle = styled(FilterTitle)`
 
 export const LIMIT_PR_PAGE = 8;
 
-interface ProductListProps {
-    category: CategoryNames;
-    isNew?: boolean;
-    searchTerms?: string[]
+interface SearchProductListProps {
+    searchTerms: string[]
 }
 
-export const ProductList: React.FC<ProductListProps> = React.memo(function ProductList({ 
-    category,
-    isNew = false,
+export const SearchProductList: React.FC<SearchProductListProps> = React.memo(function SearchProductList({ 
     searchTerms
-}) {
+}: SearchProductListProps) {
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
     const [next, setNext] = useState(0);
     const deviceSize = getDeviceSize();
     const filters = useSelector(getSelectedFilters);
 
-    const productsCount = useSelector(getProductsCount);
+    const productsCount = useSelector(getSearchProductsCount);
     const selectedSort = useSelector(getSelectedSort);
     const error = useSelector(getProductListError);
 
-    useEffect(() => {
-        setCurrentPage(1);
-        setNext(0);
-    }, [category]);
-
     const fetchList = useCallback(() => {
         dispatch(
-            FETCH_PRODUCT_LIST.TRIGGER({
+            FETCH_PRODUCT_LIST_BY_SEARCH.TRIGGER({
                 limit: LIMIT_PR_PAGE,
                 next,
-                categoryName: category.category_name,
                 sort: selectedSort,
-                filters,
-                isNew,
-                searchTerms
+                searchTerms,
+                filters
             })
         );
-    }, [dispatch, LIMIT_PR_PAGE, category, selectedSort, next, filters, isNew, searchTerms]);
+    }, [dispatch, LIMIT_PR_PAGE, selectedSort, next, filters, searchTerms]);
 
     useEffect(() => {
         fetchList();
-    }, [category, selectedSort, next, filters, isNew, searchTerms]);
+    }, [selectedSort, next, filters, searchTerms]);
 
     const handleChangePagination = useCallback(
         (e: any, page: number) => {
@@ -137,7 +125,7 @@ export const ProductList: React.FC<ProductListProps> = React.memo(function Produ
         <ProductListWrapper>
             <ProductListContent>
                 {deviceSize > 850 ? <FilterDesktop cleanFilter={handleCleanFilter} /> : null}
-                <ProductListCatalog category={category} searchTerms={searchTerms} isNew={isNew} />
+                <SearchProductListCatalog searchTerms={searchTerms} />
             </ProductListContent>
 
             <PaginationWrapper toEnd={true}>

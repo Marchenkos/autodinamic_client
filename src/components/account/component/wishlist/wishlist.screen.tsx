@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -13,6 +13,12 @@ const Wrapper = styled.div`
     box-sizing: border-box;
 `;
 
+const WishlistWrapper = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+`;
+
 export const Wishlist: React.FC = React.memo(function Wishlist() {
     const wishlistValue = useSelector(getWishlist);
 
@@ -23,10 +29,12 @@ export const Wishlist: React.FC = React.memo(function Wishlist() {
     return (
         <Wrapper>
             <PageTitleText>Избранные товары</PageTitleText>
-            {
-                wishlistValue.map((item: GeneralProduct, index: number) => 
-                <WishlistItem key={index} product={item} />)
-            }
+			<WishlistWrapper>
+				{
+					wishlistValue.map((item: GeneralProduct, index: number) => 
+					<WishlistItem key={index} product={item} />)
+				}
+			</WishlistWrapper>
         </Wrapper>
     );
 });

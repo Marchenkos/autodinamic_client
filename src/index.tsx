@@ -4,7 +4,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { normalize } from 'react-style-reset/string';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { Provider } from 'react-redux';
-import { ApolloProvider } from '@apollo/client';
 
 import { App } from './App';
 import { useStore } from './store/useStore';

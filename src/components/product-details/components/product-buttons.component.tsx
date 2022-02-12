@@ -112,8 +112,8 @@ export const ProductAddToBasketButton: React.FC<{ product: GeneralProduct; isSma
     }
 );
 
-export const ProductAddToWishlistButton: React.FC<{ product: GeneralProduct; withLabel?: boolean }> = React.memo(
-    function ProductAddToBasket({ product, withLabel = false }) {
+export const ProductAddToWishlistButton: React.FC<{ isInWishlist: boolean; productId: string; withLabel?: boolean }> = React.memo(
+    function ProductAddToBasket({ isInWishlist, productId, withLabel = false }) {
         const dispatch = useDispatch();
         const currentUser = useSelector(getUser);
         const styles = {
@@ -121,16 +121,6 @@ export const ProductAddToWishlistButton: React.FC<{ product: GeneralProduct; wit
             width: '52px',
             fontSize: '30px',
         };
-
-        const isInWishList = useMemo(() => {
-            if (currentUser && currentUser.wishlist) {
-                const rez = currentUser.wishlist.filter((item) => item.id === product.id);
-
-                return rez.length;
-            }
-
-            return false;
-        }, [currentUser, product]);
 
         const addToWishlist = useCallback(() => {
             if (!currentUser) {
@@ -140,12 +130,12 @@ export const ProductAddToWishlistButton: React.FC<{ product: GeneralProduct; wit
                     })
                 );
             } else {
-                dispatch(TOGGLE_WISHLIST.TRIGGER(product.id));
+                dispatch(TOGGLE_WISHLIST.TRIGGER(productId));
             }
-        }, [product]);
+        }, [productId]);
 
         if (!withLabel) {
-            return isInWishList ? (
+            return isInWishlist ? (
                 <FavoriteIcon onClick={addToWishlist} style={styles} />
             ) : (
                 <FavoriteBorderIcon onClick={addToWishlist} style={styles} />
@@ -154,7 +144,7 @@ export const ProductAddToWishlistButton: React.FC<{ product: GeneralProduct; wit
 
         return (
             <AdditionalButtonSection onClick={addToWishlist}>
-                {isInWishList ? (
+                {isInWishlist ? (
                     <>
                         <FavoriteIcon
                             style={{ color: '#6b6b6b', marginRight: '5px', width: '22px', marginLeft: '-25px' }}
