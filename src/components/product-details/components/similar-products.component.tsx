@@ -13,7 +13,12 @@ import { SimilarProductItem } from './similar-product-item.component';
 
 const Wrapper = styled.div`
     width: 100%;
-    margin: 80px 0;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: 50px 0 0;
 
     @media (max-width: 810px) {
         margin: 40px 0;
@@ -30,14 +35,11 @@ const ProductInfoText = styled(TitleLink).attrs({
 `;
 
 const ProductSectionTitle = styled(TitleText)`
-    margin-bottom: 50px;
-    font-size: 35px;
-    padding-left: 25px;
-
-    @media (max-width: 810px) {
-        margin-bottom: 20px;
-    }
+	font-size: 25px;
+	margin-bottom: 30px;
+	font-weight: 500;
 `;
+
 
 const ProductCarousel = styled.div`
     display: flex;
@@ -83,7 +85,7 @@ export const CarouselArrow: React.FC<CarouselArrowProps> = React.memo(function C
 export const SimilarProductCarousel: React.FC = React.memo(function SimilarProductCarousel() {
     const similarProducts = useSelector(getSimilarProducts);
 
-    if (!similarProducts) {
+    if (!similarProducts || !similarProducts.length) {
         return null;
     }
 

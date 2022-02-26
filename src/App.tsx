@@ -24,18 +24,24 @@ const Wrapper = styled.div`
     min-height: 100vh;
     position: relative;
 
-	min-width: 440px;
+	min-width: 320px;
+	max-width: 1700px;
 `;
 
 const ContentWrapper = styled.div`
     padding-bottom: 400px;
     min-height: 90vh;
 	padding-top: 0px;
+    box-sizing: border-box;
+
+	@media (max-width: 500px) {
+		padding-top: 60px;
+		padding-bottom: 600px;
+    }
 
 	@media (max-width: 800px) {
 		padding-top: 60px;
-		padding-bottom: 500px;
-
+		padding-bottom: 600px;
     }
 `;
 

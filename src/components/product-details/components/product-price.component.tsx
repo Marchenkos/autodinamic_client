@@ -4,8 +4,9 @@ import styled from 'styled-components';
 import { TitleText, BodyText, TextColor, TextWeight, TextSize } from '../../../ui/text';
 import { calculateDiscount } from '../helper/calculateDiscount';
 
-const PriceText = styled(TitleText).attrs({ weight: TextWeight.MEDIUM, size: TextSize.LARGE, color: TextColor.BLUE })`
-    margin: 5px 15px 0 0;
+const PriceText = styled(TitleText).attrs({ weight: TextWeight.MEDIUM, color: TextColor.BLUE })`
+	margin-top: 30px;
+	font-size: 30px;
 `;
 
 const PriceWithoutDiscountText = styled(TitleText).attrs({ weight: TextWeight.MEDIUM, size: TextSize.LARGE })`

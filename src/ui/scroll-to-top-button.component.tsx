@@ -7,7 +7,7 @@ import { BodyText } from './text';
 
 const Wrapper = styled.div`
 	position: fixed;
-	bottom: 10px;
+	bottom: 20px;
     right: 20px;
 	cursor: pointer;
 
@@ -22,8 +22,10 @@ const Wrapper = styled.div`
     border-radius: 50%;
 
 	@media (max-width: 800px) {
+		width: 70px;
+		height: 70px;
 		right: 0px;
-		bottom: 50px;
+		bottom: 70px;
     }
 `;
 
@@ -31,7 +33,7 @@ const ScrollUpImg = styled.img`
 	max-width: 50px;
 
 	@media (max-width: 800px) {
-		max-width: 35px;
+		max-width: 25px;
     }
 `;
 

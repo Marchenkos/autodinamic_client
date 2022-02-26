@@ -6,13 +6,19 @@ import { DescriptionByCategory } from './description-by-category';
 import './product-details.style.scss';
 
 const ProductSectionTitle = styled(TitleText)`
-    padding-left: 25px;
-    font-size: 35px;
+	font-size: 25px;
+    margin-bottom: 30px;
+    font-weight: 500;
 `;
 
 const Wrapper = styled.div`
-    margin: 80px 0;
-    display: flex;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: 50px 0 0;
+	background: #fafafa;
+	padding: 30px 0;
 `;
 export interface IHeaderLink {
     id: number;

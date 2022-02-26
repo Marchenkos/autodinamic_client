@@ -10,7 +10,6 @@ import { LogoComponentWithText } from './components/logo-text.component';
 const FooterWrapper = styled.div`
     width: 100%;
 	padding: 30px 50px;
-    box-sizing: border-box;
 	align-items: flex-start;
     display: flex;
     flex-direction: column;
@@ -18,20 +17,26 @@ const FooterWrapper = styled.div`
     position: absolute;
     bottom: 0;
 
+	box-sizing: border-box;
+
+	@media (max-width: 500px) {
+		padding: 30px;
+    }
+
 	@media (max-width: 800px) {
-		padding: 30px 50px 80px;
+		padding: 30px 20px 80px;
     }
 `;
 
 const FooterContent = styled.div`
     width: 100%;
-    box-sizing: border-box;
 	align-items: flex-start;
     display: flex;
 
 	margin: 40px 0 30px;
     padding-left: 5px;
 	flex-wrap: wrap;
+	box-sizing: border-box;
 `;
 
 const CustomerInfoWrapper = styled.div`
@@ -87,6 +92,7 @@ const MenuText = styled(BodyText).attrs({ color: TextColor.LIGHT })`
 
 const CopyriterText = styled(BodyText).attrs({ size: TextSize.EXTRA_SMALL, color: TextColor.LIGHT })`
     padding: 1px 0;
+	box-sizing: border-box;
     margin-right: 5px;
 }`;
 

@@ -15,16 +15,12 @@ import { GeneralProduct } from '../../../graphql/entities';
 import { useIsInWishlist } from '../hooks/useIsInWishlist';
 
 const ShortDetailSectionWrapper = styled.div`
-    width: 40%;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    max-width: 500px;
-    margin-left: 150px;
 
-    @media (max-width: 810px) {
-        width: 100%;
-        margin-left: 0;
+	@media (max-width: 850px) {
+        padding: 0 20px;
     }
 `;
 
@@ -56,24 +52,37 @@ const OtherDescriptionText = styled(BodyText).attrs({ size: TextSize.SMALL, colo
     margin: 35px 0 15px;
 `;
 
-export const ProductHeaderText = styled(TitleText).attrs({ weight: TextWeight.MEDIUM })`
-    font-size: 33px;
-    margin-bottom: 20px;
+export const ProductHeaderText = styled(TitleText)`
+	font-size: 25px;
+    margin-bottom: 10px;
+    font-weight: 500;
+
+
+    @media (max-width: 1000px) {
+		font-size: 22px;
+    }
 `;
 
-const PriceText = styled(TitleText).attrs({ weight: TextWeight.MEDIUM, size: TextSize.LARGE, color: TextColor.BLUE })`
-    margin: 5px 15px 0 0;
+export const ProductBrandText = styled(TitleText)`
+	font-size: 30px;
+	margin-bottom: 5px;
+	font-weight: 400;
+	color: #53b2b4;
+
+    @media (max-width: 1000px) {
+		font-size: 22px;
+    }
 `;
 
-const PriceWithoutDiscountText = styled(TitleText).attrs({ weight: TextWeight.MEDIUM, size: TextSize.LARGE })`
-    margin: 5px 15px 0 0;
-    color: #ababab;
-    text-decoration: line-through;
+const DesctopProductTitles = styled.div`
+	display: block;
+	@media (max-width: 850px) {
+		display: none;
+	}
 `;
 
 export const ProductCodeText = styled(BodyText)`
     margin-top: 0px;
-    text-transform: lowercase;
     font-size: 16px;
     color: #b9b8b8;
 `;
@@ -81,7 +90,7 @@ export const ProductCodeText = styled(BodyText)`
 const ButtonWrapper = styled.div`
     display: flex;
     width: 90%;
-    margin-top: 50px;
+    margin-top: 20px;
 `;
 
 interface ProductDescriptionProps {
@@ -96,22 +105,24 @@ export const ProductDescription: React.FC<ProductDescriptionProps> = React.memo(
 
     return (
         <ShortDetailSectionWrapper>
-            {deviceSize > 809 ? (
-                <>
-                    {productDescription.discount && <DiscountLabel>{`Скидка ${productDescription.discount}%`}</DiscountLabel>}
-                    <ProductHeaderText>{productDescription.full_name}</ProductHeaderText>
-                    <ProductCodeText>
-                        код товара: <BoldSmallText>{productDescription.code}</BoldSmallText>
-                    </ProductCodeText>
-                </>
-            ) : null}
+			<DesctopProductTitles>
+				{productDescription.discount && <DiscountLabel>{`Скидка ${productDescription.discount}%`}</DiscountLabel>}
+				<ProductBrandText>{productDescription.brand}</ProductBrandText>
+
+				<ProductHeaderText>{productDescription.full_name}</ProductHeaderText>
+				<ProductCodeText>
+					Код товара: <BoldSmallText>{productDescription.code}</BoldSmallText>
+				</ProductCodeText>
+			</DesctopProductTitles>
+       
             <OtherDescriptionText>{productDescription.description}</OtherDescriptionText>
-            <PriceSection>
-                <ProductPrice price={productDescription.price} discount={productDescription.discount} />
-            </PriceSection>
 
             {productDescription.maker ? <DescriptionText>Производитель - {productDescription.maker}</DescriptionText> : null}
             {productDescription.guarantee ? <DescriptionText>Гарантия - {productDescription.guarantee} месяцев</DescriptionText> : null}
+
+			<PriceSection>
+                <ProductPrice price={productDescription.price} discount={productDescription.discount} />
+            </PriceSection>
 
             <ButtonWrapper>
                 <ProductAddToBasketButton product={productDescription} />

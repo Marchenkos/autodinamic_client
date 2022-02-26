@@ -36,7 +36,7 @@ const MenuWrapper = styled.div`
 	background: #fbfbfb;
     border-top: 1px solid #efefef;
 
-	padding: 7px 30px;
+	padding: 7px 20px;
     box-sizing: border-box;
 `;
 

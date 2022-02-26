@@ -49,8 +49,12 @@ const PromoSection = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    box-sizing: border-box;
     padding: 0 50px;
+	box-sizing: border-box;
+
+	@media (max-width: 600px) {
+		padding: 0 10px;
+    }
 `;
 
 const MainBanner = styled.div`
@@ -107,17 +111,10 @@ const HeaderText = styled(TitleText).attrs({ weight: TextWeight.BOLD })`
 
     @media (max-width: 769px) {
         margin-bottom: 30px;
+		margin-left: 10px;
         font-size: 20px;
     }
 `;
-
-const styledButton: React.CSSProperties = {
-    background: 'black',
-    width: isSmallDevice() ? '80%' : '20%',
-    padding: '10px',
-    fontSize: isSmallDevice() ? '12px' : '14px',
-    textTransform: 'initial',
-};
 
 const HomeScreen: React.FC = React.memo(function HomeScreen() {
     const history = useHistory();

@@ -9,9 +9,8 @@ import { FETCH_PRODUCT_BY_ID } from './actions';
 import { ProductDetails } from './components/product-details.component';
 
 const Wrapper = styled.div`
-    max-width: 1600px;
     margin: 0 auto;
-    padding: 50px;
+    padding: 20px 0;
 `;
 
 const BreadcrumbsWrapper = styled.div`
@@ -35,7 +34,7 @@ const ProductDetailsScreen: React.FC = React.memo(function ProductDetailsScreen(
 
     return (
         <Wrapper>
-            <BreadcrumbsWrapper>
+            {/* <BreadcrumbsWrapper>
                 <Breadcrumbs aria-label="breadcrumb">
                     <Link style={{ fontSize: '13px' }} color="inherit" href="/">
                         Главная
@@ -48,7 +47,7 @@ const ProductDetailsScreen: React.FC = React.memo(function ProductDetailsScreen(
                         Каталог
                     </Link>
                 </Breadcrumbs>
-            </BreadcrumbsWrapper>
+            </BreadcrumbsWrapper> */}
             <ProductDetails />
         </Wrapper>
     );

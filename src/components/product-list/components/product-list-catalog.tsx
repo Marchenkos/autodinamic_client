@@ -11,6 +11,8 @@ import { BodyText, TitleText } from '../../../ui/text';
 import { capitalizeString } from '../../filter/utilites/formated-string';
 import { Sorting } from '../../filter/sort/sorting.component';
 import { CategoryNames } from '../../../graphql/interfaces';
+import { MobileSorting } from '../../filter/sort/mobile-sorting.component';
+import { MobileFilter } from '../../filter/components/mobile-filter.component';
 
 const CatalogWrapper = styled.div`
     display: flex;
@@ -23,17 +25,15 @@ const CatalogWrapper = styled.div`
 
     @media (max-width: 850px) {
         width: 100%;
+		justify-content: space-between;
     }
 `;
-
 
 const ConditionSection = styled.div`
     display: flex;
 
     @media (max-width: 860px) {
-        width: 100%;
-        justify-content: space-between;
-        margin-bottom: 20px;
+       display: none;
     }
 `;
 
@@ -43,6 +43,8 @@ const HeaderWrapper = styled.div`
     align-items: center;
 
     @media (max-width: 860px) {
+		margin: 20px 0 0;
+		align-items: start;
         flex-direction: column;
     }
 `;
@@ -51,18 +53,44 @@ const ProductHeader = styled.div`
     display: flex;
     box-sizing: border-box;
     flex-grow: 1;
+
+	@media (max-width: 800px) {
+		padding: 0 10px;
+    }
 `;
 
 const ProductsWrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-`;
+
+	@media (max-width: 800px) {
+		justify-content: space-between;
+		padding: 0 10px;
+    }
+}`;
+
+const MobileFilterAndSortConditions = styled.div`
+	width: 100%;
+	display: none;
+	margin: 10px 0;
+	border-top: 1px solid #ececec;
+    border-bottom: 1px solid #ececec;
+	justify-content: center;
+	
+	@media (max-width: 800px) {
+		display: flex;
+    }
+}`;
 
 const CountText = styled(BodyText)`
     font-size: 12px;
     color: #b5b5b5;
     margin: 0 30px 20px;
+
+	@media (max-width: 800px) {
+		margin: 10px;
+    }
 `;
 
 interface ProductListCatalogProps {
@@ -105,6 +133,10 @@ export const ProductListCatalog: React.FC<ProductListCatalogProps> = React.memo(
                 <ConditionSection>
                     <Sorting />
                 </ConditionSection>
+				<MobileFilterAndSortConditions>
+					<MobileSorting />
+					<MobileFilter />
+				</MobileFilterAndSortConditions>
             </HeaderWrapper>
             {
                 !searchTerms && (<CountText>{`Найдено ${productsCount} товаров`}</CountText>)

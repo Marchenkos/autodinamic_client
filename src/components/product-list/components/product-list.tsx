@@ -31,7 +31,7 @@ const ProductListWrapper = styled.div`
     }
 
     @media (max-width: 850px) {
-        padding: 0 20px;
+        padding: 0;
     }
 `;
 

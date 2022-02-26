@@ -17,6 +17,7 @@ const CatalogWrapper = styled.div`
 
     @media (max-width: 850px) {
         width: 100%;
+		justify-content: space-between;
     }
 `;
 
