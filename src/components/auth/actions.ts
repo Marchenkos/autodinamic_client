@@ -45,8 +45,6 @@ export const LOGIN_AS_GUEST = {
     COMPLETED: createAction('[Login as guest] Completed'),
 };
 
-export const TOGGLE_AUTH_DRAWER = createAction('[TOGGLE_AUTH_DRAWER]', (payload: ToggleAuthDrawerPayload) => payload);
-
 export const CLEAR_REGISTRATiON_ERROR = createAction('[Clear Registration Error]');
 export const CLEAR_LOGIN_ERROR = createAction('[Clear Login Error]');
 

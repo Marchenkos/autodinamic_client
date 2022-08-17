@@ -7,20 +7,21 @@ import { useLocation } from 'react-router-dom';
 import { getDeviceSize } from '../../../utils/check-device-size';
 
 const Wrapper = styled.div`
-    padding: 50px;
-
-    @media (max-width: 980px) {
-        padding: 20px;
-    }
+flex-grow: 1;
+background: white;
 `;
 
 const PadeDetailWrapper = styled.div`
     display: flex;
     flex-direction: row;
 	margin-top: 50px;
+	padding: 50px;
 
     @media (max-width: 980px) {
         flex-direction: column;
+		padding: 20px;
+		margin-top: 0px;
+
     }
 `;
 
@@ -39,6 +40,7 @@ const TabBarBlock = styled.div`
         width: 100%;
         padding-left: 0px;
         margin-bottom: 20px;
+		justify-content: space-between;
     }
 `;
 
@@ -69,12 +71,16 @@ const DescriptionText = styled(BodyText).attrs({ size: TextSize.SMALL })`
 
     @media (max-width: 980px) {
         width: 100%;
+		font-size: 14px;
     }
 `;
 
 const PageTitleText = styled(TitleText)`
     font-size: 25px;
+	background: #858585;
     margin-bottom: 20px;
+    color: white;
+    padding: 15px;
 
     @media (max-width: 850px) {
         font-size: 20px;
@@ -100,9 +106,10 @@ const UnitLink = styled(TitleLink).attrs({
     }
 
     @media (max-width: 850px) {
-        font-size: 14px;
-        width: 30%;
-        padding: 0px;
+        font-size: 11px;
+        max-width: 32%;
+        padding:0px;
+		margin: 0px;
     }
 `;
 

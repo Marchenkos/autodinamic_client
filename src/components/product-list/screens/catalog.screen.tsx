@@ -16,6 +16,10 @@ const Wrapper = styled.div`
     width: 100%;
     background: white;
 	box-sizing: border-box;
+
+	@media (max-width: 450px) {
+		padding: 0;
+	}
 `;
 
 const CatalogListWrapper = styled.div`
@@ -50,7 +54,7 @@ const CatalogItemWrapper = styled.div`
 	}
 
 	@media (max-width: 450px) {
-		max-width: 90%;
+		max-width: 100%;
 		padding-right: 0px;
 	}
 `;
@@ -79,6 +83,15 @@ const CatalogImage = styled.img`
 
 	&:hover {
 		transform: scale(1.2);
+	}
+`;
+
+const ScreenTitle = styled(TitleText)`
+	padding: 0px;
+
+	@media (max-width: 450px) {
+		padding: 20px 20px 0;
+		font-size: 20px;
 	}
 `;
 
@@ -121,7 +134,7 @@ const CatalogScreen: React.FC = React.memo(function CatalogScreen() {
 
     return (
        <Wrapper>
-            <TitleText>Каталог товаров</TitleText>
+            <ScreenTitle>Каталог товаров</ScreenTitle>
 
            <CatalogListWrapper>
                {categoryItems}

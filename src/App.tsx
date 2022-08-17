@@ -17,6 +17,7 @@ import { AppSimpleModal } from './components/modal/components/app-simple-modal.c
 import { AuthDrawer } from './components/auth/components/auth-drawer.component';
 import ScrollToTop from './ScrollToTop';
 import { ScrollToTopButton } from './ui/scroll-to-top-button.component';
+import { AppDrawer } from './components/drawer/drawer.component';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -58,7 +59,7 @@ export const App: React.FC = React.memo(function App() {
             <AppSimpleModal />
             <FormModal />
             <CommonFooter />
-            <AuthDrawer />
+			<AppDrawer />
 			<ScrollToTopButton />
         </Wrapper>
     );

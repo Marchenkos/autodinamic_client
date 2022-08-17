@@ -14,6 +14,7 @@ import { reducer as authentication } from '../components/auth/reducers';
 import { ApplicationState } from './ApplicationState';
 import { productCategoryReducer as category } from '../components/product-category/reducer';
 import { reducer as promotions } from '../components/promotions/reducers';
+import { reducer as drawer } from '../components/drawer/drawer.reducer';
 
 export const rootReducer: Reducer<ApplicationState> = combineReducers<ApplicationState>({
     products,
@@ -28,5 +29,6 @@ export const rootReducer: Reducer<ApplicationState> = combineReducers<Applicatio
     compare,
     authentication,
     category,
-    promotions
+    promotions,
+	drawer
 });

@@ -8,7 +8,7 @@ import { SEND_REQUEST_TO_CALLBACK } from '../actions';
 
 export function* fetchAccountDetailsSaga(action: ReturnType<typeof SEND_REQUEST_TO_CALLBACK.TRIGGER>): SagaIterator {
     try {
-        const { name, email, phoneNumber, message } = action.payload;
+        const { name, email, message } = action.payload;
 
         yield put(SEND_REQUEST_TO_CALLBACK.STARTED(action.payload));
 
@@ -17,7 +17,6 @@ export function* fetchAccountDetailsSaga(action: ReturnType<typeof SEND_REQUEST_
             name,
             email,
             message,
-            phoneNumber
         );
 
         yield put(SEND_REQUEST_TO_CALLBACK.COMPLETED(response.isSuccess));

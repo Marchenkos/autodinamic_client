@@ -45,6 +45,9 @@ const OrderInfoWrapper = styled.div`
 
     @media (max-width: 850px) {
         width: 100%;
+
+		flex-direction: column;
+    	align-items: center;
     }
 `;
 
@@ -74,7 +77,9 @@ const CheckOrderText = styled(BodyText).attrs({ color: TextColor.DARK, size: Tex
 	margin: 20px auto 0;
 
 	@media (max-width: 850px) {
-        font-size: 14px;
+		font-size: 14px;
+		line-height: 20px;
+		margin-top: 0px;
     }
 `;
 
@@ -84,6 +89,10 @@ const QuestionText = styled(BodyText).attrs({
     weight: TextWeight.MEDIUM,
 })`
     margin-bottom: 10px;
+
+	@media (max-width: 850px) {
+		font-size: 14px;
+    }
 `;
 
 const PageTitleText = styled(TitleText)`
@@ -100,7 +109,9 @@ const PageSubTitleText = styled(TitleText)`
     margin-bottom: 20px;
 
     @media (max-width: 850px) {
-        font-size: 20px;
+		font-size: 18px;
+		margin-top: 10px;
+		text-align: center;
     }
 `;
 
@@ -121,6 +132,12 @@ const StyledInput = styled.input`
 	&::placeholder {
 		color: #d6d6d6;
 	}
+
+	@media (max-width: 850px) {
+        width: 100%;
+		font-size: 12px;
+		margin-bottom: 15px;
+    }
 `;
 
 const StyledLabel = styled(BodyText)`
@@ -130,7 +147,9 @@ const StyledLabel = styled(BodyText)`
 	width: 70%;
 
 	@media (max-width: 850px) {
-        font-size: 14px;
+		font-size: 11px;
+		margin: 10px 0;
+		width: 100%;
     }
 `;
 

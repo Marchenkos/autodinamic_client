@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import styled from 'styled-components';
 import HomeIcon from '@material-ui/icons/Home';
 import FavoriteIcon from '@material-ui/icons/FavoriteBorder';
@@ -8,9 +8,21 @@ import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 
 import { StyledLink } from '../../../ui/styled-link.component';
 import { BodyText } from '../../../ui/text';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { getUser } from '../../account/selectors';
+import { SHOW_SIMPLE_MODAL } from '../../modal/actions';
+import { AuthDrawer } from '../../auth/components/auth-drawer.component';
+import { TOGGLE_DRAWER } from '../../drawer/actions';
 
 const MenuItemLink = styled(StyledLink)`
+    display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+`;
+
+const MenuItemBlockLink = styled.div`
     display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -40,7 +52,14 @@ const MenuWrapper = styled.div`
     box-sizing: border-box;
 `;
 
-const menuConfig = [
+interface FooterMenuConfig {
+    name: string;
+    url: string;
+    icon: (isSelected: boolean) => JSX.Element
+}
+
+
+const menuConfig: FooterMenuConfig[] = [
     {
         name: 'Главная',
         url: '/home',
@@ -58,15 +77,70 @@ const menuConfig = [
     },
 	{
         name: 'Избранное',
-        url: '/catalog11',
+        url: '/account/wishlist',
         icon: (isSelected: boolean) => <FavoriteIcon style={{ color: isSelected ? '#8dc3b7' : '#4a4a4a' }} />,
     },
-    {
-        name: 'Корзина',
-        url: '/basket',
-        icon: (isSelected: boolean) => <ShoppingBasketIcon style={{ color: isSelected ? '#8dc3b7' : '#4a4a4a' }} />,
-    },
 ];
+
+interface MobileMenuFooterItemProps {
+	item: FooterMenuConfig;
+}
+
+export const MobileMenuFooterItem: React.FC<MobileMenuFooterItemProps> = React.memo(function MobileMenuFooterItem({
+	item
+}: MobileMenuFooterItemProps) {
+	const history = useHistory();
+    const userData = useSelector(getUser);
+    const dispatch = useDispatch();
+
+    const navigateToAccount = useCallback(() => {
+        if (userData) {
+            history.push('/account');
+        } else {
+			dispatch(TOGGLE_DRAWER({
+				isShow: true,
+				children: <AuthDrawer />
+			}));
+        }
+    }, [userData, history]);
+
+	const navigateToWishlist = useCallback(() => {
+        if (!userData) {
+            dispatch(
+                SHOW_SIMPLE_MODAL({
+                    text: 'Пожалуйста войдите в свой аккаунт или зарегистрируйтесь, чтобы перейти к избранным товарам',
+                })
+            );
+        } else {
+            history.push('/account/wishlist');
+        }
+    }, [userData, history]);
+
+	if (item.name === 'Избранное') {
+		return (
+			<MenuItemBlockLink onClick={navigateToWishlist}>
+				{item.icon(location.pathname.includes(item.url))}
+				<MenuText isSelected={location.pathname.includes(item.url)}>{item.name}</MenuText>
+			</MenuItemBlockLink>
+		)
+	}
+
+	if (item.name === 'Кабинет') {
+		return (
+			<MenuItemBlockLink onClick={navigateToAccount}>
+				{item.icon(location.pathname.includes(item.url))}
+				<MenuText isSelected={location.pathname.includes(item.url)}>{item.name}</MenuText>
+			</MenuItemBlockLink>
+		)
+	}
+
+    return (
+		<MenuItemLink to={item.url}>
+			{item.icon(location.pathname.includes(item.url))}
+			<MenuText isSelected={location.pathname.includes(item.url)}>{item.name}</MenuText>
+		</MenuItemLink>
+    );
+});
 
 export const MobileMenuFooter: React.FC = React.memo(function MobileMenuFooter() {
 	const location = useLocation();
@@ -74,10 +148,7 @@ export const MobileMenuFooter: React.FC = React.memo(function MobileMenuFooter()
 	const menuContent = useMemo(
         () =>
             menuConfig.map((item, index: number) => (
-                <MenuItemLink key={index} to={item.url}>
-                    {item.icon(location.pathname.includes(item.url))}
-                    <MenuText isSelected={location.pathname.includes(item.url)}>{item.name}</MenuText>
-                </MenuItemLink>
+                <MobileMenuFooterItem key={index} item={item} />
             )),
         [menuConfig, location.pathname]
     );

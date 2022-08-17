@@ -19,6 +19,10 @@ import { StyledButton } from '../../../ui/new-styled';
 
 const OrderConfirmationWrapper = styled.div`
     padding: 40px 50px;
+
+	@media (max-width: 850px) {
+		padding: 20px 25px;
+    }
 `;
 
 const OrderConfirmationHeader = styled.div`
@@ -26,13 +30,13 @@ const OrderConfirmationHeader = styled.div`
     justify-content: space-between;
 
     @media (max-width: 850px) {
-        flex-direction: column-reverse;
+        flex-direction: column;
     }
 `;
 
 const StyledTitleText = styled(TitleText)`
     @media (max-width: 850px) {
-        margin-top: 50px;
+        margin-bottom: 20px;
     }
 `;
 
@@ -146,7 +150,7 @@ export const OrderConfirmation: React.FC = React.memo(function OrderConfirmation
             <OrderConfirmationHeader>
                 <StyledTitleText>Оформление заказа</StyledTitleText>
                 <StyledButton
-				additionalStyles={{ width: '300px' }}
+					additionalStyles={{ width: '250px' }}
                     isSecondary
                     onClick={handleOnBackToBasket}
                     label="Вернуться к корзине"

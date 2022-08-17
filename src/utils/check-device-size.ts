@@ -39,7 +39,7 @@ export const isSmallDevice = () => {
 };
 
 export const isMobileDevice = () => {
-    const deviceType = checkDeviceSize();
+	const pageWidth = getDeviceSize();
 
-    return deviceType === DEVICE_TYPE.TABLET || deviceType === DEVICE_TYPE.MOBILE;
+	return pageWidth < 800
 };

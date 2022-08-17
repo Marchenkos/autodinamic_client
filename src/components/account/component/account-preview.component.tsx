@@ -5,7 +5,8 @@ import styled from 'styled-components';
 
 import { StyledIcons } from '../../../ui/styled-icon.component';
 import { BodyText, TextColor } from '../../../ui/text';
-import { TOGGLE_AUTH_DRAWER } from '../../auth/actions';
+import { AuthDrawer } from '../../auth/components/auth-drawer.component';
+import { TOGGLE_DRAWER } from '../../drawer/actions';
 import { SHOW_SIMPLE_MODAL } from '../../modal/actions';
 import { getUser } from '../selectors';
 
@@ -36,7 +37,10 @@ export const AccountPreview: React.FC = React.memo(function AccountPreview() {
         if (userData) {
             history.push('/account');
         } else {
-            dispatch(TOGGLE_AUTH_DRAWER({ isShow: true }));
+            dispatch(TOGGLE_DRAWER({
+				isShow: true,
+				children: <AuthDrawer />
+			}));
         }
     }, [userData, history]);
 
@@ -55,11 +59,11 @@ export const AccountPreview: React.FC = React.memo(function AccountPreview() {
     return (
         <>
         <Section onClick={navigateToWishlist}>
-            <StyledIcons mainColor='#fff' onHoverColor='#fff' className="icon-heart-o" />
+            <StyledIcons mainColor='#fff' hoveredColor='#fff' className="icon-heart-o" />
             <SectionHeader>Избранное</SectionHeader>
         </Section>
         <Section onClick={navigateToAccount}>
-            <StyledIcons mainColor='#fff' onHoverColor='#fff' className="icon-account_circle" />
+            <StyledIcons mainColor='#fff' hoveredColor='#fff' className="icon-account_circle" />
             <SectionHeader>Аккаунт</SectionHeader>
         </Section>
         </>

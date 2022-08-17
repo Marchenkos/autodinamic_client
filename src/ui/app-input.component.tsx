@@ -53,11 +53,12 @@ export interface FormInputTextProps {
     placeholder?: string;
     isError?: FieldError;
     type?: string;
-    label: string;
+    label?: string;
     helperText?: string | null;
     rows?: number;
     capitalize?: boolean;
     onPressInter?: () => void;
+	noBorders?: boolean;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -82,7 +83,7 @@ export const FormInputText = React.forwardRef<HTMLDivElement | null, FormInputTe
     ref
 ) {
     const classes = useStyles();
-    const { isError, capitalize, onPressInter, ...otherProps } = props;
+    const { isError, capitalize, onPressInter, noBorders, ...otherProps } = props;
 
     const labelStyles = isError
         ? {
@@ -105,7 +106,7 @@ export const FormInputText = React.forwardRef<HTMLDivElement | null, FormInputTe
             ref={ref}
             className={classes.margin}
             helperText={props.helperText}
-            variant="outlined"
+            variant={noBorders ? "standard" : "outlined"}
             label={isError ? isError.message : props.label}
             rows={props.rows}
             type={props.type}
@@ -115,7 +116,7 @@ export const FormInputText = React.forwardRef<HTMLDivElement | null, FormInputTe
                     input: capitalize ? classes.capitalize : classes.resize,
                 },
             }}
-            InputLabelProps={{ shrink: true, style: { fontSize: '16px', ...labelStyles } }}
+            InputLabelProps={{ shrink: true, disabled: false, style: { fontSize: '16px', ...labelStyles } }}
             placeholder={props.placeholder}
         />
     );

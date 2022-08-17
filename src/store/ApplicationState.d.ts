@@ -11,6 +11,7 @@ import { compareReducer } from '../components/compare-products/reducer';
 import { reducer as authenticationReducer } from '../components/auth/reducers';
 import { productCategoryReducer } from '../components/product-category/reducer';
 import { reducer as promotionsReducer } from '../components/promotions/reducers';
+import { reducer as drawerReducer } from '../components/drawer/drawer.reducer';
 
 export interface ApplicationState {
     products: ReturnType<typeof productReducer>;
@@ -26,4 +27,5 @@ export interface ApplicationState {
     authentication: ReturnType<typeof authenticationReducer>;
     category: ReturnType<typeof productCategoryReducer>;
     promotions: ReturnType<typeof promotionsReducer>;
+	drawer: ReturnType<typeof drawerReducer>;
 }

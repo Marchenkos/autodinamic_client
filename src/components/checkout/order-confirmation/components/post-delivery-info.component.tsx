@@ -11,6 +11,8 @@ import { useSelector } from 'react-redux';
 import { getOrderDeliveryDetails } from '../selectors';
 import { getPrimaryAddress } from '../../../account/selectors';
 import { StyledButton, TextInput } from '../../../../ui/new-styled';
+import { selectorAddresses } from '../../../INFO/post-addresses';
+import { AppSelector } from '../../../../ui/app-selector.component';
 
 const PostInfoWrapper = styled.div`
     display: flex;
@@ -20,10 +22,18 @@ const PostInfoWrapper = styled.div`
 
 const LabelText = styled(BodyText).attrs({ color: TextColor.DARK, size: TextSize.SMALL })`
     margin: 0px 0 10px;
+
+	@media (max-width: 850px) {
+        font-size: 11px;
+    }
 `;
 
 const AddressText = styled(BodyText).attrs({ color: TextColor.BLUE, size: TextSize.SMALL, weight: TextWeight.MEDIUM })`
     margin: 0 0 10px 10px;
+
+	@media (max-width: 850px) {
+        font-size: 12px;
+    }
 `;
 
 interface PostDeliveryInfoProps {
@@ -97,20 +107,23 @@ export const PostDeliveryInfo: React.FC<PostDeliveryInfoProps> = React.memo(func
                 <AddressText>5 BYN</AddressText>
             </div>
 
-            <Controller
+			<Controller
                 control={control}
                 render={({ field, fieldState }) => (
-                    <TextInput
+                    <AppSelector
                         {...field}
-                        nextFieldName="address"
-                        id="oreder-input-city"
                         isError={fieldState.error}
-                        placeholder="Город"
-                        onPressInter={handleOnPressInter}
+                        label="Город*"
+                        items={selectorAddresses}
+                        placeholder={''}
                     />
                 )}
                 name="city"
-                defaultValue={defaultValues.city}
+                defaultValue={
+                    selectorAddresses.indexOf(defaultValues.city) != -1
+                        ? selectorAddresses[selectorAddresses.indexOf(defaultValues.city)]
+                        : ''
+                }
             />
 
             <Controller

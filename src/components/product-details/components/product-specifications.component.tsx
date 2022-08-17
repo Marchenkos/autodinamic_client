@@ -1,7 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { ProductCharacteristicInfo } from '../../../graphql/interfaces';
 
-import { TitleText } from '../../../ui/text';
+import { BodyText, TitleText } from '../../../ui/text';
+import { getSelectedProduct } from '../selectors';
 import { DescriptionByCategory } from './description-by-category';
 import './product-details.style.scss';
 
@@ -26,11 +29,18 @@ export interface IHeaderLink {
     link: string;
 }
 
-export const ProductSpecifications: React.FC = React.memo(function ProductSpecifications() {
-    return (
+interface ProductSpecificationsProps {
+	product?: ProductCharacteristicInfo;
+}
+
+export const ProductSpecifications: React.FC<ProductSpecificationsProps> = React.memo(function ProductSpecifications({
+	product
+}: ProductSpecificationsProps) {
+
+	return (
         <Wrapper>
             <ProductSectionTitle>Характеристики товара</ProductSectionTitle>
-            <DescriptionByCategory />
+			{product ? <DescriptionByCategory productDetails={product} /> : <BodyText>Извините, дополнительное описание товара еще не добавлено</BodyText>}
         </Wrapper>
     );
 });

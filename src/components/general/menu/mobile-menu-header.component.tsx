@@ -12,6 +12,7 @@ import RecentActorsIcon from '@material-ui/icons/RecentActors';
 import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import CompareIcon from '@material-ui/icons/Compare';
 import LibraryAddCheckIcon from '@material-ui/icons/LibraryAddCheck';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 
 import { LogoComponentWithText } from '../components/logo-text.component';
 import { StyledLink } from '../../../ui/styled-link.component';
@@ -22,6 +23,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getUser } from '../../account/selectors';
 import { MobileAccountPreview } from '../../account/component/mobile-account-preview.component';
+
+const BasketItemLink = styled(StyledLink)`
+    display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+`;
 
 const MenuItemLink = styled(StyledLink)`
     display: flex;
@@ -164,14 +172,18 @@ export const MobileMenuHeader: React.FC = React.memo(function MobileMenuHeader()
                     {menuContent}
                 </SwipeableDrawer>
             </React.Fragment>
+			<MenuIcon onClick={toggleDrawer(true)} style={{ color: 'black', marginRight: '10px', marginTop: '4px' }} />
+
 			<StyledLink
                 to="/home"
                 style={{ flexGrow: 1 }}
             >
                 <LogoComponentWithText />
             </StyledLink>
-            <MenuIcon onClick={toggleDrawer(true)} style={{ color: 'black', marginRight: '10px', marginTop: '4px' }} />
 
+			<BasketItemLink to='/basket'>
+				<ShoppingBasketIcon style={{ color: '#4a4a4a' }} />
+			</BasketItemLink>
         </MenuWrapper>
     );
 });

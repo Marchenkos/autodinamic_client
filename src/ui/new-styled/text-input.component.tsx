@@ -49,6 +49,55 @@ const StyledInput = styled.input<{ isError?: boolean; noBorders?: boolean }>`
             border-bottom: ${props.isError ? '1px solid #d85055' : '1.5px solid #86b7b7'};
         `};
     }
+
+	@media (max-width: 850px) {
+		font-size: 13px;
+
+		${(props) =>
+			props.noBorders && `
+				padding-left: 0px;
+		`};
+    }
+`;
+
+const StyledTextArea = styled.textarea<{ isError?: boolean; noBorders?: boolean }>`
+    height: 40px;
+    padding-left: 7px;
+    border: ${(props) => (props.isError ? '1px solid #d85055' : '1px solid #d6d6d6')};
+    border-radius: 4px;
+    outline: none;
+    font-size: 15px;
+    font-family: 'Manrope';
+	min-height: 100px;
+    padding-top: 10px;
+
+    ${(props) =>
+        props.noBorders &&
+        `
+        border: none;
+        border-bottom: 1px solid #d6d6d6;
+        border-radius: 0px;
+    `};
+
+    &:focus {
+        border: ${(props) => (props.isError ? '1px solid #d85055' : '1.5px solid #86b7b7')};
+
+        ${(props) =>
+            props.noBorders &&
+            `
+            border: none;
+            border-bottom: ${props.isError ? '1px solid #d85055' : '1.5px solid #86b7b7'};
+        `};
+    }
+
+	@media (max-width: 850px) {
+		font-size: 13px;
+
+		${(props) =>
+			props.noBorders && `
+				padding-left: 0px;
+		`};
+    }
 `;
 
 const StyledInputLabel = styled.label<{ isError?: boolean }>`
@@ -75,14 +124,49 @@ export const TextInput = React.forwardRef<HTMLInputElement, FormInputTextProps>(
 
     return (
         <TextInputWrapper>
-            <StyledInput
-                noBorders={withoutBorders}
-                {...otherProps}
-                ref={ref}
-                onKeyPress={handleOnKeyPress}
-                isError={!!isError}
+			<StyledInput
+				noBorders={withoutBorders}
+				{...otherProps}
+				ref={ref}
+				onKeyPress={handleOnKeyPress}
+				isError={!!isError}
 				pattern={pattern}
-            />
+			/>
+            
+            {labelName || isError ? (
+                <StyledInputLabel isError={!!isError} htmlFor={otherProps.id}>
+                    {isError ? isError.message : labelName}
+                </StyledInputLabel>
+            ) : null}
+        </TextInputWrapper>
+    );
+});
+
+
+export const TextAreaInput = React.forwardRef<HTMLTextAreaElement, FormInputTextProps>(function TextAreaInput(
+    props: FormInputTextProps,
+    ref
+) {
+    const { isError, labelName, nextFieldName, onPressInter, withoutBorders = false, pattern, ...otherProps } = props;
+
+    const handleOnKeyPress = useCallback(
+        (event: any) => {
+            if (event.key === 'Enter' && onPressInter) {
+                onPressInter(nextFieldName);
+            }
+        },
+        [onPressInter, nextFieldName]
+    );
+
+    return (
+        <TextInputWrapper>
+			<StyledTextArea
+				noBorders={withoutBorders}
+				{...otherProps}
+				ref={ref}
+				onKeyPress={handleOnKeyPress}
+				isError={!!isError}
+			/> 
             {labelName || isError ? (
                 <StyledInputLabel isError={!!isError} htmlFor={otherProps.id}>
                     {isError ? isError.message : labelName}

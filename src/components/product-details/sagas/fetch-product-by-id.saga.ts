@@ -13,7 +13,7 @@ export function* getProductByIdSaga(action: ReturnType<typeof FETCH_PRODUCT_BY_I
         yield put(FETCH_PRODUCT_BY_ID.STARTED(action.payload));
 
         const product: GeneralProduct = yield call(graphqlApi.client.fetchProductById, action.payload);
-        let productDetails: ProductCharacteristicInfo | undefined;
+        let productDetails: ProductCharacteristicInfo | null;
 
         switch (product.category_name) {
             case 'magnitols': {

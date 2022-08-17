@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { TOGGLE_DRAWER } from '../../drawer/actions';
 
-import { TOGGLE_AUTH_DRAWER } from '../actions';
 import { getToken } from '../selectors';
 import Login from './login.component';
 
@@ -22,7 +22,7 @@ export const LoginDrawerItem: React.FC = React.memo(function LoginDrawerItem() {
 
     useEffect(() => {
         if (token) {
-            dispatch(TOGGLE_AUTH_DRAWER({ isShow: false }));
+            dispatch(TOGGLE_DRAWER({ isShow: false }));
             history.push('/account');
         }
     }, [token]);

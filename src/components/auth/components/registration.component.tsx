@@ -31,7 +31,7 @@ const RegistrationWrapper = styled.div`
     }
 
     @media (max-width: 450px) {
-        width: 95%;
+        width: 90%;
     }
 `;
 

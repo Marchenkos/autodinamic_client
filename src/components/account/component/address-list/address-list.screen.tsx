@@ -9,6 +9,7 @@ import { PageTitleText } from '../profile/profile.screen';
 import { getUserAddresses } from '../../selectors';
 import { StyledButton } from '../../../../ui/new-styled';
 import { EmptyAddressList } from './componens/empty-address-list.component';
+import { TOGGLE_DRAWER } from '../../../drawer/actions';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -21,6 +22,11 @@ const HeaderWrapper = styled.div`
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 20px;
+	flex-direction: row;
+
+	@media (max-width: 850px) {
+		flex-direction: column;
+    }
 `;
 
 const AddressList: React.FC = React.memo(function AddressList() {
@@ -33,9 +39,9 @@ const AddressList: React.FC = React.memo(function AddressList() {
 
     const handleOpenModal = useCallback(() => {
         dispatch(
-            SHOW_FORM_MODAL({
-                content: <EditDeliveryInfo handleCloseModal={handleCloseModal} />,
-                handleCloseModal,
+            TOGGLE_DRAWER({
+                children: <EditDeliveryInfo handleCloseModal={handleCloseModal} />,
+                isShow: true,
             })
         );
     }, [dispatch, handleCloseModal]);

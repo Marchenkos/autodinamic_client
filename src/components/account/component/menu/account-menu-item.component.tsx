@@ -78,8 +78,7 @@ const MenuLabel = styled.div<{ isSelected?: boolean; isLogout?: boolean }>`
     @media (max-width: 850px) {
         margin-left: 0;
         text-align: center;
-        font-size: 13px;
-        line-height: 1;
+        font-size: 11px;
         margin-top: 5px;
     }
 

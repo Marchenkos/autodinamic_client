@@ -72,7 +72,7 @@ export const ProductDetails: React.FC = React.memo(function ProductDetails() {
                 <ProductDetailsImage images={product.product.images} />
                 <ProductDescription productDescription={product.product} />
             </Wrapper>
-            <ProductSpecifications />
+            <ProductSpecifications product={product.productDetails} />
             <SimilarProductCarousel />
 			<WarningMassage>
 				* Все характеристики товаров взаимствованы с официальных сайтов и каталогов. При отсутствие каких-либо важных для Вас характеристик товара, мы настоятельно рекомендуем уточнять все детали у продавца, а также проводить внимательный осмотр изделия при получении.

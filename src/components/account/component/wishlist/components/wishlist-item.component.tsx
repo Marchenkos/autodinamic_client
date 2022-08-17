@@ -27,14 +27,10 @@ export const WishlistItemWrapper = styled.div<{ small?: boolean }>`
         min-width: 40%;
     }
 
-    @media (min-width: 450px) and (max-width: 850px) {
-        flex-basis: 45%;
-        min-width: 45%;
-    }
-
-    @media (max-width: 450px) {
-        flex-basis: 100%;
+    @media (max-width: 850px) {
+		flex-basis: 100%;
         min-width: 100%;
+		margin-left: 0;
     }
 
     ${({ small }) =>

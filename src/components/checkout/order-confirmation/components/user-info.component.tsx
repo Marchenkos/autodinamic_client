@@ -2,8 +2,10 @@ import React, { useCallback, useMemo } from 'react';
 import styled from 'styled-components';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import "react-phone-number-input/style.css";
+import PhoneInput, { isValidPhoneNumber, formatPhoneNumberIntl } from "react-phone-number-input";
 
-import { MobileInput } from '../../../../ui/app-input.component';
+import { FormInputText, MobileInput } from '../../../../ui/app-input.component';
 import { UserDetailsDataForm } from '../../../../graphql/entities';
 import { userDetailsValidationSchema } from '../../../validations/shemes';
 import { ErrorLabel } from '../../../validations/error-label.component';
@@ -43,6 +45,7 @@ export const OrderUserInfo: React.FC<OrderUserInfoProps> = React.memo(function O
 }: OrderUserInfoProps) {
     const dispatch = useDispatch();
     const currentUser = useSelector(getUser);
+	formatPhoneNumberIntl('+375213734253') === '+375 21 373 42 53'
 
     const { control, handleSubmit, formState, setFocus } = useForm<UserDetailsDataForm>({
         mode: 'onBlur',
@@ -108,67 +111,74 @@ export const OrderUserInfo: React.FC<OrderUserInfoProps> = React.memo(function O
             <Controller
                 control={control}
                 render={({ field, fieldState }) => (
-                    <TextInput
-                        {...field}
-                        nextFieldName="lastName"
-                        id="oreder-input-fiirst-name"
-                        isError={fieldState.error}
-                        placeholder="Имя"
-                        onPressInter={handleOnPressInter}
+					<TextInput
+						{...field}
+						nextFieldName="lastName"
+						id="first-name-input"
+						isError={fieldState.error}
+						onPressInter={handleOnPressInter}
+						placeholder="Имя"
 						withoutBorders
 					/>
                 )}
                 name="firstName"
+				rules={{ required: true }}
                 defaultValue={defaultValues.firstName}
             />
 
             <Controller
                 control={control}
                 render={({ field, fieldState }) => (
-                    <TextInput
+					<TextInput
                         {...field}
-                        placeholder="Фамилия"
-                        onPressInter={handleOnPressInter}
-                        isError={fieldState.error}
-                        id="oreder-input-last-name"
                         nextFieldName="email"
-						withoutBorders
+                        id="last-name-input"
+                        isError={fieldState.error}
+                        onPressInter={handleOnPressInter}
+                        placeholder="Фамилия"
+                        withoutBorders
                     />
                 )}
                 name="lastName"
+				rules={{ required: true }}
                 defaultValue={defaultValues.lastName}
             />
 
             <Controller
                 control={control}
                 render={({ field, fieldState }) => (
-                    <TextInput
-                        {...field}
-                        onPressInter={handleOnPressInter}
-                        isError={fieldState.error}
-                        id="oreder-input-email"
-                        nextFieldName="phoneNumber"
-                        placeholder="Email"
+					<TextInput
+						{...field}
+						id="input-email"
+						isError={fieldState.error}
+						onPressInter={handleOnPressInter}
+						placeholder="E-mail"
 						withoutBorders
-                    />
+						nextFieldName="phoneNumber"
+					/>
                 )}
                 name="email"
+				rules={{ required: true }}
                 defaultValue={defaultValues.email}
             />
 
             <Controller
                 control={control}
-                render={({ field, fieldState }) => (
-                    <MobileInput
+                rules={{
+					validate: (value) => isValidPhoneNumber(value)
+				  }}
+				  render={({ field, fieldState }) => (
+					<MobileInput
                         {...field}
                         label="Номер телефона"
                         isError={fieldState.error}
                         placeholder="Номер телефона"
                     />
-                )}
+				  )}
                 name="phoneNumber"
                 defaultValue={defaultValues.phoneNumber}
             />
+			
 
             <StyledButton
                 additionalStyles={{ width: '40%', marginTop: '20px', alignSelf: 'flex-end' }}

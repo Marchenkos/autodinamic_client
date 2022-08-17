@@ -8,17 +8,17 @@ import RenderRoutes from '../../../router/routes-config';
 import { TitleText } from '../../../ui/text';
 import { AccountMenu } from '../component/menu/account-menu.component';
 import { accountMenuConfig } from '../constants';
-import { getUser } from '../selectors';
+import { geIsFetchingtUserDetails, getUser } from '../selectors';
 
 const Wrapper = styled.div`
     display: flex;
     flex-grow: 1;
     background: #f5f6f8;
-    padding: 80px 50px 80px 100px;
+    padding: 30px 40px 40px 50px;
 
     @media (max-width: 850px) {
         flex-direction: column;
-        padding: 90px 0 20px;
+        padding: 20px 0 20px;
     }
 `;
 
@@ -31,7 +31,7 @@ const MenuWrapper = styled.div`
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        padding: 0 20px;
+		box-sizing: border-box;
     }
 `;
 
@@ -50,6 +50,7 @@ export const AccountTitle = styled(TitleText)`
         font-size: 20px;
         margin-bottom: 15px;
         min-width: 200px;
+		margin-left: 20px;
     }
 
     @media (max-width: 450px) {
@@ -65,6 +66,7 @@ const ContentWrapper = styled.div<{ isCentered?: boolean }>`
     box-shadow: 2px 3px 20px 2px #8a8a8a33;
     width: 80%;
     min-height: 80vh;
+	box-sizing: border-box;
 
     ${(props) =>
         props.isCentered &&
@@ -80,12 +82,15 @@ const ContentWrapper = styled.div<{ isCentered?: boolean }>`
 
 const AccountScreen: React.FC = React.memo(function AccountScreen() {
     const userData = useSelector(getUser);
+	const isFetching = useSelector(geIsFetchingtUserDetails);
+	
     const history = useHistory();
+
     useEffect(() => {
-        if (!userData) {
+        if (!userData && !isFetching) {
             history.push('/');
         }
-    }, [userData, history]);
+    }, [userData, history, isFetching]);
 
     return (
         <Wrapper>

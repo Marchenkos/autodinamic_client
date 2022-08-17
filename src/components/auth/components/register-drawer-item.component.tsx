@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { StyledIcons } from '../../../ui/styled-icon.component';
+import { TOGGLE_DRAWER } from '../../drawer/actions';
 
-import { TOGGLE_AUTH_DRAWER } from '../actions';
 import { getIsAutoLoggedIn, getIsRegistered } from '../selectors';
 import Registration from './registration.component';
 
@@ -14,6 +14,10 @@ const RegisterFormWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+	@media (max-width: 800px) {
+		margin-top: 100px;
+	}
 `;
 
 const TextButton = styled.button`
@@ -44,7 +48,7 @@ export const RegisterDrawerItem: React.FC<RegisterDrawerItemProps> = React.memo(
 
     useEffect(() => {
         if (isAutoLogged && isRegistered) {
-            dispatch(TOGGLE_AUTH_DRAWER({ isShow: false }));
+            dispatch(TOGGLE_DRAWER({ isShow: false }));
             history.push('/account');
         }
 

@@ -6,8 +6,8 @@ import styled from 'styled-components';
 import { FilterObject } from '../../../graphql/interfaces';
 import { FilterSwitch } from '../../../ui/controller.component';
 import { StyledButton } from '../../../ui/new-styled';
-import { BodyText, TextSize, TextWeight, TextColor } from '../../../ui/text';
-import { getFilters } from '../selector';
+import { BodyText, TextSize, TextWeight, TextColor, TitleText } from '../../../ui/text';
+import { getFilters, getSelectedFilters } from '../selector';
 import { capitalizeString } from '../utilites/formated-string';
 import { FilterCheckbox } from './filter-checkbox.component';
 import { FilterRange } from './filter-range.component';
@@ -21,19 +21,20 @@ const Section = styled.div`
 export const FilterValueText = styled(BodyText).attrs({ size: TextSize.EXTRA_SMALL, color: TextColor.DARK })``;
 
 const FilterWrapper = styled.div`
-    width: 20%;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    border: 1px solid #efefef;
     padding: 30px;
+	box-sizing: border-box;
+`;
 
-    @media (max-width: 1400px) {
-        width: 25%;
-    }
+const HeaderWrapper = styled.div`
+	display: flex;
+`;
 
-    @media (max-width: 1150px) {
-        width: 30%;
-    }
+const FilterTitle = styled(TitleText)`
+    font-size: 22px;
+	margin-bottom: 40px;
 `;
 
 const SectionTitle = styled(BodyText).attrs({
@@ -50,6 +51,7 @@ interface FilterProps {
 
 export const FilterMobile: React.FC<FilterProps> = React.memo(function FilterMobile({ cleanFilter }: FilterProps) {
     const filters = useSelector(getFilters);
+	const selectedFilters = useSelector(getSelectedFilters);
 
     const renderSectionsValues = (filter: FilterObject) => {
         switch (filter.type) {
@@ -88,13 +90,18 @@ export const FilterMobile: React.FC<FilterProps> = React.memo(function FilterMob
 
     return (
         <FilterWrapper>
+			<HeaderWrapper>
+				<FilterTitle>Фильтры</FilterTitle>
+				{ (selectedFilters && selectedFilters.length) && (
+					<StyledButton
+						additionalStyles={{ height: '40px', width: '100px', fontSize: '12px', margin: '0 20px', padding: '5px' }}
+						isSecondary
+						onClick={cleanFilter}
+						label="Очистить"
+					/>
+				)}
+			</HeaderWrapper>
             {renderSections()}
-            <StyledButton
-                additionalStyles={{ width: '60%', margin: '0 auto', padding: '5px' }}
-                isSecondary
-                onClick={cleanFilter}
-                label="Очистить"
-            />
         </FilterWrapper>
     );
 });

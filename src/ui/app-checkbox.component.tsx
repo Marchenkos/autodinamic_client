@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import { FormControlLabel, Checkbox } from '@material-ui/core';
 import styled from 'styled-components';
+import { BodyText } from './text';
 
 export interface CheckboxData {
     title: string;
@@ -8,14 +9,17 @@ export interface CheckboxData {
     handleChange: () => void;
 }
 
-export const CustomCheckboxLabel = styled(FormControlLabel)`
-    color: #969696 !important;
-    font-family: 'ISTOK WEB' !important;
-    margin-right: 30px !important;
+const CheckboxLabel = styled(BodyText)`
+	font-size: 12px;
+	color: #969696 ;
+    margin-right: 30px;
+	font-size: 12px;
+`;
 
-    @media (max-width: 850px) {
-        font-size: 14px;
-    }
+
+const Wrapper = styled.div`
+	display: flex;
+	align-items: center;
 `;
 
 export const AppCheckbox: React.FC<CheckboxData> = React.memo(function AppCheckbox({
@@ -28,17 +32,15 @@ export const AppCheckbox: React.FC<CheckboxData> = React.memo(function AppCheckb
     }, [title, handleChange]);
 
     return (
-        <CustomCheckboxLabel
-            control={
-                <Checkbox
-                    style={{ color: '#60BDBF' }}
-                    checked={isSelected}
-                    onChange={handleOnChange}
-                    name={title}
-                    color="primary"
-                />
-            }
-            label={title}
-        />
+		<Wrapper>
+			<Checkbox
+			style={{ color: '#60BDBF' }}
+			checked={isSelected}
+			onChange={handleOnChange}
+			color="primary"
+		/>
+		<CheckboxLabel>{title}</CheckboxLabel>
+
+		</Wrapper>
     );
 });

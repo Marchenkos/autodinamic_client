@@ -451,7 +451,7 @@ export class GraphQLApi {
         return response.data.categoryColumns;
     };
 
-    fetchMagnitolDetails = async (id: number): Promise<MagnitolDetails> => {
+    fetchMagnitolDetails = async (id: number): Promise<MagnitolDetails | null> => {
         const response = await this.client.query<SimpleGQLResponse<'magnitolDetails', MagnitolDetails>>({
             query: getMagnitolDetailsQuery,
             variables: {
@@ -463,7 +463,7 @@ export class GraphQLApi {
         return response.data.magnitolDetails;
     };
 
-    fetchAudioSpeakerDetails = async (id: number): Promise<AudioSpeaker> => {
+    fetchAudioSpeakerDetails = async (id: number): Promise<AudioSpeaker | null> => {
         const response = await this.client.query<SimpleGQLResponse<'audioSpeakerDetails', AudioSpeaker>>({
             query: getAudioSpeakerDetailsQuery,
             variables: {
@@ -475,7 +475,7 @@ export class GraphQLApi {
         return response.data.audioSpeakerDetails;
     };
 
-    fetchSignalisationDetails = async (id: number): Promise<SignalisationDetails> => {
+    fetchSignalisationDetails = async (id: number): Promise<SignalisationDetails | null> => {
         const response = await this.client.query<SimpleGQLResponse<'signalisationDetails', SignalisationDetails>>({
             query: getSignalisationDetailsQuery,
             variables: {
@@ -487,7 +487,7 @@ export class GraphQLApi {
         return response.data.signalisationDetails;
     };
 
-    fetchDVRDetails = async (id: number): Promise<DVRlDetails> => {
+    fetchDVRDetails = async (id: number): Promise<DVRlDetails | null> => {
         const response = await this.client.query<SimpleGQLResponse<'dvrDetails', DVRlDetails>>({
             query: getDVRDetailsQuery,
             variables: {
@@ -499,7 +499,7 @@ export class GraphQLApi {
         return response.data.dvrDetails;
     };
 
-    fetchSubwooferDetails = async (id: number): Promise<SubwooferDetails> => {
+    fetchSubwooferDetails = async (id: number): Promise<SubwooferDetails | null> => {
         const response = await this.client.query<SimpleGQLResponse<'subwooferDetails', SubwooferDetails>>({
             query: getSabwooferDetailsQuery,
             variables: {
@@ -511,7 +511,7 @@ export class GraphQLApi {
         return response.data.subwooferDetails;
     };
 
-    fetchAmplifierDetails = async (id: number): Promise<AmpliferDetails> => {
+    fetchAmplifierDetails = async (id: number): Promise<AmpliferDetails | null> => {
         const response = await this.client.query<SimpleGQLResponse<'amplifierDetails', AmpliferDetails>>({
             query: getAmplifierDetailsQuery,
             variables: {
@@ -548,7 +548,6 @@ export class GraphQLApi {
         name: string,
         email: string,
         message: string,
-        phoneNumber?: string
     ): Promise<RequestToCallbackResponse> => {
         const response = await this.client.query<SimpleGQLResponse<'sendRequestToCallback', RequestToCallbackResponse>>(
             {
@@ -558,7 +557,6 @@ export class GraphQLApi {
                         name,
                         email,
                         message,
-                        phoneNumber,
                     },
                 },
                 fetchPolicy: 'network-only',

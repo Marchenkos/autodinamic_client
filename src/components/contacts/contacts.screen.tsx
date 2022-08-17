@@ -12,16 +12,14 @@ export const API_KEY = 'AIzaSyBbVtUQaQ7u7ytsbB6OQ_0IRqOscjICMKQ';
 const Wrapper = styled.div`
     flex-grow: 1;
     background: white;
-	padding: 50px;
-
-    @media (max-width: 980px) {
-        padding: 20px;
-    }
 `;
 
 const PageTitleText = styled(TitleText)`
     font-size: 25px;
+	background: #858585;
     margin-bottom: 20px;
+    color: white;
+    padding: 15px;
 
     @media (max-width: 850px) {
         font-size: 20px;
@@ -32,11 +30,22 @@ const Section = styled.div`
 	margin-bottom: 50px;
 `;
 
+const CallBackFormWrapper = styled.div`
+	background: #f1f1f1;
+	border-top: 15px solid #498f91;
+	padding: 60px 0;
+`;
+
 const ContactInfoWtapper = styled.div`
     display: flex;
     justify-content: space-around;
     align-items: center;
     margin-bottom: 50px;
+	flex-direction: row;
+
+	@media (max-width: 850px) {
+	flex-direction: column;
+	}
 `;
 
 const ContactInfoSection = styled.div`
@@ -77,9 +86,12 @@ const PadeDetailWrapper = styled.div`
     display: flex;
     flex-direction: row;
 	margin-top: 50px;
+	padding: 50px;
 
     @media (max-width: 980px) {
         flex-direction: column;
+		padding: 20px;
+		margin-top: 0px;
     }
 `;
 
@@ -93,6 +105,7 @@ const TabBarBlock = styled.div`
         width: 100%;
         padding-left: 0px;
         margin-bottom: 20px;
+		justify-content: space-between;
     }
 `;
 
@@ -126,9 +139,10 @@ const UnitLink = styled(TitleLink).attrs({
     }
 
     @media (max-width: 850px) {
-        font-size: 14px;
-        width: 30%;
-        padding: 0px;
+        font-size: 11px;
+        max-width: 32%;
+        padding:0px;
+		margin: 0px;
     }
 `;
 
@@ -246,12 +260,12 @@ const ContactScreen: React.FC = React.memo(function ContactScreen() {
 
 						</ContactInfoWtapper>
 					</Section>
-
-					<Section id="callback-form">
-						<CallbackForm />
-					</Section>
 				</MainInfo>
 			</PadeDetailWrapper>
+
+			<CallBackFormWrapper id="callback-form">
+				<CallbackForm />
+			</CallBackFormWrapper>
         </Wrapper>
     );
 });

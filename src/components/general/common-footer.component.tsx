@@ -122,11 +122,11 @@ const menuConfig = [
 	[
 		{
 			name: 'о нас',
-			url: '/catalog/all',
+			url: '/contacts',
 		},
 		{
 			name: 'проверка заказа',
-			url: '/catalog/all',
+			url: '/check-order',
 		},
 		{
 			name: 'условия доставки',
@@ -183,7 +183,7 @@ export const CommonFooter: React.FC = React.memo(function CommonFooter() {
 			</FooterContent>
 
             <FooterCopyrightWrapper>
-                <CopyriterText>© Марсенко Ксения, 2021. Все права защищены.</CopyriterText>
+                <CopyriterText>© Марченко Ксения, 2022. Все права защищены.</CopyriterText>
                 <CopyriterTextDescription>
                     Автодинамик — интернет-магазин современной аудиотехники для автомобилей
                 </CopyriterTextDescription>

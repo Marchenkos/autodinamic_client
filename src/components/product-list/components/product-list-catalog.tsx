@@ -116,12 +116,6 @@ export const ProductListCatalog: React.FC<ProductListCatalogProps> = React.memo(
         <LoadingState />
     }
 
-
-    if (productList.length < 1) {
-        return <ProductListEmpty />;
-    }
-
-
     return (
         <CatalogWrapper>
             <HeaderWrapper>

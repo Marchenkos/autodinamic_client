@@ -1,14 +1,13 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { SET_SORT_SECTION } from '../actions';
-import { AppSelectorWithoutLabel } from '../../../ui/app-selector.component';
-import { getSelectedSort } from '../selector';
-import FilterListIcon from '@material-ui/icons/FilterList';
+import { SET_FILTER_SECTIONS } from '../actions';
+import { getSelectedFilters, getSelectedSort } from '../selector';
 import LinearScaleIcon from '@material-ui/icons/LinearScale';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import { BodyText } from '../../../ui/text';
+import { TOGGLE_DRAWER } from '../../drawer/actions';
+import { FilterMobile } from './filter.mobile.component';
 
 const Wrapper = styled.div`
 	width: 40%;
@@ -37,51 +36,32 @@ const SortText = styled(BodyText)`
 	margin: 0 5px;
 `;
 
-//TODO move to firebase??
-const sortingConfig = [
-    {
-        label: 'Сначала новые',
-        value: 'new',
-    },
-    {
-        label: 'Сначала дорогие',
-        value: 'max_price',
-    },
-    {
-        label: 'Сначала дешевые',
-        value: 'min_price',
-    },
-];
-
 export const MobileFilter: React.FC = React.memo(function MobileFilter() {
     const dispatch = useDispatch();
-    const selectedSort = useSelector(getSelectedSort);
-	const sortName = useMemo(() => {
-		const value = sortingConfig.find((item) => item.value === selectedSort);
+	const selectedFilters = useSelector(getSelectedFilters);
 
-		if (!value) {
-			return 'Сортировка';
-		}
+	const handleCleanFilter = useCallback(() => {
+        dispatch(SET_FILTER_SECTIONS(undefined));
+		dispatch(TOGGLE_DRAWER({
+			isShow: false
+		}))
+    }, [dispatch]);
 
-		return value.label;
-	}, [selectedSort]);
-
-    const handleSetSort = useCallback(
-        (event: any) => {
-            const chosenCategory = sortingConfig.find((item) => item.value === event.target.value);
-
-            if (chosenCategory) {
-                dispatch(SET_SORT_SECTION(chosenCategory.value));
-            }
+    const handleOpenFilter = useCallback(
+        () => {
+			dispatch(TOGGLE_DRAWER({
+				isShow: true,
+				children: <FilterMobile cleanFilter={handleCleanFilter} />
+			}));
         },
-        [dispatch, selectedSort]
+        [dispatch]
     );
 
 	return (
-		<Wrapper>
+		<Wrapper onClick={handleOpenFilter}>
 			<LinearScaleIcon style={{ fontSize: '16px'}} />
 			<SortText>Фильтр</SortText>
-			<CircleWrapper>1</CircleWrapper>
+			{selectedFilters && <CircleWrapper>{selectedFilters.length}</CircleWrapper>}
 		</Wrapper>
 	 );
 });

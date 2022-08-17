@@ -22,6 +22,15 @@ const Section = styled.div`
     margin-bottom: 25px;
 `;
 
+const BlockBox = styled.div`
+	width: 104%;
+	position: absolute;
+	height: 100%;
+	top: 80px;
+	background: #f2f2f2a1;
+	margin-left: -20px;
+`;
+
 const HeaderWrapper = styled.div`
     display: flex;
     width: 100%;
@@ -42,6 +51,7 @@ const FilterWrapper = styled.div`
     padding-right: 30px;
     border-right: 1px solid #efefef;
     min-height: 70vh;
+	position: relative;
 `;
 
 const SectionTitle = styled(BodyText).attrs({
@@ -83,11 +93,10 @@ export const FilterDesktop: React.FC<FilterProps> = React.memo(function SimpleFi
         return (
             filters &&
             filters.map((filter: FilterObject, index) => (
-                <>
+                <div key={index}>
                     <SectionTitle>{filter.view_field_name && capitalizeString(filter.view_field_name)}</SectionTitle>
-
                     <Section>{renderSectionsValues(filter)}</Section>
-                </>
+                </div>
             ))
         );
     }, [filters]);
@@ -104,6 +113,7 @@ export const FilterDesktop: React.FC<FilterProps> = React.memo(function SimpleFi
                 isSecondary
                 label="Очистить"
             />
+			<BlockBox />
         </FilterWrapper>
     );
 });

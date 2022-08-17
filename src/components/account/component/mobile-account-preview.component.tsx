@@ -5,8 +5,8 @@ import styled from 'styled-components';
 
 import { StyledIcons } from '../../../ui/styled-icon.component';
 import { BodyText, TextColor } from '../../../ui/text';
-import { TOGGLE_AUTH_DRAWER } from '../../auth/actions';
-import { SHOW_SIMPLE_MODAL } from '../../modal/actions';
+import { AuthDrawer } from '../../auth/components/auth-drawer.component';
+import { TOGGLE_DRAWER } from '../../drawer/actions';
 import { getUser } from '../selectors';
 
 const PreviewWrapper = styled.button`
@@ -33,7 +33,10 @@ export const MobileAccountPreview: React.FC = React.memo(function AccountPreview
         if (userData) {
             history.push('/account');
         } else {
-            dispatch(TOGGLE_AUTH_DRAWER({ isShow: true }));
+            dispatch(TOGGLE_DRAWER({
+				isShow: true,
+				children: <AuthDrawer />
+			}));
         }
     }, [userData, history]);
 
