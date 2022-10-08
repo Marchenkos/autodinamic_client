@@ -37,10 +37,12 @@ export const AccountPreview: React.FC = React.memo(function AccountPreview() {
         if (userData) {
             history.push('/account');
         } else {
-            dispatch(TOGGLE_DRAWER({
-				isShow: true,
-				children: <AuthDrawer />
-			}));
+            dispatch(
+                TOGGLE_DRAWER({
+                    isShow: true,
+                    children: <AuthDrawer />,
+                })
+            );
         }
     }, [userData, history]);
 
@@ -58,14 +60,14 @@ export const AccountPreview: React.FC = React.memo(function AccountPreview() {
 
     return (
         <>
-        <Section onClick={navigateToWishlist}>
-            <StyledIcons mainColor='#fff' hoveredColor='#fff' className="icon-heart-o" />
-            <SectionHeader>Избранное</SectionHeader>
-        </Section>
-        <Section onClick={navigateToAccount}>
-            <StyledIcons mainColor='#fff' hoveredColor='#fff' className="icon-account_circle" />
-            <SectionHeader>Аккаунт</SectionHeader>
-        </Section>
+            <Section onClick={navigateToWishlist}>
+                <StyledIcons mainColor="#fff" hoveredColor="#fff" className="icon-heart-o" />
+                <SectionHeader>Избранное</SectionHeader>
+            </Section>
+            <Section onClick={navigateToAccount}>
+                <StyledIcons mainColor="#fff" hoveredColor="#fff" className="icon-account_circle" />
+                <SectionHeader>Аккаунт</SectionHeader>
+            </Section>
         </>
     );
 });

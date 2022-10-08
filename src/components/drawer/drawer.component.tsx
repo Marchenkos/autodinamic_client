@@ -21,9 +21,7 @@ export const AppDrawer: React.FC = React.memo(function AppDrawer() {
     const isShowDrawer = useSelector(getIsShowDrawer);
     const drawerContent = useSelector(getDrawerContent);
 
-	const drawerWidth = useMemo(() => 
-		isMobile ? '100%' : '60%'
-	, [isMobile])
+    const drawerWidth = useMemo(() => (isMobile ? '100%' : '60%'), [isMobile]);
 
     const toggleDrawer = useCallback(() => {
         dispatch(TOGGLE_DRAWER({ isShow: false }));
@@ -36,10 +34,10 @@ export const AppDrawer: React.FC = React.memo(function AppDrawer() {
             open={isShowDrawer && !!drawerContent}
             onClose={toggleDrawer}
         >
-			<CloseButtonWrapper>
+            <CloseButtonWrapper>
                 <StyledIcons className="icon-close" size={30} onClick={toggleDrawer} />
             </CloseButtonWrapper>
-           {drawerContent}
+            {drawerContent}
         </Drawer>
     );
 });

@@ -30,7 +30,7 @@ export enum PRODUCT_CATEGORY_TYPE {
     SUB = 'subwoofers',
     DVRS = 'dvrs',
     SIGNALISATION = 'signalisation',
-    AUTO_AMPLIFIER = 'auto_amplifiers'
+    AUTO_AMPLIFIER = 'auto_amplifiers',
 }
 
 export const PRODUCT_CATEGORY_TO_CATEGORY_IMAGES = {

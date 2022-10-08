@@ -15,9 +15,9 @@ const RegisterFormWrapper = styled.div`
     align-items: center;
     justify-content: center;
 
-	@media (max-width: 800px) {
-		margin-top: 100px;
-	}
+    @media (max-width: 800px) {
+        margin-top: 100px;
+    }
 `;
 
 const TextButton = styled.button`

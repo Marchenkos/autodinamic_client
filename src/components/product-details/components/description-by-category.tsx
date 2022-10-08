@@ -23,11 +23,11 @@ export interface ProductDescription {
 }
 
 interface DescriptionByCategoryProps {
-	productDetails: ProductCharacteristicInfo
+    productDetails: ProductCharacteristicInfo;
 }
 
 export const DescriptionByCategory: React.FC<DescriptionByCategoryProps> = React.memo(function DescriptionByCategory({
-	productDetails
+    productDetails,
 }: DescriptionByCategoryProps) {
     const categoryFields = useSelector(getProductFields);
 

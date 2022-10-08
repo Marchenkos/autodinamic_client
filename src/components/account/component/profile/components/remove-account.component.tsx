@@ -57,13 +57,11 @@ export const RemoveAccount: React.FC = React.memo(function RemoveAccount() {
     const handleRemoveAccount = useCallback(
         (choice: boolean) => {
             if (choice && currentUser) {
-                dispatch(REMOVE_ACCOUNT.TRIGGER(currentUser.email))
+                dispatch(REMOVE_ACCOUNT.TRIGGER(currentUser.email));
             }
         },
         [dispatch, currentUser]
     );
-
-    
 
     const handleOnRemove = useCallback(() => {
         dispatch(
@@ -82,12 +80,11 @@ export const RemoveAccount: React.FC = React.memo(function RemoveAccount() {
                     При удалении аккаунта, <WarningText>вся сохраненная информация будет потеряна.</WarningText>
                 </DescriptionBodyText>
                 <DescriptionBodyText>
-                    Если у Вас есть текущие заказы, которые находятся в
-                    обработке, либо уже доставляются, то эти <WarningText>ЗАКАЗЫ НЕ БУДУТ ОТМЕНЕНЫ</WarningText>. Чтобы отменить заказы, перейдите в "Мои заказы" и
-                    воспользуйтесь отменой, либо свяжитесь с продавцом.
+                    Если у Вас есть текущие заказы, которые находятся в обработке, либо уже доставляются, то эти{' '}
+                    <WarningText>ЗАКАЗЫ НЕ БУДУТ ОТМЕНЕНЫ</WarningText>. Чтобы отменить заказы, перейдите в "Мои заказы"
+                    и воспользуйтесь отменой, либо свяжитесь с продавцом.
                 </DescriptionBodyText>
             </div>
-
 
             <ButtonWrapper>
                 <StyledButton

@@ -42,9 +42,7 @@ export const CommentItem: React.FC<CommentItemProps> = React.memo(function Comme
     return (
         <CommentItemWrapper>
             <UseInfo>
-                {comment.userAvatar && (
-                    <UserAvatarImage src={comment.userAvatar} />
-                )}
+                {comment.userAvatar && <UserAvatarImage src={comment.userAvatar} />}
                 <UserName>{comment.userName}</UserName>
                 <CommentTime>{parseDate()}</CommentTime>
             </UseInfo>

@@ -15,16 +15,16 @@ import { TOGGLE_DRAWER } from '../../../../drawer/actions';
 const NameText = styled(TitleText).attrs({ size: TextSize.SMALL })`
     margin-bottom: 5px;
 
-	@media (max-width: 850px) {
-		font-size: 12px;
+    @media (max-width: 850px) {
+        font-size: 12px;
     }
 `;
 
 const ValueText = styled(BodyText).attrs({ size: TextSize.SMALL })`
     margin-bottom: 5px;
 
-	@media (max-width: 850px) {
-		font-size: 13px;
+    @media (max-width: 850px) {
+        font-size: 13px;
     }
 `;
 
@@ -45,11 +45,11 @@ const AddressWrapper = styled.div`
     padding: 20px;
     margin: 5px 0;
 
-	@media (max-width: 850px) {
-		min-width: 50%;
-		max-width: 100%;
-		padding: 20px 0;
-		margin: 0;
+    @media (max-width: 850px) {
+        min-width: 50%;
+        max-width: 100%;
+        padding: 20px 0;
+        margin: 0;
     }
 `;
 
@@ -60,8 +60,8 @@ const Section = styled.div`
 `;
 
 const ButtomWrapper = styled.div`
-	display: flex;
-	width: 100%;
+    display: flex;
+    width: 100%;
     margin: 2px 0;
     justify-content: flex-end;
     margin-top: -24px;

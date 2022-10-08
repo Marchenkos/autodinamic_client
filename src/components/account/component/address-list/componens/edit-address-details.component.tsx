@@ -18,7 +18,7 @@ const Wrapper = styled.div`
     box-sizing: border-box;
     width: 100%;
     padding: 100px 30px 0;
-	flex-direction: column;
+    flex-direction: column;
 `;
 
 const ButtonWrapper = styled.div`
@@ -70,8 +70,7 @@ export const EditDeliveryInfo: React.FC<EditDeliveryInfoProps> = React.memo(func
                 const setIsDefault = userAddressInfo ? false : true;
 
                 dispatch(ADD_DELIVERY_ADDRESS.TRIGGER({ ...formInput, isDefault: setIsDefault }));
-            
-			} else {
+            } else {
                 dispatch(EDIT_DELIVERY_ADDRESS.TRIGGER({ ...formInput, isDefault: address.isDefault, id: address.id }));
             }
 
@@ -103,7 +102,7 @@ export const EditDeliveryInfo: React.FC<EditDeliveryInfoProps> = React.memo(func
 
     return (
         <Wrapper>
-			<FormTitle>{address ? 'Изменить адресс' : 'Добавить адресс'}</FormTitle>
+            <FormTitle>{address ? 'Изменить адресс' : 'Добавить адресс'}</FormTitle>
             <Controller
                 control={control}
                 render={({ field, fieldState }) => (

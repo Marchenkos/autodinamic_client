@@ -23,7 +23,7 @@ const PostInfoWrapper = styled.div`
 const LabelText = styled(BodyText).attrs({ color: TextColor.DARK, size: TextSize.SMALL })`
     margin: 0px 0 10px;
 
-	@media (max-width: 850px) {
+    @media (max-width: 850px) {
         font-size: 11px;
     }
 `;
@@ -31,7 +31,7 @@ const LabelText = styled(BodyText).attrs({ color: TextColor.DARK, size: TextSize
 const AddressText = styled(BodyText).attrs({ color: TextColor.BLUE, size: TextSize.SMALL, weight: TextWeight.MEDIUM })`
     margin: 0 0 10px 10px;
 
-	@media (max-width: 850px) {
+    @media (max-width: 850px) {
         font-size: 12px;
     }
 `;
@@ -107,7 +107,7 @@ export const PostDeliveryInfo: React.FC<PostDeliveryInfoProps> = React.memo(func
                 <AddressText>5 BYN</AddressText>
             </div>
 
-			<Controller
+            <Controller
                 control={control}
                 render={({ field, fieldState }) => (
                     <AppSelector

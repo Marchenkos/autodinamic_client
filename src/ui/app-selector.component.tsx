@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
         width: '200px',
         '@media (max-width: 860px)': {
             width: '100%',
-			fontSize: '12px',
+            fontSize: '12px',
         },
         fontSize: '14px',
     },
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
         width: '200px',
         '@media (max-width: 860px)': {
             width: '100%',
-			fontSize: '12px',
+            fontSize: '12px',
         },
         fontSize: '14px',
     },
@@ -160,7 +160,7 @@ export const AppMultipleSelectorWithoutLabel: React.FC<AppMultipleSelectorWithou
                     value={values}
                     renderValue={(selected) => (
                         <div className={classes.chips}>
-                            {((selected as unknown) as string[]).map((value: string) => (
+                            {(selected as unknown as string[]).map((value: string) => (
                                 <Chip key={value} label={value} className={classes.chip} />
                             ))}
                         </div>

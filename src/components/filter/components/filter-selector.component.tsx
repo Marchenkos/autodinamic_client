@@ -39,25 +39,23 @@ const CheckboxWrapper = styled.div`
     align-items: center;
 `;
 
-const CheckboxLabel = styled(BodyText).attrs({ size: TextSize.EXTRA_SMALL })`
-    
-`;
+const CheckboxLabel = styled(BodyText).attrs({ size: TextSize.EXTRA_SMALL })``;
 
 export interface FilterCheckboxItemProps {
     itemName: string;
     checked: boolean;
-    handleOnChange: (name: string) => void
+    handleOnChange: (name: string) => void;
 }
 
 export const FilterCheckboxItem: React.FC<FilterCheckboxItemProps> = React.memo(function FilterCheckboxItem({
     itemName,
     handleOnChange,
-    checked
+    checked,
 }: FilterCheckboxItemProps) {
     const onChange = useCallback(() => {
-        handleOnChange(itemName)
+        handleOnChange(itemName);
     }, [handleOnChange, itemName]);
-   
+
     return (
         <CheckboxWrapper>
             <Checkbox checked={checked} onChange={onChange} />
@@ -101,23 +99,31 @@ export const FilterSelector: React.FC<FilterSelectorProps> = React.memo(function
         [enName, selectedFilters, dispatch]
     );
 
-    const handleCheckboxUpdate = useCallback((name: string) => {
-        let newSelectedValues = selectedFiltersValues;
-    
-        if (selectedFiltersValues.indexOf(name) === -1) {
-            newSelectedValues.push(name);
-        } else {
-            newSelectedValues = selectedFiltersValues.filter((item) => item !== name);
-        }
-        
-        handleChangeMultiple(newSelectedValues)
-    }, [selectedFiltersValues]);
+    const handleCheckboxUpdate = useCallback(
+        (name: string) => {
+            let newSelectedValues = selectedFiltersValues;
+
+            if (selectedFiltersValues.indexOf(name) === -1) {
+                newSelectedValues.push(name);
+            } else {
+                newSelectedValues = selectedFiltersValues.filter((item) => item !== name);
+            }
+
+            handleChangeMultiple(newSelectedValues);
+        },
+        [selectedFiltersValues]
+    );
 
     return (
-       <SelectorWrapper>
+        <SelectorWrapper>
             {filterValues.map((item, index) => (
-                <FilterCheckboxItem key={`${item}-${index}`} checked={selectedFiltersValues.indexOf(item) > -1} itemName={item} handleOnChange={handleCheckboxUpdate}/>
+                <FilterCheckboxItem
+                    key={`${item}-${index}`}
+                    checked={selectedFiltersValues.indexOf(item) > -1}
+                    itemName={item}
+                    handleOnChange={handleCheckboxUpdate}
+                />
             ))}
-       </SelectorWrapper>
+        </SelectorWrapper>
     );
 });

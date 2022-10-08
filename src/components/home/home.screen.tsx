@@ -33,8 +33,8 @@ const SaleWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-	padding: 50px;
-	flex-direction: row;
+    padding: 50px;
+    flex-direction: row;
 
     @media (max-width: 800px) {
         flex-direction: column;
@@ -50,10 +50,10 @@ const PromoSection = styled.div`
     justify-content: flex-start;
     align-items: flex-start;
     padding: 0 50px;
-	box-sizing: border-box;
+    box-sizing: border-box;
 
-	@media (max-width: 600px) {
-		padding: 0 10px;
+    @media (max-width: 600px) {
+        padding: 0 10px;
     }
 `;
 
@@ -88,19 +88,19 @@ const SaleText = styled(BodyText).attrs({ size: TextSize.LARGE, weight: TextWeig
     color: black;
     max-width: 500px;
 
-	font-size: 18px;
+    font-size: 18px;
     padding-right: 40px;
     box-sizing: border-box;
 
     @media (max-width: 800px) {
-		margin-bottom: 10px;
+        margin-bottom: 10px;
 
-		font-size: 15px;
-		line-height: 27px;
+        font-size: 15px;
+        line-height: 27px;
         margin-bottom: 20px;
-		text-align: center;
+        text-align: center;
 
-		padding-right: 0px;
+        padding-right: 0px;
     }
 `;
 
@@ -111,7 +111,7 @@ const HeaderText = styled(TitleText).attrs({ weight: TextWeight.BOLD })`
 
     @media (max-width: 769px) {
         margin-bottom: 30px;
-		margin-left: 10px;
+        margin-left: 10px;
         font-size: 20px;
     }
 `;
@@ -123,13 +123,15 @@ const HomeScreen: React.FC = React.memo(function HomeScreen() {
     const discountProductList = useSelector(getDiscountProductList);
 
     React.useEffect(() => {
-        dispatch(FETCH_DISCOUNT_PRODUCT_LIST.TRIGGER({
-            limit: 8,
-            next: 0,
-            categoryName: PRODUCT_CATEGORY_TYPE.ALL,
-            sort: '',
-            isHasDiscount: true
-        }));
+        dispatch(
+            FETCH_DISCOUNT_PRODUCT_LIST.TRIGGER({
+                limit: 8,
+                next: 0,
+                categoryName: PRODUCT_CATEGORY_TYPE.ALL,
+                sort: '',
+                isHasDiscount: true,
+            })
+        );
     }, [dispatch, discountProductList]);
 
     const navigateToCatalog = React.useCallback(() => {
@@ -143,16 +145,11 @@ const HomeScreen: React.FC = React.memo(function HomeScreen() {
             </MainBanner>
             <SaleWrapper>
                 <SaleText>Зарегистрируйся, оформи свой первый заказ и получи скидку 5%</SaleText>
-				<StyledButton
-                    additionalStyles={{ width: '200px' }}
-                    onClick={navigateToCatalog}
-                    label="Выбрать товар"
-                />
+                <StyledButton additionalStyles={{ width: '200px' }} onClick={navigateToCatalog} label="Выбрать товар" />
             </SaleWrapper>
             <PromoSection>
                 <HeaderText>Категории товаров</HeaderText>
                 <CategoryPromo />
-
             </PromoSection>
 
             <PromoSection>

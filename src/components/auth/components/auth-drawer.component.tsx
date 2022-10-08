@@ -7,15 +7,14 @@ import { TOGGLE_DRAWER } from '../../drawer/actions';
 import { LoginDrawerItem } from './login-drawer-item.component';
 import { RegisterDrawerItem } from './register-drawer-item.component';
 
-
 const ContentWrapper = styled.div`
-	@media (max-width: 900px) {
-		margin-top: 70px;
-	}
+    @media (max-width: 900px) {
+        margin-top: 70px;
+    }
 
-	@media (max-width: 800px) {
-		margin-top: 20px;
-	}
+    @media (max-width: 800px) {
+        margin-top: 20px;
+    }
 `;
 
 const QuestionButtonWrapper = styled.div`
@@ -57,15 +56,13 @@ export const AuthDrawer: React.FC = React.memo(function AuthDrawer() {
     }, [dispatch]);
 
     return (
-		<>
+        <>
             <QuestionButtonWrapper>
-                <TextButton onClick={toggleForms}>{
-                    isRegisterForm ? "Уже зарегистрированы?" : "Еще нет аккаунта?"
-                }</TextButton>
+                <TextButton onClick={toggleForms}>
+                    {isRegisterForm ? 'Уже зарегистрированы?' : 'Еще нет аккаунта?'}
+                </TextButton>
             </QuestionButtonWrapper>
-			<ContentWrapper>
-            	{renderForm}
-			</ContentWrapper>
+            <ContentWrapper>{renderForm}</ContentWrapper>
         </>
     );
 });

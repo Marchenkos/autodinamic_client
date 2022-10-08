@@ -22,13 +22,21 @@ const BasketScreen: React.FC = React.memo(function BasketScreen() {
         if (basketItemCount === 0) {
             history.push('/catalog/all');
         }
-    }, [basketItemCount])
+    }, [basketItemCount]);
 
     if (deviceSize < 810) {
-        return <Wrapper><MobileBasket /></Wrapper>;
+        return (
+            <Wrapper>
+                <MobileBasket />
+            </Wrapper>
+        );
     }
 
-    return <Wrapper><Basket /></Wrapper>;
+    return (
+        <Wrapper>
+            <Basket />
+        </Wrapper>
+    );
 });
 
 export default BasketScreen;

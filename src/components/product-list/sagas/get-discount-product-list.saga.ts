@@ -16,13 +16,24 @@ export class GetDiscountProductListError extends Error {
     }
 }
 
-export function* getDiscountProductListSaga(action: ReturnType<typeof FETCH_DISCOUNT_PRODUCT_LIST.TRIGGER>): SagaIterator {
+export function* getDiscountProductListSaga(
+    action: ReturnType<typeof FETCH_DISCOUNT_PRODUCT_LIST.TRIGGER>
+): SagaIterator {
     try {
         const { limit, next, categoryName, sort, filters, isNew = false, isHasDiscount = true } = action.payload;
 
         yield put(FETCH_DISCOUNT_PRODUCT_LIST.STARTED(action.payload));
 
-        const response: ProductList = yield call(graphqlApi.client.fetchProductList, limit, next, categoryName, sort, isNew, isHasDiscount, filters);
+        const response: ProductList = yield call(
+            graphqlApi.client.fetchProductList,
+            limit,
+            next,
+            categoryName,
+            sort,
+            isNew,
+            isHasDiscount,
+            filters
+        );
 
         yield put(FETCH_DISCOUNT_PRODUCT_LIST.COMPLETED(response));
     } catch (err) {

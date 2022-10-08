@@ -24,7 +24,6 @@ const CatalogWrapper = styled.div`
     }
 `;
 
-
 const ConditionSection = styled.div`
     display: flex;
 
@@ -64,39 +63,41 @@ const CountText = styled(BodyText)`
 `;
 
 interface SearchProductListCatalogProps {
-    searchTerms: string[]
+    searchTerms: string[];
 }
 
-export const SearchProductListCatalog: React.FC<SearchProductListCatalogProps> = React.memo(function SearchProductListCatalog({
-    searchTerms,
-}: SearchProductListCatalogProps) {
-    const productList = useSelector(getSearchProductList);
-    const isFetching = useSelector(getIsSearchProductListFetching);
-    const searchString = useMemo(() => searchTerms.join(" "), [searchTerms]);
-    const productsCount = useSelector(getSearchProductsCount);
+export const SearchProductListCatalog: React.FC<SearchProductListCatalogProps> = React.memo(
+    function SearchProductListCatalog({ searchTerms }: SearchProductListCatalogProps) {
+        const productList = useSelector(getSearchProductList);
+        const isFetching = useSelector(getIsSearchProductListFetching);
+        const searchString = useMemo(() => searchTerms.join(' '), [searchTerms]);
+        const productsCount = useSelector(getSearchProductsCount);
 
-    const renderList = useMemo(() => productList.map((item: GeneralProduct, index: number) => (
-        <ProductListItem isNew={false} key={index} product={item} />
-    )), [productList]);
+        const renderList = useMemo(
+            () =>
+                productList.map((item: GeneralProduct, index: number) => (
+                    <ProductListItem isNew={false} key={index} product={item} />
+                )),
+            [productList]
+        );
 
-    if (isFetching) {
-        <LoadingState />
+        if (isFetching) {
+            <LoadingState />;
+        }
+
+        return (
+            <CatalogWrapper>
+                <HeaderWrapper>
+                    <ProductHeader>
+                        <TitleText>Поиск "{searchString}"</TitleText>
+                    </ProductHeader>
+                    <ConditionSection>
+                        <Sorting />
+                    </ConditionSection>
+                </HeaderWrapper>
+                <CountText>{`Найдено ${productsCount} товаров по запросу ${searchString}`}</CountText>
+                <ProductsWrapper>{renderList}</ProductsWrapper>
+            </CatalogWrapper>
+        );
     }
-
-    return (
-        <CatalogWrapper>
-            <HeaderWrapper>
-                <ProductHeader>
-                    <TitleText>Поиск "{searchString}"</TitleText>
-                </ProductHeader>
-                <ConditionSection>
-                    <Sorting />
-                </ConditionSection>
-            </HeaderWrapper>
-            <CountText>{`Найдено ${productsCount} товаров по запросу ${searchString}`}</CountText>
-            <ProductsWrapper>
-                {renderList}
-            </ProductsWrapper>
-        </CatalogWrapper>
-    );
-});
+);

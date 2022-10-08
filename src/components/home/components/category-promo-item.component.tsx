@@ -23,9 +23,9 @@ const CategoryNameText = styled(BodyText).attrs({ weight: TextWeight.MEDIUM })`
     text-transform: capitalize;
     font-size: 15px;
 
-	@media (max-width: 800px) {
-		margin: 10px 0;
-		font-size: 14px;
+    @media (max-width: 800px) {
+        margin: 10px 0;
+        font-size: 14px;
     }
 `;
 
@@ -33,8 +33,8 @@ const CategoryImage = styled.img`
     max-width: 170px;
     border-radius: 50%;
 
-	@media (max-width: 800px) {
-		max-width: 100px;
+    @media (max-width: 800px) {
+        max-width: 100px;
     }
 `;
 
@@ -43,7 +43,7 @@ interface CategoryPromoItemProps {
 }
 
 export const CategoryPromoItem: React.FC<CategoryPromoItemProps> = React.memo(function CategoryPromoItem({
-    categoryName
+    categoryName,
 }: CategoryPromoItemProps) {
     const history = useHistory();
 
@@ -58,9 +58,9 @@ export const CategoryPromoItem: React.FC<CategoryPromoItemProps> = React.memo(fu
     }
 
     return (
-       <CategoryPromoItemWrapper onClick={handleChooseCategory}>
-           <CategoryImage src={image} />
-           <CategoryNameText>{categoryName.title}</CategoryNameText>
-       </CategoryPromoItemWrapper>
+        <CategoryPromoItemWrapper onClick={handleChooseCategory}>
+            <CategoryImage src={image} />
+            <CategoryNameText>{categoryName.title}</CategoryNameText>
+        </CategoryPromoItemWrapper>
     );
 });

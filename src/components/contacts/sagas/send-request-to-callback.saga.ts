@@ -16,7 +16,7 @@ export function* fetchAccountDetailsSaga(action: ReturnType<typeof SEND_REQUEST_
             graphqlApi.client.sendRequestToCallback,
             name,
             email,
-            message,
+            message
         );
 
         yield put(SEND_REQUEST_TO_CALLBACK.COMPLETED(response.isSuccess));

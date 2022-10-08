@@ -21,18 +21,23 @@ export function* addAddressSaga(action: ReturnType<typeof ADD_DELIVERY_ADDRESS.T
         );
 
         yield put(ADD_DELIVERY_ADDRESS.COMPLETED(response));
-		yield put(TOGGLE_DRAWER({
-			isShow: false
-		}));
-
+        yield put(
+            TOGGLE_DRAWER({
+                isShow: false,
+            })
+        );
     } catch (err) {
-		yield put(TOGGLE_DRAWER({
-			isShow: false
-		}));
-		yield put(SHOW_TOAST({
-			message: 'Не удалось добавить адресс.', 
-			status: 'error'
-		}));
+        yield put(
+            TOGGLE_DRAWER({
+                isShow: false,
+            })
+        );
+        yield put(
+            SHOW_TOAST({
+                message: 'Не удалось добавить адресс.',
+                status: 'error',
+            })
+        );
     }
 }
 

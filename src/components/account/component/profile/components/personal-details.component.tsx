@@ -26,9 +26,9 @@ const HorizontalWrapper = styled.div`
     display: flex;
     width: 100%;
     justify-content: space-between;
-	flex-direction: row;
+    flex-direction: row;
 
-	@media (max-width: 850px) {
+    @media (max-width: 850px) {
         flex-direction: column;
     }
 `;
@@ -36,8 +36,8 @@ const HorizontalWrapper = styled.div`
 const NameWrapper = styled.div`
     width: 50%;
 
-	@media (max-width: 850px) {
-		width: 100%;
+    @media (max-width: 850px) {
+        width: 100%;
     }
 `;
 

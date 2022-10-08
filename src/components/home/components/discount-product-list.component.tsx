@@ -17,25 +17,24 @@ const CatalogWrapper = styled.div`
 
     @media (max-width: 850px) {
         width: 100%;
-		justify-content: space-between;
+        justify-content: space-between;
     }
 `;
 
 interface DiscountProductListProps {
-    products: GeneralProduct[]
+    products: GeneralProduct[];
 }
 
 export const DiscountProductList: React.FC<DiscountProductListProps> = React.memo(function DiscountProductList({
-    products
+    products,
 }: DiscountProductListProps) {
-
-    const renderList = useMemo(() => products.map((item: GeneralProduct, index: number) => (
-        <ProductListItem isNew={false} key={index} product={item} />
-    )), [products]);
-
-    return (
-        <CatalogWrapper>
-            {renderList}
-        </CatalogWrapper>
+    const renderList = useMemo(
+        () =>
+            products.map((item: GeneralProduct, index: number) => (
+                <ProductListItem isNew={false} key={index} product={item} />
+            )),
+        [products]
     );
+
+    return <CatalogWrapper>{renderList}</CatalogWrapper>;
 });

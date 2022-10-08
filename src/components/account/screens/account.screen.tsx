@@ -31,7 +31,7 @@ const MenuWrapper = styled.div`
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-		box-sizing: border-box;
+        box-sizing: border-box;
     }
 `;
 
@@ -50,7 +50,7 @@ export const AccountTitle = styled(TitleText)`
         font-size: 20px;
         margin-bottom: 15px;
         min-width: 200px;
-		margin-left: 20px;
+        margin-left: 20px;
     }
 
     @media (max-width: 450px) {
@@ -82,8 +82,8 @@ const ContentWrapper = styled.div<{ isCentered?: boolean }>`
 
 const AccountScreen: React.FC = React.memo(function AccountScreen() {
     const userData = useSelector(getUser);
-	const isFetching = useSelector(geIsFetchingtUserDetails);
-	
+    const isFetching = useSelector(geIsFetchingtUserDetails);
+
     const history = useHistory();
 
     useEffect(() => {

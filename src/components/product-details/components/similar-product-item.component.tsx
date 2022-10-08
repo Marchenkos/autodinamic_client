@@ -65,7 +65,7 @@ export interface SimilarProductItemProps {
 export const SimilarProductItem: React.FC<SimilarProductItemProps> = React.memo(function SimilarProductItem({
     item,
 }: SimilarProductItemProps) {
-	const isInWishlist = useIsInWishlist({ productId: item.id })
+    const isInWishlist = useIsInWishlist({ productId: item.id });
     const [isOver, setIsOver] = useState(false);
     let history = useHistory();
 

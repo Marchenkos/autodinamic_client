@@ -97,7 +97,7 @@ export class GraphQLApi {
                     filters,
                     isNew,
                     isHasDiscount,
-                    searchTerms
+                    searchTerms,
                 },
             },
             fetchPolicy: 'network-only',
@@ -111,7 +111,7 @@ export class GraphQLApi {
         next: number,
         sort: string,
         searchTerms: string[],
-        filters?: SelectedFilterSection[],
+        filters?: SelectedFilterSection[]
     ): Promise<ProductList> => {
         const response = await this.client.query<SimpleGQLResponse<'productsBySearchTerm', ProductList>>({
             query: getProductListByTermsQuery,
@@ -121,7 +121,7 @@ export class GraphQLApi {
                     next,
                     sort,
                     searchTerms,
-                    filters
+                    filters,
                 },
             },
             fetchPolicy: 'network-only',
@@ -372,7 +372,7 @@ export class GraphQLApi {
         const response = await this.client.mutate<SimpleGQLResponse<'removeAccount', Boolean>>({
             mutation: removeAccountMutation,
             variables: {
-                email
+                email,
             },
         });
 
@@ -380,7 +380,6 @@ export class GraphQLApi {
 
         return response.data.removeAccount;
     };
-
 
     toggleWishlist = async (id: number): Promise<User> => {
         const response = await this.client.mutate<SimpleGQLResponse<'toggleWishlist', User>>({
@@ -413,7 +412,7 @@ export class GraphQLApi {
     };
 
     getOrderById = async (id: string): Promise<Order> => {
-		console.log('LALLA')
+        console.log('LALLA');
         const response = await this.client.query<SimpleGQLResponse<'orderById', Order>>({
             query: getOrderByIdQuery,
             variables: {
@@ -547,7 +546,7 @@ export class GraphQLApi {
     sendRequestToCallback = async (
         name: string,
         email: string,
-        message: string,
+        message: string
     ): Promise<RequestToCallbackResponse> => {
         const response = await this.client.query<SimpleGQLResponse<'sendRequestToCallback', RequestToCallbackResponse>>(
             {

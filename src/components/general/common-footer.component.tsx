@@ -9,49 +9,49 @@ import { LogoComponentWithText } from './components/logo-text.component';
 
 const FooterWrapper = styled.div`
     width: 100%;
-	padding: 30px 50px;
-	align-items: flex-start;
+    padding: 30px 50px;
+    align-items: flex-start;
     display: flex;
     flex-direction: column;
     background: #222222;
     position: absolute;
     bottom: 0;
 
-	box-sizing: border-box;
+    box-sizing: border-box;
 
-	@media (max-width: 500px) {
-		padding: 30px;
+    @media (max-width: 500px) {
+        padding: 30px;
     }
 
-	@media (max-width: 800px) {
-		padding: 30px 20px 80px;
+    @media (max-width: 800px) {
+        padding: 30px 20px 80px;
     }
 `;
 
 const FooterContent = styled.div`
     width: 100%;
-	align-items: flex-start;
+    align-items: flex-start;
     display: flex;
 
-	margin: 40px 0 30px;
+    margin: 40px 0 30px;
     padding-left: 5px;
-	flex-wrap: wrap;
-	box-sizing: border-box;
+    flex-wrap: wrap;
+    box-sizing: border-box;
 `;
 
 const CustomerInfoWrapper = styled.div`
     box-sizing: border-box;
-	display: flex;
+    display: flex;
     align-items: center;
-	flex-direction: column;
+    flex-direction: column;
 
-	flex-grow: 1;
-	align-items: end;
+    flex-grow: 1;
+    align-items: end;
 
-	@media (max-width: 800px) {
-		justify-content: flex-start;
-		align-items: flex-start;
-		margin-top: 50px;
+    @media (max-width: 800px) {
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-top: 50px;
     }
 `;
 
@@ -59,21 +59,21 @@ const FooterMenu = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-	align-items: self-start;
+    align-items: self-start;
     margin-right: 50px;
-	flex-direction: column;
+    flex-direction: column;
 `;
 
 const FooterCopyrightWrapper = styled.div`
     display: flex;
     align-items: center;
 
-	width: 100%;
+    width: 100%;
     justify-content: space-between;
 
     @media (max-width: 800px) {
         flex-direction: column;
-		justify-content: center;
+        justify-content: center;
     }
 `;
 
@@ -119,38 +119,38 @@ const MenuItemLink = styled(StyledLink)`
 `;
 
 const menuConfig = [
-	[
-		{
-			name: 'о нас',
-			url: '/contacts',
-		},
-		{
-			name: 'проверка заказа',
-			url: '/check-order',
-		},
-		{
-			name: 'условия доставки',
-			url: '/delivery',
-		},
-		{
-			name: 'оплата и возврат',
-			url: '/check-order',
-		},
-	],
-	[
-		{
-			name: 'служба поддержки',
-			url: '/',
-		},
-		{
-			name: 'условия соглашения',
-			url: '/',
-		},
-		{
-			name: 'политика безопасности',
-			url: '/',
-		},
-	]
+    [
+        {
+            name: 'о нас',
+            url: '/contacts',
+        },
+        {
+            name: 'проверка заказа',
+            url: '/check-order',
+        },
+        {
+            name: 'условия доставки',
+            url: '/delivery',
+        },
+        {
+            name: 'оплата и возврат',
+            url: '/check-order',
+        },
+    ],
+    [
+        {
+            name: 'служба поддержки',
+            url: '/',
+        },
+        {
+            name: 'условия соглашения',
+            url: '/',
+        },
+        {
+            name: 'политика безопасности',
+            url: '/',
+        },
+    ],
 ];
 
 export const CommonFooter: React.FC = React.memo(function CommonFooter() {
@@ -166,21 +166,17 @@ export const CommonFooter: React.FC = React.memo(function CommonFooter() {
 
     return (
         <FooterWrapper>
-			<StyledLink to="/home" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <StyledLink to="/home" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <LogoComponentWithText isFooter={true} />
             </StyledLink>
-			<FooterContent>
-				<FooterMenu>{menuContent(0)}</FooterMenu>
-				<FooterMenu>{menuContent(1)}</FooterMenu>
-				<CustomerInfoWrapper>
-					<MenuText>
-						ИП Марченко С.И. УНП #######
-					</MenuText>
-					<MenuText>
-						Зарегистрирован в торговом реестре от ##.##.#### за номером ###.
-					</MenuText>
-				</CustomerInfoWrapper>
-			</FooterContent>
+            <FooterContent>
+                <FooterMenu>{menuContent(0)}</FooterMenu>
+                <FooterMenu>{menuContent(1)}</FooterMenu>
+                <CustomerInfoWrapper>
+                    <MenuText>ИП Марченко С.И. УНП #######</MenuText>
+                    <MenuText>Зарегистрирован в торговом реестре от ##.##.#### за номером ###.</MenuText>
+                </CustomerInfoWrapper>
+            </FooterContent>
 
             <FooterCopyrightWrapper>
                 <CopyriterText>© Марченко Ксения, 2022. Все права защищены.</CopyriterText>

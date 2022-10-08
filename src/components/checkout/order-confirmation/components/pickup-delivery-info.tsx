@@ -15,11 +15,11 @@ const Wrapper = styled.div`
 
 const InfoSection = styled.div`
     display: flex;
-	width: 100%;
-	
-	@media (max-width: 850px) {
-		justify-content: space-between;
-		margin-bottom: 10px;
+    width: 100%;
+
+    @media (max-width: 850px) {
+        justify-content: space-between;
+        margin-bottom: 10px;
     }
 `;
 
@@ -32,18 +32,18 @@ export const OrderButtonWrapper = styled.div`
 const LabelText = styled(BodyText).attrs({ color: TextColor.DARK, size: TextSize.SMALL })`
     margin: 0px 0 10px;
 
-	@media (max-width: 850px) {
+    @media (max-width: 850px) {
         font-size: 11px;
-		margin: 0;
+        margin: 0;
     }
 `;
 
 const AddressText = styled(BodyText).attrs({ color: TextColor.BLUE, size: TextSize.SMALL, weight: TextWeight.MEDIUM })`
     margin: 0 0 10px 10px;
 
-	@media (max-width: 850px) {
+    @media (max-width: 850px) {
         font-size: 12px;
-		margin: 0;
+        margin: 0;
     }
 `;
 

@@ -112,8 +112,8 @@ export const ProductAddToBasketButton: React.FC<{ product: GeneralProduct; isSma
     }
 );
 
-export const ProductAddToWishlistButton: React.FC<{ isInWishlist: boolean; productId: string; withLabel?: boolean }> = React.memo(
-    function ProductAddToBasket({ isInWishlist, productId, withLabel = false }) {
+export const ProductAddToWishlistButton: React.FC<{ isInWishlist: boolean; productId: string; withLabel?: boolean }> =
+    React.memo(function ProductAddToBasket({ isInWishlist, productId, withLabel = false }) {
         const dispatch = useDispatch();
         const currentUser = useSelector(getUser);
         const styles = {
@@ -161,8 +161,7 @@ export const ProductAddToWishlistButton: React.FC<{ isInWishlist: boolean; produ
                 )}
             </AdditionalButtonSection>
         );
-    }
-);
+    });
 
 export const ProductAddToCompareButton: React.FC<{ product: GeneralProduct; withLabel?: boolean }> = React.memo(
     function ProductAddToBasket({ product, withLabel = false }) {

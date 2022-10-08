@@ -17,7 +17,7 @@ const DeliveryInfoWrapper = styled.div`
     justify-content: space-evenly;
     width: 100%;
     padding: 40px 50px;
-	box-sizing: border-box;
+    box-sizing: border-box;
 
     @media (max-width: 850px) {
         padding: 40px 25px;
@@ -40,14 +40,14 @@ const OrderInfoWrapper = styled.div`
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-	width: 70%;
+    width: 70%;
     margin: 0 auto;
 
     @media (max-width: 850px) {
         width: 100%;
 
-		flex-direction: column;
-    	align-items: center;
+        flex-direction: column;
+        align-items: center;
     }
 `;
 
@@ -74,12 +74,12 @@ const Separator = styled.div`
 }`;
 
 const CheckOrderText = styled(BodyText).attrs({ color: TextColor.DARK, size: TextSize.SMALL })`
-	margin: 20px auto 0;
+    margin: 20px auto 0;
 
-	@media (max-width: 850px) {
-		font-size: 14px;
-		line-height: 20px;
-		margin-top: 0px;
+    @media (max-width: 850px) {
+        font-size: 14px;
+        line-height: 20px;
+        margin-top: 0px;
     }
 `;
 
@@ -90,8 +90,8 @@ const QuestionText = styled(BodyText).attrs({
 })`
     margin-bottom: 10px;
 
-	@media (max-width: 850px) {
-		font-size: 14px;
+    @media (max-width: 850px) {
+        font-size: 14px;
     }
 `;
 
@@ -109,9 +109,9 @@ const PageSubTitleText = styled(TitleText)`
     margin-bottom: 20px;
 
     @media (max-width: 850px) {
-		font-size: 18px;
-		margin-top: 10px;
-		text-align: center;
+        font-size: 18px;
+        margin-top: 10px;
+        text-align: center;
     }
 `;
 
@@ -121,35 +121,35 @@ const StyledInput = styled.input`
     outline: none;
     font-size: 15px;
     font-family: 'Manrope';
-	border: none;
-	border-bottom: 1px solid #d6d6d6;
+    border: none;
+    border-bottom: 1px solid #d6d6d6;
     width: 70%;
 
     &:focus {
-		border-bottom: 1.5px solid #86b7b7;
+        border-bottom: 1.5px solid #86b7b7;
     }
 
-	&::placeholder {
-		color: #d6d6d6;
-	}
+    &::placeholder {
+        color: #d6d6d6;
+    }
 
-	@media (max-width: 850px) {
+    @media (max-width: 850px) {
         width: 100%;
-		font-size: 12px;
-		margin-bottom: 15px;
+        font-size: 12px;
+        margin-bottom: 15px;
     }
 `;
 
 const StyledLabel = styled(BodyText)`
-	margin: 50px auto 0;
-	color: #808080;
+    margin: 50px auto 0;
+    color: #808080;
     font-size: 12px;
-	width: 70%;
+    width: 70%;
 
-	@media (max-width: 850px) {
-		font-size: 11px;
-		margin: 10px 0;
-		width: 100%;
+    @media (max-width: 850px) {
+        font-size: 11px;
+        margin: 10px 0;
+        width: 100%;
     }
 `;
 
@@ -168,12 +168,12 @@ export const CheckOrder: React.FC = React.memo(function CheckOrder() {
             <PageTitleText>Проверка статуса заказа</PageTitleText>
             <StyledLabel>Введите номер заказа, чтобы узнать его статус</StyledLabel>
             <OrderInfoWrapper>
-				<StyledInput
-					value={orderId}
-					onChange={(e) => setOrderId(e.target.value)}
-					autoFocus={true}
-					placeholder="Номер заказа"
-				/>
+                <StyledInput
+                    value={orderId}
+                    onChange={(e) => setOrderId(e.target.value)}
+                    autoFocus={true}
+                    placeholder="Номер заказа"
+                />
                 <StyledButton additionalStyles={{ width: '200px' }} onClick={getOrderStatus} label="Проверить" />
             </OrderInfoWrapper>
             {orderById && <OrderInfo order={orderById} />}

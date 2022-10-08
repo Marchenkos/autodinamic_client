@@ -6,37 +6,17 @@ import { getCategoryNames } from '../../product-category/selectors';
 import { useHistory } from 'react-router-dom';
 import { PRODUCT_CATEGORY_TO_CATEGORY_IMAGES } from '../../../graphql/entities';
 import { CategoryNames } from '../../../graphql/interfaces';
-import { BodyText, TextWeight, TitleText } from '../../../ui/text';
-
-const Wrapper = styled.div`
-    width: 100%;
-    padding: 50px;
-
-    flex-grow: 1;
-    width: 100%;
-    background: white;
-    box-sizing: border-box;
-
-    @media (max-width: 450px) {
-        padding: 0;
-    }
-`;
+import { BodyText, TextWeight } from '../../../ui/text';
 
 const CatalogListWrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
-    padding-top: 50px;
-    width: 100%;
-
-    @media (max-width: 900px) {
-        align-items: center;
-        justify-content: center;
-    }
+    width: 90vw;
+    background: #eeeeee;
 `;
 
 const CatalogItemWrapper = styled.div`
-    max-width: 25%;
-    padding-right: 15px;
+    max-width: 20%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -44,23 +24,10 @@ const CatalogItemWrapper = styled.div`
     cursor: pointer;
     box-sizing: border-box;
     overflow: hidden;
-
-    @media (max-width: 900px) {
-        max-width: 30%;
-    }
-
-    @media (max-width: 700px) {
-        max-width: 40%;
-    }
-
-    @media (max-width: 450px) {
-        max-width: 100%;
-        padding-right: 0px;
-    }
 `;
 
 const CatalogNameText = styled(BodyText).attrs({ weight: TextWeight.MEDIUM })`
-    margin: 10px 0 30px;
+    margin: 10px;
     color: #4a4a4a;
     text-transform: capitalize;
     font-size: 15px;
@@ -71,27 +38,14 @@ const CatalogNameText = styled(BodyText).attrs({ weight: TextWeight.MEDIUM })`
     }
 `;
 
-const CatalogImageWrapper = styled.div`
-    overflow: hidden;
-`;
-
 const CatalogImage = styled.img`
-    max-width: 100%;
+    max-width: 60%;
 
     transition: transform 1s;
     transform-origin: center center;
 
     &:hover {
         transform: scale(1.2);
-    }
-`;
-
-const ScreenTitle = styled(TitleText)`
-    padding: 0px;
-
-    @media (max-width: 450px) {
-        padding: 20px 20px 0;
-        font-size: 20px;
     }
 `;
 
@@ -114,31 +68,9 @@ const CatalogItem: React.FC<CatalogItemProps> = React.memo(function CatalogItem(
 
     return (
         <CatalogItemWrapper onClick={handleChooseCategory}>
-            <CatalogImageWrapper>
-                <CatalogImage src={image} />
-            </CatalogImageWrapper>
+            <CatalogImage src={image} />
             <CatalogNameText>{categoryName.title}</CatalogNameText>
         </CatalogItemWrapper>
-    );
-});
-
-const CatalogScreen: React.FC = React.memo(function CatalogScreen() {
-    const categoryNames = useSelector(getCategoryNames);
-
-    const categoryItems = React.useMemo(
-        () =>
-            categoryNames
-                ? categoryNames.map((item) => <CatalogItem key={item.category_name} categoryName={item} />)
-                : null,
-        [categoryNames]
-    );
-
-    return (
-        <Wrapper>
-            <ScreenTitle>Каталог товаров</ScreenTitle>
-
-            <CatalogListWrapper>{categoryItems}</CatalogListWrapper>
-        </Wrapper>
     );
 });
 
@@ -155,5 +87,3 @@ export const Catalog: React.FC = React.memo(function Catalog() {
 
     return <CatalogListWrapper>{categoryItems}</CatalogListWrapper>;
 });
-
-export default CatalogScreen;

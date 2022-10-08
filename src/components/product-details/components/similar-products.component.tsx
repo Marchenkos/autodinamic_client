@@ -14,11 +14,11 @@ import { SimilarProductItem } from './similar-product-item.component';
 const Wrapper = styled.div`
     width: 100%;
 
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	margin: 50px 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 50px 0 0;
 
     @media (max-width: 810px) {
         margin: 40px 0;
@@ -35,11 +35,10 @@ const ProductInfoText = styled(TitleLink).attrs({
 `;
 
 const ProductSectionTitle = styled(TitleText)`
-	font-size: 25px;
-	margin-bottom: 30px;
-	font-weight: 500;
+    font-size: 25px;
+    margin-bottom: 30px;
+    font-weight: 500;
 `;
-
 
 const ProductCarousel = styled.div`
     display: flex;

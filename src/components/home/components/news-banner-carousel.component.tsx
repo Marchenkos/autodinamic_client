@@ -34,9 +34,5 @@ export const NewsBanners: React.FC<{ news: Promotion[] }> = React.memo(function 
         [history]
     );
 
-    return (
-        <Carousel value={value} onChange={handleOnChange}>
-       
-        </Carousel>
-    );
+    return <Carousel value={value} onChange={handleOnChange}></Carousel>;
 });

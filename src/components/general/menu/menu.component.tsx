@@ -1,9 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 
 import { StyledLink } from '../../../ui/styled-link.component';
 import { BodyText, TextSize, TextColor } from '../../../ui/text';
 import { capitalizeString } from '../../filter/utilites/formated-string';
+import { Catalog } from '../../product-list/screens/catalog.component';
 
 const MenuWrapper = styled.div`
     margin-top: 25px;
@@ -11,51 +12,57 @@ const MenuWrapper = styled.div`
     width: 100%;
     align-items: center;
     justify-content: flex-start;
+    padding: 0 50px;
 `;
 
-const MenuItemWrapper = styled.div`
+const MenuItemDropdown = styled.div`
+    position: relative;
+    display: inherit;
+
+    &:hover .dropdown-content {
+        display: flex;
+        flex-direction: column;
+    }
 `;
 
-const SubLinksSection = styled.div`
+const MenuItemDropdownContent = styled.div`
+    padding-top: 10px;
     position: absolute;
-    left: 0;
-    display: flex;
-    width: 100%;
-    background: #ffff;
-    z-index: 2;
-    padding: 20px 50px;
-    min-height: 230px;
-    border-bottom: 1px solid #ebebeb;
-    top: 180px;
-    box-sizing: border-box;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    display: none;
+    top: 40px;
 `;
 
-const MenuItemLabel = styled(BodyText).attrs({ size: TextSize.SMALL, color: TextColor.DARK })`
-    margin-right: 35px;
-    padding: 0 0 10px;
-    border-bottom: none;
-    box-sizing: border-box;
-    border-bottom: 2px solid #ffff;
+const StyledMenuItemText = styled(StyledLink).attrs({ color: TextColor.DARK })`
+  font-weight: 500;
+  font-size: 16px;
+  padding-bottom: 20px;
 
-    &:focus, &:hover, &:visited, &:link, &:active {
-        border-bottom: 2px solid #363636;
-    }
+  margin-right: 35px;
+  border-bottom: none;
+  box-sizing: border-box;
+  border-bottom: 2px solid #ffff;
 
-    @media (max-width: 1200px) {
-        font-size: 14px;
-    }
+  &:focus, &:hover {
+      border-bottom: 2px solid #363636;
+  }
 }`;
 
 interface MenuConfig {
     name: string;
     url: string;
-    subLinks?: MenuConfig[]
+    component?: React.ReactNode;
+    subLinks?: MenuConfig[];
 }
 
 const menuConfig: MenuConfig[] = [
     {
         name: 'Каталог',
         url: '/catalog',
+        component: <Catalog />,
         subLinks: [
             {
                 name: 'Магнитолы',
@@ -81,7 +88,7 @@ const menuConfig: MenuConfig[] = [
                 name: 'Усилители звука',
                 url: '/catalog/auto_amplifiers',
             },
-        ]
+        ],
     },
     // {
     //     name: 'Новинки',
@@ -105,66 +112,36 @@ const menuConfig: MenuConfig[] = [
         name: 'Наш магазин',
         url: '/contacts',
     },
-    // {
-    //     name: 'сравнение товаров',
-    //     url: '/match',
-    // },
+
 ];
 
 interface MenuItemProps {
-    item: MenuConfig
-    isShowSubLinks?: boolean
-    setIsShowSubLinks: (i: boolean) => void
+    item: MenuConfig;
 }
 
-export const MenuItem: React.FC<MenuItemProps> = React.memo(function MenuItem({
-    item,
-    isShowSubLinks,
-    setIsShowSubLinks
-}: MenuItemProps) {
-    const handleOnMouseParent = useCallback(() => {
-        if (item.subLinks) {
-            setIsShowSubLinks(true);
-        } else {
-            setIsShowSubLinks(false);
-        }
-    }, [item.subLinks, setIsShowSubLinks]);
-
-    const handleOnMouseChild = useCallback(() => {
-        setIsShowSubLinks(false);
-    }, []);
+export const MenuItem: React.FC<MenuItemProps> = React.memo(function MenuItem({ item }: MenuItemProps) {
+    if (!item.subLinks || item.subLinks.length < 0) {
+        return <StyledMenuItemText to={item.url}>{item.name}</StyledMenuItemText>;
+    }
 
     return (
-        <MenuItemWrapper onMouseOver={handleOnMouseParent} onClick={handleOnMouseChild}>
-           <StyledLink to={item.url}>
-                <MenuItemLabel>{item.name}</MenuItemLabel>
-            </StyledLink>
-
-            {
-                (item.subLinks && isShowSubLinks) && (
-                    <SubLinksSection onMouseLeave={handleOnMouseChild} onClick={handleOnMouseChild}>
-                        {item.subLinks.map((item, index: number) => (
-                            <MenuItem setIsShowSubLinks={setIsShowSubLinks} item={item} key={`${item.name}-${index}`} />
-                        ))}
-                    </SubLinksSection>
-                )
-            }
-        </MenuItemWrapper>
+        <MenuItemDropdown>
+            <StyledMenuItemText to={item.url}>{item.name}</StyledMenuItemText>
+            <MenuItemDropdownContent className="dropdown-content">
+                {item.component
+                    ? item.component
+                    : item.subLinks.map((subLink, index) => (
+                          <MenuItem item={subLink} key={`${subLink.name}-${index}`} />
+                      ))}
+            </MenuItemDropdownContent>
+        </MenuItemDropdown>
     );
 });
 
 export const Menu: React.FC = React.memo(function Menu() {
-    const [isShowSubLinks, setIsShowSubLinks] = useState(false);
+    const menuContent = useMemo(() => 
+      menuConfig.map((item, index: number) => <MenuItem item={item} key={`${item.name}-${index}`} />
+    ), [menuConfig]);
 
-    const handleShowSubLinks = useCallback((value: boolean) => {
-        setIsShowSubLinks(value);
-    }, []);
-
-    return (
-        <MenuWrapper>
-            {menuConfig.map((item, index: number) => (
-                <MenuItem setIsShowSubLinks={handleShowSubLinks} isShowSubLinks={isShowSubLinks} item={item} key={`${item.name}-${index}`} />
-            ))}
-        </MenuWrapper>
-    );
+    return <MenuWrapper>{menuContent}</MenuWrapper>;
 });

@@ -85,7 +85,7 @@ export const BasketItem: React.FC<BasketItemProps> = React.memo(function BasketI
             ) : (
                 <BasketBodyText>{price * product.count} BYN</BasketBodyText>
             )}
-            <StyledIcons className='icon-cancel' onClick={handleRemove} />
+            <StyledIcons className="icon-cancel" onClick={handleRemove} />
         </Wrapper>
     );
 });

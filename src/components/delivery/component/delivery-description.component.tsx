@@ -7,24 +7,22 @@ import { useLocation } from 'react-router-dom';
 import { getDeviceSize } from '../../../utils/check-device-size';
 
 const Wrapper = styled.div`
-flex-grow: 1;
-background: white;
+    flex-grow: 1;
+    background: white;
 `;
 
 const PadeDetailWrapper = styled.div`
     display: flex;
     flex-direction: row;
-	margin-top: 50px;
-	padding: 50px;
+    margin-top: 50px;
+    padding: 50px;
 
     @media (max-width: 980px) {
         flex-direction: column;
-		padding: 20px;
-		margin-top: 0px;
-
+        padding: 20px;
+        margin-top: 0px;
     }
 `;
-
 
 const Spacer = styled.div`
     padding-top: 20px;
@@ -40,7 +38,7 @@ const TabBarBlock = styled.div`
         width: 100%;
         padding-left: 0px;
         margin-bottom: 20px;
-		justify-content: space-between;
+        justify-content: space-between;
     }
 `;
 
@@ -61,23 +59,23 @@ const Section = styled.div`
 
 const SectionTitleText = styled(BodyText).attrs({ size: TextSize.LARGE, color: TextColor.DARK })`
     text-align: center;
-	margin-bottom: 20px;
-	width: 80%;
+    margin-bottom: 20px;
+    width: 80%;
 `;
 
 const DescriptionText = styled(BodyText).attrs({ size: TextSize.SMALL })`
     width: 80%;
-	line-height: 26px;
+    line-height: 26px;
 
     @media (max-width: 980px) {
         width: 100%;
-		font-size: 14px;
+        font-size: 14px;
     }
 `;
 
 const PageTitleText = styled(TitleText)`
     font-size: 25px;
-	background: #858585;
+    background: #858585;
     margin-bottom: 20px;
     color: white;
     padding: 15px;
@@ -93,7 +91,7 @@ const UnitLink = styled(TitleLink).attrs({
     ${({ selected }) => (selected ? 'border-bottom: 2px solid #1e1e1e' : '')};
     margin-right: 10px;
     padding: 10px;
-	text-decoration: underline;
+    text-decoration: underline;
     font-weight: 500;
     font-family: 'Manrope';
     font-size: 15px;
@@ -102,14 +100,14 @@ const UnitLink = styled(TitleLink).attrs({
 
     &:hover {
         color: #808080;
-		border-bottom: 2px solid #1e1e1e;
+        border-bottom: 2px solid #1e1e1e;
     }
 
     @media (max-width: 850px) {
         font-size: 11px;
         max-width: 32%;
-        padding:0px;
-		margin: 0px;
+        padding: 0px;
+        margin: 0px;
     }
 `;
 
@@ -166,82 +164,81 @@ export const DeliveryDescription: React.FC = React.memo(function DeliveryDescrip
 
     return (
         <Wrapper>
-			<PageTitleText>Доставка</PageTitleText>
+            <PageTitleText>Доставка</PageTitleText>
 
-			<PadeDetailWrapper>
-				<TabBarBlock>{renderUnitHeaders}</TabBarBlock>
-				<MainInfo>
-					<DescriptionText>
-						На этой странице Вы можете ознакомиться с условиями доставки и выбрать наиболее подходящую Вам.
-						Оформление доставки заказа осуществляется во все рабочие дни, в том числе и в выходные, с 09:00 до
-						22:00.
-					</DescriptionText>
+            <PadeDetailWrapper>
+                <TabBarBlock>{renderUnitHeaders}</TabBarBlock>
+                <MainInfo>
+                    <DescriptionText>
+                        На этой странице Вы можете ознакомиться с условиями доставки и выбрать наиболее подходящую Вам.
+                        Оформление доставки заказа осуществляется во все рабочие дни, в том числе и в выходные, с 09:00
+                        до 22:00.
+                    </DescriptionText>
 
-					<Section id="delivery-terms">
-						<SectionTitleText>Условия доставки</SectionTitleText>
-						<DescriptionText>
-							{' '}
-							Мы предлагаем два типа доставки: почтой и самовывоз. Индивидуальный выбор времени доставки
-							предусмотрен только для варианта самовывоза заказа.
-						</DescriptionText>
-						<Spacer />
+                    <Section id="delivery-terms">
+                        <SectionTitleText>Условия доставки</SectionTitleText>
+                        <DescriptionText>
+                            {' '}
+                            Мы предлагаем два типа доставки: почтой и самовывоз. Индивидуальный выбор времени доставки
+                            предусмотрен только для варианта самовывоза заказа.
+                        </DescriptionText>
+                        <Spacer />
 
-						<DescriptionText>
-							Заявки обрабатываются Пн-Вс с 09:00 до 22:00. Пересылка почтой осуществляется с понедельника по
-							пятницу.
-						</DescriptionText>
-						<Spacer />
+                        <DescriptionText>
+                            Заявки обрабатываются Пн-Вс с 09:00 до 22:00. Пересылка почтой осуществляется с понедельника
+                            по пятницу.
+                        </DescriptionText>
+                        <Spacer />
 
-						<DescriptionText>
-							{' '}
-							Вся информация, которую Вы предоставляете при оформлении заказа, остается конфиденциальной и не
-							передается третьим лицам. Доставку продукции мы производим только по факту подтверждения заказа
-							по телефону и согласования удобного дня и времени, если заказ забирается с пункта выдачи.
-							Заказы, не получившие подтверждение, к исполнению не принимаются.
-						</DescriptionText>
-					</Section>
+                        <DescriptionText>
+                            {' '}
+                            Вся информация, которую Вы предоставляете при оформлении заказа, остается конфиденциальной и
+                            не передается третьим лицам. Доставку продукции мы производим только по факту подтверждения
+                            заказа по телефону и согласования удобного дня и времени, если заказ забирается с пункта
+                            выдачи. Заказы, не получившие подтверждение, к исполнению не принимаются.
+                        </DescriptionText>
+                    </Section>
 
-					<Section id="post-delivery">
-						<SectionTitleText>Доставка почтой</SectionTitleText>
-						<DescriptionText>
-							Доставка почтой осуществляется во все регионы Беларуси через отделения РУП «Белпочта». Оплата
-							осуществляется наложенным платежом при получении заказа.
-						</DescriptionText>
-						<Spacer />
+                    <Section id="post-delivery">
+                        <SectionTitleText>Доставка почтой</SectionTitleText>
+                        <DescriptionText>
+                            Доставка почтой осуществляется во все регионы Беларуси через отделения РУП «Белпочта».
+                            Оплата осуществляется наложенным платежом при получении заказа.
+                        </DescriptionText>
+                        <Spacer />
 
-						<DescriptionText>
-							Срок доставки: 2-4 рабочих дня с момента отправки посылки, после полной ее комплектации.
-							Отправка осуществляется с понедельника по пятницу.
-						</DescriptionText>
-						<Spacer />
+                        <DescriptionText>
+                            Срок доставки: 2-4 рабочих дня с момента отправки посылки, после полной ее комплектации.
+                            Отправка осуществляется с понедельника по пятницу.
+                        </DescriptionText>
+                        <Spacer />
 
-						<DescriptionText>
-							Стоимость доставки посылки почтой при заказе на сумму до 100 BYN - 5 BYN.
-						</DescriptionText>
-						<DescriptionText>
-							Доставка посылки почтой при заказе на сумму 100 BYN и выше осуществляется БЕСПЛАТНО.
-						</DescriptionText>
-					</Section>
+                        <DescriptionText>
+                            Стоимость доставки посылки почтой при заказе на сумму до 100 BYN - 5 BYN.
+                        </DescriptionText>
+                        <DescriptionText>
+                            Доставка посылки почтой при заказе на сумму 100 BYN и выше осуществляется БЕСПЛАТНО.
+                        </DescriptionText>
+                    </Section>
 
-					<Section id="pick-up-delivery">
-						<SectionTitleText>Самовывоз</SectionTitleText>
-						<DescriptionText>
-							Предварительно согласованный по телефону заказ можно забрать из нашего магазина, который
-							находится по адресу:
-						</DescriptionText>
-						<DescriptionText>г. Гомель, ул. Карповича 28.</DescriptionText>
-						<Spacer />
+                    <Section id="pick-up-delivery">
+                        <SectionTitleText>Самовывоз</SectionTitleText>
+                        <DescriptionText>
+                            Предварительно согласованный по телефону заказ можно забрать из нашего магазина, который
+                            находится по адресу:
+                        </DescriptionText>
+                        <DescriptionText>г. Гомель, ул. Карповича 28.</DescriptionText>
+                        <Spacer />
 
-						<DescriptionText>
-							Режим работы: c 09:00 по 17:00 в выходные и будние дни. Выходной - понедельник.
-						</DescriptionText>
-						<Spacer />
+                        <DescriptionText>
+                            Режим работы: c 09:00 по 17:00 в выходные и будние дни. Выходной - понедельник.
+                        </DescriptionText>
+                        <Spacer />
 
-						<DescriptionText>Данный тип доставки осуществляется БЕСПЛАТНО.</DescriptionText>
-					</Section>
-				</MainInfo>
-			</PadeDetailWrapper>
-        	
+                        <DescriptionText>Данный тип доставки осуществляется БЕСПЛАТНО.</DescriptionText>
+                    </Section>
+                </MainInfo>
+            </PadeDetailWrapper>
         </Wrapper>
     );
 });

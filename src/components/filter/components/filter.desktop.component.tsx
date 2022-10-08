@@ -15,6 +15,7 @@ import { BodyText, TextSize, TextWeight, TextColor, TitleText } from '../../../u
 import { getFilters } from '../selector';
 import { capitalizeString } from '../utilites/formated-string';
 import { StyledButton } from '../../../ui/new-styled';
+import { getProductsCount } from '../../product-list/selectors';
 
 const Section = styled.div`
     width: 100%;
@@ -23,12 +24,12 @@ const Section = styled.div`
 `;
 
 const BlockBox = styled.div`
-	width: 104%;
-	position: absolute;
-	height: 100%;
-	top: 80px;
-	background: #f2f2f2a1;
-	margin-left: -20px;
+    width: 104%;
+    position: absolute;
+    height: 100%;
+    top: 80px;
+    background: #f2f2f2a1;
+    margin-left: -20px;
 `;
 
 const HeaderWrapper = styled.div`
@@ -40,7 +41,7 @@ const HeaderWrapper = styled.div`
 `;
 
 export const FilterValueText = styled(BodyText).attrs({ size: TextSize.EXTRA_SMALL, color: TextColor.DARK })``;
-const FilterTitle= styled(TitleText)`
+const FilterTitle = styled(TitleText)`
     font-size: 22px;
 `;
 
@@ -51,7 +52,7 @@ const FilterWrapper = styled.div`
     padding-right: 30px;
     border-right: 1px solid #efefef;
     min-height: 70vh;
-	position: relative;
+    position: relative;
 `;
 
 const SectionTitle = styled(BodyText).attrs({
@@ -68,6 +69,7 @@ interface FilterProps {
 
 export const FilterDesktop: React.FC<FilterProps> = React.memo(function SimpleFilter({ cleanFilter }: FilterProps) {
     const filters = useSelector(getFilters);
+    const productsCount = useSelector(getProductsCount);
 
     const renderSectionsValues = (filter: FilterObject) => {
         switch (filter.type) {
@@ -101,6 +103,8 @@ export const FilterDesktop: React.FC<FilterProps> = React.memo(function SimpleFi
         );
     }, [filters]);
 
+    console.log('productsCount   ' + productsCount);
+
     return (
         <FilterWrapper>
             <HeaderWrapper>
@@ -113,7 +117,7 @@ export const FilterDesktop: React.FC<FilterProps> = React.memo(function SimpleFi
                 isSecondary
                 label="Очистить"
             />
-			<BlockBox />
+            {productsCount == 0 ? <BlockBox /> : null}
         </FilterWrapper>
     );
 });

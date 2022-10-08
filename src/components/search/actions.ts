@@ -17,7 +17,13 @@ export interface FetchProductListBySearchParams {
 }
 
 export const FETCH_PRODUCT_LIST_BY_SEARCH = {
-    TRIGGER: createAction('[Fetch Product List By Search] Trigger', (payload: FetchProductListBySearchParams) => payload),
-    STARTED: createAction('[Fetch Product List By Search] Started', (payload: FetchProductListBySearchParams) => payload),
+    TRIGGER: createAction(
+        '[Fetch Product List By Search] Trigger',
+        (payload: FetchProductListBySearchParams) => payload
+    ),
+    STARTED: createAction(
+        '[Fetch Product List By Search] Started',
+        (payload: FetchProductListBySearchParams) => payload
+    ),
     COMPLETED: createAction('[Fetch Product List By Search] Completed', (payload: ProductList) => payload),
 };

@@ -2,7 +2,7 @@ import { createAction } from 'typesafe-redux-helpers';
 
 import { Promotion } from '../../graphql/entities';
 
-export const FETCH_PROMOTIONS_LIST= {
+export const FETCH_PROMOTIONS_LIST = {
     TRIGGER: createAction('[FETCH_PROMOTIONS_LIST] Trigger'),
     STARTED: createAction('[FETCH_PROMOTIONS_LIST] Started'),
     COMPLETED: createAction('[FETCH_PROMOTIONS_LIST] Completed', (payload: Promotion[]) => payload),

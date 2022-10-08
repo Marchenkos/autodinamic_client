@@ -62,11 +62,11 @@ export const SortTitle = styled(FilterTitle)`
 export const LIMIT_PR_PAGE = 8;
 
 interface SearchProductListProps {
-    searchTerms: string[]
+    searchTerms: string[];
 }
 
-export const SearchProductList: React.FC<SearchProductListProps> = React.memo(function SearchProductList({ 
-    searchTerms
+export const SearchProductList: React.FC<SearchProductListProps> = React.memo(function SearchProductList({
+    searchTerms,
 }: SearchProductListProps) {
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
@@ -85,7 +85,7 @@ export const SearchProductList: React.FC<SearchProductListProps> = React.memo(fu
                 next,
                 sort: selectedSort,
                 searchTerms,
-                filters
+                filters,
             })
         );
     }, [dispatch, LIMIT_PR_PAGE, selectedSort, next, filters, searchTerms]);

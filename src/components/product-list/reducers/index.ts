@@ -11,5 +11,5 @@ export const reducer: Reducer<ProductState> = combineReducers<ProductState>({
     productList,
     selectedProduct,
     discountProductList,
-    searchProductList
+    searchProductList,
 });

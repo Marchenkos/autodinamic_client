@@ -25,7 +25,7 @@ export const promotionListReducer: Reducer<PromotionListState> = createReducer<P
         (_, action) => ({
             promotionsList: action.payload,
             isFetching: false,
-            error: undefined
+            error: undefined,
         }),
         (state, action) => ({
             ...state,

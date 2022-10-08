@@ -28,9 +28,9 @@ export const WishlistItemWrapper = styled.div<{ small?: boolean }>`
     }
 
     @media (max-width: 850px) {
-		flex-basis: 100%;
+        flex-basis: 100%;
         min-width: 100%;
-		margin-left: 0;
+        margin-left: 0;
     }
 
     ${({ small }) =>
@@ -101,7 +101,7 @@ export const WishlistItem: React.FC<WishlistItemProps> = React.memo(function Wis
     product,
 }: WishlistItemProps) {
     let history = useHistory();
-	const isInWishlist = useIsInWishlist({ productId: product.id })
+    const isInWishlist = useIsInWishlist({ productId: product.id });
 
     const navigateToTheProductDetails = useCallback(() => {
         history.push(`/product-details/${product.id}`);

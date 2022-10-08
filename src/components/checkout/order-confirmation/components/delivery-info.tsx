@@ -25,9 +25,9 @@ const DeliveryInfoWrapper = styled.div`
 const DeliveryMethodsWrapper = styled.div`
     margin-bottom: 15px;
 
-	@media (max-width: 850px) {
+    @media (max-width: 850px) {
         display: flex;
-		margin-bottom: 35px;
+        margin-bottom: 35px;
     }
 `;
 

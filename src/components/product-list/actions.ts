@@ -25,7 +25,6 @@ export const FETCH_NOVELTY_PRODUCT_LIST = {
     COMPLETED: createAction('[FETCH_NOVELTY_PRODUCT_LIST] Completed', (payload: ProductList) => payload),
 };
 
-
 export const FETCH_DISCOUNT_PRODUCT_LIST = {
     TRIGGER: createAction('[Fetch Discount Product List] Trigger', (payload: FetchProductListParams) => payload),
     STARTED: createAction('[Fetch Discount Product List] Started', (payload: FetchProductListParams) => payload),

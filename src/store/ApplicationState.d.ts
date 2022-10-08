@@ -27,5 +27,5 @@ export interface ApplicationState {
     authentication: ReturnType<typeof authenticationReducer>;
     category: ReturnType<typeof productCategoryReducer>;
     promotions: ReturnType<typeof promotionsReducer>;
-	drawer: ReturnType<typeof drawerReducer>;
+    drawer: ReturnType<typeof drawerReducer>;
 }

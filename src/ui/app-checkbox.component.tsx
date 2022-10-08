@@ -10,16 +10,15 @@ export interface CheckboxData {
 }
 
 const CheckboxLabel = styled(BodyText)`
-	font-size: 12px;
-	color: #969696 ;
+    font-size: 12px;
+    color: #969696;
     margin-right: 30px;
-	font-size: 12px;
+    font-size: 12px;
 `;
 
-
 const Wrapper = styled.div`
-	display: flex;
-	align-items: center;
+    display: flex;
+    align-items: center;
 `;
 
 export const AppCheckbox: React.FC<CheckboxData> = React.memo(function AppCheckbox({
@@ -32,15 +31,9 @@ export const AppCheckbox: React.FC<CheckboxData> = React.memo(function AppCheckb
     }, [title, handleChange]);
 
     return (
-		<Wrapper>
-			<Checkbox
-			style={{ color: '#60BDBF' }}
-			checked={isSelected}
-			onChange={handleOnChange}
-			color="primary"
-		/>
-		<CheckboxLabel>{title}</CheckboxLabel>
-
-		</Wrapper>
+        <Wrapper>
+            <Checkbox style={{ color: '#60BDBF' }} checked={isSelected} onChange={handleOnChange} color="primary" />
+            <CheckboxLabel>{title}</CheckboxLabel>
+        </Wrapper>
     );
 });

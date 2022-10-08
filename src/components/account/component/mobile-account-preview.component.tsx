@@ -11,13 +11,12 @@ import { getUser } from '../selectors';
 
 const PreviewWrapper = styled.button`
     align-items: center;
-	border: none;
+    border: none;
     position: relative;
     cursor: pointer;
     background: none;
-	margin-top: 4px;
+    margin-top: 4px;
 `;
-
 
 const SectionHeader = styled(BodyText).attrs({ color: TextColor.DARK })`
     font-family: 'Manrope';
@@ -33,16 +32,18 @@ export const MobileAccountPreview: React.FC = React.memo(function AccountPreview
         if (userData) {
             history.push('/account');
         } else {
-            dispatch(TOGGLE_DRAWER({
-				isShow: true,
-				children: <AuthDrawer />
-			}));
+            dispatch(
+                TOGGLE_DRAWER({
+                    isShow: true,
+                    children: <AuthDrawer />,
+                })
+            );
         }
     }, [userData, history]);
 
     return (
         <PreviewWrapper onClick={navigateToAccount}>
-			<StyledIcons noMargins size={27} className="icon-account_circle" />
+            <StyledIcons noMargins size={27} className="icon-account_circle" />
         </PreviewWrapper>
     );
 });

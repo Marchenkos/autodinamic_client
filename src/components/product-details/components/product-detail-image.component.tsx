@@ -11,13 +11,13 @@ const Wrapper = styled.div`
     display: flex;
     width: 50%;
 
-	@media (max-width: 1000px) {
-		width: 60%;
+    @media (max-width: 1000px) {
+        width: 60%;
     }
 
     @media (max-width: 850px) {
         width: 100%;
-		margin-top: 30px;
+        margin-top: 30px;
     }
 `;
 
@@ -28,12 +28,12 @@ const StyledImage = styled.img`
 
 const Slider = styled.div`
     max-width: 15%;
-	padding-right: 20px;
+    padding-right: 20px;
     overflow: scroll;
     overflow-x: hidden;
     overflow-y: auto;
     height: 100%;
-	box-sizing: border-box;
+    box-sizing: border-box;
 
     @media (max-width: 850px) {
         display: none;
@@ -43,7 +43,7 @@ const Slider = styled.div`
 const ImageSlider = styled(StyledImage)<{ isSelected?: boolean }>`
     max-width: 100%;
     cursor: pointer;
-	box-sizing: border-box;
+    box-sizing: border-box;
 
     ${({ isSelected }) =>
         isSelected &&
@@ -56,12 +56,12 @@ const MainImage = styled(StyledImage)`
     max-width: 60%;
     height: auto;
 
-	@media (max-width: 1000px) {
-		max-width: 80%;
+    @media (max-width: 1000px) {
+        max-width: 80%;
     }
 
-	@media (max-width: 850px) {
-		max-width: 100%;
+    @media (max-width: 850px) {
+        max-width: 100%;
     }
 `;
 
@@ -86,13 +86,14 @@ export const ProductDetailsImage: React.FC<ProductDetailsImageProps> = React.mem
         }
     }, [images]);
 
-    const renderSlider = useCallback(() =>
-		[NULLABLE_IMAGE, NULLABLE_IMAGE].map((image: string, index: number) => 
-			<ImageSliderWrapper key={index} onClick={() => setCurrentImage(image)}>
-				<ImageSlider isSelected={image === currentImage} src={image} />
-			</ImageSliderWrapper>
-				
-		),[images, currentImage]
+    const renderSlider = useCallback(
+        () =>
+            [NULLABLE_IMAGE, NULLABLE_IMAGE].map((image: string, index: number) => (
+                <ImageSliderWrapper key={index} onClick={() => setCurrentImage(image)}>
+                    <ImageSlider isSelected={image === currentImage} src={image} />
+                </ImageSliderWrapper>
+            )),
+        [images, currentImage]
     );
 
     return (

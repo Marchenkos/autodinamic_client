@@ -37,8 +37,8 @@ const LogoText = styled(TitleText).attrs({ color: TextColor.BLUE })`
 const LogoDescriptionText = styled(BodyText).attrs({ size: TextSize.EXTRA_EXTRA_SMALL })`
     color: #bfbfbf;
 
-	@media (max-width: 900px) {
-       display: none;
+    @media (max-width: 900px) {
+        display: none;
     }
 `;
 

@@ -17,15 +17,10 @@ export class GetSearchProductListError extends Error {
 
 export function* getProductBySearchSaga(action: ReturnType<typeof FETCH_PRODUCT_LIST_BY_SEARCH.TRIGGER>): SagaIterator {
     try {
-        const { limit, next, filters, searchTerms, sort} = action.payload;
+        const { limit, next, filters, searchTerms, sort } = action.payload;
         yield put(FETCH_PRODUCT_LIST_BY_SEARCH.STARTED(action.payload));
 
-        const response = yield call(graphqlApi.client.fetchProductListByTerms, limit,
-            next,
-            sort,
-            searchTerms,
-            filters
-        );
+        const response = yield call(graphqlApi.client.fetchProductListByTerms, limit, next, sort, searchTerms, filters);
 
         yield put(FETCH_PRODUCT_LIST_BY_SEARCH.COMPLETED(response));
     } catch (err) {

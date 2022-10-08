@@ -58,7 +58,7 @@ export interface FormInputTextProps {
     rows?: number;
     capitalize?: boolean;
     onPressInter?: () => void;
-	noBorders?: boolean;
+    noBorders?: boolean;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -106,7 +106,7 @@ export const FormInputText = React.forwardRef<HTMLDivElement | null, FormInputTe
             ref={ref}
             className={classes.margin}
             helperText={props.helperText}
-            variant={noBorders ? "standard" : "outlined"}
+            variant={noBorders ? 'standard' : 'outlined'}
             label={isError ? isError.message : props.label}
             rows={props.rows}
             type={props.type}

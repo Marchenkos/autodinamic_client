@@ -25,7 +25,7 @@ const CatalogWrapper = styled.div`
 
     @media (max-width: 850px) {
         width: 100%;
-		justify-content: space-between;
+        justify-content: space-between;
     }
 `;
 
@@ -33,7 +33,7 @@ const ConditionSection = styled.div`
     display: flex;
 
     @media (max-width: 860px) {
-       display: none;
+        display: none;
     }
 `;
 
@@ -43,8 +43,8 @@ const HeaderWrapper = styled.div`
     align-items: center;
 
     @media (max-width: 860px) {
-		margin: 20px 0 0;
-		align-items: start;
+        margin: 20px 0 0;
+        align-items: start;
         flex-direction: column;
     }
 `;
@@ -54,8 +54,8 @@ const ProductHeader = styled.div`
     box-sizing: border-box;
     flex-grow: 1;
 
-	@media (max-width: 800px) {
-		padding: 0 10px;
+    @media (max-width: 800px) {
+        padding: 0 10px;
     }
 `;
 
@@ -88,56 +88,59 @@ const CountText = styled(BodyText)`
     color: #b5b5b5;
     margin: 0 30px 20px;
 
-	@media (max-width: 800px) {
-		margin: 10px;
+    @media (max-width: 800px) {
+        margin: 10px;
     }
 `;
 
 interface ProductListCatalogProps {
-    isNew: boolean,
-    searchTerms?: string[]
+    isNew: boolean;
+    searchTerms?: string[];
     category: CategoryNames;
 }
 
 export const ProductListCatalog: React.FC<ProductListCatalogProps> = React.memo(function ProductListCatalog({
     isNew,
     searchTerms,
-    category
+    category,
 }: ProductListCatalogProps) {
     const productList = useSelector(getProductList);
     const isFetching = useSelector(getIsProductListFetching);
     const productsCount = useSelector(getProductsCount);
 
-    const renderList = useMemo(() => productList.map((item: GeneralProduct, index: number) => (
-        <ProductListItem isNew={isNew} key={index} product={item} />
-    )), [productList]);
+    const renderList = useMemo(
+        () =>
+            productList.map((item: GeneralProduct, index: number) => (
+                <ProductListItem isNew={isNew} key={index} product={item} />
+            )),
+        [productList]
+    );
 
     if (isFetching) {
-        <LoadingState />
+        <LoadingState />;
     }
 
     return (
         <CatalogWrapper>
             <HeaderWrapper>
                 <ProductHeader>
-                {searchTerms ? <TitleText>Результаты поиска по запросу "{searchTerms.join(" ")}"</TitleText> :
-                    <TitleText>{capitalizeString(category.title)}</TitleText>}
+                    {searchTerms ? (
+                        <TitleText>Результаты поиска по запросу "{searchTerms.join(' ')}"</TitleText>
+                    ) : (
+                        <TitleText>{capitalizeString(category.title)}</TitleText>
+                    )}
                 </ProductHeader>
 
                 <ConditionSection>
                     <Sorting />
                 </ConditionSection>
-				<MobileFilterAndSortConditions>
-					<MobileSorting />
-					<MobileFilter />
-				</MobileFilterAndSortConditions>
+                <MobileFilterAndSortConditions>
+                    <MobileSorting />
+                    <MobileFilter />
+                </MobileFilterAndSortConditions>
             </HeaderWrapper>
-            {
-                !searchTerms && (<CountText>{`Найдено ${productsCount} товаров`}</CountText>)
-            }
-            <ProductsWrapper>
-                {renderList}
-            </ProductsWrapper>
+            {!searchTerms && <CountText>{`Найдено ${productsCount} товаров`}</CountText>}
+            <ProductsWrapper>{renderList}</ProductsWrapper>
         </CatalogWrapper>
     );
 });

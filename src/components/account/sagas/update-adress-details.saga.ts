@@ -22,17 +22,23 @@ export function* updateDeliveryDetailsSaga(action: ReturnType<typeof EDIT_DELIVE
         );
 
         yield put(EDIT_DELIVERY_ADDRESS.COMPLETED(response));
-		yield put(TOGGLE_DRAWER({
-			isShow: false
-		}));
+        yield put(
+            TOGGLE_DRAWER({
+                isShow: false,
+            })
+        );
     } catch (err) {
-		yield put(TOGGLE_DRAWER({
-			isShow: false
-		}));
-		yield put(SHOW_TOAST({
-			message: 'Не удалось изменить адресс.', 
-			status: 'error'
-		}));
+        yield put(
+            TOGGLE_DRAWER({
+                isShow: false,
+            })
+        );
+        yield put(
+            SHOW_TOAST({
+                message: 'Не удалось изменить адресс.',
+                status: 'error',
+            })
+        );
     }
 }
 

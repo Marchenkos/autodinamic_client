@@ -19,7 +19,7 @@ const ShortDetailSectionWrapper = styled.div`
     flex-direction: column;
     box-sizing: border-box;
 
-	@media (max-width: 850px) {
+    @media (max-width: 850px) {
         padding: 0 20px;
     }
 `;
@@ -53,32 +53,31 @@ const OtherDescriptionText = styled(BodyText).attrs({ size: TextSize.SMALL, colo
 `;
 
 export const ProductHeaderText = styled(TitleText)`
-	font-size: 25px;
+    font-size: 25px;
     margin-bottom: 10px;
     font-weight: 500;
 
-
     @media (max-width: 1000px) {
-		font-size: 22px;
+        font-size: 22px;
     }
 `;
 
 export const ProductBrandText = styled(TitleText)`
-	font-size: 30px;
-	margin-bottom: 5px;
-	font-weight: 400;
-	color: #53b2b4;
+    font-size: 30px;
+    margin-bottom: 5px;
+    font-weight: 400;
+    color: #53b2b4;
 
     @media (max-width: 1000px) {
-		font-size: 22px;
+        font-size: 22px;
     }
 `;
 
 const DesctopProductTitles = styled.div`
-	display: block;
-	@media (max-width: 850px) {
-		display: none;
-	}
+    display: block;
+    @media (max-width: 850px) {
+        display: none;
+    }
 `;
 
 export const ProductCodeText = styled(BodyText)`
@@ -94,33 +93,39 @@ const ButtonWrapper = styled.div`
 `;
 
 interface ProductDescriptionProps {
-	productDescription: GeneralProduct; 
+    productDescription: GeneralProduct;
 }
 
 export const ProductDescription: React.FC<ProductDescriptionProps> = React.memo(function ProductDescription({
-	productDescription
+    productDescription,
 }) {
     const deviceSize = getDeviceSize();
-	const isInWishlist = useIsInWishlist({ productId: productDescription.id })
+    const isInWishlist = useIsInWishlist({ productId: productDescription.id });
 
     return (
         <ShortDetailSectionWrapper>
-			<DesctopProductTitles>
-				{productDescription.discount && <DiscountLabel>{`Скидка ${productDescription.discount}%`}</DiscountLabel>}
-				<ProductBrandText>{productDescription.brand}</ProductBrandText>
+            <DesctopProductTitles>
+                {productDescription.discount && (
+                    <DiscountLabel>{`Скидка ${productDescription.discount}%`}</DiscountLabel>
+                )}
+                <ProductBrandText>{productDescription.brand}</ProductBrandText>
 
-				<ProductHeaderText>{productDescription.full_name}</ProductHeaderText>
-				<ProductCodeText>
-					Код товара: <BoldSmallText>{productDescription.code}</BoldSmallText>
-				</ProductCodeText>
-			</DesctopProductTitles>
-       
+                <ProductHeaderText>{productDescription.full_name}</ProductHeaderText>
+                <ProductCodeText>
+                    Код товара: <BoldSmallText>{productDescription.code}</BoldSmallText>
+                </ProductCodeText>
+            </DesctopProductTitles>
+
             <OtherDescriptionText>{productDescription.description}</OtherDescriptionText>
 
-            {productDescription.maker ? <DescriptionText>Производитель - {productDescription.maker}</DescriptionText> : null}
-            {productDescription.guarantee ? <DescriptionText>Гарантия - {productDescription.guarantee} месяцев</DescriptionText> : null}
+            {productDescription.maker ? (
+                <DescriptionText>Производитель - {productDescription.maker}</DescriptionText>
+            ) : null}
+            {productDescription.guarantee ? (
+                <DescriptionText>Гарантия - {productDescription.guarantee} месяцев</DescriptionText>
+            ) : null}
 
-			<PriceSection>
+            <PriceSection>
                 <ProductPrice price={productDescription.price} discount={productDescription.discount} />
             </PriceSection>
 

@@ -30,5 +30,5 @@ export const rootReducer: Reducer<ApplicationState> = combineReducers<Applicatio
     authentication,
     category,
     promotions,
-	drawer
+    drawer,
 });

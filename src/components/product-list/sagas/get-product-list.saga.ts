@@ -19,11 +19,30 @@ export class GetProductListError extends Error {
 
 export function* getProductListSaga(action: ReturnType<typeof FETCH_PRODUCT_LIST.TRIGGER>): SagaIterator {
     try {
-        const { limit, next, categoryName, sort, filters, isNew = false, isHasDiscount = false, searchTerms } = action.payload;
+        const {
+            limit,
+            next,
+            categoryName,
+            sort,
+            filters,
+            isNew = false,
+            isHasDiscount = false,
+            searchTerms,
+        } = action.payload;
 
         yield put(FETCH_PRODUCT_LIST.STARTED(action.payload));
 
-        const response: ProductList = yield call(graphqlApi.client.fetchProductList, limit, next, categoryName, sort, isNew, isHasDiscount, filters, searchTerms);
+        const response: ProductList = yield call(
+            graphqlApi.client.fetchProductList,
+            limit,
+            next,
+            categoryName,
+            sort,
+            isNew,
+            isHasDiscount,
+            filters,
+            searchTerms
+        );
 
         yield put(FETCH_PRODUCT_LIST.COMPLETED(response));
     } catch (err) {

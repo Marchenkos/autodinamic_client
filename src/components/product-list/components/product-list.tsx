@@ -65,13 +65,13 @@ export const LIMIT_PR_PAGE = 8;
 interface ProductListProps {
     category: CategoryNames;
     isNew?: boolean;
-    searchTerms?: string[]
+    searchTerms?: string[];
 }
 
-export const ProductList: React.FC<ProductListProps> = React.memo(function ProductList({ 
+export const ProductList: React.FC<ProductListProps> = React.memo(function ProductList({
     category,
     isNew = false,
-    searchTerms
+    searchTerms,
 }) {
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
@@ -97,7 +97,7 @@ export const ProductList: React.FC<ProductListProps> = React.memo(function Produ
                 sort: selectedSort,
                 filters,
                 isNew,
-                searchTerms
+                searchTerms,
             })
         );
     }, [dispatch, LIMIT_PR_PAGE, category, selectedSort, next, filters, isNew, searchTerms]);

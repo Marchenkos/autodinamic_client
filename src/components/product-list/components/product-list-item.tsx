@@ -29,10 +29,10 @@ export const ProductListItemWrapper = styled.div<{ small?: boolean }>`
     }
 
     @media (max-width: 650px) {
-		min-width: 49%;
-		flex-basis: 49%;
-		margin-left: 0px;
-		margin-bottom: 20px;
+        min-width: 49%;
+        flex-basis: 49%;
+        margin-left: 0px;
+        margin-bottom: 20px;
     }
 
     ${({ small }) =>
@@ -74,7 +74,7 @@ const ProductImageWrapper = styled.div`
 
 const DescriptionBlock = styled.div`
     flex-grow: 1;
-	width: 100px;
+    width: 100px;
 `;
 
 const ProductImage = styled.img`
@@ -97,9 +97,9 @@ const DiscountLabel = styled.div`
     font-family: 'MANROPE';
 `;
 
-const ProductText = styled(BodyText)<{ customColor?: string, small?: boolean }>`
-	font-size: ${props => props.small ? '12px': '14px'};
-	color: ${props => props.customColor ? props.customColor: '#333333'};
+const ProductText = styled(BodyText)<{ customColor?: string; small?: boolean }>`
+	font-size: ${(props) => (props.small ? '12px' : '14px')};
+	color: ${(props) => (props.customColor ? props.customColor : '#333333')};
 	margin-bottom: -3px
 
 	white-space: nowrap;
@@ -112,36 +112,38 @@ const ProductText = styled(BodyText)<{ customColor?: string, small?: boolean }>`
 `;
 
 const ProductPriceText = styled(BodyText)`
-	font-size: 16px;
+    font-size: 16px;
     font-weight: 500;
     color: #232323;
     margin-top: 6px;
 
-	@media (max-width: 650px) {
-		font-size: 14px;
+    @media (max-width: 650px) {
+        font-size: 14px;
     }
 `;
 
 const NewLabel = styled(DiscountLabel)<{ isSecondLabel?: boolean }>`
     background: #7fbfb6;
 
-    ${props => props.isSecondLabel && `
+    ${(props) =>
+        props.isSecondLabel &&
+        `
         top: 50px;
     `};
 `;
 
 interface ProductListItemProps {
     product: GeneralProduct;
-    isNew: boolean
+    isNew: boolean;
 }
 
 export const ProductListItem: React.FC<ProductListItemProps> = React.memo(function ProductListItem({
     product,
-    isNew
+    isNew,
 }: ProductListItemProps) {
     const [isOver, setIsOver] = useState(false);
     let history = useHistory();
-	const isInWishlist = useIsInWishlist({ productId: product.id });
+    const isInWishlist = useIsInWishlist({ productId: product.id });
 
     const navigateToTheProductDetails = useCallback(() => {
         history.push(`/product-details/${product.id}`);
@@ -165,13 +167,8 @@ export const ProductListItem: React.FC<ProductListItemProps> = React.memo(functi
 
             <ProductItemInfo>
                 <DescriptionBlock>
-                    <ProductText
-						small
-						customColor='#54a2a4'
-                    >{`${product.brand} ${product.part_number}`}</ProductText>
-					<ProductText>
-                        {product.type}
-                    </ProductText>
+                    <ProductText small customColor="#54a2a4">{`${product.brand} ${product.part_number}`}</ProductText>
+                    <ProductText>{product.type}</ProductText>
                     <ProductPriceText>{`${product.price} BYN`}</ProductPriceText>
                 </DescriptionBlock>
             </ProductItemInfo>

@@ -16,11 +16,11 @@ const Wrapper = styled.div`
 `;
 
 interface CategorySelectorProps {
-    isNew: boolean
+    isNew: boolean;
 }
 
 export const ProductCategorySelector: React.FC<CategorySelectorProps> = React.memo(function ProductCategorySelector({
-    isNew
+    isNew,
 }: CategorySelectorProps) {
     const dispatch = useDispatch();
     const allProductCategoryNames = useSelector(getCategoryNames);

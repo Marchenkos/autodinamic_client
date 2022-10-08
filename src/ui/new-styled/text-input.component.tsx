@@ -11,7 +11,7 @@ export interface FormInputTextProps {
     onPressInter?: (fieldName: string) => void;
     id: string;
     withoutBorders?: boolean;
-	pattern?: string;
+    pattern?: string;
 }
 
 const TextInputWrapper = styled.div`
@@ -50,11 +50,12 @@ const StyledInput = styled.input<{ isError?: boolean; noBorders?: boolean }>`
         `};
     }
 
-	@media (max-width: 850px) {
-		font-size: 13px;
+    @media (max-width: 850px) {
+        font-size: 13px;
 
-		${(props) =>
-			props.noBorders && `
+        ${(props) =>
+            props.noBorders &&
+            `
 				padding-left: 0px;
 		`};
     }
@@ -68,7 +69,7 @@ const StyledTextArea = styled.textarea<{ isError?: boolean; noBorders?: boolean 
     outline: none;
     font-size: 15px;
     font-family: 'Manrope';
-	min-height: 100px;
+    min-height: 100px;
     padding-top: 10px;
 
     ${(props) =>
@@ -90,11 +91,12 @@ const StyledTextArea = styled.textarea<{ isError?: boolean; noBorders?: boolean 
         `};
     }
 
-	@media (max-width: 850px) {
-		font-size: 13px;
+    @media (max-width: 850px) {
+        font-size: 13px;
 
-		${(props) =>
-			props.noBorders && `
+        ${(props) =>
+            props.noBorders &&
+            `
 				padding-left: 0px;
 		`};
     }
@@ -124,15 +126,15 @@ export const TextInput = React.forwardRef<HTMLInputElement, FormInputTextProps>(
 
     return (
         <TextInputWrapper>
-			<StyledInput
-				noBorders={withoutBorders}
-				{...otherProps}
-				ref={ref}
-				onKeyPress={handleOnKeyPress}
-				isError={!!isError}
-				pattern={pattern}
-			/>
-            
+            <StyledInput
+                noBorders={withoutBorders}
+                {...otherProps}
+                ref={ref}
+                onKeyPress={handleOnKeyPress}
+                isError={!!isError}
+                pattern={pattern}
+            />
+
             {labelName || isError ? (
                 <StyledInputLabel isError={!!isError} htmlFor={otherProps.id}>
                     {isError ? isError.message : labelName}
@@ -141,7 +143,6 @@ export const TextInput = React.forwardRef<HTMLInputElement, FormInputTextProps>(
         </TextInputWrapper>
     );
 });
-
 
 export const TextAreaInput = React.forwardRef<HTMLTextAreaElement, FormInputTextProps>(function TextAreaInput(
     props: FormInputTextProps,
@@ -160,13 +161,13 @@ export const TextAreaInput = React.forwardRef<HTMLTextAreaElement, FormInputText
 
     return (
         <TextInputWrapper>
-			<StyledTextArea
-				noBorders={withoutBorders}
-				{...otherProps}
-				ref={ref}
-				onKeyPress={handleOnKeyPress}
-				isError={!!isError}
-			/> 
+            <StyledTextArea
+                noBorders={withoutBorders}
+                {...otherProps}
+                ref={ref}
+                onKeyPress={handleOnKeyPress}
+                isError={!!isError}
+            />
             {labelName || isError ? (
                 <StyledInputLabel isError={!!isError} htmlFor={otherProps.id}>
                     {isError ? isError.message : labelName}

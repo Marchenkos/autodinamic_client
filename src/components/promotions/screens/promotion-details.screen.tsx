@@ -70,7 +70,7 @@ const PromotionDetailsScreen: React.FC = React.memo(function PromotionDetailsScr
     }, [dispatch, id]);
 
     if (isFetching) {
-        return <LoadingState />
+        return <LoadingState />;
     }
 
     if (!promotion) {

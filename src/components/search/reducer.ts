@@ -19,7 +19,6 @@ export const searchReducer: Reducer<SearchState> = createReducer<SearchState>({
     searchResultCount: 0,
     isFetching: false,
 })
-
     .handleAction(FETCH_BY_SEARCH.STARTED, (state, action) => ({
         terms: state.terms,
         currentTerm: action.payload,

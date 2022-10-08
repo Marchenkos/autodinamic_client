@@ -17,7 +17,7 @@ const Wrapper = styled.div`
 const SearchProductListScreen: React.FC = React.memo(function SearchProductListScreen() {
     const location = useLocation();
     const dispatch = useDispatch();
-    const searchParams = new URLSearchParams(location.search).get("searchTerms");
+    const searchParams = new URLSearchParams(location.search).get('searchTerms');
 
     const searchTerms = useMemo(() => {
         if (searchParams) {

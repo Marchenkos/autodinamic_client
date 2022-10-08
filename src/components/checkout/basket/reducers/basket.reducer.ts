@@ -18,11 +18,11 @@ export const basketReducer: Reducer<BasketState> = createReducer<BasketState>({
     error: undefined,
     isFetching: false,
 })
-.handleAction(LOADING_DATA, (state, action) => ({
-	basket: state.basket,
-	error: action.payload.status,
-	isFetching: true,
-}))
+    .handleAction(LOADING_DATA, (state, action) => ({
+        basket: state.basket,
+        error: action.payload.status,
+        isFetching: true,
+    }))
     .handleAction(FETCH_BASKET.START, (state: BasketState) => ({
         basket: state.basket,
         error: undefined,

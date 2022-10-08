@@ -16,7 +16,7 @@ const Wrapper = styled.div`
 
 const PageTitleText = styled(TitleText)`
     font-size: 25px;
-	background: #858585;
+    background: #858585;
     margin-bottom: 20px;
     color: white;
     padding: 15px;
@@ -27,13 +27,13 @@ const PageTitleText = styled(TitleText)`
 `;
 
 const Section = styled.div`
-	margin-bottom: 50px;
+    margin-bottom: 50px;
 `;
 
 const CallBackFormWrapper = styled.div`
-	background: #f1f1f1;
-	border-top: 15px solid #498f91;
-	padding: 60px 0;
+    background: #f1f1f1;
+    border-top: 15px solid #498f91;
+    padding: 60px 0;
 `;
 
 const ContactInfoWtapper = styled.div`
@@ -41,11 +41,11 @@ const ContactInfoWtapper = styled.div`
     justify-content: space-around;
     align-items: center;
     margin-bottom: 50px;
-	flex-direction: row;
+    flex-direction: row;
 
-	@media (max-width: 850px) {
-	flex-direction: column;
-	}
+    @media (max-width: 850px) {
+        flex-direction: column;
+    }
 `;
 
 const ContactInfoSection = styled.div`
@@ -81,17 +81,16 @@ const ContactText = styled(BodyText)`
     text-align: center;
 `;
 
-
 const PadeDetailWrapper = styled.div`
     display: flex;
     flex-direction: row;
-	margin-top: 50px;
-	padding: 50px;
+    margin-top: 50px;
+    padding: 50px;
 
     @media (max-width: 980px) {
         flex-direction: column;
-		padding: 20px;
-		margin-top: 0px;
+        padding: 20px;
+        margin-top: 0px;
     }
 `;
 
@@ -105,10 +104,9 @@ const TabBarBlock = styled.div`
         width: 100%;
         padding-left: 0px;
         margin-bottom: 20px;
-		justify-content: space-between;
+        justify-content: space-between;
     }
 `;
-
 
 const MainInfo = styled.div`
     display: flex;
@@ -126,7 +124,7 @@ const UnitLink = styled(TitleLink).attrs({
     ${({ selected }) => (selected ? 'border-bottom: 2px solid #1e1e1e' : '')};
     margin-right: 10px;
     padding: 10px;
-	text-decoration: underline;
+    text-decoration: underline;
     font-weight: 500;
     font-family: 'Manrope';
     font-size: 15px;
@@ -135,22 +133,22 @@ const UnitLink = styled(TitleLink).attrs({
 
     &:hover {
         color: #808080;
-		border-bottom: 2px solid #1e1e1e;
+        border-bottom: 2px solid #1e1e1e;
     }
 
     @media (max-width: 850px) {
         font-size: 11px;
         max-width: 32%;
-        padding:0px;
-		margin: 0px;
+        padding: 0px;
+        margin: 0px;
     }
 `;
 
 const ContactScreen: React.FC = React.memo(function ContactScreen() {
-	let location = useLocation();
+    let location = useLocation();
     const [selectedUnit, setSelectedUnit] = useState(0);
 
-	const units: IHeaderLink[] = [
+    const units: IHeaderLink[] = [
         {
             id: 1,
             header: '- О нас',
@@ -188,84 +186,77 @@ const ContactScreen: React.FC = React.memo(function ContactScreen() {
                     {item.header}
                 </UnitLink>
             )),
-    [units, selectedUnit]);
-	
-	return (
+        [units, selectedUnit]
+    );
+
+    return (
         <Wrapper>
-			<PageTitleText>Наш магазин</PageTitleText>
+            <PageTitleText>Наш магазин</PageTitleText>
             <PadeDetailWrapper>
-				<TabBarBlock>{renderUnitHeaders}</TabBarBlock>
+                <TabBarBlock>{renderUnitHeaders}</TabBarBlock>
 
-				<MainInfo>
-					<Section id="about">
-						<PageSubTitleText>О нас</PageSubTitleText>
-						<DescriptionText>
-							<b>АвтоДинамик</b> - интернет-магазин техники для автомобилей. Мы предлагаем большое разнообразие товаров, которые помогут 
-							сделать Ваш автомобиль комфортнее и современнее. В нашем интернет-магазине Вы можете найти качественную аудиотехнику, выбрать товар по определенным характеристикам, а также защитить себя и Ваш автомобиль с помощью видеорегистраторов и современной сигнализации.
+                <MainInfo>
+                    <Section id="about">
+                        <PageSubTitleText>О нас</PageSubTitleText>
+                        <DescriptionText>
+                            <b>АвтоДинамик</b> - интернет-магазин техники для автомобилей. Мы предлагаем большое
+                            разнообразие товаров, которые помогут сделать Ваш автомобиль комфортнее и современнее. В
+                            нашем интернет-магазине Вы можете найти качественную аудиотехнику, выбрать товар по
+                            определенным характеристикам, а также защитить себя и Ваш автомобиль с помощью
+                            видеорегистраторов и современной сигнализации.
+                        </DescriptionText>
+                    </Section>
 
-						</DescriptionText>
-					</Section>
+                    <Section id="contact-info">
+                        <PageSubTitleText>Контактная информация</PageSubTitleText>
+                        <DescriptionText>
+                            При возникновении вопросов, касающихся оформления или доставки заказа, а также для получения
+                            дополнительной консультации при выборе товара, Вы можете обратиться к продавцу,
+                            воспользовавшись нашими контактами, либо заполните форму <b>Обратной связи</b> и мы сами
+                            свяжемся с Вами. Будем рады помочь!
+                        </DescriptionText>
 
-					<Section id="contact-info">
-						<PageSubTitleText>Контактная информация</PageSubTitleText>
-						<DescriptionText>
-							При возникновении вопросов, касающихся оформления или доставки заказа, а также для получения дополнительной консультации при выборе товара, Вы можете обратиться к продавцу, воспользовавшись нашими контактами, либо заполните форму <b>Обратной связи</b> и мы сами свяжемся с Вами. Будем рады помочь!
-						</DescriptionText>
+                        <ContactInfoWtapper>
+                            <ContactInfoSection>
+                                <ContactImage src={MessageImage} />
+                                <ContactTextWrapper>
+                                    <ContactText>
+                                        <b>Позвоните нам</b>
+                                    </ContactText>
+                                    <ContactText>+375(29)-660-39-59 - продавец</ContactText>
+                                    <ContactText>+375(29)-161-97-61 - для вопросов по сайту</ContactText>
+                                </ContactTextWrapper>
+                            </ContactInfoSection>
 
-						<ContactInfoWtapper>
-							<ContactInfoSection>
-								<ContactImage src={MessageImage} />
-								<ContactTextWrapper>
-									<ContactText>
-										<b>Позвоните нам</b>
-									</ContactText>
-									<ContactText>
-										+375(29)-660-39-59  - продавец
-									</ContactText>
-									<ContactText>
-										+375(29)-161-97-61  - для вопросов по сайту
-									</ContactText>
-								</ContactTextWrapper>
-							</ContactInfoSection>
+                            <ContactInfoSection>
+                                <ContactImage src={MessageImage} />
+                                <ContactTextWrapper>
+                                    <ContactText>
+                                        <b>Напишите нам</b>
+                                    </ContactText>
+                                    <ContactText>mar-cer@yandex.ru - продавец</ContactText>
+                                    <ContactText>auto-dinamic-sup@mail.ru - техподдержка</ContactText>
+                                </ContactTextWrapper>
+                            </ContactInfoSection>
 
-							<ContactInfoSection>
-								<ContactImage src={MessageImage} />
-								<ContactTextWrapper>
-									<ContactText>
-										<b>Напишите нам</b>
-									</ContactText>
-									<ContactText>
-										mar-cer@yandex.ru  - продавец
-									</ContactText>
-									<ContactText>
-										auto-dinamic-sup@mail.ru  - техподдержка
-									</ContactText>
-								</ContactTextWrapper>
-							</ContactInfoSection>
+                            <ContactInfoSection>
+                                <ContactImage src={MessageImage} />
+                                <ContactTextWrapper>
+                                    <ContactText>
+                                        <b>Приезжайте</b>
+                                    </ContactText>
+                                    <ContactText>Мы находимся по адресу</ContactText>
+                                    <ContactText>г.Гомель, ул. Карповича 28.</ContactText>
+                                </ContactTextWrapper>
+                            </ContactInfoSection>
+                        </ContactInfoWtapper>
+                    </Section>
+                </MainInfo>
+            </PadeDetailWrapper>
 
-							<ContactInfoSection>
-								<ContactImage src={MessageImage} />
-								<ContactTextWrapper>
-									<ContactText>
-										<b>Приезжайте</b>
-									</ContactText>
-									<ContactText>
-									Мы находимся по адресу
-									</ContactText>
-									<ContactText>
-										г.Гомель, ул. Карповича 28.
-									</ContactText>
-								</ContactTextWrapper>
-							</ContactInfoSection>
-
-						</ContactInfoWtapper>
-					</Section>
-				</MainInfo>
-			</PadeDetailWrapper>
-
-			<CallBackFormWrapper id="callback-form">
-				<CallbackForm />
-			</CallBackFormWrapper>
+            <CallBackFormWrapper id="callback-form">
+                <CallbackForm />
+            </CallBackFormWrapper>
         </Wrapper>
     );
 });

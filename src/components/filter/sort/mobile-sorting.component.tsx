@@ -11,17 +11,17 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import { BodyText } from '../../../ui/text';
 
 const Wrapper = styled.div`
-	width: 40%;
-	padding: 10px;
-	display: flex;
-	justify-content: center;
+    width: 40%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
     align-items: center;
 `;
 
 const SortText = styled(BodyText)`
-	font-size: 10px;
+    font-size: 10px;
     color: #3a3a3a;
-	margin: 0 5px;
+    margin: 0 5px;
 `;
 
 //TODO move to firebase??
@@ -43,15 +43,15 @@ const sortingConfig = [
 export const MobileSorting: React.FC = React.memo(function MobileSorting() {
     const dispatch = useDispatch();
     const selectedSort = useSelector(getSelectedSort);
-	const sortName = useMemo(() => {
-		const value = sortingConfig.find((item) => item.value === selectedSort);
+    const sortName = useMemo(() => {
+        const value = sortingConfig.find((item) => item.value === selectedSort);
 
-		if (!value) {
-			return 'Сортировка';
-		}
+        if (!value) {
+            return 'Сортировка';
+        }
 
-		return value.label;
-	}, [selectedSort]);
+        return value.label;
+    }, [selectedSort]);
 
     const handleSetSort = useCallback(
         (event: any) => {
@@ -64,11 +64,11 @@ export const MobileSorting: React.FC = React.memo(function MobileSorting() {
         [dispatch, selectedSort]
     );
 
-	return (
-		<Wrapper>
-			<FilterListIcon style={{ fontSize: '16px'}} />
-			<SortText>{sortName}</SortText>
-			<ArrowDropDownIcon style={{ fontSize: '14px'}} />
-		</Wrapper>
-	 );
+    return (
+        <Wrapper>
+            <FilterListIcon style={{ fontSize: '16px' }} />
+            <SortText>{sortName}</SortText>
+            <ArrowDropDownIcon style={{ fontSize: '14px' }} />
+        </Wrapper>
+    );
 });

@@ -22,10 +22,10 @@ const HeaderWrapper = styled.div`
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 20px;
-	flex-direction: row;
+    flex-direction: row;
 
-	@media (max-width: 850px) {
-		flex-direction: column;
+    @media (max-width: 850px) {
+        flex-direction: column;
     }
 `;
 

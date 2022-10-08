@@ -43,7 +43,7 @@ const ResultBasketWrapper = styled.div`
     padding: 20px;
     border: 2px solid #f2f2f2;
     margin-top: 0px;
-	height: 270px;
+    height: 270px;
 
     @media ${device.laptop} {
         margin-top: 40px;
@@ -112,41 +112,46 @@ export const Basket: React.FC = React.memo(function Basket() {
                 <TitleText>Корзина</TitleText>
             </HeaderWrapper>
             <BasketBodyWrapper>
-            <BasketItems>
-                <BasketHeaders>
-                <BodyText size={TextSize.EXTRA_SMALL} weight={TextWeight.DEFAULT} style={{ width: '50%'}}>товар</BodyText>
-                    <BodyText size={TextSize.EXTRA_SMALL} weight={TextWeight.DEFAULT}>
-                        количество
-                    </BodyText>
-                    <BodyText size={TextSize.EXTRA_SMALL} weight={TextWeight.DEFAULT} style={{ width: '18%', marginLeft: '-100px'}}>
-                        стоимость
-                    </BodyText>
-                </BasketHeaders>
-                {basket.orderItems.map((item, index) => (
-                    <BasketItem key={index} product={item} />
-                ))}
-            </BasketItems>
-            <ResultBasketWrapper>
-                <TitleText>{LocaleStrings.checkout.basket.resultCard.resultHeader}</TitleText>
-                <ResultItemWrapper first>
-                    <BasketBodyText>{LocaleStrings.checkout.basket.resultLabels.quantity}</BasketBodyText>
-                    <BasketBodyText>{countItems}</BasketBodyText>
-                </ResultItemWrapper>
-                <ResultItemWrapper>
-                    <BasketBodyText>{LocaleStrings.checkout.basket.resultLabels.totalPrice}</BasketBodyText>
-                    <BasketBodyText>{`${basket.total} BYN`}</BasketBodyText>
-                </ResultItemWrapper>
-                <ResultItemButtonWrapper>
-                    <StyledButton onClick={continueShoppingHandle} label="Продолжить покупки" />
-                    <StyledButton
-                        additionalStyles={{ marginTop: '10px' }}
-                        onClick={goToOrderConfirmation}
-                        label="Офромить заказ"
-                    />
-                </ResultItemButtonWrapper>
-            </ResultBasketWrapper>
+                <BasketItems>
+                    <BasketHeaders>
+                        <BodyText size={TextSize.EXTRA_SMALL} weight={TextWeight.DEFAULT} style={{ width: '50%' }}>
+                            товар
+                        </BodyText>
+                        <BodyText size={TextSize.EXTRA_SMALL} weight={TextWeight.DEFAULT}>
+                            количество
+                        </BodyText>
+                        <BodyText
+                            size={TextSize.EXTRA_SMALL}
+                            weight={TextWeight.DEFAULT}
+                            style={{ width: '18%', marginLeft: '-100px' }}
+                        >
+                            стоимость
+                        </BodyText>
+                    </BasketHeaders>
+                    {basket.orderItems.map((item, index) => (
+                        <BasketItem key={index} product={item} />
+                    ))}
+                </BasketItems>
+                <ResultBasketWrapper>
+                    <TitleText>{LocaleStrings.checkout.basket.resultCard.resultHeader}</TitleText>
+                    <ResultItemWrapper first>
+                        <BasketBodyText>{LocaleStrings.checkout.basket.resultLabels.quantity}</BasketBodyText>
+                        <BasketBodyText>{countItems}</BasketBodyText>
+                    </ResultItemWrapper>
+                    <ResultItemWrapper>
+                        <BasketBodyText>{LocaleStrings.checkout.basket.resultLabels.totalPrice}</BasketBodyText>
+                        <BasketBodyText>{`${basket.total} BYN`}</BasketBodyText>
+                    </ResultItemWrapper>
+                    <ResultItemButtonWrapper>
+                        <StyledButton onClick={continueShoppingHandle} label="Продолжить покупки" />
+                        <StyledButton
+                            additionalStyles={{ marginTop: '10px' }}
+                            onClick={goToOrderConfirmation}
+                            label="Офромить заказ"
+                        />
+                    </ResultItemButtonWrapper>
+                </ResultBasketWrapper>
             </BasketBodyWrapper>
-            
         </BasketWrapper>
     );
 });

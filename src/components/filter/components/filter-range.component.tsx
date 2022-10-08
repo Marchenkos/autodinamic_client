@@ -107,7 +107,7 @@ export const FilterRange: React.FC<FilterRangeProps> = React.memo(function Filte
                 step={steps}
                 min={min}
             />
-			<ValueWrapper>
+            <ValueWrapper>
                 <FilterValueText>от {chosenValues[0]} BYN</FilterValueText>
                 <FilterValueText>до {chosenValues[1]} BYN</FilterValueText>
             </ValueWrapper>

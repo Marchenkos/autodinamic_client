@@ -25,16 +25,16 @@ const FilterWrapper = styled.div`
     display: flex;
     flex-direction: column;
     padding: 30px;
-	box-sizing: border-box;
+    box-sizing: border-box;
 `;
 
 const HeaderWrapper = styled.div`
-	display: flex;
+    display: flex;
 `;
 
 const FilterTitle = styled(TitleText)`
     font-size: 22px;
-	margin-bottom: 40px;
+    margin-bottom: 40px;
 `;
 
 const SectionTitle = styled(BodyText).attrs({
@@ -51,7 +51,7 @@ interface FilterProps {
 
 export const FilterMobile: React.FC<FilterProps> = React.memo(function FilterMobile({ cleanFilter }: FilterProps) {
     const filters = useSelector(getFilters);
-	const selectedFilters = useSelector(getSelectedFilters);
+    const selectedFilters = useSelector(getSelectedFilters);
 
     const renderSectionsValues = (filter: FilterObject) => {
         switch (filter.type) {
@@ -90,17 +90,23 @@ export const FilterMobile: React.FC<FilterProps> = React.memo(function FilterMob
 
     return (
         <FilterWrapper>
-			<HeaderWrapper>
-				<FilterTitle>Фильтры</FilterTitle>
-				{ (selectedFilters && selectedFilters.length) && (
-					<StyledButton
-						additionalStyles={{ height: '40px', width: '100px', fontSize: '12px', margin: '0 20px', padding: '5px' }}
-						isSecondary
-						onClick={cleanFilter}
-						label="Очистить"
-					/>
-				)}
-			</HeaderWrapper>
+            <HeaderWrapper>
+                <FilterTitle>Фильтры</FilterTitle>
+                {selectedFilters && selectedFilters.length && (
+                    <StyledButton
+                        additionalStyles={{
+                            height: '40px',
+                            width: '100px',
+                            fontSize: '12px',
+                            margin: '0 20px',
+                            padding: '5px',
+                        }}
+                        isSecondary
+                        onClick={cleanFilter}
+                        label="Очистить"
+                    />
+                )}
+            </HeaderWrapper>
             {renderSections()}
         </FilterWrapper>
     );

@@ -30,7 +30,6 @@ const SearchButton = styled.button`
     border: none;
 `;
 
-
 const SearchIcon = styled.span`
     color: #999696;
     font-size: 23px;
@@ -45,7 +44,7 @@ const CleanIcon = styled.span`
     font-size: 23px;
     cursor: pointer;
 
-	margin-left: -50px;
+    margin-left: -50px;
     margin-top: 10px;
     margin-right: 28px;
 `;
@@ -79,8 +78,8 @@ export const SearchInput: React.FC = React.memo(function SearchInput() {
         if (searchRef.current && searchRef.current.value.length > 0) {
             history.push({
                 pathname: '/search',
-                search: "?" + new URLSearchParams({ searchTerms: searchRef.current.value }).toString()
-            })
+                search: '?' + new URLSearchParams({ searchTerms: searchRef.current.value }).toString(),
+            });
         }
     }, [searchRef, dispatch, history]);
 
@@ -93,35 +92,31 @@ export const SearchInput: React.FC = React.memo(function SearchInput() {
         [handleSearch]
     );
 
-
     const handleOnClear = useCallback(() => {
         if (searchRef.current && searchRef.current.value.length > 0) {
             searchRef.current.value = '';
-			history.push('/catalog');
-			setShowClearButton(false);
+            setShowClearButton(false);
         }
-    },[searchRef]);
+    }, [searchRef]);
 
-	const handleOnBlure = useCallback(() => {
+    const handleOnBlure = useCallback(() => {
         if (searchRef.current && searchRef.current.value.length < 1) {
-            setShowClearButton(false)
+            setShowClearButton(false);
         }
-    },[searchRef]);
+    }, [searchRef]);
 
     return (
         <SearchInputWrapper>
             <SearchIcon className="icon-search" />
-            
+
             <StyledInput
                 ref={searchRef}
                 placeholder="Поиск..."
                 onKeyDown={handleKeyDown}
-				onFocus={() => setShowClearButton(true)}
-				onBlur={handleOnBlure}
+                onFocus={() => setShowClearButton(true)}
+                onBlur={handleOnBlure}
             />
-			{
-                showClearButton && <CleanIcon className="icon-cancel" onClick={handleOnClear} />
-            }
+            {showClearButton && <CleanIcon className="icon-cancel" onClick={handleOnClear} />}
             <SearchButton onClick={handleSearch}>Найти</SearchButton>
         </SearchInputWrapper>
     );

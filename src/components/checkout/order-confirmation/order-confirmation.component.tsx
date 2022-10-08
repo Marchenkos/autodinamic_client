@@ -20,8 +20,8 @@ import { StyledButton } from '../../../ui/new-styled';
 const OrderConfirmationWrapper = styled.div`
     padding: 40px 50px;
 
-	@media (max-width: 850px) {
-		padding: 20px 25px;
+    @media (max-width: 850px) {
+        padding: 20px 25px;
     }
 `;
 
@@ -150,7 +150,7 @@ export const OrderConfirmation: React.FC = React.memo(function OrderConfirmation
             <OrderConfirmationHeader>
                 <StyledTitleText>Оформление заказа</StyledTitleText>
                 <StyledButton
-					additionalStyles={{ width: '250px' }}
+                    additionalStyles={{ width: '250px' }}
                     isSecondary
                     onClick={handleOnBackToBasket}
                     label="Вернуться к корзине"

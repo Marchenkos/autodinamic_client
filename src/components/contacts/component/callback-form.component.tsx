@@ -18,16 +18,15 @@ const FormWrapper = styled.div`
     align-items: center;
     margin: 0 auto;
 
-	@media (max-width: 800px) {
-		width: 70%;
+    @media (max-width: 800px) {
+        width: 70%;
     }
-
 `;
 
 const CallbackFormWrapper = styled.div`
     display: flex;
     flex-direction: column;
-	align-items: center;
+    align-items: center;
 `;
 
 const FormTitle = styled(TitleText)`
@@ -63,11 +62,7 @@ export const CallbackForm: React.FC = React.memo(function CallbackForm() {
 
     const handleOnPressInter = useCallback(
         (field: string) => {
-            if (
-                field === 'email' ||
-                field === 'name' ||
-                field === 'message'
-            ) {
+            if (field === 'email' || field === 'name' || field === 'message') {
                 setFocus(field);
             } else {
                 handleSubmitPress();
@@ -115,9 +110,9 @@ export const CallbackForm: React.FC = React.memo(function CallbackForm() {
                     control={control}
                     render={({ field, fieldState }) => (
                         <TextAreaInput
-							{...field}
+                            {...field}
                             id="input-message"
-							nextFieldName=""
+                            nextFieldName=""
                             isError={fieldState.error}
                             placeholder="Сообщение"
                         />

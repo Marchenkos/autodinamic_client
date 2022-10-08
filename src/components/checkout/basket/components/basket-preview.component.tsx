@@ -11,7 +11,7 @@ import { useHistory } from 'react-router-dom';
 const BasketPreviewWrapper = styled.button`
     display: flex;
     align-items: center;
-	flex-direction: row;
+    flex-direction: row;
 
     border: 1px solid #dddddd;
     border-radius: 5px;
@@ -20,10 +20,10 @@ const BasketPreviewWrapper = styled.button`
     cursor: pointer;
     background: none;
 
-	@media (max-width: 800px) {
-		flex-direction: column;
-		border: none;
-		padding: 10px 0;
+    @media (max-width: 800px) {
+        flex-direction: column;
+        border: none;
+        padding: 10px 0;
     }
 `;
 
@@ -39,10 +39,10 @@ const BasketDetailsWrapper = styled.div`
     left: 11px;
     background: #343434;
 
-	@media (max-width: 800px) {
-		top: 3px;
-    	left: 39px;
-		background: none;
+    @media (max-width: 800px) {
+        top: 3px;
+        left: 39px;
+        background: none;
     }
 `;
 
@@ -63,17 +63,17 @@ const SectionHeader = styled(BodyText).attrs({ color: TextColor.DARK })`
     margin-left: -5px;
     margin-right: 10px;
 
-	@media (max-width: 800px) {
-		display: none;
+    @media (max-width: 800px) {
+        display: none;
     }
 `;
 
 const BasketBodyText = styled(BodyText).attrs({ color: TextColor.BLUE })`
     font-size: 14px;
-	
-	@media (max-width: 800px) {
-		color: #41a4a6;
-    	font-weight: 600;
+
+    @media (max-width: 800px) {
+        color: #41a4a6;
+        font-weight: 600;
     }
 `;
 
@@ -100,16 +100,12 @@ export const BasketPreview: React.FC = React.memo(function BasketPreview() {
         <BasketPreviewWrapper onClick={goToBasket} onMouseOver={handleOnMouseAction} onMouseOut={handleOnMouseAction}>
             <StyledIcons size={23} className="icon-shopping-bag" />
             <SectionHeader>Корзина</SectionHeader>
-            {countItems > 0 && 
+            {countItems > 0 && (
                 <BasketDetailsWrapper>
                     <BasketBodyText>{countItems}</BasketBodyText>
                 </BasketDetailsWrapper>
-            }
-            {
-                showEmptyMessage && <MessageBlock>
-                    Ваша корзина пуста
-                </MessageBlock>
-            }
+            )}
+            {showEmptyMessage && <MessageBlock>Ваша корзина пуста</MessageBlock>}
         </BasketPreviewWrapper>
     );
 });

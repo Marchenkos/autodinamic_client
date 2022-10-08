@@ -29,12 +29,11 @@ export const Wishlist: React.FC = React.memo(function Wishlist() {
     return (
         <Wrapper>
             <PageTitleText>Избранные товары</PageTitleText>
-			<WishlistWrapper>
-				{
-					wishlistValue.map((item: GeneralProduct, index: number) => 
-					<WishlistItem key={index} product={item} />)
-				}
-			</WishlistWrapper>
+            <WishlistWrapper>
+                {wishlistValue.map((item: GeneralProduct, index: number) => (
+                    <WishlistItem key={index} product={item} />
+                ))}
+            </WishlistWrapper>
         </Wrapper>
     );
 });

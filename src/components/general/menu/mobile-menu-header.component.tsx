@@ -26,9 +26,9 @@ import { MobileAccountPreview } from '../../account/component/mobile-account-pre
 
 const BasketItemLink = styled(StyledLink)`
     display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 `;
 
 const MenuItemLink = styled(StyledLink)`
@@ -90,9 +90,9 @@ const MenuWrapper = styled.div`
     position: fixed;
     z-index: 5;
     width: 100%;
-	box-sizing: border-box;
+    box-sizing: border-box;
 
-	border-bottom: 1.5px solid #ddddddcc;
+    border-bottom: 1.5px solid #ddddddcc;
 `;
 
 export const IconBarWrapper = styled.div`
@@ -172,18 +172,15 @@ export const MobileMenuHeader: React.FC = React.memo(function MobileMenuHeader()
                     {menuContent}
                 </SwipeableDrawer>
             </React.Fragment>
-			<MenuIcon onClick={toggleDrawer(true)} style={{ color: 'black', marginRight: '10px', marginTop: '4px' }} />
+            <MenuIcon onClick={toggleDrawer(true)} style={{ color: 'black', marginRight: '10px', marginTop: '4px' }} />
 
-			<StyledLink
-                to="/home"
-                style={{ flexGrow: 1 }}
-            >
+            <StyledLink to="/home" style={{ flexGrow: 1 }}>
                 <LogoComponentWithText />
             </StyledLink>
 
-			<BasketItemLink to='/basket'>
-				<ShoppingBasketIcon style={{ color: '#4a4a4a' }} />
-			</BasketItemLink>
+            <BasketItemLink to="/basket">
+                <ShoppingBasketIcon style={{ color: '#4a4a4a' }} />
+            </BasketItemLink>
         </MenuWrapper>
     );
 });

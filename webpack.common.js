@@ -9,7 +9,7 @@ module.exports = {
         filename: '[name].[contenthash].bundle.js',
         chunkFilename: '[name].[contenthash].bundle.js',
         path: path.resolve(__dirname, './build'),
-        publicPath: '/'
+        publicPath: '/',
     },
     resolve: {
         extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
@@ -57,7 +57,7 @@ module.exports = {
     },
     plugins: [
         new Dotenv({
-            path: path.resolve(__dirname,'.env'),
+            path: path.resolve(__dirname, '.env'),
         }),
     ],
     optimization: {
