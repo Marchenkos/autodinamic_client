@@ -7,48 +7,62 @@ import { capitalizeString } from '../../filter/utilites/formated-string';
 import { Catalog } from '../../product-list/screens/catalog.component';
 
 const MenuWrapper = styled.div`
-    margin-top: 25px;
-    display: flex;
     width: 100%;
+    display: flex;
     align-items: center;
-    justify-content: flex-start;
-    padding: 0 50px;
+    justify-content: center;
+    gap: 25px;
 `;
 
 const MenuItemDropdown = styled.div`
     position: relative;
     display: inherit;
-
     &:hover .dropdown-content {
         display: flex;
         flex-direction: column;
+        gap: 5px;
     }
 `;
 
 const MenuItemDropdownContent = styled.div`
-    padding-top: 10px;
     position: absolute;
     background-color: #f9f9f9;
+    overflow: hidden;
+    border-radius: 0px 0px 6px 6px;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
     display: none;
-    top: 40px;
+    left: -450px;
+    top: 50px;
 `;
 
 const StyledMenuItemText = styled(StyledLink).attrs({ color: TextColor.DARK })`
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  height: 50px;
+  position: relative;
   font-size: 16px;
-  padding-bottom: 20px;
-
-  margin-right: 35px;
-  border-bottom: none;
   box-sizing: border-box;
-  border-bottom: 2px solid #ffff;
+  
 
-  &:focus, &:hover {
-      border-bottom: 2px solid #363636;
+  :before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0%;
+    height: 1.4px;
+    width: 0%;
+    border-radius: 2px;
+    background-color: black;
+    transition: all ease-in-out 300ms;  
   }
+
+    &:focus:before, &:hover:before {
+        // border-bottom: 2px solid black;
+        width: 100%;
+    }
 }`;
 
 interface MenuConfig {
@@ -61,7 +75,7 @@ interface MenuConfig {
 const menuConfig: MenuConfig[] = [
     {
         name: 'Каталог',
-        url: '/catalog',
+        url: '/catalog/magnitols',
         component: <Catalog />,
         subLinks: [
             {

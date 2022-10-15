@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import {  useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { accountRoutesConfig } from '../../../router/config-account';
@@ -84,11 +84,11 @@ const AccountScreen: React.FC = React.memo(function AccountScreen() {
     const userData = useSelector(getUser);
     const isFetching = useSelector(geIsFetchingtUserDetails);
 
-    const history = useHistory();
+    const history = useNavigate();
 
     useEffect(() => {
         if (!userData && !isFetching) {
-            history.push('/');
+            history('/');
         }
     }, [userData, history, isFetching]);
 

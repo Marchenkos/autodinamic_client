@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 
 import { BodyText, TextColor, TextSize } from '../../../ui/text';
 import { GeneralProduct, OrderProduct } from '../../../graphql/entities';
@@ -142,11 +142,11 @@ export const ProductListItem: React.FC<ProductListItemProps> = React.memo(functi
     isNew,
 }: ProductListItemProps) {
     const [isOver, setIsOver] = useState(false);
-    let history = useHistory();
+    let history = useNavigate();
     const isInWishlist = useIsInWishlist({ productId: product.id });
 
     const navigateToTheProductDetails = useCallback(() => {
-        history.push(`/product-details/${product.id}`);
+        history(`/product-details/${product.id}`);
     }, [history, product]);
 
     return (

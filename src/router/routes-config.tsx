@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch } from 'react-router-dom';
+import { Routes } from 'react-router-dom';
 
 import { IRoute } from './interface';
 import RouteWithSubRoutes from './route-with-sub-routes';
@@ -9,11 +9,11 @@ interface IProps {
 
 const RenderRoutes: React.FC<IProps> = ({ routes }) => {
     return (
-        <Switch>
+        <Routes>
             {routes.map((route: IRoute) => (
                 <RouteWithSubRoutes key={route.path} {...route} />
             ))}
-        </Switch>
+        </Routes>
     );
 };
 

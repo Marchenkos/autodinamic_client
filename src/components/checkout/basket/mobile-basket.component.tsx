@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { TitleText, BodyText, TextSize, TextWeight, TextColor } from '../../../ui/text';
 import { BasketItem } from './components/basket-item.component';
@@ -81,7 +81,7 @@ const BasketHeaderText = styled(BodyText).attrs({ size: TextSize.SMALL, color: T
 
 export const MobileBasket: React.FC = React.memo(function MobileBasket() {
     const basket = useSelector(getBasket);
-    const history = useHistory();
+    const history = useNavigate();
 
     const countItems = useMemo(() => {
         let count = 0;
@@ -94,11 +94,11 @@ export const MobileBasket: React.FC = React.memo(function MobileBasket() {
     }, [basket.orderItems]);
 
     const continueShoppingHandle = useCallback(() => {
-        history.push('/catalog/all');
+        history('/catalog/all');
     }, [history]);
 
     const goToOrderConfirmation = useCallback(() => {
-        history.push('/order-confirmation');
+        history('/order-confirmation');
     }, [history]);
 
     return (

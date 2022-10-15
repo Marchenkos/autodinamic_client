@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { Order } from '../../../../../graphql/entities';
 import { Button } from '@material-ui/core';
@@ -67,11 +67,11 @@ interface OrderItemProps {
 }
 
 export const OrderItem: React.FC<OrderItemProps> = React.memo(function OrderItem({ order }: OrderItemProps) {
-    const history = useHistory();
+    const history = useNavigate();
     const steps = getSteps();
 
     const goToOrderDetails = useCallback(() => {
-        history.push(`/account/order-details/${order.orderId}`);
+        history(`/account/order-details/${order.orderId}`);
     }, [order, history]);
 
     return (

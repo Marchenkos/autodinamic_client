@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { BodyText, TextColor, TextSize } from '../../../ui/text';
 import { GeneralProduct, OrderItem } from '../../../graphql/entities';
@@ -67,10 +67,10 @@ export const CarouselItem: React.FC<ProductListItemProps> = React.memo(function 
     smallVersion,
 }: ProductListItemProps) {
     const [isOver, setIsOver] = useState(false);
-    let history = useHistory();
+    let history = useNavigate();
 
     const navigateToTheProductDetails = useCallback(() => {
-        history.push(`/product-details/${product.id}`);
+        history(`/product-details/${product.id}`);
     }, [history, product]);
 
     return (

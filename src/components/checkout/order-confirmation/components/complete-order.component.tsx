@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { BodyText, TextColor, TextSize, TitleText, TextWeight, TitleLink } from '../../../../ui/text';
 import { OrderDetailsResponse } from '../../../../graphql/interfaces';
@@ -48,10 +48,10 @@ const SmallLabelText = styled(BodyText).attrs({ size: TextSize.EXTRA_SMALL })`
 export const CompleteOrder: React.FC<OrderDeliveryInfoProps> = React.memo(function CompleteOrder({
     order,
 }: OrderDeliveryInfoProps) {
-    const history = useHistory();
+    const history = useNavigate();
 
     const handleGoToCatalog = useCallback(() => {
-        history.push('/catalog/all');
+        history('/catalog/all');
     }, [history]);
 
     return (

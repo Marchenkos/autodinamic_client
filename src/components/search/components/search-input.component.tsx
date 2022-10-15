@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import { useHistory } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import styled from 'styled-components';
@@ -9,7 +9,6 @@ const SearchInputWrapper = styled.div`
     display: flex;
     flex-grow: 1;
     position: relative;
-
     @media (max-width: 420px) {
         width: 100%;
     }
@@ -23,11 +22,14 @@ const SearchButton = styled.button`
     background: #3b9b9d;
     color: white;
     font-family: 'Manrope';
-    margin-left: -15px;
     font-size: 14px;
-    border-radius: 5px;
+    border-radius: 0px 5px 5px 0px;
     cursor: pointer;
     border: none;
+
+    &:active {
+        background: #40abad;
+    }
 `;
 
 const SearchIcon = styled.span`
@@ -43,19 +45,19 @@ const CleanIcon = styled.span`
     color: #c9c7c7;
     font-size: 23px;
     cursor: pointer;
-
-    margin-left: -50px;
-    margin-top: 10px;
-    margin-right: 28px;
+    position: absolute;
+    right: 32%;
+    top: 23%;
+    
 `;
 
 const StyledInput = styled.input`
     border: 1px solid #cdcbcb;
     box-sizing: content-box;
-    border-radius: 5px;
+    border-radius: 5px 0px 0px 5px;
     width: 60%;
     height: 40px;
-    padding-left: 50px;
+    padding-inline: 50px;
     font-size: 14px;
     font-family: 'Manrope';
     background: #fff;
@@ -72,11 +74,11 @@ export const SearchInput: React.FC = React.memo(function SearchInput() {
     const searchRef = useRef<HTMLInputElement>(null);
     const [showClearButton, setShowClearButton] = useState(false);
 
-    const history = useHistory();
+    const history = useNavigate();
 
     const handleSearch = useCallback(() => {
         if (searchRef.current && searchRef.current.value.length > 0) {
-            history.push({
+            history({
                 pathname: '/search',
                 search: '?' + new URLSearchParams({ searchTerms: searchRef.current.value }).toString(),
             });

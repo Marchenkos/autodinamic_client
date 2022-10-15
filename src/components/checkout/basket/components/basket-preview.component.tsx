@@ -6,7 +6,7 @@ import { StyledLink } from '../../../../ui/styled-link.component';
 import { getBasketItemsCount } from '../selectors';
 import { useSelector } from 'react-redux';
 import { StyledIcons } from '../../../../ui/styled-icon.component';
-import { useHistory } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 
 const BasketPreviewWrapper = styled.button`
     display: flex;
@@ -24,6 +24,13 @@ const BasketPreviewWrapper = styled.button`
         flex-direction: column;
         border: none;
         padding: 10px 0;
+    }
+
+    &: hover {
+        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    }
+    &:active {
+        background: #d5e0e0;
     }
 `;
 
@@ -44,6 +51,7 @@ const BasketDetailsWrapper = styled.div`
         left: 39px;
         background: none;
     }
+
 `;
 
 const MessageBlock = styled.div`
@@ -51,10 +59,11 @@ const MessageBlock = styled.div`
     background: #343434;
     color: white;
     position: absolute;
-    bottom: -50px;
+    bottom: -45px;
     width: 170px;
     left: -50px;
     font-family: 'Manrope';
+    border-radius: 4px;
 `;
 
 const SectionHeader = styled(BodyText).attrs({ color: TextColor.DARK })`
@@ -80,7 +89,7 @@ const BasketBodyText = styled(BodyText).attrs({ color: TextColor.BLUE })`
 export const BasketPreview: React.FC = React.memo(function BasketPreview() {
     const countItems = useSelector(getBasketItemsCount);
     const [showEmptyMessage, setShowEmptyMessage] = useState(false);
-    const history = useHistory();
+    const history = useNavigate();
 
     const handleOnMouseAction = useCallback(() => {
         if (showEmptyMessage) {
@@ -92,7 +101,7 @@ export const BasketPreview: React.FC = React.memo(function BasketPreview() {
 
     const goToBasket = useCallback(() => {
         if (countItems > 0) {
-            history.push('/basket');
+            history('/basket');
         }
     }, [countItems]);
 

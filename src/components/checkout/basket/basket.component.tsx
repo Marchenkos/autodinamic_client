@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { TitleText, BodyText, TextSize, TextWeight, TextColor } from '../../../ui/text';
 import { BasketItem } from './components/basket-item.component';
@@ -86,7 +86,7 @@ const HeaderWrapper = styled.div`
 
 export const Basket: React.FC = React.memo(function Basket() {
     const basket = useSelector(getBasket);
-    const history = useHistory();
+    const history = useNavigate();
 
     const countItems = useMemo(() => {
         let count = 0;
@@ -99,11 +99,11 @@ export const Basket: React.FC = React.memo(function Basket() {
     }, [basket.orderItems]);
 
     const continueShoppingHandle = useCallback(() => {
-        history.push('/catalog/all');
+        history('/catalog/all');
     }, [history]);
 
     const goToOrderConfirmation = useCallback(() => {
-        history.push('/order-confirmation');
+        history('/order-confirmation');
     }, [history]);
 
     return (

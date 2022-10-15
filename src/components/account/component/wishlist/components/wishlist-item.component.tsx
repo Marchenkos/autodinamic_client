@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { GeneralProduct } from '../../../../../graphql/entities';
 import { BodyText, TextSize, TextColor } from '../../../../../ui/text';
@@ -100,11 +100,11 @@ interface WishlistItemProps {
 export const WishlistItem: React.FC<WishlistItemProps> = React.memo(function WishlistItem({
     product,
 }: WishlistItemProps) {
-    let history = useHistory();
+    let history = useNavigate();
     const isInWishlist = useIsInWishlist({ productId: product.id });
 
     const navigateToTheProductDetails = useCallback(() => {
-        history.push(`/product-details/${product.id}`);
+        history(`/product-details/${product.id}`);
     }, [history, product]);
 
     return (

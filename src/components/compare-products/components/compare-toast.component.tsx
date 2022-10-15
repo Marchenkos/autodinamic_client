@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Chip } from '@material-ui/core';
 import CompareIcon from '@material-ui/icons/Compare';
 
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getCompareItemsCount, getIsShowCompareItemsCount } from '../selectors';
 import { HIDE_COMPARE_TOAST } from '../actions';
 
@@ -26,10 +26,10 @@ export const CompareToast: React.FC = React.memo(function CompareToast() {
     const compareItemsCount = useSelector(getCompareItemsCount);
     const isShow = useSelector(getIsShowCompareItemsCount);
 
-    let history = useHistory();
+    let history = useNavigate();
 
     const navigateToCompare = useCallback(() => {
-        history.push('/compare');
+        history('/compare');
     }, [history]);
 
     const hideToast = useCallback(() => {

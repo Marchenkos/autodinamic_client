@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { StyledLink } from '../../../ui/styled-link.component';
@@ -35,14 +35,14 @@ const SmallMenuTitle = styled(BodyText).attrs({
 
 export const SmallMenu: React.FC = React.memo(function SmallMenu() {
     const userData = useSelector(getUser);
-    const history = useHistory();
+    const history = useNavigate();
     const dispatch = useDispatch();
 
     const navigateToAccount = useCallback(() => {
         if (userData) {
-            history.push('/account');
+            history('/account');
         } else {
-            history.push('/account/login');
+            history('/account/login');
         }
     }, [userData, history]);
 

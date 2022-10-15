@@ -7,7 +7,7 @@ import { TitleText } from '../../../ui/text';
 import { OrderUserInfo } from './components/user-info.component';
 import { OrderDeliveryInfo } from './components/delivery-info';
 import { ConfirmOrder } from './components/confirm-order.component';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAddedOrder, getOrderUserDetails } from './selectors';
 import { CompleteOrder } from './components/complete-order.component';
@@ -74,7 +74,7 @@ export const OrderConfirmation: React.FC = React.memo(function OrderConfirmation
     const [activeStep, setActiveStep] = useState(0);
     const [isEditing, setIsEditing] = useState(false);
 
-    const history = useHistory();
+    const history = useNavigate();
     const order = useSelector(getAddedOrder);
     const deviceSize = getDeviceSize();
     const dispatch = useDispatch();
@@ -105,7 +105,7 @@ export const OrderConfirmation: React.FC = React.memo(function OrderConfirmation
     const handleConfirmModal = useCallback(
         (choice: boolean) => {
             if (choice) {
-                history.goBack();
+                history(-1);
             }
         },
         [history]

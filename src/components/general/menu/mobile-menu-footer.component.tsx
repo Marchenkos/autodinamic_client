@@ -8,7 +8,7 @@ import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 
 import { StyledLink } from '../../../ui/styled-link.component';
 import { BodyText } from '../../../ui/text';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUser } from '../../account/selectors';
 import { SHOW_SIMPLE_MODAL } from '../../modal/actions';
@@ -88,13 +88,13 @@ interface MobileMenuFooterItemProps {
 export const MobileMenuFooterItem: React.FC<MobileMenuFooterItemProps> = React.memo(function MobileMenuFooterItem({
     item,
 }: MobileMenuFooterItemProps) {
-    const history = useHistory();
+    const history = useNavigate();
     const userData = useSelector(getUser);
     const dispatch = useDispatch();
 
     const navigateToAccount = useCallback(() => {
         if (userData) {
-            history.push('/account');
+            history('/account');
         } else {
             dispatch(
                 TOGGLE_DRAWER({
@@ -113,7 +113,7 @@ export const MobileMenuFooterItem: React.FC<MobileMenuFooterItemProps> = React.m
                 })
             );
         } else {
-            history.push('/account/wishlist');
+            history('/account/wishlist');
         }
     }, [userData, history]);
 

@@ -9,7 +9,7 @@ import { BodyText, TextColor, TextWeight, TextSize, BodyTextSpan } from '../../.
 import { useSelector } from 'react-redux';
 import { GeneralProduct, OrderProduct } from '../../../graphql/entities';
 import { ADD_TO_BASKET } from '../../checkout/basket/actions';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getBasketItems } from '../../checkout/basket/selectors';
 import { HIDE_FORM_MODAL, SHOW_FORM_MODAL, SHOW_SIMPLE_MODAL } from '../../modal/actions';
 import { TOGGLE_COMPARE_LIST } from '../../compare-products/actions';
@@ -55,7 +55,7 @@ export const ProductAddToBasketButton: React.FC<{ product: GeneralProduct; isSma
         const dispatch = useDispatch();
         const basketItems = useSelector(getBasketItems);
 
-        let history = useHistory();
+        let history = useNavigate();
 
         const isInBasket = useMemo(() => {
             const isHere = basketItems.filter((item) => item.id === product.id);
@@ -84,7 +84,7 @@ export const ProductAddToBasketButton: React.FC<{ product: GeneralProduct; isSma
         }, [product, dispatch]);
 
         const navigateToBasket = useCallback(() => {
-            history.push('/basket');
+            history('/basket');
         }, [history]);
 
         const action = isInBasket ? navigateToBasket : handleAddToBasket;
