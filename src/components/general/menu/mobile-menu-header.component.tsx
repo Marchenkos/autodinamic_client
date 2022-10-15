@@ -20,7 +20,7 @@ import { capitalizeString } from '../../filter/utilites/formated-string';
 import { BodyText, TextSize, TextColor, TextWeight } from '../../../ui/text';
 import CloseIcon from '@material-ui/icons/Close';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getUser } from '../../account/selectors';
 import { MobileAccountPreview } from '../../account/component/mobile-account-preview.component';
 
@@ -133,7 +133,7 @@ export const MobileMenuHeader: React.FC = React.memo(function MobileMenuHeader()
     const classes = useStyles();
     const [state, setState] = useState(false);
     const userData = useSelector(getUser);
-    const history = useHistory();
+    const history = useNavigate();
 
     const toggleDrawer = (value: boolean) => (event: any) => {
         if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
 import { getCategoryNames } from '../../product-category/selectors';
-import { useHistory } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import { PRODUCT_CATEGORY_TO_CATEGORY_IMAGES } from '../../../graphql/entities';
 import { CategoryNames } from '../../../graphql/interfaces';
 import { BodyText, TextWeight } from '../../../ui/text';
@@ -31,6 +31,7 @@ const CatalogNameText = styled(BodyText).attrs({ weight: TextWeight.MEDIUM })`
     color: #4a4a4a;
     text-transform: capitalize;
     font-size: 15px;
+    
 
     @media (max-width: 450px) {
         font-size: 17px;
@@ -40,12 +41,12 @@ const CatalogNameText = styled(BodyText).attrs({ weight: TextWeight.MEDIUM })`
 
 const CatalogImage = styled.img`
     max-width: 60%;
-
+    overflow: hidden;
     transition: transform 1s;
     transform-origin: center center;
 
     &:hover {
-        transform: scale(1.2);
+        transform: scale(1.17);
     }
 `;
 
@@ -54,12 +55,12 @@ interface CatalogItemProps {
 }
 
 const CatalogItem: React.FC<CatalogItemProps> = React.memo(function CatalogItem({ categoryName }: CatalogItemProps) {
-    const history = useHistory();
+    const history = useNavigate();
 
     const image = PRODUCT_CATEGORY_TO_CATEGORY_IMAGES[categoryName.category_name];
 
     const handleChooseCategory = React.useCallback(() => {
-        history.push(`catalog/${categoryName.category_name}`);
+        history(`catalog/${categoryName.category_name}`);
     }, [categoryName, history]);
 
     if (!image) {

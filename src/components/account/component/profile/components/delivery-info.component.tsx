@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { BodyText, TextColor, TextSize, TextWeight } from '../../../../../ui/text';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { SET_EDITABLE_ADDRESS } from '../../../actions';
 import { getPrimaryAddress } from '../../../selectors';
 import { StyledButton } from '../../../../../ui/new-styled';
@@ -88,10 +88,10 @@ const ButtonWrapper = styled.div`
 
 export const DeliveryInfo: React.FC = React.memo(function DeliveryInfo() {
     const primaryAddressData = useSelector(getPrimaryAddress);
-    const history = useHistory();
+    const history = useNavigate();
 
     const navigateToAddressList = useCallback(() => {
-        history.push('/account/address-list');
+        history('/account/address-list');
     }, [history]);
 
     if (!primaryAddressData) {

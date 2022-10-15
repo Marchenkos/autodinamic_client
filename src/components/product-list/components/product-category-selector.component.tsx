@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { CategoryNames } from '../../../graphql/interfaces';
 
@@ -25,14 +25,14 @@ export const ProductCategorySelector: React.FC<CategorySelectorProps> = React.me
     const dispatch = useDispatch();
     const allProductCategoryNames = useSelector(getCategoryNames);
     const selectedCategory = useSelector(getSelectedCategory);
-    const history = useHistory();
+    const history = useNavigate();
 
     const handleOnChangeCategory = useCallback(
         (event: any) => {
             if (isNew) {
-                history.push(`/new/${event.target.value}`);
+                history(`/new/${event.target.value}`);
             } else {
-                history.push(`/catalog/${event.target.value}`);
+                history(`/catalog/${event.target.value}`);
             }
         },
         [dispatch, isNew]

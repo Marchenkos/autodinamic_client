@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 
 import { CategoryNames } from '../../../graphql/interfaces';
@@ -65,12 +65,12 @@ export const ProductListHeaders: React.FC = React.memo(function ProductListScree
     const dispatch = useDispatch();
     const allProductCategories = useSelector(getCategoryNames);
     const selectedCategory = useSelector(getSelectedCategory);
-    const history = useHistory();
+    const history = useNavigate();
 
     const setCategory = useCallback(
         (selectedCategory: CategoryNames) => {
             dispatch(SET_CATEGORY(selectedCategory));
-            history.push(`/catalog/${selectedCategory.category_name}`);
+            history(`/catalog/${selectedCategory.category_name}`);
             dispatch(GET_FILTER_BY_CATEGORY.TRIGGER(selectedCategory.category_name));
         },
         [dispatch]

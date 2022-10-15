@@ -20,7 +20,7 @@ export const basketReducer: Reducer<BasketState> = createReducer<BasketState>({
 })
     .handleAction(LOADING_DATA, (state, action) => ({
         basket: state.basket,
-        error: action.payload.status,
+        error: action.payload.status ? undefined : new Error("Data was not loaded"),
         isFetching: true,
     }))
     .handleAction(FETCH_BASKET.START, (state: BasketState) => ({

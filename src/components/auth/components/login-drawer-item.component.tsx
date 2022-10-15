@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { TOGGLE_DRAWER } from '../../drawer/actions';
 
@@ -18,12 +18,12 @@ const RegisterFormWrapper = styled.div`
 export const LoginDrawerItem: React.FC = React.memo(function LoginDrawerItem() {
     const dispatch = useDispatch();
     const token = useSelector(getToken);
-    const history = useHistory();
+    const history = useNavigate();
 
     useEffect(() => {
         if (token) {
             dispatch(TOGGLE_DRAWER({ isShow: false }));
-            history.push('/account');
+            history('/account');
         }
     }, [token]);
 

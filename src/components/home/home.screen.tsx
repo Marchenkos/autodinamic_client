@@ -3,7 +3,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 import { BodyText, TextSize, TextWeight, TitleText } from '../../ui/text';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { isSmallDevice } from '../../utils/check-device-size';
 import { NewestProductCarousel } from './components/newest-products.component';
@@ -117,7 +117,7 @@ const HeaderText = styled(TitleText).attrs({ weight: TextWeight.BOLD })`
 `;
 
 const HomeScreen: React.FC = React.memo(function HomeScreen() {
-    const history = useHistory();
+    const history = useNavigate();
     const dispatch = useDispatch();
 
     const discountProductList = useSelector(getDiscountProductList);
@@ -135,7 +135,7 @@ const HomeScreen: React.FC = React.memo(function HomeScreen() {
     }, [dispatch, discountProductList]);
 
     const navigateToCatalog = React.useCallback(() => {
-        history.push('/catalog/all');
+        history('/catalog/all');
     }, [history]);
 
     return (

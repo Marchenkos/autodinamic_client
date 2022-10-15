@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { redirect, Route } from 'react-router-dom';
 import { IRoute } from './interface';
 
 const RouteWithSubRoutes = (route: IRoute) => {

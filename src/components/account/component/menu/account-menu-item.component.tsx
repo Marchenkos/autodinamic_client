@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
+import { useLocation, useNavigate, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { StyledIcons } from '../../../../ui/styled-icon.component';
@@ -104,7 +104,7 @@ export const AccountMenuItem: React.FC<AccountMenuItemProps> = React.memo(functi
 }: AccountMenuItemProps) {
     let { url } = useRouteMatch();
     const dispatch = useDispatch();
-    const history = useHistory();
+    const history = useNavigate();
     const location = useLocation();
     const deviceSize = getDeviceSize();
 
@@ -113,7 +113,7 @@ export const AccountMenuItem: React.FC<AccountMenuItemProps> = React.memo(functi
     const handleLogOut = useCallback(() => {
         dispatch(LOG_OUT.TRIGGER());
 
-        history.push('/home');
+        history('/home');
     }, [dispatch, history]);
 
     if (urlItem === '0') {

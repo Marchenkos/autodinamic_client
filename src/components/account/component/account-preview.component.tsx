@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { StyledIcons } from '../../../ui/styled-icon.component';
@@ -12,15 +12,18 @@ import { getUser } from '../selectors';
 
 const Section = styled.div`
     display: flex;
-    align-items: center;
     cursor: pointer;
-    background: none;
-    padding: 15px 10px;
+    // background: none;
+    padding: 15px 20px 15px 5px;
     box-sizing: border-box;
-
+    border-radius: 4px;
     :hover {
         background: #7aa0a1;
     }
+    :active {
+        background: #89adad;
+    }
+    
 `;
 
 const SectionHeader = styled(BodyText).attrs({ color: TextColor.WHITE })`
@@ -29,13 +32,13 @@ const SectionHeader = styled(BodyText).attrs({ color: TextColor.WHITE })`
 `;
 
 export const AccountPreview: React.FC = React.memo(function AccountPreview() {
-    const history = useHistory();
+    const history = useNavigate();
     const userData = useSelector(getUser);
     const dispatch = useDispatch();
 
     const navigateToAccount = useCallback(() => {
         if (userData) {
-            history.push('/account');
+            history('/account');
         } else {
             dispatch(
                 TOGGLE_DRAWER({
@@ -54,18 +57,18 @@ export const AccountPreview: React.FC = React.memo(function AccountPreview() {
                 })
             );
         } else {
-            history.push('/account/wishlist');
+            history('/account/wishlist');
         }
     }, [userData, history]);
 
     return (
         <>
             <Section onClick={navigateToWishlist}>
-                <StyledIcons mainColor="#fff" hoveredColor="#fff" className="icon-heart-o" />
+                <StyledIcons  mainColor="#fff" hoveredColor="#f7f2f2" className="icon-heart-o" />
                 <SectionHeader>Избранное</SectionHeader>
             </Section>
             <Section onClick={navigateToAccount}>
-                <StyledIcons mainColor="#fff" hoveredColor="#fff" className="icon-account_circle" />
+                <StyledIcons mainColor="#fff" hoveredColor="#f7f2f2" className="icon-account_circle" />
                 <SectionHeader>Аккаунт</SectionHeader>
             </Section>
         </>

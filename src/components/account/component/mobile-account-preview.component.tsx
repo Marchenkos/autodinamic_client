@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { StyledIcons } from '../../../ui/styled-icon.component';
@@ -24,13 +24,13 @@ const SectionHeader = styled(BodyText).attrs({ color: TextColor.DARK })`
 `;
 
 export const MobileAccountPreview: React.FC = React.memo(function AccountPreview() {
-    const history = useHistory();
+    const history = useNavigate();
     const userData = useSelector(getUser);
     const dispatch = useDispatch();
 
     const navigateToAccount = useCallback(() => {
         if (userData) {
-            history.push('/account');
+            history('/account');
         } else {
             dispatch(
                 TOGGLE_DRAWER({

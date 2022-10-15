@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { GeneralProduct } from '../../../graphql/entities';
 
@@ -67,10 +67,10 @@ export const SimilarProductItem: React.FC<SimilarProductItemProps> = React.memo(
 }: SimilarProductItemProps) {
     const isInWishlist = useIsInWishlist({ productId: item.id });
     const [isOver, setIsOver] = useState(false);
-    let history = useHistory();
+    let history = useNavigate();
 
     const navigateToTheProductDetails = useCallback(() => {
-        history.push(`/product-details/${item.id}`);
+        history(`/product-details/${item.id}`);
     }, [history, item]);
 
     return (

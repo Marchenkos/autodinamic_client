@@ -3,7 +3,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 import { BodyText, TextColor, TextSize, TextWeight, TitleText } from '../../../ui/text';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Promotion } from '../../../graphql/entities';
 import { parseDate } from '../helper/parse-date';
@@ -78,13 +78,13 @@ const DateText = styled(BodyText).attrs({ size: TextSize.EXTRA_SMALL, color: Tex
 `;
 
 const PromotionsListScreen: React.FC = React.memo(function PromotionsListScreen() {
-    const history = useHistory();
+    const history = useNavigate();
     const promotionsList = useSelector(getPromotionsList);
     const isFetching = useSelector(getIsPromotionsListFetching);
 
     const navigateToNewsDetails = React.useCallback(
         (promotion: Promotion) => {
-            history.push(`/promotion/${promotion.id}`);
+            history(`/promotion/${promotion.id}`);
         },
         [history]
     );

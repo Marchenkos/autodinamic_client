@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import { BodyText, TextColor, TextSize, TextWeight, TitleText } from '../../../ui/text';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Promotion } from '../../../graphql/entities';
 import { parseDate } from '../helper/parse-date';

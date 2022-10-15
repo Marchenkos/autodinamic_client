@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { StyledIcons } from '../../../ui/styled-icon.component';
 import { TOGGLE_DRAWER } from '../../drawer/actions';
@@ -44,12 +44,12 @@ export const RegisterDrawerItem: React.FC<RegisterDrawerItemProps> = React.memo(
     const dispatch = useDispatch();
     const isAutoLogged = useSelector(getIsAutoLoggedIn);
     const isRegistered = useSelector(getIsRegistered);
-    const history = useHistory();
+    const history = useNavigate();
 
     useEffect(() => {
         if (isAutoLogged && isRegistered) {
             dispatch(TOGGLE_DRAWER({ isShow: false }));
-            history.push('/account');
+            history('/account');
         }
 
         if (!isAutoLogged && isRegistered) {

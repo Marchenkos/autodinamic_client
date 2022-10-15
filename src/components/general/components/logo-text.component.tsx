@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { TitleText, TextColor, BodyText, TextSize } from '../../../ui/text';
@@ -50,10 +50,10 @@ const LogoWrapper = styled.div`
 export const LogoComponentWithText: React.FC<{ isFooter?: boolean }> = React.memo(function LogoComponentWithText({
     isFooter,
 }) {
-    const history = useHistory();
+    const history = useNavigate();
 
     const navigateHome = () => {
-        history.push('/');
+        history('/');
     };
 
     return (

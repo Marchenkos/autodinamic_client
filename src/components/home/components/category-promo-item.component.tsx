@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { useSelector } from 'react-redux';
 import { PRODUCT_CATEGORY_TO_CATEGORY_IMAGES, Promotion } from '../../../graphql/entities';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { CarouselArrow } from '../../product-details/components/similar-products.component';
 import { CategoryNames } from 'src/graphql/interfaces';
 import { BodyText, TextWeight } from '../../../ui/text';
@@ -45,12 +45,12 @@ interface CategoryPromoItemProps {
 export const CategoryPromoItem: React.FC<CategoryPromoItemProps> = React.memo(function CategoryPromoItem({
     categoryName,
 }: CategoryPromoItemProps) {
-    const history = useHistory();
+    const history = useNavigate();
 
     const image = PRODUCT_CATEGORY_TO_CATEGORY_IMAGES[categoryName.category_name];
 
     const handleChooseCategory = React.useCallback(() => {
-        history.push(`catalog/${categoryName.category_name}`);
+        history(`catalog/${categoryName.category_name}`);
     }, [categoryName, history]);
 
     if (!image) {

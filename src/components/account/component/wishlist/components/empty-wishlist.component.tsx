@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { StyledButton } from '../../../../../ui/new-styled';
@@ -29,10 +29,10 @@ const BlockWrapper = styled(Wrapper)`
 `;
 
 export const EmptyWishlist: React.FC = React.memo(function EmptyWishlist() {
-    const history = useHistory();
+    const history = useNavigate();
 
     const goToCatalog = useCallback(() => {
-        history.push('/catalog/all');
+        history('/catalog/all');
     }, [history]);
 
     return (

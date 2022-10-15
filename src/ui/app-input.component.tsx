@@ -43,6 +43,7 @@ export const CustomInput = styled(CssTextField)`
     @media (max-width: 850px) {
         width: 100%;
     }
+    
 `;
 
 const FullWidthInput = styled(CustomInput)`
@@ -80,8 +81,8 @@ const useStyles = makeStyles((theme) => ({
 
 export const FormInputText = React.forwardRef<HTMLDivElement | null, FormInputTextProps>(function FormInputText(
     props: FormInputTextProps,
-    ref
-) {
+    ref,
+) {`    `
     const classes = useStyles();
     const { isError, capitalize, onPressInter, noBorders, ...otherProps } = props;
 
