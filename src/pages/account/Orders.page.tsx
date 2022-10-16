@@ -1,15 +1,15 @@
 import React, { useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 
-import { TextSize, TextColor, BodyText } from '../../../../ui/text';
+import { TextSize, TextColor, BodyText } from '../../ui/text';
 import { useDispatch, useSelector } from 'react-redux';
-import { getIsOrderFetching, getUser, getUserOrders } from '../../selectors';
-import { GET_ORDER_BY_EMAIL } from '../../actions';
-import { Order } from '../../../../graphql/entities';
-import { PageTitleText } from '../profile/profile.screen';
-import { OrderItem } from './components/order-item.component';
-import { DescriptionBodyText } from '../profile/components/delivery-info.component';
-import { LoadingState } from '../../../../ui/loading-state';
+import { getIsOrderFetching, getUser, getUserOrders } from '../../components/account/selectors';
+import { GET_ORDER_BY_EMAIL } from '../../components/account/actions';
+import { Order } from '../../graphql/entities';
+import { PageTitleText } from './Profile.page';
+import { OrderItem } from '../../components/account/component/orders/components/order-item.component';
+import { DescriptionBodyText } from '../../components/account/component/profile/components/delivery-info.component';
+import { LoadingState } from '../../ui/loading-state';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -34,7 +34,7 @@ const StyledDescription = styled(DescriptionBodyText)`
     }
 `;
 
-export const Orders: React.FC = React.memo(function Orders() {
+export const OrdersPage: React.FC = React.memo(function OrdersPage() {
     const orders = useSelector(getUserOrders);
     const isFetching = useSelector(getIsOrderFetching);
 
@@ -86,4 +86,4 @@ export const Orders: React.FC = React.memo(function Orders() {
     );
 });
 
-export default Orders;
+export default OrdersPage;

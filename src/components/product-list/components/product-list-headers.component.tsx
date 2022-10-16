@@ -1,10 +1,10 @@
 import React, { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
 import styled from 'styled-components';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 
 import { CategoryNames } from '../../../graphql/interfaces';
-import { BodyText, TextSize, TextWeight, TextColor } from '../../../ui/text';
+import { BodyText, TextSize, TextColor } from '../../../ui/text';
 import { GET_FILTER_BY_CATEGORY } from '../../filter/actions';
 import { Sorting } from '../../filter/sort/sorting.component';
 import { capitalizeString } from '../../filter/utilites/formated-string';
@@ -65,12 +65,18 @@ export const ProductListHeaders: React.FC = React.memo(function ProductListScree
     const dispatch = useDispatch();
     const allProductCategories = useSelector(getCategoryNames);
     const selectedCategory = useSelector(getSelectedCategory);
-    const history = useNavigate();
+    const navigate = useNavigate();
 
     const setCategory = useCallback(
         (selectedCategory: CategoryNames) => {
             dispatch(SET_CATEGORY(selectedCategory));
-            history(`/catalog/${selectedCategory.category_name}`);
+            navigate({
+              pathname: "catalog",
+              search: `?${createSearchParams({
+                category: selectedCategory.category_name
+              })}`
+            });
+
             dispatch(GET_FILTER_BY_CATEGORY.TRIGGER(selectedCategory.category_name));
         },
         [dispatch]

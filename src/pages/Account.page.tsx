@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import {  useLocation, useNavigate } from 'react-router-dom';
+import {  Outlet, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { accountRoutesConfig } from '../../../router/config-account';
-import RenderRoutes from '../../../router/routes-config';
-import { TitleText } from '../../../ui/text';
-import { AccountMenu } from '../component/menu/account-menu.component';
-import { accountMenuConfig } from '../constants';
-import { geIsFetchingtUserDetails, getUser } from '../selectors';
+import { TitleText } from '../ui/text';
+import { AccountMenu } from '../components/account/component/menu/account-menu.component';
+import { accountMenuConfig } from '../components/account/constants';
+import { geIsFetchingtUserDetails, getUser } from '../components/account/selectors';
 
 const Wrapper = styled.div`
     display: flex;
@@ -80,7 +78,7 @@ const ContentWrapper = styled.div<{ isCentered?: boolean }>`
     }
 }`;
 
-const AccountScreen: React.FC = React.memo(function AccountScreen() {
+const AccountPage: React.FC = React.memo(function AccountPage() {
     const userData = useSelector(getUser);
     const isFetching = useSelector(geIsFetchingtUserDetails);
 
@@ -99,10 +97,10 @@ const AccountScreen: React.FC = React.memo(function AccountScreen() {
                 <AccountMenu menuConfig={accountMenuConfig} />
             </MenuWrapper>
             <ContentWrapper isCentered={!userData}>
-                <RenderRoutes routes={accountRoutesConfig} />
+                <Outlet />
             </ContentWrapper>
         </Wrapper>
     );
 });
 
-export default AccountScreen;
+export default AccountPage;

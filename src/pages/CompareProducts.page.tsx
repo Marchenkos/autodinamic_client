@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { TitleText } from '../../ui/text';
-import { useCompareListData } from './use-compare-list.hook';
+import { TitleText } from '../ui/text';
+import { useCompareListData } from '../components/compare-products/use-compare-list.hook';
 
 const Wrapper = styled.div`
     flex-grow: 1;
@@ -13,7 +13,7 @@ const Wrapper = styled.div`
     padding: 40px 100px;
 `;
 
-const CompareProductsScreen: React.FC = React.memo(function CompareProductsScreen() {
+const CompareProductsPage: React.FC = React.memo(function CompareProductsPage() {
     const { data, count, refresh, isFetching } = useCompareListData();
 
     console.log(data);
@@ -25,4 +25,4 @@ const CompareProductsScreen: React.FC = React.memo(function CompareProductsScree
     );
 });
 
-export default CompareProductsScreen;
+export default CompareProductsPage;

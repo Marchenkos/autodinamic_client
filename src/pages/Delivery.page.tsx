@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { DeliveryDescription } from './component/delivery-description.component';
+import { DeliveryDescription } from '../components/delivery/component/delivery-description.component';
 
 const Wrapper = styled.div`
     flex-grow: 1;
     background: white;
 `;
 
-const DeliveryScreen: React.FC = React.memo(function DeliveryScreen() {
+const DeliveryPage: React.FC = React.memo(function DeliveryPage() {
     return (
         <Wrapper>
             <DeliveryDescription />
@@ -16,4 +16,4 @@ const DeliveryScreen: React.FC = React.memo(function DeliveryScreen() {
     );
 });
 
-export default DeliveryScreen;
+export default DeliveryPage;

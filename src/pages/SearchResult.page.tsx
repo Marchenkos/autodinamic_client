@@ -3,9 +3,9 @@ import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { SET_FILTER_SECTIONS } from '../../filter/actions';
+import { SET_FILTER_SECTIONS } from '../components/filter/actions';
 
-import { SearchProductList } from '../components/search-product-list';
+import { SearchProductList } from '../components/product-list/components/search-product-list';
 
 const Wrapper = styled.div`
     flex-grow: 1;
@@ -14,7 +14,7 @@ const Wrapper = styled.div`
     min-height: 70vh;
 `;
 
-const SearchProductListScreen: React.FC = React.memo(function SearchProductListScreen() {
+const SearchResult: React.FC = React.memo(function SearchResult() {
     const location = useLocation();
     const dispatch = useDispatch();
     const searchParams = new URLSearchParams(location.search).get('searchTerms');
@@ -40,4 +40,4 @@ const SearchProductListScreen: React.FC = React.memo(function SearchProductListS
     );
 });
 
-export default SearchProductListScreen;
+export default SearchResult;

@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const FormInputText = React.forwardRef<HTMLDivElement | null, FormInputTextProps>(function FormInputText(
+export const FormInputText = React.forwardRef<HTMLInputElement | null, FormInputTextProps>(function FormInputText(
     props: FormInputTextProps,
     ref,
 ) {`    `

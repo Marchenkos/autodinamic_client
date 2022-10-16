@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { CheckOrder } from './check-order/check-order.component';
+import { CheckOrder } from '../components/order/check-order/check-order.component';
 
 const Wrapper = styled.div`
     flex-grow: 1;
     background: white;
 `;
 
-const CheckOrderScreen: React.FC = React.memo(function CheckOrderScreen() {
+const CheckOrderPage: React.FC = React.memo(function CheckOrderPage() {
     return (
         <Wrapper>
             <CheckOrder />
@@ -16,4 +16,4 @@ const CheckOrderScreen: React.FC = React.memo(function CheckOrderScreen() {
     );
 });
 
-export default CheckOrderScreen;
+export default CheckOrderPage;
