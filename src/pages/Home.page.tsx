@@ -2,18 +2,18 @@ import { Button } from '@material-ui/core';
 import * as React from 'react';
 import styled from 'styled-components';
 
-import { BodyText, TextSize, TextWeight, TitleText } from '../../ui/text';
-import { useNavigate } from 'react-router-dom';
+import { BodyText, TextSize, TextWeight, TitleText } from '../ui/text';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { isSmallDevice } from '../../utils/check-device-size';
-import { NewestProductCarousel } from './components/newest-products.component';
-import { CategoryPromo } from './components/category-promo.component';
-import { getDiscountProductList } from '../product-list/selectors';
-import { FETCH_DISCOUNT_PRODUCT_LIST } from '../product-list/actions';
-import { PRODUCT_CATEGORY_TYPE } from '../../graphql/entities';
-import { DiscountProductList } from './components/discount-product-list.component';
-import BannerImg from '../../../public/assets/banner.png';
-import { StyledButton } from '../../ui/new-styled';
+import { isSmallDevice } from '../utils/check-device-size';
+import { NewestProductCarousel } from '../components/home/components/newest-products.component';
+import { CategoryPromo } from '../components/home/components/category-promo.component';
+import { getDiscountProductList } from '../components/product-list/selectors';
+import { FETCH_DISCOUNT_PRODUCT_LIST } from '../components/product-list/actions';
+import { PRODUCT_CATEGORY_TYPE } from '../graphql/entities';
+import { DiscountProductList } from '../components/home/components/discount-product-list.component';
+import BannerImg from '../../public/assets/banner.png';
+import { StyledButton } from '../ui/new-styled';
 
 const Wrapper = styled.div`
     flex-grow: 1;
@@ -116,8 +116,8 @@ const HeaderText = styled(TitleText).attrs({ weight: TextWeight.BOLD })`
     }
 `;
 
-const HomeScreen: React.FC = React.memo(function HomeScreen() {
-    const history = useNavigate();
+const HomePage: React.FC = React.memo(function HomePage() {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const discountProductList = useSelector(getDiscountProductList);
@@ -135,8 +135,13 @@ const HomeScreen: React.FC = React.memo(function HomeScreen() {
     }, [dispatch, discountProductList]);
 
     const navigateToCatalog = React.useCallback(() => {
-        history('/catalog/all');
-    }, [history]);
+      navigate({
+        pathname: "catalog",
+        search: `?${createSearchParams({
+          category: "all"
+        })}`
+      });
+    }, [navigate]);
 
     return (
         <Wrapper>
@@ -160,4 +165,4 @@ const HomeScreen: React.FC = React.memo(function HomeScreen() {
     );
 });
 
-export default HomeScreen;
+export default HomePage;

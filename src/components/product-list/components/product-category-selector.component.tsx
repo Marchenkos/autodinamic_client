@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, createSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { CategoryNames } from '../../../graphql/interfaces';
 
@@ -25,14 +25,19 @@ export const ProductCategorySelector: React.FC<CategorySelectorProps> = React.me
     const dispatch = useDispatch();
     const allProductCategoryNames = useSelector(getCategoryNames);
     const selectedCategory = useSelector(getSelectedCategory);
-    const history = useNavigate();
+    const navigate = useNavigate();
 
     const handleOnChangeCategory = useCallback(
         (event: any) => {
             if (isNew) {
-                history(`/new/${event.target.value}`);
+                navigate(`/new/${event.target.value}`);
             } else {
-                history(`/catalog/${event.target.value}`);
+              navigate({
+                pathname: "catalog",
+                search: `?${createSearchParams({
+                  category: event.target.value
+                })}`
+              });
             }
         },
         [dispatch, isNew]

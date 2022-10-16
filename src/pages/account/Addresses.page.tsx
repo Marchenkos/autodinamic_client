@@ -2,14 +2,14 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { AddressListDetails } from './componens/address-list-details.component';
-import { HIDE_FORM_MODAL, SHOW_FORM_MODAL } from '../../../modal/actions';
-import { EditDeliveryInfo } from './componens/edit-address-details.component';
-import { PageTitleText } from '../profile/profile.screen';
-import { getUserAddresses } from '../../selectors';
-import { StyledButton } from '../../../../ui/new-styled';
-import { EmptyAddressList } from './componens/empty-address-list.component';
-import { TOGGLE_DRAWER } from '../../../drawer/actions';
+import { AddressListDetails } from '../../components/account/component/address-list/componens/address-list-details.component';
+import { HIDE_FORM_MODAL, SHOW_FORM_MODAL } from '../../components/modal/actions';
+import { EditDeliveryInfo } from '../../components/account/component/address-list/componens/edit-address-details.component';
+import { PageTitleText } from './Profile.page';
+import { getUserAddresses } from '../../components/account/selectors';
+import { StyledButton } from '../../ui/new-styled';
+import { EmptyAddressList } from '../../components/account/component/address-list/componens/empty-address-list.component';
+import { TOGGLE_DRAWER } from '../../components/drawer/actions';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -29,7 +29,7 @@ const HeaderWrapper = styled.div`
     }
 `;
 
-const AddressList: React.FC = React.memo(function AddressList() {
+const AddressesPage: React.FC = React.memo(function AddressesPage() {
     const userAddressInfo = useSelector(getUserAddresses);
     const dispatch = useDispatch();
 
@@ -69,4 +69,4 @@ const AddressList: React.FC = React.memo(function AddressList() {
     );
 });
 
-export default AddressList;
+export default AddressesPage;

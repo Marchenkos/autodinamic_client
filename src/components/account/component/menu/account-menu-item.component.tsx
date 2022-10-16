@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate, useRouteMatch } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { StyledIcons } from '../../../../ui/styled-icon.component';
@@ -102,13 +102,12 @@ export const AccountMenuItem: React.FC<AccountMenuItemProps> = React.memo(functi
     urlItem,
     iconClass,
 }: AccountMenuItemProps) {
-    let { url } = useRouteMatch();
     const dispatch = useDispatch();
     const history = useNavigate();
     const location = useLocation();
     const deviceSize = getDeviceSize();
 
-    const isSelected = useMemo(() => location.pathname.includes(urlItem), [location, url]);
+    const isSelected = useMemo(() => location.pathname.includes(urlItem), [location]);
 
     const handleLogOut = useCallback(() => {
         dispatch(LOG_OUT.TRIGGER());
@@ -131,7 +130,7 @@ export const AccountMenuItem: React.FC<AccountMenuItemProps> = React.memo(functi
 
     return (
         <MenuItem>
-            <StyledLink style={{ width: '100%' }} to={`${url}/${urlItem}`}>
+            <StyledLink style={{ width: '100%' }} to={`${location}/${urlItem}`}>
                 <ItemWrapper>
                     <StyledIcons className={iconClass} />
                     <MenuLabel isSelected={isSelected}>{label}</MenuLabel>

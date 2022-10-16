@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { OrderConfirmation } from '../order-confirmation/order-confirmation.component';
+import { OrderConfirmation } from '../components/checkout/order-confirmation/order-confirmation.component';
 
 const Wrapper = styled.div`
     flex-grow: 1;
     background: white;
 `;
 
-const OrderConfirmationScreen: React.FC = React.memo(function OrderConfirmationScreen() {
+const OrderConfirmationPage: React.FC = React.memo(function OrderConfirmationPage() {
     return (
         <Wrapper>
             <OrderConfirmation />
@@ -16,4 +16,4 @@ const OrderConfirmationScreen: React.FC = React.memo(function OrderConfirmationS
     );
 });
 
-export default OrderConfirmationScreen;
+export default OrderConfirmationPage;

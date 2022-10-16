@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Order } from '../../../../../graphql/entities';
 import { Button } from '@material-ui/core';
-import { ProductCarousel } from '../../../../home/home.screen';
+import { ProductCarousel } from '../../../../../pages/Home.page';
 import { TitleText, TextSize, TextColor, TextWeight, BodyText } from '../../../../../ui/text';
 import { getSteps } from './order-stepper.component';
 import { NULLABLE_IMAGE } from '../../../../product-details/components/product-detail-image.component';

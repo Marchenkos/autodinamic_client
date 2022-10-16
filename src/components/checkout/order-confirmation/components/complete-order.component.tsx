@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, createSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { BodyText, TextColor, TextSize, TitleText, TextWeight, TitleLink } from '../../../../ui/text';
 import { OrderDetailsResponse } from '../../../../graphql/interfaces';
@@ -48,11 +48,16 @@ const SmallLabelText = styled(BodyText).attrs({ size: TextSize.EXTRA_SMALL })`
 export const CompleteOrder: React.FC<OrderDeliveryInfoProps> = React.memo(function CompleteOrder({
     order,
 }: OrderDeliveryInfoProps) {
-    const history = useNavigate();
+    const navigate = useNavigate();
 
     const handleGoToCatalog = useCallback(() => {
-        history('/catalog/all');
-    }, [history]);
+      navigate({
+        pathname: "catalog",
+        search: `?${createSearchParams({
+          category: "all"
+        })}`
+      });
+    }, [navigate]);
 
     return (
         <Wrapper>

@@ -1,9 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { useNavigate, createSearchParams } from 'react-router-dom';
 
-import { useSelector } from 'react-redux';
 import { PRODUCT_CATEGORY_TO_CATEGORY_IMAGES, Promotion } from '../../../graphql/entities';
-import { useNavigate } from 'react-router-dom';
 import { CarouselArrow } from '../../product-details/components/similar-products.component';
 import { CategoryNames } from 'src/graphql/interfaces';
 import { BodyText, TextWeight } from '../../../ui/text';
@@ -45,13 +44,18 @@ interface CategoryPromoItemProps {
 export const CategoryPromoItem: React.FC<CategoryPromoItemProps> = React.memo(function CategoryPromoItem({
     categoryName,
 }: CategoryPromoItemProps) {
-    const history = useNavigate();
+    const navigate = useNavigate();
 
     const image = PRODUCT_CATEGORY_TO_CATEGORY_IMAGES[categoryName.category_name];
 
     const handleChooseCategory = React.useCallback(() => {
-        history(`catalog/${categoryName.category_name}`);
-    }, [categoryName, history]);
+        navigate({
+          pathname: "catalog",
+          search: `?${createSearchParams({
+            category: categoryName.category_name
+          })}`
+        });
+    }, [categoryName, navigate]);
 
     if (!image) {
         return null;

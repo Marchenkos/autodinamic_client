@@ -4,14 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Breadcrumbs, Link, Typography } from '@material-ui/core';
 
-import { DELIVERY_METHODS } from '../../../../../graphql/entities';
-import { BodyText, TextColor, TextSize, TextWeight, TitleText } from '../../../../../ui/text';
-import { getSteps, OrderStepper } from './order-stepper.component';
-import { ProductCarousel } from '../../../../home/home.screen';
-import { CarouselItem } from '../../../../product-details/components/carousel-item.component';
-import { getIsOrderFetching, getOrderDetails } from '../../../selectors';
-import { GET_ORDER_BY_ID } from '../../../../checkout/order-confirmation/actions';
-import { LoadingState } from '../../../../../ui/loading-state';
+import { DELIVERY_METHODS } from '../../graphql/entities';
+import { BodyText, TextColor, TextSize, TextWeight, TitleText } from '../../ui/text';
+import { getSteps, OrderStepper } from '../../components/account/component/orders/components/order-stepper.component';
+import { ProductCarousel } from '../Home.page';
+import { CarouselItem } from '../../components/product-details/components/carousel-item.component';
+import { getIsOrderFetching, getOrderDetails } from '../../components/account/selectors';
+import { GET_ORDER_BY_ID } from '../../components/checkout/order-confirmation/actions';
+import { LoadingState } from '../../ui/loading-state';
 
 const Wrapper = styled.div`
     display: flex;
@@ -67,12 +67,14 @@ const LabelGrayText = styled(BodyText).attrs({ size: TextSize.EXTRA_SMALL, weigh
     color: #3e6969;
 `;
 
-const OrderItemDetails: React.FC = React.memo(function OrderItemDetails() {
+const SingleOrderPage: React.FC = React.memo(function SingleOrderPage() {
     const { id } = useParams<{ id: string }>();
     const dispatch = useDispatch();
 
     useEffect(() => {
+      if (id) {
         dispatch(GET_ORDER_BY_ID.TRIGGER(id));
+      }
     }, [dispatch, id]);
 
     const orderDetails = useSelector(getOrderDetails);
@@ -159,4 +161,4 @@ const OrderItemDetails: React.FC = React.memo(function OrderItemDetails() {
     );
 });
 
-export default OrderItemDetails;
+export default SingleOrderPage;

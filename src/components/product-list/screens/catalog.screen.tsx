@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
 import { getCategoryNames } from '../../product-category/selectors';
-import {  useNavigate } from 'react-router-dom';
+import {  createSearchParams, useNavigate } from 'react-router-dom';
 import { PRODUCT_CATEGORY_TO_CATEGORY_IMAGES } from '../../../graphql/entities';
 import { CategoryNames } from '../../../graphql/interfaces';
 import { BodyText, TextWeight, TitleText } from '../../../ui/text';
@@ -100,13 +100,18 @@ interface CatalogItemProps {
 }
 
 const CatalogItem: React.FC<CatalogItemProps> = React.memo(function CatalogItem({ categoryName }: CatalogItemProps) {
-    const history = useNavigate();
+    const navigate = useNavigate();
 
     const image = PRODUCT_CATEGORY_TO_CATEGORY_IMAGES[categoryName.category_name];
 
     const handleChooseCategory = React.useCallback(() => {
-        history(`catalog/${categoryName.category_name}`);
-    }, [categoryName, history]);
+      navigate({
+        pathname: "catalog",
+        search: `?${createSearchParams({
+          category: categoryName.category_name
+        })}`
+      });
+    }, [categoryName, navigate]);
 
     if (!image) {
         return null;

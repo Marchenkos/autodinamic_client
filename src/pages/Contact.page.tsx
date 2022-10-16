@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
-import MessageImage from '../../../public/assets/contacts/message.png';
+import MessageImage from '../../public/assets/contacts/message.png';
 import styled from 'styled-components';
-import { CallbackForm } from './component/callback-form.component';
-import { TitleText, TextColor, TextSize, TextWeight, BodyText, TitleLink } from '../../ui/text';
-import { IHeaderLink } from '../product-details/components/similar-products.component';
+import { CallbackForm } from '../components/contacts/component/callback-form.component';
+import { TitleText, TextColor, TextSize, TextWeight, BodyText, TitleLink } from '../ui/text';
+import { IHeaderLink } from '../components/product-details/components/similar-products.component';
 import { useLocation } from 'react-router-dom';
 
 export const API_KEY = 'AIzaSyBbVtUQaQ7u7ytsbB6OQ_0IRqOscjICMKQ';
@@ -144,7 +144,7 @@ const UnitLink = styled(TitleLink).attrs({
     }
 `;
 
-const ContactScreen: React.FC = React.memo(function ContactScreen() {
+const ContactPage: React.FC = React.memo(function ContactPage() {
     let location = useLocation();
     const [selectedUnit, setSelectedUnit] = useState(0);
 
@@ -261,4 +261,4 @@ const ContactScreen: React.FC = React.memo(function ContactScreen() {
     );
 });
 
-export default ContactScreen;
+export default ContactPage;

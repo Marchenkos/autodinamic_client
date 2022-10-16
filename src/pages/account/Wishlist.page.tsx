@@ -2,11 +2,11 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { WishlistItem } from './components/wishlist-item.component';
-import { GeneralProduct } from '../../../../graphql/entities';
-import { PageTitleText } from '../profile/profile.screen';
-import { getWishlist } from '../../selectors';
-import { EmptyWishlist } from './components/empty-wishlist.component';
+import { WishlistItem } from '../../components/account/component/wishlist/components/wishlist-item.component';
+import { GeneralProduct } from '../../graphql/entities';
+import { PageTitleText } from './Profile.page';
+import { getWishlist } from '../../components/account/selectors';
+import { EmptyWishlist } from '../../components/account/component/wishlist/components/empty-wishlist.component';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -19,7 +19,7 @@ const WishlistWrapper = styled.div`
     justify-content: flex-start;
 `;
 
-export const Wishlist: React.FC = React.memo(function Wishlist() {
+export const WishlistPage: React.FC = React.memo(function WishlistPage() {
     const wishlistValue = useSelector(getWishlist);
 
     if (!wishlistValue) {
@@ -38,4 +38,4 @@ export const Wishlist: React.FC = React.memo(function Wishlist() {
     );
 });
 
-export default Wishlist;
+export default WishlistPage;
