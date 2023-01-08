@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { StyledIcons } from '../../../ui/styled-icon.component';
+import { TOGGLE_DRAWER } from '../../drawer/actions';
 
-import { TOGGLE_AUTH_DRAWER } from '../actions';
 import { getIsAutoLoggedIn, getIsRegistered } from '../selectors';
 import Registration from './registration.component';
 
@@ -14,19 +14,9 @@ const RegisterFormWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-`;
 
-const TextButton = styled.button`
-    border: none;
-    background: none;
-    font-size: 16px;
-    font-family: 'Manrope';
-    margin-top: 50px;
-    cursor: pointer;
-    padding: 20px;
-
-    :hover {
-        color: #7aa0a1;
+    @media (max-width: 800px) {
+        margin-top: 100px;
     }
 `;
 
@@ -40,12 +30,12 @@ export const RegisterDrawerItem: React.FC<RegisterDrawerItemProps> = React.memo(
     const dispatch = useDispatch();
     const isAutoLogged = useSelector(getIsAutoLoggedIn);
     const isRegistered = useSelector(getIsRegistered);
-    const history = useHistory();
+    const history = useNavigate();
 
     useEffect(() => {
         if (isAutoLogged && isRegistered) {
-            dispatch(TOGGLE_AUTH_DRAWER({ isShow: false }));
-            history.push('/account');
+            dispatch(TOGGLE_DRAWER({ isShow: false }));
+            history('/account');
         }
 
         if (!isAutoLogged && isRegistered) {
@@ -56,7 +46,6 @@ export const RegisterDrawerItem: React.FC<RegisterDrawerItemProps> = React.memo(
     return (
         <RegisterFormWrapper>
             <Registration />
-            <TextButton onClick={toggleForms}>Уже зарегистрированы?</TextButton>
         </RegisterFormWrapper>
     );
 });

@@ -1,4 +1,3 @@
-import { locationReducer } from '../components/location/reducer';
 import { reducer as productReducer } from '../components/product-list/reducers/index';
 import { basketReducer } from '../components/checkout/basket/reducers/basket.reducer';
 import { toastReducer } from '../components/toast/reducer';
@@ -12,9 +11,9 @@ import { compareReducer } from '../components/compare-products/reducer';
 import { reducer as authenticationReducer } from '../components/auth/reducers';
 import { productCategoryReducer } from '../components/product-category/reducer';
 import { reducer as promotionsReducer } from '../components/promotions/reducers';
+import { reducer as drawerReducer } from '../components/drawer/drawer.reducer';
 
 export interface ApplicationState {
-    location: ReturnType<typeof locationReducer>;
     products: ReturnType<typeof productReducer>;
     basket: ReturnType<typeof basketReducer>;
     toast: ReturnType<typeof toastReducer>;
@@ -28,4 +27,5 @@ export interface ApplicationState {
     authentication: ReturnType<typeof authenticationReducer>;
     category: ReturnType<typeof productCategoryReducer>;
     promotions: ReturnType<typeof promotionsReducer>;
+    drawer: ReturnType<typeof drawerReducer>;
 }

@@ -4,8 +4,7 @@ import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 
-import './search.style.scss';
-import { useHistory, useLocation } from 'react-router-dom';
+import {  useLocation, useNavigate } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import { FETCH_BY_SEARCH } from '../actions';
 import { useDispatch } from 'react-redux';
@@ -59,7 +58,7 @@ const StyledIcon = styled(SearchIcon)`
 `;
 
 const Wrapper = styled.div`
-    padding-top: 70px;
+    padding-top: 90px;
     padding-bottom: 10px;
     width: 100%;
     background: #4a4747;
@@ -73,13 +72,13 @@ export const SearchMobile: React.FC = React.memo(function Search() {
 
     const isShouldHide = useMemo(() => location.pathname.includes('account'), [location.pathname]);
 
-    const history = useHistory();
+    const history = useNavigate();
 
     const handleSearch = useCallback(() => {
         if (searchValue) {
             dispatch(FETCH_BY_SEARCH.TRIGGER(searchValue));
             setSearchValue('');
-            history.push('/search-result');
+            history('/search-result');
         }
     }, [searchValue, dispatch, history]);
 

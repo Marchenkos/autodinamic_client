@@ -116,8 +116,8 @@ export const removeAddressMutation = gql`
 `;
 
 export const removeAccountMutation = gql`
-    mutation($email: String!) {
-      removeAccount(email: $email)
+    mutation ($email: String!) {
+        removeAccount(email: $email)
     }
 `;
 

@@ -11,9 +11,7 @@ import { ProductListEmpty } from './product-list-empty';
 import { SET_FILTER_SECTIONS } from '../../filter/actions';
 import { FilterDesktop } from '../../filter/components/filter.desktop.component';
 import { getDeviceSize } from '../../../utils/check-device-size';
-import { Sorting } from '../../filter/sort/sorting.component';
-import { ProductCategorySelector } from './product-category-selector.component';
-import { capitalizeString } from '../../filter/utilites/formated-string';
+
 import { getSelectedFilters, getSelectedSort } from '../../filter/selector';
 import { GenericError } from '../../errorUI/generic-error.component';
 import { CategoryNames } from '../../../graphql/interfaces';
@@ -23,7 +21,7 @@ const ProductListWrapper = styled.div`
     display: flex;
     width: 100%;
     margin: 0 auto;
-    padding: 0 100px;
+    padding: 0 50px;
     box-sizing: border-box;
     background: #ffffff;
     flex-direction: column;
@@ -33,7 +31,7 @@ const ProductListWrapper = styled.div`
     }
 
     @media (max-width: 850px) {
-        padding: 0 20px;
+        padding: 0;
     }
 `;
 
@@ -62,54 +60,18 @@ export const SortTitle = styled(FilterTitle)`
     margin-right: 0px;
 `;
 
-const ConditionSection = styled.div`
-    display: flex;
-
-    @media (max-width: 860px) {
-        width: 100%;
-        justify-content: space-between;
-        margin-bottom: 20px;
-    }
-`;
-
-const HeaderWrapper = styled.div<{ isFixed?: boolean }>`
-    display: flex;
-    width: 100%;
-    margin: 20px 0 40px;
-    box-sizing: border-box;
-    background: #ffffff;
-    align-items: center;
-
-    @media (max-width: 860px) {
-        flex-direction: column;
-    }
-
-    ${({ isFixed }) =>
-        isFixed &&
-        `
-        margin-top: 0;
-        background: black;
-    `}
-`;
-
-const ProductHeader = styled.div`
-    display: flex;
-    box-sizing: border-box;
-    flex-grow: 1;
-`;
-
 export const LIMIT_PR_PAGE = 8;
 
 interface ProductListProps {
     category: CategoryNames;
     isNew?: boolean;
-    searchTerms?: string[]
+    searchTerms?: string[];
 }
 
-export const ProductList: React.FC<ProductListProps> = React.memo(function ProductList({ 
+export const ProductList: React.FC<ProductListProps> = React.memo(function ProductList({
     category,
     isNew = false,
-    searchTerms
+    searchTerms,
 }) {
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
@@ -135,7 +97,7 @@ export const ProductList: React.FC<ProductListProps> = React.memo(function Produ
                 sort: selectedSort,
                 filters,
                 isNew,
-                searchTerms
+                searchTerms,
             })
         );
     }, [dispatch, LIMIT_PR_PAGE, category, selectedSort, next, filters, isNew, searchTerms]);
@@ -173,32 +135,9 @@ export const ProductList: React.FC<ProductListProps> = React.memo(function Produ
 
     return (
         <ProductListWrapper>
-            <HeaderWrapper>
-                <ProductHeader>
-                {searchTerms ? <TitleText>Результаты поиска по запросу "{searchTerms.join(" ")}"</TitleText> :
-                    <TitleText>{capitalizeString(category.title)}</TitleText>}
-                </ProductHeader>
-                <ConditionSection>
-                    {!searchTerms &&  <ProductCategorySelector isNew={isNew} />}
-                    <Sorting />
-                </ConditionSection>
-
-                <PaginationWrapper>
-                    {productsCount > LIMIT_PR_PAGE && (
-                        <Pagination
-                            page={currentPage}
-                            style={{ outline: 'none !important' }}
-                            onChange={handleChangePagination}
-                            count={Math.ceil(productsCount / LIMIT_PR_PAGE) || 1}
-                            size="small"
-                        />
-                    )}
-                </PaginationWrapper>
-            </HeaderWrapper>
-
             <ProductListContent>
                 {deviceSize > 850 ? <FilterDesktop cleanFilter={handleCleanFilter} /> : null}
-                <ProductListCatalog isNew={isNew} />
+                <ProductListCatalog category={category} searchTerms={searchTerms} isNew={isNew} />
             </ProductListContent>
 
             <PaginationWrapper toEnd={true}>

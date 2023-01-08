@@ -10,13 +10,22 @@ import { REMOVE_ADDRESS, SET_DEFAULT_ADDRESS } from '../../../actions';
 import { HIDE_FORM_MODAL, SHOW_FORM_MODAL } from '../../../../modal/actions';
 import { EditDeliveryInfo } from './edit-address-details.component';
 import { OrderSeparator } from '../../orders/components/order-item.component';
+import { TOGGLE_DRAWER } from '../../../../drawer/actions';
 
 const NameText = styled(TitleText).attrs({ size: TextSize.SMALL })`
     margin-bottom: 5px;
+
+    @media (max-width: 850px) {
+        font-size: 12px;
+    }
 `;
 
 const ValueText = styled(BodyText).attrs({ size: TextSize.SMALL })`
     margin-bottom: 5px;
+
+    @media (max-width: 850px) {
+        font-size: 13px;
+    }
 `;
 
 const ChangeText = styled(BodyText).attrs({ size: TextSize.SMALL, weight: TextWeight.MEDIUM })`
@@ -35,6 +44,13 @@ const AddressWrapper = styled.div`
     max-width: 70%;
     padding: 20px;
     margin: 5px 0;
+
+    @media (max-width: 850px) {
+        min-width: 50%;
+        max-width: 100%;
+        padding: 20px 0;
+        margin: 0;
+    }
 `;
 
 const Section = styled.div`
@@ -43,18 +59,12 @@ const Section = styled.div`
     justify-content: space-between;
 `;
 
-const ButtomWrapper = styled.div<{ isShow?: boolean }>`
-    display: none;
+const ButtomWrapper = styled.div`
+    display: flex;
     width: 100%;
     margin: 2px 0;
     justify-content: flex-end;
     margin-top: -24px;
-
-    ${({ isShow }) =>
-        isShow &&
-        `
-            display: flex;
-        `}
 `;
 
 interface AddressListDetailsProps {
@@ -65,7 +75,6 @@ export const AddressListDetails: React.FC<AddressListDetailsProps> = React.memo(
     address,
 }: AddressListDetailsProps) {
     const dispatch = useDispatch();
-    const [showButtons, isShowButtons] = useState(false);
 
     const handleCloseModal = useCallback(() => {
         dispatch(HIDE_FORM_MODAL());
@@ -73,9 +82,9 @@ export const AddressListDetails: React.FC<AddressListDetailsProps> = React.memo(
 
     const handleOpenModal = useCallback(() => {
         dispatch(
-            SHOW_FORM_MODAL({
-                content: <EditDeliveryInfo handleCloseModal={handleCloseModal} address={address} />,
-                handleCloseModal,
+            TOGGLE_DRAWER({
+                children: <EditDeliveryInfo handleCloseModal={handleCloseModal} address={address} />,
+                isShow: true,
             })
         );
     }, [dispatch, handleCloseModal, address]);
@@ -103,7 +112,7 @@ export const AddressListDetails: React.FC<AddressListDetailsProps> = React.memo(
     return (
         <>
             <OrderSeparator />
-            <AddressWrapper onMouseOver={() => isShowButtons(true)} onMouseOut={() => isShowButtons(false)}>
+            <AddressWrapper>
                 <Section>
                     <NameText>Город</NameText>
                     <ValueText>{address.city}</ValueText>
@@ -121,7 +130,7 @@ export const AddressListDetails: React.FC<AddressListDetailsProps> = React.memo(
                     handleChange={toggleAddress}
                     isSelected={address.isDefault}
                 />
-                <ButtomWrapper isShow={showButtons}>
+                <ButtomWrapper>
                     <ChangeText onClick={handleOpenModal}>Изменить</ChangeText>
                     <span
                         style={{ fontSize: '22px', cursor: 'pointer' }}

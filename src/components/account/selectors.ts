@@ -35,6 +35,11 @@ export const getUser: Selector<ApplicationState, User | undefined> = createSelec
     (account) => account.userDetails.user
 );
 
+export const geIsFetchingtUserDetails: Selector<ApplicationState, boolean> = createSelector(
+    getAccountState,
+    (account) => account.userDetails.isFetching
+);
+
 export const getWishlist: Selector<ApplicationState, GeneralProduct[] | undefined> = createSelector(getUser, (user) =>
     user ? user?.wishlist : []
 );

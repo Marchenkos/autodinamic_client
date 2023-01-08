@@ -16,8 +16,6 @@ export function* initialisationSaga(): SagaIterator {
     yield put(INITIALISATION.STARTED());
 
     try {
-
-        console.log('INITIALISATION')
         yield call(configureApiClients);
         yield put(INITIALISATION.COMPLETED());
         yield put(FETCH_PRODUCT_CATEGORY_NAMES.TRIGGER());

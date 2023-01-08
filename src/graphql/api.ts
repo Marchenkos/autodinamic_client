@@ -82,6 +82,7 @@ export class GraphQLApi {
         categoryName: string,
         sort: string,
         isNew: boolean,
+        isHasDiscount: boolean,
         filters?: SelectedFilterSection[],
         searchTerms?: string[]
     ): Promise<ProductList> => {
@@ -95,31 +96,38 @@ export class GraphQLApi {
                     sort,
                     filters,
                     isNew,
-                    searchTerms
+                    isHasDiscount,
+                    searchTerms,
                 },
             },
             fetchPolicy: 'network-only',
         });
 
-        console.log('res', response);
-
         return response.data.products;
     };
 
-    fetchProductListByTerms = async (limit: number, next: number, terms: string[]): Promise<ProductList> => {
-        const response = await this.client.query<SimpleGQLResponse<'searchProduct', ProductList>>({
+    fetchProductListByTerms = async (
+        limit: number,
+        next: number,
+        sort: string,
+        searchTerms: string[],
+        filters?: SelectedFilterSection[]
+    ): Promise<ProductList> => {
+        const response = await this.client.query<SimpleGQLResponse<'productsBySearchTerm', ProductList>>({
             query: getProductListByTermsQuery,
             variables: {
                 input: {
                     limit,
                     next,
-                    terms,
+                    sort,
+                    searchTerms,
+                    filters,
                 },
             },
             fetchPolicy: 'network-only',
         });
 
-        return response.data.searchProduct;
+        return response.data.productsBySearchTerm;
     };
 
     fetchProductListWithFilter = async (
@@ -364,7 +372,7 @@ export class GraphQLApi {
         const response = await this.client.mutate<SimpleGQLResponse<'removeAccount', Boolean>>({
             mutation: removeAccountMutation,
             variables: {
-                email
+                email,
             },
         });
 
@@ -372,7 +380,6 @@ export class GraphQLApi {
 
         return response.data.removeAccount;
     };
-
 
     toggleWishlist = async (id: number): Promise<User> => {
         const response = await this.client.mutate<SimpleGQLResponse<'toggleWishlist', User>>({
@@ -405,12 +412,11 @@ export class GraphQLApi {
     };
 
     getOrderById = async (id: string): Promise<Order> => {
+        console.log('LALLA');
         const response = await this.client.query<SimpleGQLResponse<'orderById', Order>>({
             query: getOrderByIdQuery,
             variables: {
-                input: {
-                    id,
-                },
+                id,
             },
             fetchPolicy: 'network-only',
         });
@@ -444,7 +450,7 @@ export class GraphQLApi {
         return response.data.categoryColumns;
     };
 
-    fetchMagnitolDetails = async (id: number): Promise<MagnitolDetails> => {
+    fetchMagnitolDetails = async (id: number): Promise<MagnitolDetails | null> => {
         const response = await this.client.query<SimpleGQLResponse<'magnitolDetails', MagnitolDetails>>({
             query: getMagnitolDetailsQuery,
             variables: {
@@ -456,7 +462,7 @@ export class GraphQLApi {
         return response.data.magnitolDetails;
     };
 
-    fetchAudioSpeakerDetails = async (id: number): Promise<AudioSpeaker> => {
+    fetchAudioSpeakerDetails = async (id: number): Promise<AudioSpeaker | null> => {
         const response = await this.client.query<SimpleGQLResponse<'audioSpeakerDetails', AudioSpeaker>>({
             query: getAudioSpeakerDetailsQuery,
             variables: {
@@ -468,7 +474,7 @@ export class GraphQLApi {
         return response.data.audioSpeakerDetails;
     };
 
-    fetchSignalisationDetails = async (id: number): Promise<SignalisationDetails> => {
+    fetchSignalisationDetails = async (id: number): Promise<SignalisationDetails | null> => {
         const response = await this.client.query<SimpleGQLResponse<'signalisationDetails', SignalisationDetails>>({
             query: getSignalisationDetailsQuery,
             variables: {
@@ -480,7 +486,7 @@ export class GraphQLApi {
         return response.data.signalisationDetails;
     };
 
-    fetchDVRDetails = async (id: number): Promise<DVRlDetails> => {
+    fetchDVRDetails = async (id: number): Promise<DVRlDetails | null> => {
         const response = await this.client.query<SimpleGQLResponse<'dvrDetails', DVRlDetails>>({
             query: getDVRDetailsQuery,
             variables: {
@@ -492,7 +498,7 @@ export class GraphQLApi {
         return response.data.dvrDetails;
     };
 
-    fetchSubwooferDetails = async (id: number): Promise<SubwooferDetails> => {
+    fetchSubwooferDetails = async (id: number): Promise<SubwooferDetails | null> => {
         const response = await this.client.query<SimpleGQLResponse<'subwooferDetails', SubwooferDetails>>({
             query: getSabwooferDetailsQuery,
             variables: {
@@ -504,7 +510,7 @@ export class GraphQLApi {
         return response.data.subwooferDetails;
     };
 
-    fetchAmplifierDetails = async (id: number): Promise<AmpliferDetails> => {
+    fetchAmplifierDetails = async (id: number): Promise<AmpliferDetails | null> => {
         const response = await this.client.query<SimpleGQLResponse<'amplifierDetails', AmpliferDetails>>({
             query: getAmplifierDetailsQuery,
             variables: {
@@ -540,8 +546,7 @@ export class GraphQLApi {
     sendRequestToCallback = async (
         name: string,
         email: string,
-        message: string,
-        phoneNumber?: string
+        message: string
     ): Promise<RequestToCallbackResponse> => {
         const response = await this.client.query<SimpleGQLResponse<'sendRequestToCallback', RequestToCallbackResponse>>(
             {
@@ -551,7 +556,6 @@ export class GraphQLApi {
                         name,
                         email,
                         message,
-                        phoneNumber,
                     },
                 },
                 fetchPolicy: 'network-only',
@@ -590,8 +594,6 @@ export class GraphQLApi {
             query: getCategoryNamesQuery,
             fetchPolicy: 'network-only',
         });
-
-        console.log(this.client)
 
         return response.data.categoryNames;
     };

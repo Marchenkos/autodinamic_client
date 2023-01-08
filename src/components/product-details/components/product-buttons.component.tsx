@@ -9,7 +9,7 @@ import { BodyText, TextColor, TextWeight, TextSize, BodyTextSpan } from '../../.
 import { useSelector } from 'react-redux';
 import { GeneralProduct, OrderProduct } from '../../../graphql/entities';
 import { ADD_TO_BASKET } from '../../checkout/basket/actions';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getBasketItems } from '../../checkout/basket/selectors';
 import { HIDE_FORM_MODAL, SHOW_FORM_MODAL, SHOW_SIMPLE_MODAL } from '../../modal/actions';
 import { TOGGLE_COMPARE_LIST } from '../../compare-products/actions';
@@ -55,7 +55,7 @@ export const ProductAddToBasketButton: React.FC<{ product: GeneralProduct; isSma
         const dispatch = useDispatch();
         const basketItems = useSelector(getBasketItems);
 
-        let history = useHistory();
+        let history = useNavigate();
 
         const isInBasket = useMemo(() => {
             const isHere = basketItems.filter((item) => item.id === product.id);
@@ -84,7 +84,7 @@ export const ProductAddToBasketButton: React.FC<{ product: GeneralProduct; isSma
         }, [product, dispatch]);
 
         const navigateToBasket = useCallback(() => {
-            history.push('/basket');
+            history('/basket');
         }, [history]);
 
         const action = isInBasket ? navigateToBasket : handleAddToBasket;
@@ -112,8 +112,8 @@ export const ProductAddToBasketButton: React.FC<{ product: GeneralProduct; isSma
     }
 );
 
-export const ProductAddToWishlistButton: React.FC<{ product: GeneralProduct; withLabel?: boolean }> = React.memo(
-    function ProductAddToBasket({ product, withLabel = false }) {
+export const ProductAddToWishlistButton: React.FC<{ isInWishlist: boolean; productId: string; withLabel?: boolean }> =
+    React.memo(function ProductAddToBasket({ isInWishlist, productId, withLabel = false }) {
         const dispatch = useDispatch();
         const currentUser = useSelector(getUser);
         const styles = {
@@ -121,16 +121,6 @@ export const ProductAddToWishlistButton: React.FC<{ product: GeneralProduct; wit
             width: '52px',
             fontSize: '30px',
         };
-
-        const isInWishList = useMemo(() => {
-            if (currentUser && currentUser.wishlist) {
-                const rez = currentUser.wishlist.filter((item) => item.id === product.id);
-
-                return rez.length;
-            }
-
-            return false;
-        }, [currentUser, product]);
 
         const addToWishlist = useCallback(() => {
             if (!currentUser) {
@@ -140,12 +130,12 @@ export const ProductAddToWishlistButton: React.FC<{ product: GeneralProduct; wit
                     })
                 );
             } else {
-                dispatch(TOGGLE_WISHLIST.TRIGGER(product.id));
+                dispatch(TOGGLE_WISHLIST.TRIGGER(productId));
             }
-        }, [product]);
+        }, [productId]);
 
         if (!withLabel) {
-            return isInWishList ? (
+            return isInWishlist ? (
                 <FavoriteIcon onClick={addToWishlist} style={styles} />
             ) : (
                 <FavoriteBorderIcon onClick={addToWishlist} style={styles} />
@@ -154,7 +144,7 @@ export const ProductAddToWishlistButton: React.FC<{ product: GeneralProduct; wit
 
         return (
             <AdditionalButtonSection onClick={addToWishlist}>
-                {isInWishList ? (
+                {isInWishlist ? (
                     <>
                         <FavoriteIcon
                             style={{ color: '#6b6b6b', marginRight: '5px', width: '22px', marginLeft: '-25px' }}
@@ -171,8 +161,7 @@ export const ProductAddToWishlistButton: React.FC<{ product: GeneralProduct; wit
                 )}
             </AdditionalButtonSection>
         );
-    }
-);
+    });
 
 export const ProductAddToCompareButton: React.FC<{ product: GeneralProduct; withLabel?: boolean }> = React.memo(
     function ProductAddToBasket({ product, withLabel = false }) {

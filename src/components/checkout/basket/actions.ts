@@ -6,6 +6,12 @@ export interface EditBasketParams {
     count: number;
 }
 
+export interface LoadingDataPayload {
+    status: boolean;
+}
+
+export const LOADING_DATA = createAction('LOADING_DATA', (payload: LoadingDataPayload) => payload);
+
 export const FETCH_BASKET = {
     TRIGGER: createAction('[Fetch Basket] Trigger'),
     START: createAction('[Fetch Basket] Start'),

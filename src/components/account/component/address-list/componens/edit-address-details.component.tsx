@@ -17,7 +17,7 @@ const Wrapper = styled.div`
     display: flex;
     box-sizing: border-box;
     width: 100%;
-    padding: 60px 15px;
+    padding: 100px 30px 0;
     flex-direction: column;
 `;
 
@@ -28,7 +28,7 @@ const ButtonWrapper = styled.div`
     margin: 20px 0 0;
 `;
 
-const NameText = styled(TitleText).attrs({ size: TextSize.LARGE })`
+const FormTitle = styled(TitleText).attrs({ size: TextSize.LARGE })`
     margin-bottom: 25px;
     color: #656262;
     font-weight: 400;
@@ -102,6 +102,7 @@ export const EditDeliveryInfo: React.FC<EditDeliveryInfoProps> = React.memo(func
 
     return (
         <Wrapper>
+            <FormTitle>{address ? 'Изменить адресс' : 'Добавить адресс'}</FormTitle>
             <Controller
                 control={control}
                 render={({ field, fieldState }) => (
@@ -154,7 +155,7 @@ export const EditDeliveryInfo: React.FC<EditDeliveryInfoProps> = React.memo(func
             />
             <ButtonWrapper>
                 <StyledButton
-                    additionalStyles={{ width: '25%' }}
+                    additionalStyles={{ width: '200px' }}
                     label="Сохранить"
                     onClick={handleSubmitPress}
                     disabled={isDisableButton}

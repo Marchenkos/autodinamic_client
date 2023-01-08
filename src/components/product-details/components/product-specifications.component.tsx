@@ -1,18 +1,27 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { ProductCharacteristicInfo } from '../../../graphql/interfaces';
 
-import { TitleText } from '../../../ui/text';
+import { BodyText, TitleText } from '../../../ui/text';
+import { getSelectedProduct } from '../selectors';
 import { DescriptionByCategory } from './description-by-category';
 import './product-details.style.scss';
 
 const ProductSectionTitle = styled(TitleText)`
-    padding-left: 25px;
-    font-size: 35px;
+    font-size: 25px;
+    margin-bottom: 30px;
+    font-weight: 500;
 `;
 
 const Wrapper = styled.div`
-    margin: 80px 0;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 50px 0 0;
+    background: #fafafa;
+    padding: 30px 0;
 `;
 export interface IHeaderLink {
     id: number;
@@ -20,11 +29,21 @@ export interface IHeaderLink {
     link: string;
 }
 
-export const ProductSpecifications: React.FC = React.memo(function ProductSpecifications() {
+interface ProductSpecificationsProps {
+    product?: ProductCharacteristicInfo;
+}
+
+export const ProductSpecifications: React.FC<ProductSpecificationsProps> = React.memo(function ProductSpecifications({
+    product,
+}: ProductSpecificationsProps) {
     return (
         <Wrapper>
             <ProductSectionTitle>Характеристики товара</ProductSectionTitle>
-            <DescriptionByCategory />
+            {product ? (
+                <DescriptionByCategory productDetails={product} />
+            ) : (
+                <BodyText>Извините, дополнительное описание товара еще не добавлено</BodyText>
+            )}
         </Wrapper>
     );
 });

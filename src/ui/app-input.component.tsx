@@ -45,19 +45,20 @@ export const CustomInput = styled(CssTextField)`
     }
 `;
 
-const CustomMultipleInput = styled(CustomInput)`
-    width: 100%;
+const FullWidthInput = styled(CustomInput)`
+    width: 90%;
 `;
 
 export interface FormInputTextProps {
     placeholder?: string;
     isError?: FieldError;
     type?: string;
-    label: string;
+    label?: string;
     helperText?: string | null;
     rows?: number;
     capitalize?: boolean;
     onPressInter?: () => void;
+    noBorders?: boolean;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -77,12 +78,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const FormInputText = React.forwardRef<HTMLDivElement | null, FormInputTextProps>(function FormInputText(
+export const FormInputText = React.forwardRef<HTMLInputElement | null, FormInputTextProps>(function FormInputText(
     props: FormInputTextProps,
     ref
 ) {
+    `    `;
     const classes = useStyles();
-    const { isError, capitalize, onPressInter, ...otherProps } = props;
+    const { isError, capitalize, onPressInter, noBorders, ...otherProps } = props;
 
     const labelStyles = isError
         ? {
@@ -102,10 +104,9 @@ export const FormInputText = React.forwardRef<HTMLDivElement | null, FormInputTe
     return (
         <CustomInput
             {...otherProps}
-            ref={ref}
             className={classes.margin}
             helperText={props.helperText}
-            variant="outlined"
+            variant={noBorders ? 'standard' : 'outlined'}
             label={isError ? isError.message : props.label}
             rows={props.rows}
             type={props.type}
@@ -115,7 +116,7 @@ export const FormInputText = React.forwardRef<HTMLDivElement | null, FormInputTe
                     input: capitalize ? classes.capitalize : classes.resize,
                 },
             }}
-            InputLabelProps={{ shrink: true, style: { fontSize: '16px', ...labelStyles } }}
+            InputLabelProps={{ shrink: true, disabled: false, style: { fontSize: '16px', ...labelStyles } }}
             placeholder={props.placeholder}
         />
     );
@@ -146,7 +147,7 @@ export const AppTextAreaInput: React.FC<FormInputTextProps> = React.memo(functio
     const classes = useStyles();
 
     return (
-        <CustomMultipleInput
+        <FullWidthInput
             {...props}
             id="outlined-multiline-static"
             label={props.label}
@@ -154,7 +155,6 @@ export const AppTextAreaInput: React.FC<FormInputTextProps> = React.memo(functio
             rows={6}
             rowsMax={6}
             InputLabelProps={{ shrink: true, style: { fontSize: '16px' } }}
-            variant="outlined"
         />
     );
 });
@@ -165,9 +165,8 @@ export const MobileInput: React.FC<FormInputTextProps> = React.memo(function For
     return (
         <InputMask {...inpProps} mask="+375 99 999 99 99" disabled={false}>
             {() => (
-                <CustomInput
+                <FullWidthInput
                     className={classes.margin}
-                    variant="outlined"
                     label={inpProps.label}
                     InputProps={{
                         classes: {

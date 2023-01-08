@@ -2,7 +2,7 @@ import { Reducer } from 'redux';
 import { createReducer } from 'typesafe-redux-helpers';
 import { GeneralProduct } from '../../graphql/entities';
 
-import { FETCH_BY_SEARCH, SET_SEARCH_TERMS } from './actions';
+import { FETCH_BY_SEARCH } from './actions';
 
 export interface SearchState {
     terms: string[];
@@ -19,14 +19,6 @@ export const searchReducer: Reducer<SearchState> = createReducer<SearchState>({
     searchResultCount: 0,
     isFetching: false,
 })
-    .handleAction(SET_SEARCH_TERMS, (state, action) => ({
-        terms: action.payload,
-        currentTerm: state.currentTerm,
-        searchResult: state.searchResult,
-        searchResultCount: state.searchResultCount,
-        isFetching: state.isFetching,
-    }))
-
     .handleAction(FETCH_BY_SEARCH.STARTED, (state, action) => ({
         terms: state.terms,
         currentTerm: action.payload,

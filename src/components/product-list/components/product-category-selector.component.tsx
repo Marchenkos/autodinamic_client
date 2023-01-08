@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate, createSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { CategoryNames } from '../../../graphql/interfaces';
 
@@ -16,23 +16,28 @@ const Wrapper = styled.div`
 `;
 
 interface CategorySelectorProps {
-    isNew: boolean
+    isNew: boolean;
 }
 
 export const ProductCategorySelector: React.FC<CategorySelectorProps> = React.memo(function ProductCategorySelector({
-    isNew
+    isNew,
 }: CategorySelectorProps) {
     const dispatch = useDispatch();
     const allProductCategoryNames = useSelector(getCategoryNames);
     const selectedCategory = useSelector(getSelectedCategory);
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const handleOnChangeCategory = useCallback(
         (event: any) => {
             if (isNew) {
-                history.push(`/new/${event.target.value}`);
+                navigate(`/new/${event.target.value}`);
             } else {
-                history.push(`/catalog/${event.target.value}`);
+              navigate({
+                pathname: "catalog",
+                search: `?${createSearchParams({
+                  category: event.target.value
+                })}`
+              });
             }
         },
         [dispatch, isNew]

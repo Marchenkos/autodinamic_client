@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { BodyText, TextColor, TextSize, TextWeight } from '../../../../../ui/text';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { SET_EDITABLE_ADDRESS } from '../../../actions';
 import { getPrimaryAddress } from '../../../selectors';
 import { StyledButton } from '../../../../../ui/new-styled';
@@ -42,10 +42,26 @@ export const DescriptionBodyText = styled(BodyText)`
 const HelpDescriptionBodyText = styled(DescriptionBodyText)`
     width: 70%;
     margin-bottom: 20px;
+
+    @media (max-width: 850px) {
+        width: 100%;
+    }
 `;
 
 const SectionsWrapper = styled.div`
-    width: 30%;
+    width: 300px;
+    min-width: 250px;
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 3px;
+    -webkit-box-shadow: 1px 2px 18px -1px rgb(193 190 190 / 42%);
+    box-shadow: 1px 2px 18px -1px rgb(193 190 190 / 42%);
+
+    @media (max-width: 850px) {
+        margin-top: 20px;
+        width: 220px;
+        min-width: 220px;
+    }
 `;
 
 const ProfileWrapper = styled.div`
@@ -72,10 +88,10 @@ const ButtonWrapper = styled.div`
 
 export const DeliveryInfo: React.FC = React.memo(function DeliveryInfo() {
     const primaryAddressData = useSelector(getPrimaryAddress);
-    const history = useHistory();
+    const history = useNavigate();
 
     const navigateToAddressList = useCallback(() => {
-        history.push('/account/address-list');
+        history('/account/address-list');
     }, [history]);
 
     if (!primaryAddressData) {

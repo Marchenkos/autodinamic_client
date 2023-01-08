@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 
 import { TitleText, BodyText, TextSize, TextWeight, TextColor } from '../../../ui/text';
 import { BasketItem } from './components/basket-item.component';
@@ -20,6 +20,8 @@ const BasketWrapper = styled.div`
     flex-direction: row;
     min-height: 85vh;
     align-items: center;
+    flex-grow: 1;
+    background: white;
 
     @media ${device.laptop} {
         flex-direction: column;
@@ -81,50 +83,43 @@ const BasketHeaderText = styled(BodyText).attrs({ size: TextSize.SMALL, color: T
 
 export const MobileBasket: React.FC = React.memo(function MobileBasket() {
     const basket = useSelector(getBasket);
-    const history = useHistory();
-
-    const countItems = useMemo(() => {
-        let count = 0;
-
-        basket.orderItems.map((item) => {
-            count = count + item.count;
-        });
-
-        return count;
-    }, [basket.orderItems]);
+    const navigate = useNavigate();
 
     const continueShoppingHandle = useCallback(() => {
-        history.push('/catalog/all');
-    }, [history]);
+      navigate({
+        pathname: "catalog",
+        search: `?${createSearchParams({
+          category: "all"
+        })}`
+      });
+    }, [navigate]);
 
     const goToOrderConfirmation = useCallback(() => {
-        history.push('/order-confirmation');
-    }, [history]);
+        navigate('/order-confirmation');
+    }, [navigate]);
 
     return (
-        <>
-            <BasketWrapper>
-                <BasketHeaderText>{basket.orderItems.length} товар</BasketHeaderText>
-                <BasketItems>
-                    {basket.orderItems.map((item, index) => (
-                        <MobileBasketItem key={index} product={item} />
-                    ))}
-                </BasketItems>
-                <ResultBasketWrapper>
-                    <ResultItemWrapper>
-                        <BasketBodyText>Общая стоимость:</BasketBodyText>
-                        <BasketBodyText>{`${basket.total} BYN`}</BasketBodyText>
-                    </ResultItemWrapper>
-                    <ResultItemButtonWrapper>
-                        <StyledButton onClick={continueShoppingHandle} label="Продолжить покупки" />
-                        <StyledButton
-                            additionalStyles={{ marginTop: '10px' }}
-                            onClick={goToOrderConfirmation}
-                            label="Офромить заказ"
-                        />
-                    </ResultItemButtonWrapper>
-                </ResultBasketWrapper>
-            </BasketWrapper>
-        </>
+      <BasketWrapper>
+          <BasketHeaderText>{basket.orderItems.length} товар</BasketHeaderText>
+          <BasketItems>
+              {basket.orderItems.map((item, index) => (
+                  <MobileBasketItem key={index} product={item} />
+              ))}
+          </BasketItems>
+          <ResultBasketWrapper>
+              <ResultItemWrapper>
+                  <BasketBodyText>Общая стоимость:</BasketBodyText>
+                  <BasketBodyText>{`${basket.total} BYN`}</BasketBodyText>
+              </ResultItemWrapper>
+              <ResultItemButtonWrapper>
+                  <StyledButton onClick={continueShoppingHandle} label="Продолжить покупки" />
+                  <StyledButton
+                      additionalStyles={{ marginTop: '10px' }}
+                      onClick={goToOrderConfirmation}
+                      label="Офромить заказ"
+                  />
+              </ResultItemButtonWrapper>
+          </ResultBasketWrapper>
+      </BasketWrapper>
     );
 });

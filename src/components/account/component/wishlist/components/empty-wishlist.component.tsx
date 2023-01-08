@@ -1,12 +1,12 @@
 import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { StyledButton } from '../../../../../ui/new-styled';
 import { StyledIcons } from '../../../../../ui/styled-icon.component';
 import { BodyText } from '../../../../../ui/text';
-import { PageTitleText } from '../../profile/profile.screen';
+import { PageTitleText } from '../../../../../pages/account/Profile.page';
 
 const StyledDescription = styled(BodyText)`
     font-size: 15px;
@@ -29,11 +29,16 @@ const BlockWrapper = styled(Wrapper)`
 `;
 
 export const EmptyWishlist: React.FC = React.memo(function EmptyWishlist() {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const goToCatalog = useCallback(() => {
-        history.push('/catalog/all');
-    }, [history]);
+      navigate({
+        pathname: "catalog",
+        search: `?${createSearchParams({
+          category: "all"
+        })}`
+      });
+    }, [navigate]);
 
     return (
         <Wrapper>

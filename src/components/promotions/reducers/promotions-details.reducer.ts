@@ -16,12 +16,12 @@ export const promotionDetailsReducer: Reducer<PromotionDetailsState> = createRed
     promotionDetails: undefined,
     isFetching: false,
 })
-
     .handleAction(FETCH_PROMOTION_BY_ID.STARTED, (state) => ({
         ...state,
         isFetching: true,
     }))
-    .handleAction(FETCH_PROMOTION_BY_ID.COMPLETED,
+    .handleAction(
+        FETCH_PROMOTION_BY_ID.COMPLETED,
         (_, action) => ({
             error: undefined,
             promotionDetails: action.payload,
@@ -33,4 +33,3 @@ export const promotionDetailsReducer: Reducer<PromotionDetailsState> = createRed
             error: action.payload as FetchPromotionByIdError,
         })
     );
-

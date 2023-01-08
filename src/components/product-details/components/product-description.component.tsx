@@ -11,18 +11,16 @@ import {
 } from './product-buttons.component';
 import { TitleText, BodyText, TextColor, TextWeight, TextSize, BoldSmallText } from '../../../ui/text';
 import { ProductPrice } from './product-price.component';
+import { GeneralProduct } from '../../../graphql/entities';
+import { useIsInWishlist } from '../hooks/useIsInWishlist';
 
 const ShortDetailSectionWrapper = styled.div`
-    width: 40%;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    max-width: 500px;
-    margin-left: 150px;
 
-    @media (max-width: 810px) {
-        width: 100%;
-        margin-left: 0;
+    @media (max-width: 850px) {
+        padding: 0 20px;
     }
 `;
 
@@ -54,24 +52,36 @@ const OtherDescriptionText = styled(BodyText).attrs({ size: TextSize.SMALL, colo
     margin: 35px 0 15px;
 `;
 
-export const ProductHeaderText = styled(TitleText).attrs({ weight: TextWeight.MEDIUM })`
-    font-size: 33px;
-    margin-bottom: 20px;
+export const ProductHeaderText = styled(TitleText)`
+    font-size: 25px;
+    margin-bottom: 10px;
+    font-weight: 500;
+
+    @media (max-width: 1000px) {
+        font-size: 22px;
+    }
 `;
 
-const PriceText = styled(TitleText).attrs({ weight: TextWeight.MEDIUM, size: TextSize.LARGE, color: TextColor.BLUE })`
-    margin: 5px 15px 0 0;
+export const ProductBrandText = styled(TitleText)`
+    font-size: 30px;
+    margin-bottom: 5px;
+    font-weight: 400;
+    color: #53b2b4;
+
+    @media (max-width: 1000px) {
+        font-size: 22px;
+    }
 `;
 
-const PriceWithoutDiscountText = styled(TitleText).attrs({ weight: TextWeight.MEDIUM, size: TextSize.LARGE })`
-    margin: 5px 15px 0 0;
-    color: #ababab;
-    text-decoration: line-through;
+const DesctopProductTitles = styled.div`
+    display: block;
+    @media (max-width: 850px) {
+        display: none;
+    }
 `;
 
 export const ProductCodeText = styled(BodyText)`
     margin-top: 0px;
-    text-transform: lowercase;
     font-size: 16px;
     color: #b9b8b8;
 `;
@@ -79,41 +89,49 @@ export const ProductCodeText = styled(BodyText)`
 const ButtonWrapper = styled.div`
     display: flex;
     width: 90%;
-    margin-top: 50px;
+    margin-top: 20px;
 `;
 
-export const ProductDescription: React.FC = React.memo(function ProductDescription() {
-    const selectedProduct = useSelector(getSelectedProduct);
+interface ProductDescriptionProps {
+    productDescription: GeneralProduct;
+}
+
+export const ProductDescription: React.FC<ProductDescriptionProps> = React.memo(function ProductDescription({
+    productDescription,
+}) {
     const deviceSize = getDeviceSize();
-
-    if (!selectedProduct) {
-        return null;
-    }
-
-    const { product } = selectedProduct;
+    const isInWishlist = useIsInWishlist({ productId: productDescription.id });
 
     return (
         <ShortDetailSectionWrapper>
-            {deviceSize > 809 ? (
-                <>
-                    {product.discount && <DiscountLabel>{`Скидка ${product.discount}%`}</DiscountLabel>}
-                    <ProductHeaderText>{product.full_name}</ProductHeaderText>
-                    <ProductCodeText>
-                        код товара: <BoldSmallText>{product.code}</BoldSmallText>
-                    </ProductCodeText>
-                </>
+            <DesctopProductTitles>
+                {productDescription.discount && (
+                    <DiscountLabel>{`Скидка ${productDescription.discount}%`}</DiscountLabel>
+                )}
+                <ProductBrandText>{productDescription.brand}</ProductBrandText>
+
+                <ProductHeaderText>{productDescription.full_name}</ProductHeaderText>
+                <ProductCodeText>
+                    Код товара: <BoldSmallText>{productDescription.code}</BoldSmallText>
+                </ProductCodeText>
+            </DesctopProductTitles>
+
+            <OtherDescriptionText>{productDescription.description}</OtherDescriptionText>
+
+            {productDescription.maker ? (
+                <DescriptionText>Производитель - {productDescription.maker}</DescriptionText>
             ) : null}
-            <OtherDescriptionText>{product.description}</OtherDescriptionText>
+            {productDescription.guarantee ? (
+                <DescriptionText>Гарантия - {productDescription.guarantee} месяцев</DescriptionText>
+            ) : null}
+
             <PriceSection>
-                <ProductPrice price={product.price} discount={product.discount} />
+                <ProductPrice price={productDescription.price} discount={productDescription.discount} />
             </PriceSection>
 
-            {product.maker ? <DescriptionText>Производитель - {product.maker}</DescriptionText> : null}
-            {product.guarantee ? <DescriptionText>Гарантия - {product.guarantee} месяцев</DescriptionText> : null}
-
             <ButtonWrapper>
-                <ProductAddToBasketButton product={product} />
-                <ProductAddToWishlistButton product={product} />
+                <ProductAddToBasketButton product={productDescription} />
+                <ProductAddToWishlistButton isInWishlist={isInWishlist} productId={productDescription.id} />
             </ButtonWrapper>
 
             {/* <ProductAddToCompareButton product={product} withLabel /> */}

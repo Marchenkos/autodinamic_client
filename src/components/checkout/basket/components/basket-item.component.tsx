@@ -11,12 +11,14 @@ import { getBasket } from '../selectors';
 import { EDIT_BASKET, REMOVE_FROM_BASKET } from '../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { calculateDiscount } from '../../../product-details/helper/calculateDiscount';
+import { StyledIcons } from '../../../../ui/styled-icon.component';
 
 export const Wrapper = styled.div`
     width: 100%;
     display: flex;
     margin-bottom: 15px;
     justify-content: space-between;
+    align-items: flex-start;
 `;
 
 export const BasketCrossedBodyText = styled(CrossedBodyText).attrs({ weight: TextWeight.BOLD, size: TextSize.SMALL })`
@@ -70,7 +72,7 @@ export const BasketItem: React.FC<BasketItemProps> = React.memo(function BasketI
 
     return (
         <Wrapper>
-            <BasketItemDetailInfo handleRemove={handleRemove} product={product} />
+            <BasketItemDetailInfo product={product} />
             <Counter count={product.count} recalculatePrice={editCount} />
             {discount ? (
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -83,6 +85,7 @@ export const BasketItem: React.FC<BasketItemProps> = React.memo(function BasketI
             ) : (
                 <BasketBodyText>{price * product.count} BYN</BasketBodyText>
             )}
+            <StyledIcons className="icon-cancel" onClick={handleRemove} />
         </Wrapper>
     );
 });

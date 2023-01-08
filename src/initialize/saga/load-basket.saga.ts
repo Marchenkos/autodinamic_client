@@ -2,7 +2,6 @@ import { SagaIterator } from 'redux-saga';
 import { put, takeLatest } from 'redux-saga/effects';
 
 import { FETCH_BASKET } from '../../components/checkout/basket/actions';
-import { SET_SEARCH_TERMS } from '../../components/search/actions';
 import { Basket } from '../../graphql/entities';
 
 import { createBasket } from '../create-basket';
@@ -34,7 +33,6 @@ export function* getBasketSaga(): SagaIterator {
         }
 
         yield put(FETCH_BASKET.COMPLETED(basket));
-        yield put(SET_SEARCH_TERMS(searchTerms));
     } catch (err) {
         console.log(err);
     }

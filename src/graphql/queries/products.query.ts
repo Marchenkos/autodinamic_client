@@ -12,13 +12,6 @@ import {
     signalisationFields,
 } from './fields';
 
-export interface LoadProductsPayload {
-    limit: number;
-    next: number;
-    categoryName: string;
-    sort: string;
-}
-
 export interface GetOrdersByEmailPayload {
     email: string;
 }
@@ -72,8 +65,8 @@ export const getProductListQuery = gql`
 `;
 
 export const getProductListByTermsQuery = gql`
-    query($input: SearchProductsPayload!) {
-        searchProduct(input: $input) {
+    query($input: ProductsBySearchInput!) {
+        productsBySearchTerm(input: $input) {
             products {
                 ${productFields}
             }

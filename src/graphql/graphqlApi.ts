@@ -4,9 +4,10 @@ import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
 export const graphqlApi = {
-    client: (undefined as unknown) as GraphQLApi,
+    client: undefined as unknown as GraphQLApi,
     init: (): void => {
-        const httpLink = createHttpLink({ uri: process.env.SERVER_URL });
+        const isDev = process.env.NODE_ENV === 'development';
+        const httpLink = createHttpLink({ uri: isDev ? process.env.SERVER_URL_DEV : process.env.SERVER_URL });
 
         const authLink = setContext((_, { headers }) => {
             const token = localStorage.getItem('userToken');
@@ -20,7 +21,7 @@ export const graphqlApi = {
         });
 
         const client = new ApolloClient({
-            uri: process.env.SERVER_URL,
+            uri: isDev ? process.env.SERVER_URL_DEV : process.env.SERVER_URL,
             link: authLink.concat(httpLink),
             cache: new InMemoryCache(),
         });

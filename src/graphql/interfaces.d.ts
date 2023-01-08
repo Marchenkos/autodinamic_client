@@ -187,7 +187,6 @@ export interface RequestToCallbackPayload {
     name: string;
     email: string;
     message: string;
-    phoneNumber?: string;
 }
 
 export interface User {

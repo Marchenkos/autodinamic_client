@@ -13,6 +13,16 @@ const Wrapper = styled.div`
     flex-direction: column;
 `;
 
+const InfoSection = styled.div`
+    display: flex;
+    width: 100%;
+
+    @media (max-width: 850px) {
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+`;
+
 export const OrderButtonWrapper = styled.div`
     display: flex;
     justify-content: space-between;
@@ -21,10 +31,20 @@ export const OrderButtonWrapper = styled.div`
 
 const LabelText = styled(BodyText).attrs({ color: TextColor.DARK, size: TextSize.SMALL })`
     margin: 0px 0 10px;
+
+    @media (max-width: 850px) {
+        font-size: 11px;
+        margin: 0;
+    }
 `;
 
 const AddressText = styled(BodyText).attrs({ color: TextColor.BLUE, size: TextSize.SMALL, weight: TextWeight.MEDIUM })`
     margin: 0 0 10px 10px;
+
+    @media (max-width: 850px) {
+        font-size: 12px;
+        margin: 0;
+    }
 `;
 
 interface OrderDeliveryInfoProps {
@@ -48,14 +68,14 @@ export const PickupDeliveryInfo: React.FC<OrderDeliveryInfoProps> = React.memo(f
 
     return (
         <Wrapper>
-            <div style={{ display: 'flex' }}>
-                <LabelText>Заказ будет доступен по адресу:</LabelText>
+            <InfoSection>
+                <LabelText>Наш адрес:</LabelText>
                 <AddressText>{`г. ${pickUpAddress.city} ${pickUpAddress.address}`}</AddressText>
-            </div>
-            <div style={{ display: 'flex' }}>
-                <LabelText>Стоимость доставки - </LabelText>
+            </InfoSection>
+            <InfoSection>
+                <LabelText>Стоимость доставки:</LabelText>
                 <AddressText>Бесплатно</AddressText>
-            </div>
+            </InfoSection>
             <OrderButtonWrapper>
                 <StyledButton isSecondary onClick={handleBack} additionalStyles={{ width: '25%' }} label="Назад" />
                 <StyledButton additionalStyles={{ width: '25%' }} onClick={handleNext} label="Далее" />

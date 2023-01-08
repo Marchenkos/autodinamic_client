@@ -17,6 +17,16 @@ const PrimaryButton = styled.button`
         color: #b5b3b3;
         cursor: auto;
     }
+
+    :active {
+        background: #3d3d3d;
+    }
+
+    @media (max-width: 850px) {
+        font-size: 12px;
+        text-transform: inherit;
+        max-width: 150px;
+    }
 `;
 
 const SecondaryButton = styled(PrimaryButton)`

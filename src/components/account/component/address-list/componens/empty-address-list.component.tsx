@@ -1,11 +1,10 @@
 import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { StyledButton } from '../../../../../ui/new-styled';
 import { BodyText } from '../../../../../ui/text';
-import { PageTitleText } from '../../profile/profile.screen';
+import { PageTitleText } from '../../../../../pages/account/Profile.page';
 
 const StyledDescription = styled(BodyText)`
     font-size: 15px;

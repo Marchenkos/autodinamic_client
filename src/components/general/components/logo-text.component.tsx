@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { TitleText, TextColor, BodyText, TextSize } from '../../../ui/text';
@@ -10,14 +10,10 @@ const LogoTextSection = styled.div<{ isFooter?: boolean }>`
     justify-content: center;
     width: 250px;
 
-    @media (max-width: 1400px) {
-        display: ${(props) => (!props.isFooter ? 'none' : 'flex')};
-    }
-
-    @media (max-width: 850px) {
+    @media (max-width: 800px) {
         display: flex;
         padding-left: 5px;
-        width: 50%;
+        width: 100%;
     }
 
     @media (max-width: 420px) {
@@ -29,7 +25,7 @@ const LogoTextSection = styled.div<{ isFooter?: boolean }>`
 const LogoText = styled(TitleText).attrs({ color: TextColor.BLUE })`
     margin-bottom: -5px;
 
-    @media (max-width: 850px) {
+    @media (max-width: 800px) {
         font-size: 20px;
     }
 
@@ -41,7 +37,7 @@ const LogoText = styled(TitleText).attrs({ color: TextColor.BLUE })`
 const LogoDescriptionText = styled(BodyText).attrs({ size: TextSize.EXTRA_EXTRA_SMALL })`
     color: #bfbfbf;
 
-    @media (max-width: 850px) {
+    @media (max-width: 900px) {
         display: none;
     }
 `;
@@ -49,15 +45,16 @@ const LogoDescriptionText = styled(BodyText).attrs({ size: TextSize.EXTRA_EXTRA_
 const LogoWrapper = styled.div`
     display: flex;
     cursor: pointer;
+    width: 100%;
 `;
 
 export const LogoComponentWithText: React.FC<{ isFooter?: boolean }> = React.memo(function LogoComponentWithText({
     isFooter,
 }) {
-    const history = useHistory();
+    const history = useNavigate();
 
     const navigateHome = () => {
-        history.push('/');
+        history('/');
     };
 
     return (

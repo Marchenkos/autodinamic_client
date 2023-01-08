@@ -62,6 +62,7 @@ export const FilterCheckbox: React.FC<FilterCheckboxData> = React.memo(function 
         <CustomCheckboxLabel
             control={
                 <Checkbox
+                    
                     style={{ color: '#60BDBF' }}
                     checked={isSelected}
                     onChange={handleOnChange}

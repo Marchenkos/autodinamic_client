@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { BodyText, TextSize, TextColor, TextWeight } from '../../../ui/text';
 
 const Wrapper = styled.div`
@@ -24,10 +24,10 @@ interface GoBackLinkProps {
 export const GoBackLink: React.FC<GoBackLinkProps> = React.memo(function GoBackLink({
     title = 'Назад',
 }: GoBackLinkProps) {
-    const history = useHistory();
+    const history = useNavigate();
 
     const goBack = React.useCallback(() => {
-        history.goBack();
+        history(-1);
     }, [history]);
 
     return (

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -9,15 +9,15 @@ import { getSelectedProduct } from '../selectors';
 //TODO tabled = mobile
 const Wrapper = styled.div`
     display: flex;
-    width: 60%;
-    max-width: 900px;
+    width: 50%;
 
-    @media (max-width: 810px) {
-        width: 100%;
+    @media (max-width: 1000px) {
+        width: 60%;
     }
 
-    @media ${device.laptop} {
-        flex-direction: column-reverse;
+    @media (max-width: 850px) {
+        width: 100%;
+        margin-top: 30px;
     }
 `;
 
@@ -27,33 +27,23 @@ const StyledImage = styled.img`
 `;
 
 const Slider = styled.div`
-    width: 300px;
-
+    max-width: 15%;
+    padding-right: 20px;
     overflow: scroll;
     overflow-x: hidden;
     overflow-y: auto;
-    height: 500px;
+    height: 100%;
+    box-sizing: border-box;
 
-    @media (max-width: 810px) {
-        display: flex;
-        height: 100px;
-        padding: 10px 0;
+    @media (max-width: 850px) {
+        display: none;
     }
 `;
 
 const ImageSlider = styled(StyledImage)<{ isSelected?: boolean }>`
     max-width: 100%;
-    margin-top: -25%;
     cursor: pointer;
-
-    @media ${device.laptop} {
-        max-width: 80%;
-        margin-top: -25%;
-    }
-
-    @media (max-width: 810px) {
-        max-width: 100%;
-    }
+    box-sizing: border-box;
 
     ${({ isSelected }) =>
         isSelected &&
@@ -63,44 +53,20 @@ const ImageSlider = styled(StyledImage)<{ isSelected?: boolean }>`
 `;
 
 const MainImage = styled(StyledImage)`
-    max-width: 100%;
-    margin-top: -30%;
+    max-width: 60%;
     height: auto;
 
-    @media (min-width: 650px) and (max-width: 810px) {
-        margin-top: -40%;
+    @media (max-width: 1000px) {
+        max-width: 80%;
     }
 
-    @media (max-width: 550px) {
-        margin-top: -20%;
-    }
-`;
-
-const MainImageWrapper = styled.div`
-    height: 500px;
-    overflow: hidden;
-
-    @media (max-width: 810px) {
-        height: 300px;
+    @media (max-width: 850px) {
+        max-width: 100%;
     }
 `;
 
 const ImageSliderWrapper = styled.div`
-    height: 80px;
-    overflow: hidden;
-    margin-right: 10px;
     margin-bottom: 5px;
-
-    @media ${device.laptop} {
-        max-width: 20%;
-        display: flex;
-        justify-content: center;
-    }
-
-    @media (max-width: 810px) {
-        max-width: 30%;
-        margin-bottom: 0;
-    }
 `;
 
 interface ProductDetailsImageProps {
@@ -122,24 +88,18 @@ export const ProductDetailsImage: React.FC<ProductDetailsImageProps> = React.mem
 
     const renderSlider = useCallback(
         () =>
-            images && images.length > 1
-                ? images.map((image: ProductImage, index: number) => {
-                      return (
-                          <ImageSliderWrapper key={index} onClick={() => setCurrentImage(image.displayUrl)}>
-                              <ImageSlider isSelected={image.displayUrl === currentImage} src={image.displayUrl} />
-                          </ImageSliderWrapper>
-                      );
-                  })
-                : null,
+            [NULLABLE_IMAGE, NULLABLE_IMAGE].map((image: string, index: number) => (
+                <ImageSliderWrapper key={index} onClick={() => setCurrentImage(image)}>
+                    <ImageSlider isSelected={image === currentImage} src={image} />
+                </ImageSliderWrapper>
+            )),
         [images, currentImage]
     );
 
     return (
         <Wrapper>
-            {images && images.length > 1 ? <Slider className="styled-scroll">{renderSlider()}</Slider> : null}
-            <MainImageWrapper>
-                <MainImage src={currentImage} />
-            </MainImageWrapper>
+            <Slider className="styled-scroll">{renderSlider()}</Slider>
+            <MainImage src={currentImage} />
         </Wrapper>
     );
 });

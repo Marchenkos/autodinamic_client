@@ -2,6 +2,7 @@ import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { CategoryFields, ProductField } from '../../../graphql/entities';
+import { ProductCharacteristicInfo } from '../../../graphql/interfaces';
 
 import { CustomizedTable } from '../../../ui/custom-table.component';
 import { getCategoryFields, getProductCategory } from '../../product-category/selectors';
@@ -21,9 +22,13 @@ export interface ProductDescription {
     value: string | null;
 }
 
-export const DescriptionByCategory: React.FC = React.memo(function DescriptionByCategory() {
-    const product = useSelector(getSelectedProduct);
-    const productCategory = useSelector(getProductCategory);
+interface DescriptionByCategoryProps {
+    productDetails: ProductCharacteristicInfo;
+}
+
+export const DescriptionByCategory: React.FC<DescriptionByCategoryProps> = React.memo(function DescriptionByCategory({
+    productDetails,
+}: DescriptionByCategoryProps) {
     const categoryFields = useSelector(getProductFields);
 
     const stringFromValue = (value?: any): string => {
@@ -49,7 +54,7 @@ export const DescriptionByCategory: React.FC = React.memo(function DescriptionBy
     const sectionValues = useMemo(() => {
         let result: ProductDescription[] = [];
 
-        if (!product || !product.productDetails || !categoryFields) {
+        if (!categoryFields) {
             return [
                 {
                     name: '',
@@ -59,8 +64,8 @@ export const DescriptionByCategory: React.FC = React.memo(function DescriptionBy
         }
 
         categoryFields.map((item: ProductField) => {
-            if (product.productDetails && product.productDetails.hasOwnProperty(item.column_name)) {
-                const productValue = getValueByKey(product.productDetails, item.column_name);
+            if (productDetails.hasOwnProperty(item.column_name)) {
+                const productValue = getValueByKey(productDetails, item.column_name);
 
                 if (productValue) {
                     const value = stringFromValue(productValue);
@@ -74,7 +79,7 @@ export const DescriptionByCategory: React.FC = React.memo(function DescriptionBy
         });
 
         return result;
-    }, [product, categoryFields]);
+    }, [productDetails, categoryFields]);
 
     // if (productCategory) {
     //     const r = productCategory.description_sections.map((section) => {

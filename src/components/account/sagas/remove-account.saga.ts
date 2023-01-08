@@ -25,7 +25,6 @@ export function* removeAccountSaga(action: ReturnType<typeof REMOVE_ACCOUNT.TRIG
 
         yield put(REMOVE_ACCOUNT.COMPLETED(response));
         yield put(LOG_OUT.TRIGGER());
-
     } catch (err) {
         const error = new RemoveAccountError(err);
 

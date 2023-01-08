@@ -6,7 +6,7 @@ import '@brainhubeu/react-carousel/lib/style.css';
 
 import { useSelector } from 'react-redux';
 import { Promotion } from '../../../graphql/entities';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { CarouselArrow } from '../../product-details/components/similar-products.component';
 
 const LoadingWrapper = styled.div`
@@ -20,7 +20,7 @@ const BannerImg = styled.img`
 `;
 
 export const NewsBanners: React.FC<{ news: Promotion[] }> = React.memo(function NewsBanners({ news }) {
-    const history = useHistory();
+    const history = useNavigate();
     const [value, setValue] = React.useState(0);
 
     const handleOnChange = React.useCallback((value: number) => {
@@ -29,14 +29,10 @@ export const NewsBanners: React.FC<{ news: Promotion[] }> = React.memo(function 
 
     const navigateToNewsDetails = React.useCallback(
         (newsItem: Promotion) => {
-            history.push(`/news/${newsItem.id}`);
+            history(`/news/${newsItem.id}`);
         },
         [history]
     );
 
-    return (
-        <Carousel value={value} onChange={handleOnChange}>
-       
-        </Carousel>
-    );
+    return <Carousel value={value} onChange={handleOnChange}></Carousel>;
 });

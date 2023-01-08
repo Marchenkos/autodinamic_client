@@ -1,7 +1,6 @@
 import { combineReducers, Reducer } from 'redux';
 
 import { reducer as products } from '../components/product-list/reducers';
-import { locationReducer as location } from '../components/location/reducer';
 import { basketReducer as basket } from '../components/checkout/basket/reducers/basket.reducer';
 import { toastReducer as toast } from '../components/toast/reducer';
 import { reducer as account } from '../components/account/reducers';
@@ -15,9 +14,9 @@ import { reducer as authentication } from '../components/auth/reducers';
 import { ApplicationState } from './ApplicationState';
 import { productCategoryReducer as category } from '../components/product-category/reducer';
 import { reducer as promotions } from '../components/promotions/reducers';
+import { reducer as drawer } from '../components/drawer/drawer.reducer';
 
 export const rootReducer: Reducer<ApplicationState> = combineReducers<ApplicationState>({
-    location,
     products,
     basket,
     toast,
@@ -30,5 +29,6 @@ export const rootReducer: Reducer<ApplicationState> = combineReducers<Applicatio
     compare,
     authentication,
     category,
-    promotions
+    promotions,
+    drawer,
 });

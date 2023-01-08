@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createTheme } from '@material-ui/core/styles';
 import { Slider } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import styled from 'styled-components';
@@ -79,7 +79,7 @@ export const FilterRange: React.FC<FilterRangeProps> = React.memo(function Filte
         [selectedFilters, value, enName]
     );
 
-    const muiTheme = createMuiTheme({
+    const muiTheme = createTheme({
         overrides: {
             MuiSlider: {
                 thumb: {
@@ -97,11 +97,6 @@ export const FilterRange: React.FC<FilterRangeProps> = React.memo(function Filte
 
     return (
         <ThemeProvider theme={muiTheme}>
-            <ValueWrapper>
-                <FilterValueText>от {chosenValues[0]} BYN</FilterValueText>
-                <FilterValueText>до {chosenValues[1]} BYN</FilterValueText>
-            </ValueWrapper>
-
             <Slider
                 value={value}
                 onChangeCommitted={handleOnChange}
@@ -112,6 +107,10 @@ export const FilterRange: React.FC<FilterRangeProps> = React.memo(function Filte
                 step={steps}
                 min={min}
             />
+            <ValueWrapper>
+                <FilterValueText>от {chosenValues[0]} BYN</FilterValueText>
+                <FilterValueText>до {chosenValues[1]} BYN</FilterValueText>
+            </ValueWrapper>
         </ThemeProvider>
     );
 });

@@ -35,7 +35,5 @@ export const getIsPromotionDetailsFetching: Selector<ApplicationState, boolean> 
     (promotions) => promotions.promotionDetails.isFetching
 );
 
-export const getPromotionDetailsError: Selector<ApplicationState, FetchPromotionsListError | undefined> = createSelector(
-    getPromotionsRootState,
-    (promotions) => promotions.promotionDetails.error
-);
+export const getPromotionDetailsError: Selector<ApplicationState, FetchPromotionsListError | undefined> =
+    createSelector(getPromotionsRootState, (promotions) => promotions.promotionDetails.error);

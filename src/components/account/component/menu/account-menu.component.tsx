@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
-
-import { IMenuConfig } from '../../constants';
 import { AccountMenuItem } from './account-menu-item.component';
+import { IMenuConfig, accountMenuConfig } from './account-menu-config';
+
 
 const Wrapper = styled.div`
     width: 87%;
@@ -11,23 +11,21 @@ const Wrapper = styled.div`
         display: flex;
         justify-content: space-evenly;
         width: 100%;
-        margin-top: 20px;
+        margin-top: 40px;
     }
 `;
 
-interface AccountMenuProps {
-    menuConfig: IMenuConfig[];
-}
 
-export const AccountMenu: React.FC<AccountMenuProps> = React.memo(function AccountMenu({
-    menuConfig,
-}: AccountMenuProps) {
+
+export const AccountMenu: React.FC = React.memo(function AccountMenu() {
+
+
     const menuItems = useMemo(
         () =>
-            menuConfig.map((item, index) => (
-                <AccountMenuItem key={index} label={item.label} iconClass={item.iconClass} urlItem={item.url} />
+        accountMenuConfig.map((item, index) => (
+                <AccountMenuItem  key={index} label={item.label} iconClass={item.iconClass} urlItem={item.url} />
             )),
-        [menuConfig]
+        [accountMenuConfig]
     );
 
     return <Wrapper>{menuItems}</Wrapper>;

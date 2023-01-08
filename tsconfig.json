@@ -29,7 +29,7 @@
     "include": [
       "src/**/*.ts",
       "src/**/*.js",
-      "src/**/*.tsx",
+      "src/**/*.tsx", "src/components/general/ScrollToTop.jsx",
     ],
     "exclude": [
       "node_modules"

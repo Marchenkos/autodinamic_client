@@ -9,11 +9,11 @@ html {
 }
 
 body {
-    background: #2f2f2f;
+    background: #6e8687;
     margin:0;
     display:flex;
     flex-direction:column;
-    height:100vh;
+    justify-content: center;
 }
 
 button {

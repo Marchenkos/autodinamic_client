@@ -67,8 +67,3 @@ export const getIsAutoLoggedIn: Selector<ApplicationState, boolean> = createSele
     getAuthenticationState,
     (authentication) => authentication.register.isAutoLoggedIn
 );
-
-export const getIsShowAuthDrawer: Selector<ApplicationState, boolean> = createSelector(
-    getAuthenticationState,
-    (authentication) => authentication.authDrawer.isShow
-);

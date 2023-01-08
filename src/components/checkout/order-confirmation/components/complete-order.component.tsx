@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate, createSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { BodyText, TextColor, TextSize, TitleText, TextWeight, TitleLink } from '../../../../ui/text';
-import CImage from '../../../../../public/assets/img/complete-order.png';
 import { OrderDetailsResponse } from '../../../../graphql/interfaces';
 import { StyledButton } from '../../../../ui/new-styled';
 
@@ -12,7 +11,7 @@ const Wrapper = styled.div`
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    margin: 30% auto;
+    margin: 100px auto;
 
     @media (max-width: 850px) {
         width: 80%;
@@ -49,11 +48,16 @@ const SmallLabelText = styled(BodyText).attrs({ size: TextSize.EXTRA_SMALL })`
 export const CompleteOrder: React.FC<OrderDeliveryInfoProps> = React.memo(function CompleteOrder({
     order,
 }: OrderDeliveryInfoProps) {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const handleGoToCatalog = useCallback(() => {
-        history.push('/catalog/all');
-    }, [history]);
+      navigate({
+        pathname: "catalog",
+        search: `?${createSearchParams({
+          category: "all"
+        })}`
+      });
+    }, [navigate]);
 
     return (
         <Wrapper>

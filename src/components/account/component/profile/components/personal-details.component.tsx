@@ -18,7 +18,7 @@ const Wrapper = styled.div`
     margin-bottom: 80px;
 
     @media (max-width: 850px) {
-        width: 85%;
+        width: 100%;
     }
 `;
 
@@ -26,10 +26,19 @@ const HorizontalWrapper = styled.div`
     display: flex;
     width: 100%;
     justify-content: space-between;
+    flex-direction: row;
+
+    @media (max-width: 850px) {
+        flex-direction: column;
+    }
 `;
 
 const NameWrapper = styled.div`
     width: 50%;
+
+    @media (max-width: 850px) {
+        width: 100%;
+    }
 `;
 
 const ButtonWrapper = styled.div`
@@ -37,6 +46,7 @@ const ButtonWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     margin: 20px 0 0;
+    cursor: pointer;
 `;
 
 export const AccountPersonalDetails: React.FC = React.memo(function AccountPersonalDetails() {

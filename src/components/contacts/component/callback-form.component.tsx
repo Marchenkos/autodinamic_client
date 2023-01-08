@@ -4,43 +4,44 @@ import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { callbackValidationSchema } from '../../validations/shemes';
-import { ErrorLabel } from '../../validations/error-label.component';
-import { FormInputText, AppTextAreaInput, MobileInput } from '../../../ui/app-input.component';
 import { useDispatch, useSelector } from 'react-redux';
 import { SEND_REQUEST_TO_CALLBACK } from '../actions';
 import { getIsRequestWasSendedSuccess, getIsSending } from '../selector';
-import { StyledButton, TextInput } from '../../../ui/new-styled';
+import { StyledButton, TextAreaInput, TextInput } from '../../../ui/new-styled';
 import { RequestToCallbackPayload } from '../../../graphql/interfaces';
+import { TitleText } from '../../../ui/text';
 
-const UserInfoWrapper = styled.div`
+const FormWrapper = styled.div`
+    width: 50%;
     display: flex;
     flex-direction: column;
-    width: 45%;
+    align-items: center;
+    margin: 0 auto;
 
-    @media (max-width: 1220px) {
-        width: 95%;
+    @media (max-width: 800px) {
+        width: 70%;
     }
 `;
 
-const FormWrapper = styled.div`
+const CallbackFormWrapper = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
+`;
 
-    @media (max-width: 1220px) {
-        flex-direction: column;
-    }
+const FormTitle = styled(TitleText)`
+    font-size: 25px;
+    margin-bottom: 50px;
 `;
 
 export const CallbackForm: React.FC = React.memo(function CallbackForm() {
     const dispatch = useDispatch();
     const isSending = useSelector(getIsSending);
 
-    const form = useForm<RequestToCallbackPayload>({
-        mode: 'onBlur',
+    const { control, handleSubmit, formState, setFocus } = useForm<RequestToCallbackPayload>({
+        mode: 'onSubmit',
         resolver: yupResolver(callbackValidationSchema),
     });
-
-    const { control, handleSubmit, formState } = form;
 
     const handleSubmitCallback = useCallback(
         (formInput: RequestToCallbackPayload) => {
@@ -59,32 +60,47 @@ export const CallbackForm: React.FC = React.memo(function CallbackForm() {
         return !formState.isValid;
     }, [formState.isSubmitted, formState.isValid]);
 
+    const handleOnPressInter = useCallback(
+        (field: string) => {
+            if (field === 'email' || field === 'name' || field === 'message') {
+                setFocus(field);
+            } else {
+                handleSubmitPress();
+            }
+        },
+        [setFocus, handleSubmitPress]
+    );
+
     return (
-        <FormWrapper>
-            <UserInfoWrapper>
+        <CallbackFormWrapper>
+            <FormTitle>Форма обратной связи</FormTitle>
+            <FormWrapper>
                 <Controller
                     control={control}
                     render={({ field, fieldState }) => (
                         <TextInput
                             {...field}
-                            id="edit-name"
+                            id="input-name"
                             isError={fieldState.error}
-                            placeholder="Имя"
+                            onPressInter={handleOnPressInter}
                             nextFieldName="email"
+                            placeholder="Имя"
                         />
                     )}
                     name="name"
                     defaultValue={''}
                 />
+
                 <Controller
                     control={control}
                     render={({ field, fieldState }) => (
                         <TextInput
                             {...field}
-                            id="edit-email"
-                            nextFieldName="phoneNumber"
+                            id="input-email"
                             isError={fieldState.error}
-                            placeholder="Email"
+                            onPressInter={handleOnPressInter}
+                            nextFieldName="password"
+                            placeholder="Электронная почта"
                         />
                     )}
                     name="email"
@@ -93,38 +109,24 @@ export const CallbackForm: React.FC = React.memo(function CallbackForm() {
                 <Controller
                     control={control}
                     render={({ field, fieldState }) => (
-                        <MobileInput
+                        <TextAreaInput
                             {...field}
+                            id="input-message"
+                            nextFieldName=""
                             isError={fieldState.error}
-                            label="Номер телефона"
-                            placeholder="Номер телефона"
-                        />
-                    )}
-                    name="phoneNumber"
-                    defaultValue={''}
-                />
-            </UserInfoWrapper>
-            <UserInfoWrapper>
-                <Controller
-                    control={control}
-                    render={({ field, fieldState }) => (
-                        <AppTextAreaInput
-                            {...field}
-                            label="Сообщение"
-                            placeholder="Ваше сообщение"
-                            isError={fieldState.error}
+                            placeholder="Сообщение"
                         />
                     )}
                     name="message"
                     defaultValue={''}
                 />
                 <StyledButton
-                    additionalStyles={{ marginTop: '10px' }}
+                    additionalStyles={{ marginTop: '50px', width: '200px', alignSelf: 'self-end' }}
                     onClick={handleSubmitPress}
                     disabled={isDisableButton}
                     label="Отправить"
                 />
-            </UserInfoWrapper>
-        </FormWrapper>
+            </FormWrapper>
+        </CallbackFormWrapper>
     );
 });

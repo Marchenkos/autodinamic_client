@@ -1,69 +1,65 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useMemo, useState } from 'react';
 
-import { StyledLink } from '../../../ui/styled-link.component';
-import { BodyText, TextSize, TextColor } from '../../../ui/text';
-import { capitalizeString } from '../../filter/utilites/formated-string';
+import { menuConfig, MenuConfig } from './menu.config';
+import { StyledMenuItemText, MenuItemDropdown, MenuItemDropdownContent, MenuWrapper } from './menu.styled';
 
-const MenuItem = styled(BodyText).attrs({ size: TextSize.SMALL, color: TextColor.WHITE })`
-    margin-right: 35px;
-    padding: 1px 0;
-    text-transform: lowercase;
-    padding: 20px 0;
-    border-bottom: none;
-    box-sizing: border-box;
-    border-bottom: 2px solid #363636;
+interface MenuItemProps {
+    item: MenuConfig;
+}
 
-    &:focus, &:hover, &:visited, &:link, &:active {
-        border-bottom: 2px solid white;
+export const MenuItem: React.FC<MenuItemProps> = React.memo(function MenuItem({ item }: MenuItemProps) {
+  const url = useMemo(() => {
+    let urlValue = item.url;
+
+    if (item.searchParams) {
+      const searchParams = new URLSearchParams();
+      item.searchParams.map(s_p => {
+        searchParams.append(s_p.param, s_p.value);
+
+      })
+
+      urlValue += `/?${searchParams.toString()}`
     }
 
-    @media (max-width: 1200px) {
-        font-size: 14px;
-    }
-}`;
+    return urlValue;
+  }, [item.searchParams, item.url]);
 
-const menuConfig = [
-    {
-        name: 'каталог',
-        url: '/catalog/all',
-    },
-    {
-        name: 'новинки',
-        url: '/new/all',
-    },
-    {
-        name: 'акции',
-        url: '/promotions',
-    },
-    {
-        name: 'проверить заказ',
-        url: '/check-order',
-    },
+  const [isHovering, setIsHovering] = useState<boolean>(false);
 
-    {
-        name: 'доставка',
-        url: '/delivery',
-    },
+  const handleMouseOver = (e) => {
+    setIsHovering(true);
+  };
 
-    {
-        name: 'наш магазин',
-        url: '/contacts',
-    },
-    // {
-    //     name: 'сравнение товаров',
-    //     url: '/match',
-    // },
-];
+  const handleMouseOut = () => {
+    setIsHovering(false);
+  };
+
+  if (!item.subLinks || item.subLinks.length < 0) {
+    return <StyledMenuItemText to={url}>{item.name}</StyledMenuItemText>;
+  }
+
+    return (
+        <MenuItemDropdown
+            className={isHovering ? "dropdown-content activeHover" : "dropdown-content"}
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
+        >
+            <StyledMenuItemText to={url}>{item.name}</StyledMenuItemText>
+            <MenuItemDropdownContent className={isHovering ? "dropdown-content activeHover" : "dropdown-content"}>
+                {item.component
+                    ? <item.component onItemClick={handleMouseOut} />
+                    : item.subLinks.map((subLink, index) => (
+                          <MenuItem item={subLink} key={`${subLink.name}-${index}`} />
+                      ))}
+            </MenuItemDropdownContent>
+        </MenuItemDropdown>
+    );
+});
 
 export const Menu: React.FC = React.memo(function Menu() {
-    return (
-        <>
-            {menuConfig.map((item, index: number) => (
-                <StyledLink key={index} to={item.url}>
-                    <MenuItem>{capitalizeString(item.name)}</MenuItem>
-                </StyledLink>
-            ))}
-        </>
-    );
+    const menuContent = useMemo(() => 
+      menuConfig.map((item, index: number) => <MenuItem item={item} key={`${item.name}-${index}`} />
+    ), [menuConfig]);
+
+    return <MenuWrapper>{menuContent}</MenuWrapper>;
 });

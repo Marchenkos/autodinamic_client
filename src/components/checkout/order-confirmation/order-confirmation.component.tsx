@@ -7,7 +7,7 @@ import { TitleText } from '../../../ui/text';
 import { OrderUserInfo } from './components/user-info.component';
 import { OrderDeliveryInfo } from './components/delivery-info';
 import { ConfirmOrder } from './components/confirm-order.component';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAddedOrder, getOrderUserDetails } from './selectors';
 import { CompleteOrder } from './components/complete-order.component';
@@ -18,7 +18,11 @@ import { OrderPaymentInfo } from './components/payment-type-info';
 import { StyledButton } from '../../../ui/new-styled';
 
 const OrderConfirmationWrapper = styled.div`
-    padding: 40px 10%;
+    padding: 40px 50px;
+
+    @media (max-width: 850px) {
+        padding: 20px 25px;
+    }
 `;
 
 const OrderConfirmationHeader = styled.div`
@@ -26,13 +30,13 @@ const OrderConfirmationHeader = styled.div`
     justify-content: space-between;
 
     @media (max-width: 850px) {
-        flex-direction: column-reverse;
+        flex-direction: column;
     }
 `;
 
 const StyledTitleText = styled(TitleText)`
     @media (max-width: 850px) {
-        margin-top: 50px;
+        margin-bottom: 20px;
     }
 `;
 
@@ -70,7 +74,7 @@ export const OrderConfirmation: React.FC = React.memo(function OrderConfirmation
     const [activeStep, setActiveStep] = useState(0);
     const [isEditing, setIsEditing] = useState(false);
 
-    const history = useHistory();
+    const history = useNavigate();
     const order = useSelector(getAddedOrder);
     const deviceSize = getDeviceSize();
     const dispatch = useDispatch();
@@ -101,7 +105,7 @@ export const OrderConfirmation: React.FC = React.memo(function OrderConfirmation
     const handleConfirmModal = useCallback(
         (choice: boolean) => {
             if (choice) {
-                history.goBack();
+                history(-1);
             }
         },
         [history]
@@ -146,6 +150,7 @@ export const OrderConfirmation: React.FC = React.memo(function OrderConfirmation
             <OrderConfirmationHeader>
                 <StyledTitleText>Оформление заказа</StyledTitleText>
                 <StyledButton
+                    additionalStyles={{ width: '250px' }}
                     isSecondary
                     onClick={handleOnBackToBasket}
                     label="Вернуться к корзине"
