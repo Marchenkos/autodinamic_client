@@ -174,7 +174,7 @@ export const MobileMenuHeader: React.FC = React.memo(function MobileMenuHeader()
             </React.Fragment>
             <MenuIcon onClick={toggleDrawer(true)} style={{ color: 'black', marginRight: '10px', marginTop: '4px' }} />
 
-            <StyledLink to="/home" style={{ flexGrow: 1 }}>
+            <StyledLink to="/" style={{ flexGrow: 1 }}>
                 <LogoComponentWithText />
             </StyledLink>
 

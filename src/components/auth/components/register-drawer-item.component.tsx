@@ -20,20 +20,6 @@ const RegisterFormWrapper = styled.div`
     }
 `;
 
-const TextButton = styled.button`
-    border: none;
-    background: none;
-    font-size: 16px;
-    font-family: 'Manrope';
-    margin-top: 50px;
-    cursor: pointer;
-    padding: 20px;
-
-    :hover {
-        color: #7aa0a1;
-    }
-`;
-
 interface RegisterDrawerItemProps {
     toggleForms: () => void;
 }

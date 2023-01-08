@@ -5,7 +5,6 @@ import styled from 'styled-components';
 
 import { TitleText } from '../ui/text';
 import { AccountMenu } from '../components/account/component/menu/account-menu.component';
-import { accountMenuConfig } from '../components/account/constants';
 import { geIsFetchingtUserDetails, getUser } from '../components/account/selectors';
 
 const Wrapper = styled.div`
@@ -94,7 +93,7 @@ const AccountPage: React.FC = React.memo(function AccountPage() {
         <Wrapper>
             <MenuWrapper>
                 <AccountTitle>Личный кабинет</AccountTitle>
-                <AccountMenu menuConfig={accountMenuConfig} />
+                <AccountMenu />
             </MenuWrapper>
             <ContentWrapper isCentered={!userData}>
                 <Outlet />

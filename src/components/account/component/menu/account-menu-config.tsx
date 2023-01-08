@@ -1,4 +1,4 @@
-import { getDeviceSize } from '../../utils/check-device-size';
+import { getDeviceSize } from "../../../../utils/check-device-size";
 
 export interface IMenuConfig {
     label: string;
@@ -12,7 +12,7 @@ export const accountMenuConfig: IMenuConfig[] = [
     {
         label: deviceSize > 400 ? 'Личная информация' : 'Профиль',
         iconClass: 'icon-user-tie',
-        url: 'profile',
+        url: '',
     },
     {
         label: deviceSize > 400 ? 'Книга адрессов' : 'Адреса',

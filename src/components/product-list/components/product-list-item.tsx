@@ -73,8 +73,10 @@ const ProductImageWrapper = styled.div`
 `;
 
 const DescriptionBlock = styled.div`
+    display: flex;
+    justify-content: space-between;
     flex-grow: 1;
-    width: 100px;
+    padding-inline: 10px;
 `;
 
 const ProductImage = styled.img`
@@ -115,7 +117,7 @@ const ProductPriceText = styled(BodyText)`
     font-size: 16px;
     font-weight: 500;
     color: #232323;
-    margin-top: 6px;
+    
 
     @media (max-width: 650px) {
         font-size: 14px;
@@ -167,8 +169,11 @@ export const ProductListItem: React.FC<ProductListItemProps> = React.memo(functi
 
             <ProductItemInfo>
                 <DescriptionBlock>
-                    <ProductText small customColor="#54a2a4">{`${product.brand} ${product.part_number}`}</ProductText>
-                    <ProductText>{product.type}</ProductText>
+                    <div>
+                        <ProductText small customColor="#54a2a4">{`${product.brand} ${product.part_number}`}</ProductText>
+                        <ProductText>{product.type}</ProductText>
+                    </div>
+
                     <ProductPriceText>{`${product.price} BYN`}</ProductPriceText>
                 </DescriptionBlock>
             </ProductItemInfo>

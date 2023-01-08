@@ -15,7 +15,7 @@ const BasketPage: React.FC = React.memo(function BasketPage() {
     useEffect(() => {
       if (basketItemCount === 0) {
         navigate({
-          pathname: "catalog",
+          pathname: "/catalog",
           search: `?${createSearchParams({
             category: "all"
           })}`

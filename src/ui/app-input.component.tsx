@@ -43,11 +43,10 @@ export const CustomInput = styled(CssTextField)`
     @media (max-width: 850px) {
         width: 100%;
     }
-    
 `;
 
 const FullWidthInput = styled(CustomInput)`
-    width: 100%;
+    width: 90%;
 `;
 
 export interface FormInputTextProps {
@@ -81,8 +80,9 @@ const useStyles = makeStyles((theme) => ({
 
 export const FormInputText = React.forwardRef<HTMLInputElement | null, FormInputTextProps>(function FormInputText(
     props: FormInputTextProps,
-    ref,
-) {`    `
+    ref
+) {
+    `    `;
     const classes = useStyles();
     const { isError, capitalize, onPressInter, noBorders, ...otherProps } = props;
 
@@ -104,7 +104,6 @@ export const FormInputText = React.forwardRef<HTMLInputElement | null, FormInput
     return (
         <CustomInput
             {...otherProps}
-            ref={ref}
             className={classes.margin}
             helperText={props.helperText}
             variant={noBorders ? 'standard' : 'outlined'}

@@ -77,7 +77,7 @@ export const FilterDesktop: React.FC<FilterProps> = React.memo(function SimpleFi
                 return <FilterSelector filterValues={filter.values} enName={filter.field_name} />;
             }
             case 'only-one': {
-                return <FilterSwitch filter={filter} />;
+                return <FilterSwitch  filter={filter} />;
             }
             case 'range': {
                 return (
@@ -112,7 +112,7 @@ export const FilterDesktop: React.FC<FilterProps> = React.memo(function SimpleFi
             </HeaderWrapper>
             {renderSections()}
             <StyledButton
-                additionalStyles={{ width: '60%', margin: '0 auto', padding: '5px' }}
+                additionalStyles={{ width: '60%', margin: '0 auto', padding: '5px', borderRadius: 4, border: '1px solid' }}
                 onClick={cleanFilter}
                 isSecondary
                 label="Очистить"

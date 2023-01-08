@@ -46,6 +46,7 @@ const ButtonWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     margin: 20px 0 0;
+    cursor: pointer;
 `;
 
 export const AccountPersonalDetails: React.FC = React.memo(function AccountPersonalDetails() {

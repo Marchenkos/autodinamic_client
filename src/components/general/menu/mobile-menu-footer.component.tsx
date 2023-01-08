@@ -43,7 +43,7 @@ const MenuWrapper = styled.div`
     position: fixed;
     bottom: 0;
     z-index: 5;
-    width: 100%;
+    width:100%;
 
     background: #fbfbfb;
     border-top: 1px solid #efefef;
@@ -61,12 +61,12 @@ interface FooterMenuConfig {
 const menuConfig: FooterMenuConfig[] = [
     {
         name: 'Главная',
-        url: '/home',
+        url: '/',
         icon: (isSelected: boolean) => <HomeIcon style={{ color: isSelected ? '#8dc3b7' : '#4a4a4a' }} />,
     },
     {
         name: 'Каталог',
-        url: '/catalog',
+        url: 'catalog/?category=all',
         icon: (isSelected: boolean) => <FormatListBulletedIcon style={{ color: isSelected ? '#8dc3b7' : '#4a4a4a' }} />,
     },
     {
@@ -84,6 +84,8 @@ const menuConfig: FooterMenuConfig[] = [
 interface MobileMenuFooterItemProps {
     item: FooterMenuConfig;
 }
+
+
 
 export const MobileMenuFooterItem: React.FC<MobileMenuFooterItemProps> = React.memo(function MobileMenuFooterItem({
     item,
@@ -105,6 +107,7 @@ export const MobileMenuFooterItem: React.FC<MobileMenuFooterItemProps> = React.m
         }
     }, [userData, history]);
 
+    
     const navigateToWishlist = useCallback(() => {
         if (!userData) {
             dispatch(
@@ -121,7 +124,7 @@ export const MobileMenuFooterItem: React.FC<MobileMenuFooterItemProps> = React.m
         return (
             <MenuItemBlockLink onClick={navigateToWishlist}>
                 {item.icon(location.pathname.includes(item.url))}
-                <MenuText isSelected={location.pathname.includes(item.url)}>{item.name}</MenuText>
+                <MenuText isSelected={location.pathname === item.url}>{item.name}</MenuText>
             </MenuItemBlockLink>
         );
     }
@@ -129,19 +132,22 @@ export const MobileMenuFooterItem: React.FC<MobileMenuFooterItemProps> = React.m
     if (item.name === 'Кабинет') {
         return (
             <MenuItemBlockLink onClick={navigateToAccount}>
-                {item.icon(location.pathname.includes(item.url))}
-                <MenuText isSelected={location.pathname.includes(item.url)}>{item.name}</MenuText>
+                {item.icon(location.pathname === item.url)}
+                <MenuText isSelected={location.pathname === item.url}>{item.name}</MenuText>
             </MenuItemBlockLink>
         );
     }
 
     return (
         <MenuItemLink to={item.url}>
-            {item.icon(location.pathname.includes(item.url))}
-            <MenuText isSelected={location.pathname.includes(item.url)}>{item.name}</MenuText>
+            {item.icon(location.pathname === item.url)}
+            <MenuText isSelected={location.pathname === item.url}>{item.name}</MenuText>
         </MenuItemLink>
     );
+    
 });
+
+
 
 export const MobileMenuFooter: React.FC = React.memo(function MobileMenuFooter() {
     const location = useLocation();

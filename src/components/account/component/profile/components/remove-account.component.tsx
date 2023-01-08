@@ -40,7 +40,7 @@ const WarningText = styled(BodyTextSpan)`
 const ButtonWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 100%;
     justify-content: center;
     align-items: center;
 

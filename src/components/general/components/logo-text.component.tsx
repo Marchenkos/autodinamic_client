@@ -13,7 +13,7 @@ const LogoTextSection = styled.div<{ isFooter?: boolean }>`
     @media (max-width: 800px) {
         display: flex;
         padding-left: 5px;
-        width: 50%;
+        width: 100%;
     }
 
     @media (max-width: 420px) {
@@ -45,6 +45,7 @@ const LogoDescriptionText = styled(BodyText).attrs({ size: TextSize.EXTRA_EXTRA_
 const LogoWrapper = styled.div`
     display: flex;
     cursor: pointer;
+    width: 100%;
 `;
 
 export const LogoComponentWithText: React.FC<{ isFooter?: boolean }> = React.memo(function LogoComponentWithText({

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { menuConfig, MenuConfig } from './menu.config';
 import { StyledMenuItemText, MenuItemDropdown, MenuItemDropdownContent, MenuWrapper } from './menu.styled';
@@ -24,16 +24,30 @@ export const MenuItem: React.FC<MenuItemProps> = React.memo(function MenuItem({ 
     return urlValue;
   }, [item.searchParams, item.url]);
 
+  const [isHovering, setIsHovering] = useState<boolean>(false);
+
+  const handleMouseOver = (e) => {
+    setIsHovering(true);
+  };
+
+  const handleMouseOut = () => {
+    setIsHovering(false);
+  };
+
   if (!item.subLinks || item.subLinks.length < 0) {
     return <StyledMenuItemText to={url}>{item.name}</StyledMenuItemText>;
   }
 
     return (
-        <MenuItemDropdown>
+        <MenuItemDropdown
+            className={isHovering ? "dropdown-content activeHover" : "dropdown-content"}
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
+        >
             <StyledMenuItemText to={url}>{item.name}</StyledMenuItemText>
-            <MenuItemDropdownContent className="dropdown-content">
+            <MenuItemDropdownContent className={isHovering ? "dropdown-content activeHover" : "dropdown-content"}>
                 {item.component
-                    ? item.component
+                    ? <item.component onItemClick={handleMouseOut} />
                     : item.subLinks.map((subLink, index) => (
                           <MenuItem item={subLink} key={`${subLink.name}-${index}`} />
                       ))}

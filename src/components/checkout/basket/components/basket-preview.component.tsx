@@ -12,10 +12,10 @@ const BasketPreviewWrapper = styled.button`
     display: flex;
     align-items: center;
     flex-direction: row;
-
-    border: 1px solid #dddddd;
+    
+    border: none;
     border-radius: 5px;
-    padding: 10px;
+    padding: 15px 5px;
     position: relative;
     cursor: pointer;
     background: none;
@@ -27,6 +27,7 @@ const BasketPreviewWrapper = styled.button`
     }
 
     &: hover {
+        background: #7aa0a1;
         box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     }
     &:active {
@@ -108,7 +109,7 @@ export const BasketPreview: React.FC = React.memo(function BasketPreview() {
     return (
         <BasketPreviewWrapper onClick={goToBasket} onMouseOver={handleOnMouseAction} onMouseOut={handleOnMouseAction}>
             <StyledIcons size={23} className="icon-shopping-bag" />
-            <SectionHeader>Корзина</SectionHeader>
+            {/* <SectionHeader>Корзина</SectionHeader> */}
             {countItems > 0 && (
                 <BasketDetailsWrapper>
                     <BasketBodyText>{countItems}</BasketBodyText>

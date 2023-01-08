@@ -52,20 +52,22 @@ const CatalogImage = styled.img`
 
 interface CatalogItemProps {
     categoryName: CategoryNames;
+    onItemClick: () => void;
 }
 
-const CatalogItem: React.FC<CatalogItemProps> = React.memo(function CatalogItem({ categoryName }: CatalogItemProps) {
+const CatalogItem: React.FC<CatalogItemProps> = React.memo(function CatalogItem({ categoryName, onItemClick }: CatalogItemProps) {
     const navigate = useNavigate();
     const image = PRODUCT_CATEGORY_TO_CATEGORY_IMAGES[categoryName.category_name];
 
     const handleChooseCategory = React.useCallback(() => {
+        onItemClick()
       navigate({
         pathname: "catalog",
         search: `?${createSearchParams({
           category: categoryName.category_name
         })}`
       });
-    }, [categoryName, navigate]);
+    }, [categoryName, navigate, onItemClick]);
 
     if (!image) {
         return null;
@@ -79,15 +81,19 @@ const CatalogItem: React.FC<CatalogItemProps> = React.memo(function CatalogItem(
     );
 });
 
-export const Catalog: React.FC = React.memo(function Catalog() {
+export interface CatalogProps {
+    onItemClick: () => void;
+}
+
+export const Catalog: React.FC<CatalogProps> = React.memo(function Catalog({ onItemClick }: CatalogProps) {
     const categoryNames = useSelector(getCategoryNames);
 
     const categoryItems = React.useMemo(
         () =>
             categoryNames
-                ? categoryNames.map((item) => <CatalogItem key={item.category_name} categoryName={item} />)
+                ? categoryNames.map((item) => <CatalogItem onItemClick={onItemClick} key={item.category_name} categoryName={item} />)
                 : null,
-        [categoryNames]
+        [categoryNames, onItemClick]
     );
 
     return <CatalogListWrapper>{categoryItems}</CatalogListWrapper>;

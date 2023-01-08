@@ -12,7 +12,7 @@ import { getDiscountProductList } from '../components/product-list/selectors';
 import { FETCH_DISCOUNT_PRODUCT_LIST } from '../components/product-list/actions';
 import { PRODUCT_CATEGORY_TYPE } from '../graphql/entities';
 import { DiscountProductList } from '../components/home/components/discount-product-list.component';
-import BannerImg from '../../public/assets/banner.png';
+import BannerImg from '../../public/assets/ban.jpg';
 import { StyledButton } from '../ui/new-styled';
 
 const Wrapper = styled.div`
