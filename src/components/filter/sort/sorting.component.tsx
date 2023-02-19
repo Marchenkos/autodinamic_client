@@ -4,21 +4,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SET_SORT_SECTION } from '../actions';
 import { AppSelectorWithoutLabel } from '../../../ui/app-selector.component';
 import { getSelectedSort } from '../selector';
+import { SORT_DIRECTION } from '../../../graphql/interfaces';
 
-//TODO move to firebase??
 const sortingConfig = [
-    {
-        label: 'Сначала новые',
-        value: 'new',
-    },
-    {
-        label: 'Сначала дорогие',
-        value: 'max_price',
-    },
-    {
-        label: 'Сначала дешевые',
-        value: 'min_price',
-    },
+  {
+      label: 'Сначала новые',
+      value: SORT_DIRECTION.NEW,
+  },
+  {
+      label: 'Сначала дорогие',
+      value: SORT_DIRECTION.HIGHT_PRICE,
+  },
+  {
+      label: 'Сначала дешевые',
+      value: SORT_DIRECTION.LOW_PRICE,
+  },
 ];
 
 export const Sorting: React.FC = React.memo(function Sort() {

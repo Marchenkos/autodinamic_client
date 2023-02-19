@@ -1,13 +1,9 @@
-import React, { useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
-import { CategoryFields, ProductField } from '../../../graphql/entities';
-import { ProductCharacteristicInfo } from '../../../graphql/interfaces';
+import { IProduct } from '../../../graphql/entities';
 
 import { CustomizedTable } from '../../../ui/custom-table.component';
-import { getCategoryFields, getProductCategory } from '../../product-category/selectors';
 import { getValueByKey } from '../helper/getValueByKey';
-import { getProductFields, getSelectedProduct } from '../selectors';
 import './product-details.style.scss';
 
 const TablesWrapper = styled.div`
@@ -23,13 +19,31 @@ export interface ProductDescription {
 }
 
 interface DescriptionByCategoryProps {
-    productDetails: ProductCharacteristicInfo;
+    productDetails: IProduct;
 }
 
 export const DescriptionByCategory: React.FC<DescriptionByCategoryProps> = React.memo(function DescriptionByCategory({
     productDetails,
 }: DescriptionByCategoryProps) {
-    const categoryFields = useSelector(getProductFields);
+
+  const details = useMemo(() => {
+    return productDetails.category.allDetails.map((item) => {
+      console.log(item)
+
+      if (productDetails.details.hasOwnProperty(item.field_name)) {
+        return {
+          value: productDetails.details[item.field_name],
+          name: item.display_field_name
+
+        }
+      }
+    })
+
+  }, [productDetails.details, productDetails.category])
+
+  console.log("SPPSPSPSPSPS - ", productDetails.category)
+  console.log("SPPSPSPSPSPS - ", productDetails.details)
+
 
     const stringFromValue = (value?: any): string => {
         if (value === true || value === 'true') {
@@ -51,36 +65,7 @@ export const DescriptionByCategory: React.FC<DescriptionByCategoryProps> = React
         return '';
     };
 
-    const sectionValues = useMemo(() => {
-        let result: ProductDescription[] = [];
-
-        if (!categoryFields) {
-            return [
-                {
-                    name: '',
-                    value: '',
-                },
-            ];
-        }
-
-        categoryFields.map((item: ProductField) => {
-            if (productDetails.hasOwnProperty(item.column_name)) {
-                const productValue = getValueByKey(productDetails, item.column_name);
-
-                if (productValue) {
-                    const value = stringFromValue(productValue);
-
-                    result.push({
-                        name: item.column_comment ? item.column_comment : '',
-                        value: value,
-                    });
-                }
-            }
-        });
-
-        return result;
-    }, [productDetails, categoryFields]);
-
+    const sectionValues = []
     // if (productCategory) {
     //     const r = productCategory.description_sections.map((section) => {
     //         const s = productCategory.description_section_fields.map((fields) => {
@@ -111,7 +96,7 @@ export const DescriptionByCategory: React.FC<DescriptionByCategoryProps> = React
 
     return (
         <TablesWrapper>
-            <CustomizedTable header={'Описание товара'} productsData={sectionValues} />
+            <CustomizedTable header={'Описание товара'} productsData={details} />
         </TablesWrapper>
     );
 });

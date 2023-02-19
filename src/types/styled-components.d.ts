@@ -16,6 +16,7 @@ declare module 'styled-components' {
                 error: string;
             };
             background: {
+                app: string;
                 default: string;
                 success: string;
                 grey: string;

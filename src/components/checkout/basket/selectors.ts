@@ -1,6 +1,6 @@
 import { createSelector, Selector } from 'reselect';
 
-import { Basket, GeneralProduct, OrderProduct } from '../../../graphql/entities';
+import { Basket, IProduct, OrderProduct } from '../../../graphql/entities';
 import { ApplicationState } from '../../../store/ApplicationState';
 import { BasketState } from './reducers/basket.reducer';
 

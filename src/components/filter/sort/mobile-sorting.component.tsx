@@ -9,6 +9,7 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import LinearScaleIcon from '@material-ui/icons/LinearScale';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import { BodyText } from '../../../ui/text';
+import { SORT_DIRECTION } from '../../../graphql/interfaces';
 
 const Wrapper = styled.div`
     width: 40%;
@@ -28,15 +29,15 @@ const SortText = styled(BodyText)`
 const sortingConfig = [
     {
         label: 'Сначала новые',
-        value: 'new',
+        value: SORT_DIRECTION.NEW,
     },
     {
         label: 'Сначала дорогие',
-        value: 'max_price',
+        value: SORT_DIRECTION.HIGHT_PRICE,
     },
     {
         label: 'Сначала дешевые',
-        value: 'min_price',
+        value: SORT_DIRECTION.LOW_PRICE,
     },
 ];
 

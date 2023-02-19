@@ -57,7 +57,7 @@ export const BasketItem: React.FC<BasketItemProps> = React.memo(function BasketI
     const editCount = useCallback(
         (newCount: number) => {
             dispatch(
-                EDIT_BASKET.TRIGGER({
+                EDIT_BASKET({
                     productId: product.id,
                     count: newCount,
                 })
@@ -67,7 +67,7 @@ export const BasketItem: React.FC<BasketItemProps> = React.memo(function BasketI
     );
 
     const handleRemove = useCallback(() => {
-        dispatch(REMOVE_FROM_BASKET.TRIGGER(product.id));
+        dispatch(REMOVE_FROM_BASKET({ productId: product.id }));
     }, [product.id, dispatch]);
 
     return (

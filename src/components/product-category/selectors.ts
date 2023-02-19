@@ -1,6 +1,6 @@
 import { Selector, createSelector } from 'reselect';
-import { Category, CategoryFields } from '../../graphql/entities';
-import { CategoryNames } from '../../graphql/interfaces';
+import { ICategory } from '../../graphql/entities';
+import { ICategoryName } from '../../graphql/interfaces';
 
 import { ApplicationState } from '../../store/ApplicationState';
 import { ProductCategoryState } from './reducer';
@@ -10,22 +10,23 @@ const getProductCategoryRootState: Selector<ApplicationState, ProductCategorySta
     (category) => category
 );
 
-export const getSelectedCategory: Selector<ApplicationState, CategoryNames> = createSelector(
+export const getSelectedCategory: Selector<ApplicationState, ICategoryName | undefined> = createSelector(
     getProductCategoryRootState,
     (category) => category.selectedCategory
 );
 
-export const getProductCategory: Selector<ApplicationState, Category | undefined> = createSelector(
+export const getCategoryList: Selector<ApplicationState, ICategory[]> = createSelector(
+  getProductCategoryRootState,
+  (category) => category.categoryList
+);
+
+export const getProductCategory: Selector<ApplicationState, ICategory | undefined> = createSelector(
     getProductCategoryRootState,
     (category) => category.productCategory
 );
 
-export const getCategoryNames: Selector<ApplicationState, CategoryNames[] | undefined> = createSelector(
+export const getCategoryNames: Selector<ApplicationState, ICategoryName[]> = createSelector(
     getProductCategoryRootState,
     (products) => products.categoryNames
 );
 
-export const getCategoryFields: Selector<ApplicationState, CategoryFields[] | undefined> = createSelector(
-    getProductCategoryRootState,
-    (products) => products.categoryFields
-);

@@ -1,6 +1,6 @@
 import { createSelector, Selector } from 'reselect';
 
-import { CompareResponse } from '../../graphql/entities';
+// import { CompareResponse } from '../../graphql/entities';
 import { ApplicationState } from '../../store/ApplicationState';
 
 export const getCompareItemsCount: Selector<ApplicationState, number> = createSelector(
@@ -13,7 +13,7 @@ export const getCompareItemsIds: Selector<ApplicationState, number[]> = createSe
     (compare) => compare.productIds
 );
 
-export const getCompareData: Selector<ApplicationState, CompareResponse | undefined> = createSelector(
+export const getCompareData: Selector<ApplicationState, any | undefined> = createSelector(
     (state) => state.compare,
     (compare) => compare.data
 );

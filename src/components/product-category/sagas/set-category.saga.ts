@@ -6,7 +6,7 @@ import { SET_CATEGORY } from '../actions';
 
 export function* setCategorySaga(action: ReturnType<typeof SET_CATEGORY>): SagaIterator {
     try {
-        yield put(GET_FILTER_BY_CATEGORY.TRIGGER(action.payload.category_name));
+        yield put(GET_FILTER_BY_CATEGORY.TRIGGER(action.payload.name));
     } catch (err) {
         console.log(err);
     }

@@ -28,12 +28,14 @@ const CategoryPromoWrapper = styled.div`
 export const CategoryPromo: React.FC = React.memo(function CategoryPromo() {
     const categoryNames = useSelector(getCategoryNames);
 
+    console.log("LALALLALALA - ", categoryNames)
+
     const categoryItems = React.useMemo(
-        () =>
-            categoryNames
-                ? categoryNames.map((item) => <CategoryPromoItem key={item.category_name} categoryName={item} />)
-                : null,
-        [categoryNames]
+      () =>
+        categoryNames
+          ? categoryNames.map((item) => <CategoryPromoItem key={item.name} categoryName={item} />)
+          : null,
+      [categoryNames]
     );
 
     return <CategoryPromoWrapper>{categoryItems}</CategoryPromoWrapper>;

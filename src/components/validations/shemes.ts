@@ -62,7 +62,7 @@ export const commentValidationSchema = yup.object().shape({
     comment: message,
 });
 
-export const generalProductValidationSchema = yup.object().shape({
+export const IProductValidationSchema = yup.object().shape({
     code,
     part_number: justStringRequired,
     brand: justStringRequired,

@@ -1,12 +1,10 @@
 import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { CompareResponse } from '../../graphql/entities';
-import { FETCH_COMPARE_LIST } from './actions';
 import { getCompareItemsIds, getCompareItemsCount, getCompareData, getCompareIsFetching } from './selectors';
 
 export interface CompareListData {
-    data: CompareResponse | undefined;
+    data: any | undefined;
     count: number;
     isFetching: boolean;
     refresh: () => void;
@@ -22,7 +20,7 @@ export const useCompareListData = (): CompareListData => {
 
     const refresh = useCallback(() => {
         if (count > 0) {
-            dispatch(FETCH_COMPARE_LIST.TRIGGER(ids));
+            // dispatch(FETCH_COMPARE_LIST.TRIGGER(ids));
         }
     }, [dispatch, ids]);
 

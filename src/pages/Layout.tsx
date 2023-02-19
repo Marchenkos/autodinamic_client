@@ -17,7 +17,7 @@ import { Outlet } from 'react-router-dom';
 
 const Wrapper = styled.div`
     width: 100%;
-    background: white;
+    background: ${(props) => props.theme.colors.background.app};
     min-height: 100vh;
     position: relative;
 
@@ -30,6 +30,7 @@ const ContentWrapper = styled.div`
     min-height: 90vh;
     padding-top: 0px;
     box-sizing: border-box;
+    margin-top: 60px;
 
     @media (max-width: 500px) {
         padding-top: 60px;

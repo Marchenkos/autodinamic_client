@@ -4,7 +4,7 @@ import { useNavigate, createSearchParams } from 'react-router-dom';
 
 import { PRODUCT_CATEGORY_TO_CATEGORY_IMAGES, Promotion } from '../../../graphql/entities';
 import { CarouselArrow } from '../../product-details/components/similar-products.component';
-import { CategoryNames } from 'src/graphql/interfaces';
+import { ICategoryName } from 'src/graphql/interfaces';
 import { BodyText, TextWeight } from '../../../ui/text';
 
 const CategoryPromoItemWrapper = styled.div`
@@ -38,21 +38,21 @@ const CategoryImage = styled.img`
 `;
 
 interface CategoryPromoItemProps {
-    categoryName: CategoryNames;
+  categoryName: ICategoryName;
 }
 
 export const CategoryPromoItem: React.FC<CategoryPromoItemProps> = React.memo(function CategoryPromoItem({
-    categoryName,
+  categoryName,
 }: CategoryPromoItemProps) {
     const navigate = useNavigate();
 
-    const image = PRODUCT_CATEGORY_TO_CATEGORY_IMAGES[categoryName.category_name];
+    const image = PRODUCT_CATEGORY_TO_CATEGORY_IMAGES[categoryName.name];
 
     const handleChooseCategory = React.useCallback(() => {
         navigate({
           pathname: "catalog",
           search: `?${createSearchParams({
-            category: categoryName.category_name
+            category: categoryName.name
           })}`
         });
     }, [categoryName, navigate]);
@@ -64,7 +64,7 @@ export const CategoryPromoItem: React.FC<CategoryPromoItemProps> = React.memo(fu
     return (
         <CategoryPromoItemWrapper onClick={handleChooseCategory}>
             <CategoryImage src={image} />
-            <CategoryNameText>{categoryName.title}</CategoryNameText>
+            <CategoryNameText>{categoryName.displayName}</CategoryNameText>
         </CategoryPromoItemWrapper>
     );
 });

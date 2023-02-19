@@ -13,8 +13,11 @@ import { Button, Popover } from '@material-ui/core';
 const HeaderWrapper = styled.div`
     width: 100%;
 
+    position: fixed;
+    top: 0;
+    z-index: 20;
+
     border-bottom: 1px solid #ebebeb;
-    position: relative;
 
     @media (max-width: 800px) {
         display: none;

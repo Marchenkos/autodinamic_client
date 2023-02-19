@@ -1,19 +1,19 @@
 import { Reducer } from 'redux';
 import { createReducer } from 'typesafe-redux-helpers';
 
-import { FilterObject } from '../../graphql/interfaces';
+import { FilterObject, SORT_DIRECTION } from '../../graphql/interfaces';
 import { GET_FILTER_BY_CATEGORY, SelectedFilterSection, SET_FILTER_SECTIONS, SET_SORT_SECTION } from './actions';
 
 export interface FilterReducerState {
     filters?: FilterObject[];
     selectedFilterSections?: SelectedFilterSection[];
-    selectedSort: string;
+    selectedSort: SORT_DIRECTION;
 }
 
 export const filterReducer: Reducer<FilterReducerState> = createReducer<FilterReducerState>({
     filters: undefined,
     selectedFilterSections: undefined,
-    selectedSort: 'new',
+    selectedSort: SORT_DIRECTION.NEW,
 })
     .handleAction(GET_FILTER_BY_CATEGORY.COMPLETED, (state, action) => ({
         filters: action.payload,

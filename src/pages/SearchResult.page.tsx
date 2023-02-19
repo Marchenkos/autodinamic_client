@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { SET_FILTER_SECTIONS } from '../components/filter/actions';
 
-import { SearchProductList } from '../components/product-list/components/search-product-list';
+import { SearchProductList } from '../components/catalog/components/search-product-list';
 
 const Wrapper = styled.div`
     flex-grow: 1;

@@ -3,29 +3,22 @@ import { SelectedFilterSection } from '../components/filter/actions';
 
 import {
     AddressInfo,
-    Category,
-    CategoryFields,
-    GeneralProduct,
+    ICategory,
+    IProduct,
     NewOrder,
     Promotion,
     Order,
-    ProductField,
 } from './entities';
 
 import {
     AuthResponse,
-    ProductList,
     OrderDetailsResponse,
     RequestToCallbackResponse,
     FilterObject,
-    CategoryNames,
-    AmpliferDetails,
-    AudioSpeaker,
-    DVRlDetails,
-    MagnitolDetails,
-    SignalisationDetails,
-    SubwooferDetails,
+    ICategoryName,
     User,
+    SORT_DIRECTION,
+    IProductList,
 } from './interfaces';
 import {
     addAddressMutation,
@@ -40,22 +33,14 @@ import {
     toggleWishlistMutation,
 } from './mutations/user.mutation';
 import {
-    getAmplifierDetailsQuery,
-    getAudioSpeakerDetailsQuery,
     getCategoryByNameQuery,
-    getCategoryFieldsQuery,
     getCategoryNamesQuery,
-    getDVRDetailsQuery,
-    getMagnitolDetailsQuery,
-    getProductFieldsQuery,
     getProductListByTermsQuery,
     getProductListQuery,
     getProductListWithFilterQuery,
     getProductsCategoryQuery,
     getPromotionDetailsQuery,
     getPromotionsListQuery,
-    getSabwooferDetailsQuery,
-    getSignalisationDetailsQuery,
     getSimilarProductsQuery,
 } from './queries/products.query';
 import {
@@ -73,30 +58,34 @@ export type SimpleGQLResponse<Key extends string, T> = {
     [X in Key]: T;
 };
 
+export interface IFetchProductListAPI {
+  limit: number;
+  page: number;
+  categoryName?: string;
+  sort?: SORT_DIRECTION;
+  filters?: SelectedFilterSection[];
+  isNew?: boolean;
+  isHasDiscount?: boolean;
+  searchTerms?: string[];
+}
+
 export class GraphQLApi {
     constructor(private client: ApolloClient<unknown>) {}
 
-    fetchProductList = async (
-        limit: number,
-        next: number,
-        categoryName: string,
-        sort: string,
-        isNew: boolean,
-        isHasDiscount: boolean,
-        filters?: SelectedFilterSection[],
-        searchTerms?: string[]
-    ): Promise<ProductList> => {
-        const response = await this.client.query<SimpleGQLResponse<'products', ProductList>>({
+    fetchProductList = async (props: IFetchProductListAPI): Promise<IProductList> => {
+      const { limit, page, categoryName, sort, searchTerms, filters, isHasDiscount, isNew } = props;
+
+        const response = await this.client.query<SimpleGQLResponse<'products', IProductList>>({
             query: getProductListQuery,
             variables: {
-                input: {
+                args: {
                     limit,
-                    next,
+                    page,
                     categoryName,
                     sort,
                     filters,
-                    isNew,
-                    isHasDiscount,
+                    isNew: isNew || false,
+                    isHasDiscount: isHasDiscount || false,
                     searchTerms,
                 },
             },
@@ -112,8 +101,8 @@ export class GraphQLApi {
         sort: string,
         searchTerms: string[],
         filters?: SelectedFilterSection[]
-    ): Promise<ProductList> => {
-        const response = await this.client.query<SimpleGQLResponse<'productsBySearchTerm', ProductList>>({
+    ): Promise<IProductList> => {
+        const response = await this.client.query<SimpleGQLResponse<'productsBySearchTerm', IProductList>>({
             query: getProductListByTermsQuery,
             variables: {
                 input: {
@@ -137,8 +126,8 @@ export class GraphQLApi {
         categoryName: string,
         sort: string,
         isNovelty?: boolean
-    ): Promise<ProductList> => {
-        const response = await this.client.query<SimpleGQLResponse<'productsWithFilter', ProductList>>({
+    ): Promise<IProductList> => {
+        const response = await this.client.query<SimpleGQLResponse<'productsWithFilter', IProductList>>({
             query: getProductListWithFilterQuery,
             variables: {
                 input: {
@@ -156,23 +145,25 @@ export class GraphQLApi {
         return response.data.productsWithFilter;
     };
 
-    getCategoryList = async (): Promise<Category[]> => {
-        const response = await this.client.query<SimpleGQLResponse<'productsCategory', Category[]>>({
+    getCategoryList = async (): Promise<ICategory[]> => {
+        const response = await this.client.query<SimpleGQLResponse<'categories', ICategory[]>>({
             query: getProductsCategoryQuery,
             fetchPolicy: 'network-only',
         });
 
-        return response.data.productsCategory;
+        return response.data.categories;
     };
 
-    fetchProductById = async (id: number): Promise<GeneralProduct> => {
-        const response = await this.client.query<SimpleGQLResponse<'productById', GeneralProduct>>({
+    fetchProductById = async (id: number): Promise<IProduct> => {
+        const response = await this.client.query({
             query: getProductByIdQuery,
             variables: {
-                id,
+              id,
             },
             fetchPolicy: 'network-only',
         });
+
+        console.log("productById - data - ", response.data.productById)
 
         return response.data.productById;
     };
@@ -180,7 +171,7 @@ export class GraphQLApi {
     // fetchCompareList = async (
     //     ids: number[],
     // ): Promise<CompareResponse> => {
-    //     const items: GeneralProduct[] = await this.fetchProductsByIds(ids);
+    //     const items: IProduct[] = await this.fetchProductsByIds(ids);
     //     let details: any;
     //     let allCategories: string[] = [];
 
@@ -438,90 +429,6 @@ export class GraphQLApi {
         return response.data.orderByEmail;
     };
 
-    getCategoryFields = async (category: string): Promise<CategoryFields[]> => {
-        const response = await this.client.query<SimpleGQLResponse<'categoryColumns', CategoryFields[]>>({
-            query: getCategoryFieldsQuery,
-            variables: {
-                category,
-            },
-            fetchPolicy: 'network-only',
-        });
-
-        return response.data.categoryColumns;
-    };
-
-    fetchMagnitolDetails = async (id: number): Promise<MagnitolDetails | null> => {
-        const response = await this.client.query<SimpleGQLResponse<'magnitolDetails', MagnitolDetails>>({
-            query: getMagnitolDetailsQuery,
-            variables: {
-                id,
-            },
-            fetchPolicy: 'network-only',
-        });
-
-        return response.data.magnitolDetails;
-    };
-
-    fetchAudioSpeakerDetails = async (id: number): Promise<AudioSpeaker | null> => {
-        const response = await this.client.query<SimpleGQLResponse<'audioSpeakerDetails', AudioSpeaker>>({
-            query: getAudioSpeakerDetailsQuery,
-            variables: {
-                id,
-            },
-            fetchPolicy: 'network-only',
-        });
-
-        return response.data.audioSpeakerDetails;
-    };
-
-    fetchSignalisationDetails = async (id: number): Promise<SignalisationDetails | null> => {
-        const response = await this.client.query<SimpleGQLResponse<'signalisationDetails', SignalisationDetails>>({
-            query: getSignalisationDetailsQuery,
-            variables: {
-                id,
-            },
-            fetchPolicy: 'network-only',
-        });
-
-        return response.data.signalisationDetails;
-    };
-
-    fetchDVRDetails = async (id: number): Promise<DVRlDetails | null> => {
-        const response = await this.client.query<SimpleGQLResponse<'dvrDetails', DVRlDetails>>({
-            query: getDVRDetailsQuery,
-            variables: {
-                id,
-            },
-            fetchPolicy: 'network-only',
-        });
-
-        return response.data.dvrDetails;
-    };
-
-    fetchSubwooferDetails = async (id: number): Promise<SubwooferDetails | null> => {
-        const response = await this.client.query<SimpleGQLResponse<'subwooferDetails', SubwooferDetails>>({
-            query: getSabwooferDetailsQuery,
-            variables: {
-                id,
-            },
-            fetchPolicy: 'network-only',
-        });
-
-        return response.data.subwooferDetails;
-    };
-
-    fetchAmplifierDetails = async (id: number): Promise<AmpliferDetails | null> => {
-        const response = await this.client.query<SimpleGQLResponse<'amplifierDetails', AmpliferDetails>>({
-            query: getAmplifierDetailsQuery,
-            variables: {
-                id,
-            },
-            fetchPolicy: 'network-only',
-        });
-
-        return response.data.amplifierDetails;
-    };
-
     getPromotionsList = async (): Promise<Promotion[]> => {
         const response = await this.client.query<SimpleGQLResponse<'promotionsList', Promotion[]>>({
             query: getPromotionsListQuery,
@@ -577,11 +484,11 @@ export class GraphQLApi {
         return response.data.filterByCategory;
     };
 
-    getCategoryByName = async (category: string): Promise<Category> => {
-        const response = await this.client.query<SimpleGQLResponse<'categoryByName', Category>>({
+    getCategoryByName = async (name: string): Promise<ICategory> => {
+        const response = await this.client.query<SimpleGQLResponse<'categoryByName', ICategory>>({
             query: getCategoryByNameQuery,
             variables: {
-                category,
+              name,
             },
             fetchPolicy: 'network-only',
         });
@@ -589,11 +496,13 @@ export class GraphQLApi {
         return response.data.categoryByName;
     };
 
-    getCategoryNames = async (): Promise<CategoryNames[]> => {
-        const response = await this.client.query<SimpleGQLResponse<'categoryNames', CategoryNames[]>>({
+    getCategoryNames = async (): Promise<ICategoryName[]> => {
+        const response = await this.client.query<SimpleGQLResponse<'categoryNames', ICategoryName[]>>({
             query: getCategoryNamesQuery,
             fetchPolicy: 'network-only',
         });
+
+        console.log('response - ', response)
 
         return response.data.categoryNames;
     };
@@ -601,9 +510,9 @@ export class GraphQLApi {
     fetchSimilarProducts = async (
         category_name: string,
         brand: string,
-        excludedId: string
-    ): Promise<GeneralProduct[]> => {
-        const response = await this.client.query<SimpleGQLResponse<'similarProducts', GeneralProduct[]>>({
+        excludedId: number
+    ): Promise<IProduct[]> => {
+        const response = await this.client.query<SimpleGQLResponse<'similarProducts', IProduct[]>>({
             query: getSimilarProductsQuery,
             variables: {
                 input: {
@@ -615,17 +524,5 @@ export class GraphQLApi {
         });
 
         return response.data.similarProducts.filter((item) => item.id !== excludedId);
-    };
-
-    getProductFields = async (category: string): Promise<ProductField[]> => {
-        const response = await this.client.query<SimpleGQLResponse<'categoryColumns', ProductField[]>>({
-            query: getProductFieldsQuery,
-            variables: {
-                category,
-            },
-            fetchPolicy: 'network-only',
-        });
-
-        return response.data.categoryColumns;
     };
 }

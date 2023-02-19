@@ -15,7 +15,7 @@ import { BodyText, TextSize, TextWeight, TextColor, TitleText } from '../../../u
 import { getFilters } from '../selector';
 import { capitalizeString } from '../utilites/formated-string';
 import { StyledButton } from '../../../ui/new-styled';
-import { getProductsCount } from '../../product-list/selectors';
+import { getProductsCount } from '../../catalog/selectors';
 
 const Section = styled.div`
     width: 100%;

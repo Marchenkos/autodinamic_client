@@ -8,7 +8,7 @@ import { FETCH_ACCOUNT_DETAILS } from '../components/account/actions';
 import { GET_FILTER_BY_CATEGORY } from '../components/filter/actions';
 import { INIT_COMPARE_LIST } from '../components/compare-products/actions';
 import { LOG_IN } from '../components/auth/actions';
-import { FETCH_PRODUCT_CATEGORY_NAMES } from '../components/product-category/actions';
+import { FETCH_PRODUCT_CATEGORY_NAMES, FETCH_CATEGORY_LIST } from '../components/product-category/actions';
 import { automaticallyRefreshTokens } from '../components/auth/sagas/refresh-token.saga';
 import { FETCH_PROMOTIONS_LIST } from '../components/promotions/actions';
 
@@ -19,10 +19,11 @@ export function* initialisationSaga(): SagaIterator {
         yield call(configureApiClients);
         yield put(INITIALISATION.COMPLETED());
         yield put(FETCH_PRODUCT_CATEGORY_NAMES.TRIGGER());
-        yield put(FETCH_BASKET.TRIGGER());
-        yield put(FETCH_PROMOTIONS_LIST.TRIGGER());
-        yield put(GET_FILTER_BY_CATEGORY.TRIGGER('all'));
-        yield put(INIT_COMPARE_LIST.TRIGGER());
+        yield put(FETCH_CATEGORY_LIST.TRIGGER());
+        // yield put(FETCH_BASKET.TRIGGER());
+        // yield put(FETCH_PROMOTIONS_LIST.TRIGGER());
+        // yield put(GET_FILTER_BY_CATEGORY.TRIGGER('all'));
+        // yield put(INIT_COMPARE_LIST.TRIGGER());
 
         yield spawn(automaticallyRefreshTokens);
 
@@ -45,6 +46,6 @@ export function* configureAuthentication(): SagaIterator {
 
     if (userToken) {
         yield put(LOG_IN.COMPLETED({ token: userToken }));
-        yield put(FETCH_ACCOUNT_DETAILS.TRIGGER());
+        // yield put(FETCH_ACCOUNT_DETAILS.TRIGGER());
     }
 }

@@ -1,7 +1,7 @@
 import { createSelector, Selector } from 'reselect';
 
 import { ApplicationState } from '../../store/ApplicationState';
-import { FilterObject } from '../../graphql/interfaces';
+import { FilterObject, SORT_DIRECTION } from '../../graphql/interfaces';
 import { SelectedFilterSection } from './actions';
 
 export const getFilters: Selector<ApplicationState, FilterObject[] | undefined> = createSelector(
@@ -14,7 +14,7 @@ export const getSelectedFilters: Selector<ApplicationState, SelectedFilterSectio
     (filters) => filters.selectedFilterSections
 );
 
-export const getSelectedSort: Selector<ApplicationState, string> = createSelector(
+export const getSelectedSort: Selector<ApplicationState, SORT_DIRECTION> = createSelector(
     (state) => state.filters,
     (filters) => filters.selectedSort
 );

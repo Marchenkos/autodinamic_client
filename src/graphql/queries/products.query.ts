@@ -54,10 +54,10 @@ export interface ProductsByIdsPayload {
 }
 
 export const getProductListQuery = gql`
-    query($input: LoadProductsPayload!) {
-        products(input: $input) {
+    query($args: AllProductsArgs!) {
+        products(args: $args) {
             products {
-                ${productFields}
+              ${productFields}
             }
             count
         }
@@ -88,9 +88,9 @@ export const getProductListWithFilterQuery = gql`
 
 export const getProductsCategoryQuery = gql`
     query {
-        productsCategory {
-            ${categoryFields}
-        }
+      categories {
+        ${categoryFields}
+      }
     }
 `;
 
@@ -101,54 +101,6 @@ export const getCategoryFieldsQuery = gql`
             data_type
             is_nullable
             column_comment
-        }
-    }
-`;
-
-export const getMagnitolDetailsQuery = gql`
-    query($id: Float!) {
-        magnitolDetails(id: $id) {
-            ${magnitolFields}
-        }
-    }
-`;
-
-export const getAudioSpeakerDetailsQuery = gql`
-    query($id: Float!) {
-        audioSpeakerDetails(id: $id) {
-            ${audioSpeakerFields}
-        }
-    }
-`;
-
-export const getDVRDetailsQuery = gql`
-    query($id: Float!) {
-        dvrDetails(id: $id) {
-            ${dvrFields}
-        }
-    }
-`;
-
-export const getSignalisationDetailsQuery = gql`
-    query($id: Float!) {
-        signalisationDetails(id: $id) {
-            ${signalisationFields}
-        }
-    }
-`;
-
-export const getAmplifierDetailsQuery = gql`
-    query($id: Float!) {
-        amplifierDetails(id: $id) {
-            ${amplifierFields}
-        }
-    }
-`;
-
-export const getSabwooferDetailsQuery = gql`
-    query($id: Float!) {
-        sabwooferDetails(id: $id) {
-            ${sabwooferFields}
         }
     }
 `;
@@ -170,20 +122,20 @@ export const getPromotionDetailsQuery = gql`
 `;
 
 export const getCategoryByNameQuery = gql`
-    query($category: String!) {
-        categoryByName(category: $category) {
+    query($name: String!) {
+        categoryByName(name: $name) {
             ${categoryFields}
         }
     }
 `;
 
 export const getCategoryNamesQuery = gql`
-    query {
-        categoryNames {
-            category_name
-            title
-        }
+  query {
+    categoryNames {
+      displayName
+      name
     }
+  }
 `;
 
 export const getSimilarProductsQuery = gql`

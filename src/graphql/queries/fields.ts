@@ -1,33 +1,38 @@
 export const productFields = `
+  id
+  name
+  sku
+  category {
+    name
+    createdAt
+    allDetails
+    displayName
     id
-    code
-    full_name
-    part_number
-    brand
-    type
-    images {
-        deleteUrl
-        displayUrl
-    }
-    guarantee
-    maker
-    is_in_stock
-    price
-    discount
-    description
-    category_name
+  }
+  brand {
+    name
+    id
+    displayName
+  }
+  description
+  partyNumber
+  price
+  discount
+  guarantee
+  maker
+  isInStock
+  images
+  details
+  createdAt
+  updatedAt
 `;
 
 export const categoryFields = `
-    category_name
-    title
-    description_sections
-    description_section_fields {
-        fieldName
-        sectionName
-        enFieldName
-        unit
-    }
+  id
+  name
+  displayName
+  allDetails
+  createdAt
 `;
 
 export const magnitolFields = `

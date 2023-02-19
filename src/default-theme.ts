@@ -9,6 +9,8 @@ const LIGHT_MODE_CONTRAST = {
     MIN: '#EFF0F2',
 };
 
+const APP_BG_COLOR = '#fafafa';
+
 const LIGHT_MODE_BLOCKS = {
     FOREGROUND: '#141414',
     BACKGROUND: 'white',
@@ -43,6 +45,7 @@ export const DEFAULT_THEME: DefaultTheme = {
             error: '#ff0000',
         },
         background: {
+            app: APP_BG_COLOR,
             default: LIGHT_MODE_BLOCKS.BACKGROUND,
             success: 'green',
             grey: LIGHT_MODE_CONTRAST.MIN,

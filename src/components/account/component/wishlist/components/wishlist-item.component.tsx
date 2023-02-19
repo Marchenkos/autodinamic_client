@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-import { GeneralProduct } from '../../../../../graphql/entities';
+import { IProduct } from '../../../../../graphql/entities';
 import { BodyText, TextSize, TextColor } from '../../../../../ui/text';
 import { ProductAddToWishlistButton } from '../../../../product-details/components/product-buttons.component';
 import { NULLABLE_IMAGE } from '../../../../product-details/components/product-detail-image.component';
@@ -94,7 +94,7 @@ const DiscountLabel = styled.div`
 `;
 
 interface WishlistItemProps {
-    product: GeneralProduct;
+    product: IProduct;
 }
 
 export const WishlistItem: React.FC<WishlistItemProps> = React.memo(function WishlistItem({
@@ -111,13 +111,13 @@ export const WishlistItem: React.FC<WishlistItemProps> = React.memo(function Wis
         <WishlistItemWrapper>
             <ProductImageWrapper>
                 <SectionIcons>
-                    <ProductAddToWishlistButton productId={product.id} isInWishlist={isInWishlist} />
+                    <ProductAddToWishlistButton productId={product.id} />
                 </SectionIcons>
                 {product.discount && <DiscountLabel>{`-${product.discount}%`}</DiscountLabel>}
                 <ProductImage
                     onClick={navigateToTheProductDetails}
-                    title={product.full_name}
-                    alt={`Изображение товара ${product.full_name}`}
+                    title={product.name}
+                    alt={`Изображение товара ${product.name}`}
                     src={product.images ? product.images[0].displayUrl : NULLABLE_IMAGE}
                 />
             </ProductImageWrapper>
@@ -125,12 +125,12 @@ export const WishlistItem: React.FC<WishlistItemProps> = React.memo(function Wis
             <ProductItemInfo>
                 <DescriptionBlock>
                     <BodyText size={TextSize.EXTRA_SMALL} color={TextColor.MEDIUM}>
-                        {product.type}
+                        {product.brand.displayName}
                     </BodyText>
                     <BodyText
                         size={TextSize.EXTRA_SMALL}
                         color={TextColor.DARK}
-                    >{`${product.brand} ${product.part_number}`}</BodyText>
+                    >{`${product.brand} ${product.partyNumber}`}</BodyText>
                     <BodyText size={TextSize.EXTRA_SMALL} color={TextColor.DARK}>{`${product.price} BYN`}</BodyText>
                 </DescriptionBlock>
             </ProductItemInfo>

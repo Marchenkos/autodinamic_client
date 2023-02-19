@@ -5,8 +5,7 @@ import { TitleText, BodyText, TextColor, TextWeight, TextSize } from '../../../u
 import { calculateDiscount } from '../helper/calculateDiscount';
 
 const PriceText = styled(TitleText).attrs({ weight: TextWeight.MEDIUM, color: TextColor.BLUE })`
-    margin-top: 30px;
-    font-size: 30px;
+  font-size: 24px;
 `;
 
 const PriceWithoutDiscountText = styled(TitleText).attrs({ weight: TextWeight.MEDIUM, size: TextSize.LARGE })`

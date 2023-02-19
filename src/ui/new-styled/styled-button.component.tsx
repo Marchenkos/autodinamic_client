@@ -6,10 +6,12 @@ const PrimaryButton = styled.button`
     cursor: pointer;
     color: #fff;
     border: 2px solid #000;
-    padding: 10px;
     text-transform: uppercase;
-    width: 100%;
     font-family: 'Manrope';
+    padding: 14px;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
 
     :disabled {
         background: #5e5e5e;

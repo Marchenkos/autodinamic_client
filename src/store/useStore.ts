@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Store } from 'redux';
+import { Persistor } from 'redux-persist';
 
 import { createStore } from './store';
 
@@ -10,9 +11,9 @@ export class HideSplashScreenError extends Error {
     }
 }
 
-export const useStore = (): { store: Store } | undefined => {
+export const useStore = (): { store: Store, persistor: Persistor } | undefined => {
     const [, setIsReady] = useState(false);
-    const store = useRef<{ store: Store }>();
+    const store = useRef<{ store: Store, persistor: Persistor }>();
 
     useEffect(() => {
         (async () => {

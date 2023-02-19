@@ -1,6 +1,6 @@
 import { createAction } from 'typesafe-redux-helpers';
-import { FilterObject } from '../../graphql/interfaces';
-import { SortSection } from '../product-list/interfaces';
+import { FilterObject, SORT_DIRECTION } from '../../graphql/interfaces';
+import { SortSection } from '../catalog/interfaces';
 
 export interface SelectedFilterSection {
     name: string;
@@ -13,7 +13,7 @@ export const SET_FILTER_SECTIONS = createAction(
     (payload?: SelectedFilterSection[]) => payload
 );
 
-export const SET_SORT_SECTION = createAction('[Set Sort Section] Trigger', (payload: string) => payload);
+export const SET_SORT_SECTION = createAction('[Set Sort Section] Trigger', (payload: SORT_DIRECTION) => payload);
 
 export const GET_FILTER_BY_CATEGORY = {
     TRIGGER: createAction('[GET_FILTER_BY_CATEGORY] Trigger', (payload: string) => payload),

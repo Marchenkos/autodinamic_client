@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import {  useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { GeneralProduct } from '../../../graphql/entities';
+import { IProduct } from '../../../graphql/entities';
 
 import { BodyText, TextColor, TextSize, TextWeight, TitleLink, TitleText } from '../../../ui/text';
 import { useIsInWishlist } from '../hooks/useIsInWishlist';
@@ -59,7 +59,7 @@ const PriceText = styled(BodyText).attrs({ size: TextSize.EXTRA_SMALL, color: Te
 `;
 
 export interface SimilarProductItemProps {
-    item: GeneralProduct;
+    item: IProduct;
 }
 
 export const SimilarProductItem: React.FC<SimilarProductItemProps> = React.memo(function SimilarProductItem({
@@ -77,7 +77,7 @@ export const SimilarProductItem: React.FC<SimilarProductItemProps> = React.memo(
         <CarouselItemWrapper onMouseOver={() => setIsOver(true)} onMouseOut={() => setIsOver(false)}>
             <ImageBlock>
                 <OverBlock show={isOver}>
-                    <ProductAddToWishlistButton isInWishlist={isInWishlist} productId={item.id} />
+                    <ProductAddToWishlistButton productId={item.id} />
                 </OverBlock>
                 <ProductImage
                     onClick={navigateToTheProductDetails}
@@ -87,7 +87,7 @@ export const SimilarProductItem: React.FC<SimilarProductItemProps> = React.memo(
             <ProductItemInfo>
                 <DescriptionBlock>
                     <PriceText>{item.price} BYN</PriceText>
-                    <FullNameText>{item.full_name}</FullNameText>
+                    <FullNameText>{item.name}</FullNameText>
                 </DescriptionBlock>
             </ProductItemInfo>
         </CarouselItemWrapper>

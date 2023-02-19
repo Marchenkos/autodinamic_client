@@ -125,7 +125,7 @@ interface OrderDeliveryInfoProps {
     editPaymentInfo: () => void;
 }
 
-export const ConfirmOrder: React.FC<OrderDeliveryInfoProps> = React.memo(function ConfirmOrder({
+export const ConfirmOrder: React.FC<OrderDeliveryInfoProps> = function ConfirmOrder({
     editUserInfo,
     editDeliveryInfo,
     editPaymentInfo,
@@ -214,4 +214,4 @@ export const ConfirmOrder: React.FC<OrderDeliveryInfoProps> = React.memo(functio
             )}
         </Wrapper>
     );
-});
+};

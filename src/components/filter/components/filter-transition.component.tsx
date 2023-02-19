@@ -9,7 +9,7 @@ import './filter.css';
 import { FilterObject } from '../../../graphql/interfaces';
 import { FilterSwitch } from '../../../ui/controller.component';
 import { BodyText, TextSize, TextWeight, TextColor } from '../../../ui/text';
-import { getProductList } from '../../product-list/selectors';
+import { getProductList } from '../../catalog/selectors';
 import { getFilters } from '../selector';
 import { capitalizeString } from '../utilites/formated-string';
 import { FilterCheckbox } from './filter-checkbox.component';

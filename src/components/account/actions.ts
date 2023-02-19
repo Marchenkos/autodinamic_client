@@ -58,7 +58,7 @@ export const GET_ORDER_BY_EMAIL = {
 };
 
 export const TOGGLE_WISHLIST = {
-    TRIGGER: createAction('[Toggle wishlist] Trigger', (id: string) => id),
-    STARTED: createAction('[Toggle wishlist] Started', (id: string) => id),
+    TRIGGER: createAction('[Toggle wishlist] Trigger', (id: number) => id),
+    STARTED: createAction('[Toggle wishlist] Started', (id: number) => id),
     COMPLETED: createAction('[Toggle wishlist] Completed', (payload: User) => payload),
 };
