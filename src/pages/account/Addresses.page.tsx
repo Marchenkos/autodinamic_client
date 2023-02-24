@@ -55,7 +55,7 @@ const AddressesPage: React.FC = React.memo(function AddressesPage() {
             <HeaderWrapper>
                 <PageTitleText>Cохраненныe адресa</PageTitleText>
                 <StyledButton
-                    additionalStyles={{ marginRight: '50px', width: '200px' }}
+                    additionalStyles={{ marginRight: '50px', width: '200px', borderRadius: '6px', }}
                     onClick={handleOpenModal}
                     label="Добавить адрес"
                 />

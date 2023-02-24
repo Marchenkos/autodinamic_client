@@ -14,6 +14,7 @@ import { StyledButton } from '../../../../../ui/new-styled';
 const Wrapper = styled.div`
     display: flex;
     width: 500px;
+    border-radius: 6px;
     flex-direction: column;
     margin-bottom: 80px;
 
@@ -154,7 +155,7 @@ export const AccountPersonalDetails: React.FC = React.memo(function AccountPerso
             />
             <ButtonWrapper>
                 <StyledButton
-                    additionalStyles={{ width: '40%' }}
+                    additionalStyles={{ width: '30%', borderRadius: '6px', }}
                     onClick={handleSubmitPress}
                     label="Изменить"
                     disabled={isDisableButton}

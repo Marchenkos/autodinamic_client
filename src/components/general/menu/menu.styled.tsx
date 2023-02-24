@@ -8,7 +8,7 @@ export const MenuWrapper = styled.div`
     align-items: center;
     justify-content: flex-start;
     gap: 25px;
-    padding-left:50px;
+    padding-left: 0px;
 `;
 
 export const MenuItemDropdown = styled.div`
@@ -60,12 +60,12 @@ export const StyledMenuItemText = styled(StyledLink).attrs({ color: TextColor.DA
     height: 1.4px;
     width: 0%;
     border-radius: 2px;
-    background-color: black;
+    background-color: #3b9b9d;
     transition: all ease-in-out 300ms;  
   }
 
     &:focus:before, &:hover:before {
-        // border-bottom: 2px solid black;
+        // border-bottom: 2px solid #3b9b9d;
         
         width: 100%;
     }

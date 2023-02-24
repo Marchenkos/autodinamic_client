@@ -191,7 +191,7 @@ const ContactPage: React.FC = React.memo(function ContactPage() {
 
     return (
         <Wrapper>
-            <PageTitleText>Наш магазин</PageTitleText>
+            {/* <PageTitleText>Наш магазин</PageTitleText> */}
             <PadeDetailWrapper>
                 <TabBarBlock>{renderUnitHeaders}</TabBarBlock>
 

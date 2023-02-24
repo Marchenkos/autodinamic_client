@@ -29,14 +29,25 @@ const CategoryNameText = styled(BodyText).attrs({ weight: TextWeight.MEDIUM })`
 `;
 
 const CategoryImage = styled.img`
-    max-width: 170px;
-    border-radius: 50%;
-
+    width: 100%;
+    height: 100%;
+    border-radius: 50%; 
+    transition: .5s;
+    
+    &:hover {
+        transform: scale(1.2);
+    }
     @media (max-width: 800px) {
         max-width: 100px;
     }
 `;
-
+const ImageWrapper = styled.div`
+    max-width: 160px;
+    max-height: 160px;
+    border: 3px solid #fff;
+    border-radius: 50%; 
+    overflow: hidden;
+`;
 interface CategoryPromoItemProps {
     categoryName: CategoryNames;
 }
@@ -63,7 +74,9 @@ export const CategoryPromoItem: React.FC<CategoryPromoItemProps> = React.memo(fu
 
     return (
         <CategoryPromoItemWrapper onClick={handleChooseCategory}>
+            <ImageWrapper>
             <CategoryImage src={image} />
+            </ImageWrapper>
             <CategoryNameText>{categoryName.title}</CategoryNameText>
         </CategoryPromoItemWrapper>
     );

@@ -26,7 +26,6 @@ const Wrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-    padding-bottom: 400px;
     min-height: 90vh;
     padding-top: 0px;
     box-sizing: border-box;

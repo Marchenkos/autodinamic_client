@@ -14,7 +14,7 @@ const Wrapper = styled.div`
 const PadeDetailWrapper = styled.div`
     display: flex;
     flex-direction: row;
-    margin-top: 50px;
+    margin-top: 0px;
     padding: 50px;
 
     @media (max-width: 980px) {
@@ -27,7 +27,12 @@ const PadeDetailWrapper = styled.div`
 const Spacer = styled.div`
     padding-top: 20px;
 `;
-
+const TitleWrapper = styled.div`
+    width: 100%;
+    gap: 140px;
+    display: flex;
+    align-items: center;
+`;
 const TabBarBlock = styled.div`
     width: 25%;
     display: flex;
@@ -53,7 +58,7 @@ const MainInfo = styled.div`
 `;
 
 const Section = styled.div`
-    margin: 70px 0 0;
+    margin: 0 0 0 0px;
     width: 100%;
 `;
 
@@ -73,12 +78,22 @@ const DescriptionText = styled(BodyText).attrs({ size: TextSize.SMALL })`
     }
 `;
 
+const DescriptionTitleText = styled.p`
+    width: 50%;
+    line-height: 26px;
+    color: #808080;
+    margin-top: 60px;
+    @media (max-width: 980px) {
+        width: 100%;
+        font-size: 14px;
+    }
+`;
+
 const PageTitleText = styled(TitleText)`
-    font-size: 25px;
-    background: #858585;
-    margin-bottom: 20px;
-    color: white;
-    padding: 15px;
+    font-size: 45px;
+    background: #fff;
+    margin: 40px 0 0 50px;
+    color: #858585;
 
     @media (max-width: 850px) {
         font-size: 20px;
@@ -164,17 +179,17 @@ export const DeliveryDescription: React.FC = React.memo(function DeliveryDescrip
 
     return (
         <Wrapper>
-            <PageTitleText>Доставка</PageTitleText>
-
+            <TitleWrapper>
+                <PageTitleText>Доставка</PageTitleText>
+                <DescriptionTitleText>
+                    На этой странице Вы можете ознакомиться с условиями доставки и выбрать наиболее подходящую Вам.
+                    Оформление доставки заказа осуществляется во все рабочие дни, в том числе и в выходные, с 09:00 до
+                    22:00.
+                </DescriptionTitleText>
+            </TitleWrapper>
             <PadeDetailWrapper>
                 <TabBarBlock>{renderUnitHeaders}</TabBarBlock>
                 <MainInfo>
-                    <DescriptionText>
-                        На этой странице Вы можете ознакомиться с условиями доставки и выбрать наиболее подходящую Вам.
-                        Оформление доставки заказа осуществляется во все рабочие дни, в том числе и в выходные, с 09:00
-                        до 22:00.
-                    </DescriptionText>
-
                     <Section id="delivery-terms">
                         <SectionTitleText>Условия доставки</SectionTitleText>
                         <DescriptionText>
