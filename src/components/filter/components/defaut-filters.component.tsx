@@ -65,14 +65,9 @@ const SectionTitle = styled(BodyText).attrs({
     margin: 0 0 10px;
 `;
 
-export const FilterDesktop: React.FC = React.memo(function SimpleFilter() {
+export const DefaultFilters: React.FC = React.memo(function DefaultFilters() {
     const filters = useSelector(getFilters);
-    const productsCount = useSelector(getProductsCount);
-    const dispatch = useDispatch()
-
-    const clearFilters = useCallback(() => {
-      dispatch(SET_FILTER_SECTIONS(undefined));
-    }, [dispatch]);
+    const defaultFilters = useSelector(getProductsCount);
 
     const renderSectionsValues = (filter: FilterObject) => {
         switch (filter.type) {
@@ -106,21 +101,9 @@ export const FilterDesktop: React.FC = React.memo(function SimpleFilter() {
         );
     }, [filters]);
 
-    console.log('productsCount   ' + productsCount);
-
     return (
-        <FilterWrapper>
-            <HeaderWrapper>
-                <FilterTitle>Фильтры</FilterTitle>
-            </HeaderWrapper>
-            {renderSections()}
-            <StyledButton
-                additionalStyles={{ width: '60%', margin: '0 auto', padding: '5px', borderRadius: 4, border: '1px solid' }}
-                onClick={clearFilters}
-                isSecondary
-                label="Очистить"
-            />
-            {productsCount == 0 ? <BlockBox /> : null}
-        </FilterWrapper>
+        <>
+          {renderSections()}
+        </>
     );
 });

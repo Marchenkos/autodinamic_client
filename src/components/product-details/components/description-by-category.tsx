@@ -28,7 +28,6 @@ export const DescriptionByCategory: React.FC<DescriptionByCategoryProps> = React
 
   const details = useMemo(() => {
     return productDetails.category.allDetails.map((item) => {
-      console.log(item)
 
       if (productDetails.details.hasOwnProperty(item.field_name)) {
         return {
@@ -40,10 +39,6 @@ export const DescriptionByCategory: React.FC<DescriptionByCategoryProps> = React
     })
 
   }, [productDetails.details, productDetails.category])
-
-  console.log("SPPSPSPSPSPS - ", productDetails.category)
-  console.log("SPPSPSPSPSPS - ", productDetails.details)
-
 
     const stringFromValue = (value?: any): string => {
         if (value === true || value === 'true') {

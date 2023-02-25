@@ -114,10 +114,6 @@ export const CatalogComponent: React.FC<ICatalogComponentProps> = React.memo(fun
         []
     );
 
-    const handleCleanFilter = useCallback(() => {
-        dispatch(SET_FILTER_SECTIONS(undefined));
-    }, [dispatch]);
-
     if (error) {
         return <GenericError handleTryAgain={fetchList} />;
     }
@@ -129,7 +125,7 @@ export const CatalogComponent: React.FC<ICatalogComponentProps> = React.memo(fun
     return (
         <CatalogWrapper>
             <ContentWrapper>
-                {deviceSize > 850 ? <FilterDesktop cleanFilter={handleCleanFilter} /> : null}
+                {deviceSize > 850 ? <FilterDesktop /> : null}
                 <ProductList searchTerms={searchTerms} isNew={isNew} />
             </ContentWrapper>
 

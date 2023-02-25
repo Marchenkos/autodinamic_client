@@ -25,7 +25,7 @@ export const createStore = async (): Promise<{ store: Store<ApplicationState>, p
 
     const store: Store<ApplicationState> = configureStore({ 
       reducer: pReducer, 
-      middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(sagaMiddleware),
+      middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}).concat(sagaMiddleware),
       devTools: true
     })
 

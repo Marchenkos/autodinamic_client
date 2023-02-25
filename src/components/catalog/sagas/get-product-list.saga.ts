@@ -20,15 +20,10 @@ export function* getProductListSaga(action: ReturnType<typeof FETCH_PRODUCT_LIST
     try {
         yield put(FETCH_PRODUCT_LIST.STARTED(action.payload));
 
-        console.log("4444 - response111")
-
         const response: IProductList = yield call(
             graphqlApi.client.fetchProductList,
             action.payload
         );
-
-        console.log("4444 - response", response)
-
 
         yield put(FETCH_PRODUCT_LIST.COMPLETED(response));
     } catch (err) {

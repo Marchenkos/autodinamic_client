@@ -73,8 +73,6 @@ export const FilterRange: React.FC<FilterRangeProps> = React.memo(function Filte
 
                 dispatch(SET_FILTER_SECTIONS(updatedSelectedFilters));
             }
-
-            console.log('updatedSelectedFilters', updatedSelectedFilters);
         },
         [selectedFilters, value, enName]
     );

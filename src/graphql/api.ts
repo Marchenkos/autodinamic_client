@@ -163,8 +163,6 @@ export class GraphQLApi {
             fetchPolicy: 'network-only',
         });
 
-        console.log("productById - data - ", response.data.productById)
-
         return response.data.productById;
     };
 
@@ -403,7 +401,6 @@ export class GraphQLApi {
     };
 
     getOrderById = async (id: string): Promise<Order> => {
-        console.log('LALLA');
         const response = await this.client.query<SimpleGQLResponse<'orderById', Order>>({
             query: getOrderByIdQuery,
             variables: {
@@ -501,8 +498,6 @@ export class GraphQLApi {
             query: getCategoryNamesQuery,
             fetchPolicy: 'network-only',
         });
-
-        console.log('response - ', response)
 
         return response.data.categoryNames;
     };
