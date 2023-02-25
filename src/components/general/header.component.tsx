@@ -2,13 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { BasketPreview } from '../checkout/basket/components/basket-preview.component';
-import { BodyLink, TextColor, TextWeight } from '../../ui/text';
+import { BodyLink, TextColor, TextWeight, BodyText } from '../../ui/text';
 import { Menu } from './menu/menu.component';
 import { LogoComponentWithText } from './components/logo-text.component';
 import { AccountPreview } from '../account/component/account-preview.component';
 import { SearchInput } from '../search/components/search-input.component';
 import { useSelector } from 'react-redux';
 import { Button, Popover } from '@material-ui/core';
+import { StyledIcons } from '../../ui/styled-icon.component';
 
 const HeaderWrapper = styled.div`
     width: 100%;
@@ -31,6 +32,7 @@ const HeaderSection = styled.div`
 const FirstHeaderSection = styled(HeaderSection)`
     padding: 0 40px;
     background: #464646;
+    height: 70px;
 `;
 
 const SecondHeaderSection = styled(HeaderSection)`
@@ -51,10 +53,37 @@ const LogoWrapper = styled.div`
     align-items: center;
     justify-content: center;
 `;
+const SectionHeader = styled(BodyText).attrs({ color: TextColor.DARK })`
+    display: flex;
 
+    color: #fff;
+    font-family: 'Manrope';
+    font-size: 14px;
+
+    @media (max-width: 800px) {
+        display: none;
+    }
+`;
 const ContactBodyLink = styled(BodyLink).attrs({ weight: TextWeight.BOLD, color: TextColor.BLUE })`
     font-family: 'Manrope';
     font-size: 14px;
+`;
+const Section = styled.button`
+    display: flex;
+    cursor: pointer;
+    background: none;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    padding: 11px 3px 11px 12px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    :hover {
+        background: #7aa0a1;
+    }
+    :active {
+        background: #89adad;
+    }
 `;
 
 export const Header: React.FC = React.memo(function Header() {
@@ -81,9 +110,10 @@ export const Header: React.FC = React.memo(function Header() {
                 <Menu />
 
                 <AccountPreviewWrapper>
-                    <Button aria-describedby={id} variant="contained" onClick={handleClick}>
-                        Find
-                    </Button>
+                    <Section onClick={handleClick}>
+                        <SectionHeader>Поиск</SectionHeader>
+                        <StyledIcons size={27} className="icon-search" />
+                    </Section>
                     <Popover
                         id={id}
                         open={open}
@@ -96,7 +126,8 @@ export const Header: React.FC = React.memo(function Header() {
                         transformOrigin={{
                             vertical: 'top',
                             horizontal: 'center',
-                          }}
+                        }}
+                        
                     >
                         <SearchInput />
                     </Popover>

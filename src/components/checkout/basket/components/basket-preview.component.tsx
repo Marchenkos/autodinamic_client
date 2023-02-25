@@ -15,7 +15,7 @@ const BasketPreviewWrapper = styled.button`
     
     border: none;
     border-radius: 5px;
-    padding: 15px 5px;
+    padding: 15px 0px 15px 10px;
     position: relative;
     cursor: pointer;
     background: none;
@@ -68,10 +68,11 @@ const MessageBlock = styled.div`
 `;
 
 const SectionHeader = styled(BodyText).attrs({ color: TextColor.DARK })`
+    color: #fff;
     font-family: 'Manrope';
     font-size: 14px;
-    margin-left: -5px;
-    margin-right: 10px;
+    
+    
 
     @media (max-width: 800px) {
         display: none;
@@ -108,8 +109,9 @@ export const BasketPreview: React.FC = React.memo(function BasketPreview() {
 
     return (
         <BasketPreviewWrapper onClick={goToBasket} onMouseOver={handleOnMouseAction} onMouseOut={handleOnMouseAction}>
+            <SectionHeader>Корзина</SectionHeader>
             <StyledIcons size={23} className="icon-shopping-bag" />
-            {/* <SectionHeader>Корзина</SectionHeader> */}
+           
             {countItems > 0 && (
                 <BasketDetailsWrapper>
                     <BasketBodyText>{countItems}</BasketBodyText>

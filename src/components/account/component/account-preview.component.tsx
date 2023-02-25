@@ -12,9 +12,10 @@ import { getUser } from '../selectors';
 
 const Section = styled.div`
     display: flex;
+    align-items: center;
     cursor: pointer;
     // background: none;
-    padding: 15px 5px 15px 5px;
+    padding: 15px 5px 15px 15px;
     box-sizing: border-box;
     border-radius: 4px;
     :hover {
@@ -23,7 +24,6 @@ const Section = styled.div`
     :active {
         background: #89adad;
     }
-    
 `;
 
 const SectionHeader = styled(BodyText).attrs({ color: TextColor.WHITE })`
@@ -65,12 +65,12 @@ export const AccountPreview: React.FC = React.memo(function AccountPreview() {
     return (
         <>
             <Section onClick={navigateToWishlist}>
-                <StyledIcons  mainColor="#fff" hoveredColor="#f7f2f2" className="icon-heart-o" />
-                {/* <SectionHeader>Избранное</SectionHeader> */}
+                <SectionHeader>Избранное</SectionHeader>
+                <StyledIcons mainColor="#fff" hoveredColor="#f7f2f2" className="icon-heart-o" />
             </Section>
             <Section onClick={navigateToAccount}>
+                <SectionHeader>{currentUser ? currentUser.first_name : 'Аккаунт'}</SectionHeader>
                 <StyledIcons mainColor="#fff" hoveredColor="#f7f2f2" className="icon-account_circle" />
-                {/* <SectionHeader>{currentUser ? currentUser.first_name : 'Аккаунт'}</SectionHeader> */}
             </Section>
         </>
     );

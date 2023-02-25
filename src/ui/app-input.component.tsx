@@ -164,7 +164,7 @@ export const MobileInput: React.FC<FormInputTextProps> = React.memo(function For
 
     return (
         <InputMask {...inpProps} mask="+375 99 999 99 99" disabled={false}>
-            {() => (
+            {
                 <FullWidthInput
                     className={classes.margin}
                     label={inpProps.label}
@@ -175,7 +175,7 @@ export const MobileInput: React.FC<FormInputTextProps> = React.memo(function For
                     }}
                     InputLabelProps={{ shrink: true, style: { fontSize: '16px' } }}
                 />
-            )}
+            }
         </InputMask>
     );
 });

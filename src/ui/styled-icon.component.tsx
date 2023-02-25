@@ -12,7 +12,7 @@ export const StyledIcons = styled.span<{
     cursor: pointer;
 
     :hover {
-        // color: ${(props) => (props.hoveredColor ? props.hoveredColor : '#7aa0a1')};
+        // background-color: ${(props) => (props.hoveredColor ? props.hoveredColor : '#7aa0a1')};
         transform: scale(1.2);
     }
 `;

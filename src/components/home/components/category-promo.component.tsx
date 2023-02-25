@@ -10,6 +10,7 @@ const CategoryPromoWrapper = styled.div`
     overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
+    gap: 50px;
     width: 100%;
 
     ::-webkit-scrollbar {

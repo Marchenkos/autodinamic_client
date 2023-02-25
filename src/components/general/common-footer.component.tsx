@@ -14,8 +14,7 @@ const FooterWrapper = styled.div`
     display: flex;
     flex-direction: column;
     background: #222222;
-    position: absolute;
-    bottom: 0;
+    
 
     box-sizing: border-box;
 
