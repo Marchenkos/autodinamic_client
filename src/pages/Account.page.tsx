@@ -57,8 +57,8 @@ export const AccountTitle = styled(TitleText)`
 
 const ContentWrapper = styled.div<{ isCentered?: boolean }>`
     background: white;
-    padding: 50px 30px;
-    border-radius: 3px;
+    padding: 30px 30px;
+    border-radius: 8px;
     -webkit-box-shadow: 2px 3px 20px 2px #8a8a8a33;
     box-shadow: 2px 3px 20px 2px #8a8a8a33;
     width: 80%;

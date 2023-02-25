@@ -88,7 +88,7 @@ export const RemoveAccount: React.FC = React.memo(function RemoveAccount() {
 
             <ButtonWrapper>
                 <StyledButton
-                    additionalStyles={{ width: '50%', background: '#c37d7d', borderColor: '#c37d7d' }}
+                    additionalStyles={{ width: '40%', background: '#c37d7d', borderColor: '#c37d7d', borderRadius: '6px', }}
                     onClick={handleOnRemove}
                     label="Удалить аккаунт"
                 />

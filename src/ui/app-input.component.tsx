@@ -162,21 +162,20 @@ export const AppTextAreaInput: React.FC<FormInputTextProps> = React.memo(functio
 export const MobileInput: React.FC<FormInputTextProps> = React.memo(function FormInputText(inpProps) {
     const classes = useStyles();
 
-    return null;
-    // return (
-    //     <InputMask {...inpProps} mask="+375 99 999 99 99" disabled={false}>
-    //         {() => (
-    //             <FullWidthInput
-    //                 className={classes.margin}
-    //                 label={inpProps.label}
-    //                 InputProps={{
-    //                     classes: {
-    //                         input: classes.resize,
-    //                     },
-    //                 }}
-    //                 InputLabelProps={{ shrink: true, style: { fontSize: '16px' } }}
-    //             />
-    //         )}
-    //     </InputMask>
-    // );
+    return (
+        <InputMask {...inpProps} mask="+375 99 999 99 99" disabled={false}>
+            {
+                <FullWidthInput
+                    className={classes.margin}
+                    label={inpProps.label}
+                    InputProps={{
+                        classes: {
+                            input: classes.resize,
+                        },
+                    }}
+                    InputLabelProps={{ shrink: true, style: { fontSize: '16px' } }}
+                />
+            }
+        </InputMask>
+    );
 });

@@ -28,7 +28,7 @@ const StyledBodyText = styled(BodyText)<{ isLabel?: boolean }>`
 `;
 
 export const DescriptionBodyText = styled(BodyText)`
-    width: 40%;
+    width: 60%;
     font-size: 14px;
     color: #9a9a9a;
     font-weight: 400;
@@ -40,7 +40,7 @@ export const DescriptionBodyText = styled(BodyText)`
 `;
 
 const HelpDescriptionBodyText = styled(DescriptionBodyText)`
-    width: 70%;
+    width: 90%;
     margin-bottom: 20px;
 
     @media (max-width: 850px) {
@@ -69,15 +69,17 @@ const ProfileWrapper = styled.div`
     width: 100%;
     margin-top: 20px;
 
+
     @media (max-width: 850px) {
         flex-direction: column;
+        gap: 20px;
     }
 `;
 
 const ButtonWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 40%;
     justify-content: center;
     align-items: center;
 
@@ -105,7 +107,7 @@ export const DeliveryInfo: React.FC = React.memo(function DeliveryInfo() {
                 <ButtonWrapper>
                     <StyledBodyText>Адрес по умолчанию еще не выбран</StyledBodyText>
                     <StyledButton
-                        additionalStyles={{ width: '50%' }}
+                        additionalStyles={{ width: '40%', borderRadius: '6px', }}
                         onClick={navigateToAddressList}
                         label="Выбрать адрес"
                     />

@@ -36,7 +36,7 @@ export const EmptyAddressList: React.FC<EmptyAddressListProps> = React.memo(func
                 заказа.
             </StyledDescription>
 
-            <StyledButton additionalStyles={{ width: '300px' }} onClick={addAddress} label="Добавить адрес" />
+            <StyledButton additionalStyles={{width: '200px', borderRadius: '6px', }} onClick={addAddress} label="Добавить адрес" />
         </Wrapper>
     );
 });
