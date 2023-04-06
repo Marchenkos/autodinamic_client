@@ -3,14 +3,14 @@ import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { FilterObject } from '../../../graphql/interfaces';
-import { FilterSwitch } from '../../../ui/controller.component';
+import { FILTER_TYPE, IFilter } from '../../../graphql/interfaces';
 import { StyledButton } from '../../../ui/new-styled';
 import { BodyText, TextSize, TextWeight, TextColor, TitleText } from '../../../ui/text';
 import { getFilters, getSelectedFilters } from '../selector';
 import { capitalizeString } from '../utilites/formated-string';
-import { FilterCheckbox } from './filter-checkbox.component';
 import { FilterRange } from './filter-range.component';
+import { FilterSelector } from './filter-selector.component';
+import { FilterSwitch } from './filter-switch.component';
 
 const Section = styled.div`
     width: 100%;
@@ -53,34 +53,28 @@ export const FilterMobile: React.FC<FilterProps> = React.memo(function FilterMob
     const filters = useSelector(getFilters);
     const selectedFilters = useSelector(getSelectedFilters);
 
-    const renderSectionsValues = (filter: FilterObject) => {
-        switch (filter.type) {
-            case 'multiple': {
-                return filter.values.map((value: string, index) => (
-                    <FilterCheckbox enName={filter.field_name} key={index} filterValue={value} />
-                ));
-            }
-            case 'only-one': {
-                return <FilterSwitch filter={filter} />;
-            }
-            case 'range': {
-                return (
-                    <FilterRange
-                        enName={filter.field_name}
-                        max={parseInt(filter.values[1])}
-                        min={parseInt(filter.values[0])}
-                    />
-                );
-            }
-        }
-    };
+    const renderSectionsValues = (filter: IFilter) => {
+      switch (filter.type) {
+          case FILTER_TYPE.MULTIPLE: {
+              return <FilterSelector filter={filter} />;
+          }
+          case FILTER_TYPE.SINGLE: {
+              return <FilterSwitch filter={filter} />;
+          }
+          case FILTER_TYPE.RANGE: {
+              return (
+                  <FilterRange filter={filter} />
+              );
+          }
+      }
+  };
 
     const renderSections = useCallback(() => {
         return (
             filters &&
-            filters.map((filter: FilterObject, index) => (
+            filters.map((filter: IFilter, index) => (
                 <>
-                    <SectionTitle>{filter.view_field_name && capitalizeString(filter.view_field_name)}</SectionTitle>
+                    <SectionTitle>{capitalizeString(filter.displayName)}</SectionTitle>
 
                     <Section>{renderSectionsValues(filter)}</Section>
                 </>

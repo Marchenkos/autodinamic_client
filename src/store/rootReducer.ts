@@ -1,6 +1,6 @@
 import { combineReducers, Reducer } from 'redux';
 
-import { reducer as products } from '../components/product-list/reducers';
+import { reducer as products } from '../components/catalog/reducers';
 import { basketReducer as basket } from '../components/checkout/basket/reducers/basket.reducer';
 import { toastReducer as toast } from '../components/toast/reducer';
 import { reducer as account } from '../components/account/reducers';
@@ -9,7 +9,7 @@ import { reducer as modals } from '../components/modal/reducers';
 import { searchReducer as search } from '../components/search/reducer';
 import { contactMeReducer as contactMe } from '../components/contacts/reducer';
 import { filterReducer as filters } from '../components/filter/reducer';
-import { compareReducer as compare } from '../components/compare-products/reducer';
+// import { compareReducer as compare } from '../components/compare-products/reducer';
 import { reducer as authentication } from '../components/auth/reducers';
 import { ApplicationState } from './ApplicationState';
 import { productCategoryReducer as category } from '../components/product-category/reducer';
@@ -26,7 +26,6 @@ export const rootReducer: Reducer<ApplicationState> = combineReducers<Applicatio
     search,
     contactMe,
     filters,
-    compare,
     authentication,
     category,
     promotions,

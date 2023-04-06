@@ -25,12 +25,13 @@ export interface DescriptionSectionFields {
 
 export enum PRODUCT_CATEGORY_TYPE {
     ALL = 'all',
-    MAGNITOLS = 'magnitols',
-    SOUND_SPEAKER = 'sound_speakers',
-    SUB = 'subwoofers',
-    DVRS = 'dvrs',
-    SIGNALISATION = 'signalisation',
-    AUTO_AMPLIFIER = 'auto_amplifiers',
+    MAGNITOLS = 'auto_magnitol',
+    SOUND_SPEAKER = 'auto_speaker',
+    SUB = 'auto_subwoofer',
+    DVRS = 'auto_dvr',
+    SIGNALISATION = 'car_alarm',
+    GPS_NAVIGATOR = 'gps_navigator',
+    AUTO_AMPLIFIER = 'auto_amplifier',
 }
 
 export const PRODUCT_CATEGORY_TO_CATEGORY_IMAGES = {
@@ -42,18 +43,28 @@ export const PRODUCT_CATEGORY_TO_CATEGORY_IMAGES = {
     [PRODUCT_CATEGORY_TYPE.SUB]: SubImage,
 };
 
-export interface Category {
-    category_name: PRODUCT_CATEGORY_TYPE;
-    title: string;
-    description_sections: string[];
-    description_section_fields: DescriptionSectionFields[];
+export interface ICategoryDetails {
+  field_name: string;
+  field_type: string;
+  section_name: string;
+  display_field_name: string;
+  display_section_name: string;
+  unit?: string;
 }
 
-export interface CategoryFields {
-    column_name: string;
-    is_nullable: string;
-    data_type: string;
-    column_comment?: string;
+export interface ICategory {
+  id: number;
+  name: string;
+  displayName: string;
+  allDetails: ICategoryDetails[];
+  createdAt: Date;
+}
+
+
+export interface IBrand {
+  id: number;
+  name: string;
+  displayName: string;
 }
 
 export interface FilterSection {
@@ -81,29 +92,24 @@ export interface DeliveryMethod {
     description: string;
 }
 
-export interface GeneralProduct {
-    id: string;
-    code: string;
-    full_name: string;
-    part_number: string;
-    brand: string;
-    type: string;
-    images?: ProductImage[];
-    guarantee?: number;
-    maker?: string;
-    is_in_stock: boolean;
-    price: number;
-    discount?: number;
-    description: string;
-    category_name: string;
-    creation_date?: string;
-}
-
-export interface ProductField {
-    column_name: string;
-    is_nullable: string;
-    data_type: string;
-    column_comment?: string;
+export interface IProduct {
+  id: number;
+  name: string;
+  sku: string;
+  description: string;
+  partyNumber: string;
+  price: number;
+  discount?: number;
+  guarantee?: number;
+  maker?: string;
+  isInStock: boolean;
+  images?: [ProductImage];
+  //TODO: How to define details for products from different Categories
+  details: any;
+  createdAt: Date;
+  updatedAt: Date;
+  category: ICategory;
+  brand: IBrand;
 }
 
 export interface ProductImage {
@@ -121,7 +127,7 @@ export interface Promotion {
     end_date?: Date;
 }
 
-export interface OrderProduct extends GeneralProduct {
+export interface OrderProduct extends IProduct {
     count: number;
 }
 export interface AddressInfo {
@@ -204,11 +210,4 @@ export interface Order {
     stepDate: Date[];
     isMailing: boolean;
     productItems: OrderProduct[];
-}
-
-export interface CompareResponse {
-    items: GeneralProduct[];
-    details: any;
-    detailsFields: CategoryFields[][];
-    generalFields: CategoryFields[];
 }

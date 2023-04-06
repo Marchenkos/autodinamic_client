@@ -2,15 +2,15 @@ const path = require('path');
 
 const TerserPlugin = require('terser-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
     entry: path.resolve(__dirname, './src/index.tsx'),
     output: {
-        filename: '[name].[contenthash].bundle.js',
-        chunkFilename: '[name].[contenthash].bundle.js',
-        path: path.resolve(__dirname, './build'),
-        publicPath: '/',
-    },
+      path: path.join(__dirname, '/build'),
+      filename: '[name].[chunkhash].bundle.js',
+      publicPath: '/',
+  },
     resolve: {
         extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
     },
@@ -30,7 +30,7 @@ module.exports = {
                 use: ['style-loader', 'css-loader', 'sass-loader'],
             },
             {
-                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                test: /\.(png|svg|jpg|jpeg|gif|JPG)$/i,
                 use: [
                     {
                         loader: 'file-loader',
@@ -59,9 +59,41 @@ module.exports = {
         new Dotenv({
             path: path.resolve(__dirname, '.env'),
         }),
+        new CompressionPlugin({
+          test: /\.js(\?.*)?$/i,
+        })
     ],
+    performance: {
+      hints: "warning",
+      // Calculates sizes of gziped bundles.
+      assetFilter: function (assetFilename) {
+        return assetFilename.endsWith(".js.gz");
+      },
+    },
     optimization: {
-        minimizer: [new TerserPlugin({})],
-        usedExports: true,
+      minimizer: [new TerserPlugin({
+        parallel: true,
+      })],
+      splitChunks: {
+        chunks: 'async',
+        minSize: 20000,
+        minRemainingSize: 0,
+        minChunks: 1,
+        maxAsyncRequests: 30,
+        maxInitialRequests: 30,
+        enforceSizeThreshold: 50000,
+        cacheGroups: {
+          defaultVendors: {
+            test: /[\\/]node_modules[\\/]/,
+            priority: -10,
+            reuseExistingChunk: true,
+          },
+          default: {
+            minChunks: 2,
+            priority: -20,
+            reuseExistingChunk: true,
+          },
+        },
+      },
     },
 };

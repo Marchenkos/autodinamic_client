@@ -11,7 +11,7 @@ import {
     makeStyles,
 } from '@material-ui/core';
 import { capitalizeString } from '../components/filter/utilites/formated-string';
-import { ProductDescription } from '../components/product-list/interfaces';
+import { ProductDescription } from '../components/catalog/interfaces';
 import styled from 'styled-components';
 import { getDeviceSize } from '../utils/check-device-size';
 

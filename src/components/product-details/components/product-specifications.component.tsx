@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { ProductCharacteristicInfo } from '../../../graphql/interfaces';
+import { IProduct } from '../../../graphql/entities';
 
 import { BodyText, TitleText } from '../../../ui/text';
 import { getSelectedProduct } from '../selectors';
@@ -30,7 +30,7 @@ export interface IHeaderLink {
 }
 
 interface ProductSpecificationsProps {
-    product?: ProductCharacteristicInfo;
+    product: IProduct;
 }
 
 export const ProductSpecifications: React.FC<ProductSpecificationsProps> = React.memo(function ProductSpecifications({

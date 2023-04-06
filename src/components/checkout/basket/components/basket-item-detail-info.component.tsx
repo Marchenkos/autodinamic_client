@@ -58,8 +58,8 @@ export const BasketItemDetailInfo: React.FC<BasketItemProps> = React.memo(functi
         <BasketItemWrapper>
             <BasketItemImage src={product.images ? product.images[0].displayUrl : NULLABLE_IMAGE} />
             <BasketItemDetails>
-                <BasketText>{product.full_name}</BasketText>
-                <BasketBodyText>Код товара - {product.code}</BasketBodyText>
+                <BasketText>{product.name}</BasketText>
+                <BasketBodyText>Код товара - {product.sku}</BasketBodyText>
             </BasketItemDetails>
         </BasketItemWrapper>
     );

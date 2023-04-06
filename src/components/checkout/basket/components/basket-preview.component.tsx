@@ -71,12 +71,10 @@ const SectionHeader = styled(BodyText).attrs({ color: TextColor.DARK })`
     color: #fff;
     font-family: 'Manrope';
     font-size: 14px;
-    
-    
 
-    @media (max-width: 800px) {
-        display: none;
-    }
+    @media (max-width: 1200px) {
+      display: none;
+  }
 `;
 
 const BasketBodyText = styled(BodyText).attrs({ color: TextColor.BLUE })`

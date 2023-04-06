@@ -1,4 +1,4 @@
-import { reducer as productReducer } from '../components/product-list/reducers/index';
+import { reducer as productReducer } from '../components/catalog/reducers/index';
 import { basketReducer } from '../components/checkout/basket/reducers/basket.reducer';
 import { toastReducer } from '../components/toast/reducer';
 import { reducer as modalReducer } from '../components/modal/reducers';
@@ -23,7 +23,7 @@ export interface ApplicationState {
     search: ReturnType<typeof searchReducer>;
     contactMe: ReturnType<typeof contactMeReducer>;
     filters: ReturnType<typeof filterReducer>;
-    compare: ReturnType<typeof compareReducer>;
+    // compare: ReturnType<typeof compareReducer>;
     authentication: ReturnType<typeof authenticationReducer>;
     category: ReturnType<typeof productCategoryReducer>;
     promotions: ReturnType<typeof promotionsReducer>;

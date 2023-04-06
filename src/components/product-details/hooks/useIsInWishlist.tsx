@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { getUser } from '../../account/selectors';
 
 export interface IsInWishlistHookProps {
-    productId: string;
+    productId: number;
 }
 
 export const useIsInWishlist = ({ productId }: IsInWishlistHookProps): boolean => {

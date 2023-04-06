@@ -1,5 +1,5 @@
 import { createSelector, Selector } from 'reselect';
-import { GeneralProduct } from '../../graphql/entities';
+import { IProduct } from '../../graphql/entities';
 
 import { ApplicationState } from '../../store/ApplicationState';
 
@@ -13,7 +13,7 @@ export const getCurrentSearchTermState: Selector<ApplicationState, string | unde
     (search) => search.currentTerm
 );
 
-export const getSearchResultState: Selector<ApplicationState, GeneralProduct[] | undefined> = createSelector(
+export const getSearchResultState: Selector<ApplicationState, IProduct[] | undefined> = createSelector(
     (state) => state.search,
     (search) => search.searchResult
 );

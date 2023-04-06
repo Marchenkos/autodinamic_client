@@ -9,12 +9,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { isSmallDevice } from '../utils/check-device-size';
 import { NewestProductCarousel } from '../components/home/components/newest-products.component';
 import { CategoryPromo } from '../components/home/components/category-promo.component';
-import { getDiscountProductList } from '../components/product-list/selectors';
-import { FETCH_DISCOUNT_PRODUCT_LIST } from '../components/product-list/actions';
+import { getDiscountProductList } from '../components/catalog/selectors';
+import { FETCH_DISCOUNT_PRODUCT_LIST } from '../components/catalog/actions';
 import { PRODUCT_CATEGORY_TYPE } from '../graphql/entities';
 import { DiscountProductList } from '../components/home/components/discount-product-list.component';
 import BannerImg from '../../public/assets/ban.jpg';
 import { StyledButton } from '../ui/new-styled';
+
 
 const Wrapper = styled.div`
     flex-grow: 1;
@@ -167,9 +168,8 @@ const HomePage: React.FC = React.memo(function HomePage() {
         dispatch(
             FETCH_DISCOUNT_PRODUCT_LIST.TRIGGER({
                 limit: 8,
-                next: 0,
+                page: 0,
                 categoryName: PRODUCT_CATEGORY_TYPE.ALL,
-                sort: '',
                 isHasDiscount: true,
             })
         );

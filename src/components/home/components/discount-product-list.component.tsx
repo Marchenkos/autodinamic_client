@@ -2,8 +2,8 @@ import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
-import { GeneralProduct } from '../../../graphql/entities';
-import { ProductListItem } from '../../product-list/components/product-list-item';
+import { IProduct } from '../../../graphql/entities';
+import { ProductListItem } from '../../catalog/components/product-list-item';
 
 const CatalogWrapper = styled.div`
     display: flex;
@@ -22,7 +22,7 @@ const CatalogWrapper = styled.div`
 `;
 
 interface DiscountProductListProps {
-    products: GeneralProduct[];
+    products: IProduct[];
 }
 
 export const DiscountProductList: React.FC<DiscountProductListProps> = React.memo(function DiscountProductList({
@@ -30,7 +30,7 @@ export const DiscountProductList: React.FC<DiscountProductListProps> = React.mem
 }: DiscountProductListProps) {
     const renderList = useMemo(
         () =>
-            products.map((item: GeneralProduct, index: number) => (
+            products.map((item: IProduct, index: number) => (
                 <ProductListItem isNew={false} key={index} product={item} />
             )),
         [products]

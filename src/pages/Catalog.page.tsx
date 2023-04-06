@@ -3,51 +3,31 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { CategoryNames } from '../graphql/interfaces';
-import { SET_FILTER_SECTIONS } from '../components/filter/actions';
+import { ICategoryName } from '../graphql/interfaces';
 import { SET_CATEGORY } from '../components/product-category/actions';
 import { getCategoryNames } from '../components/product-category/selectors';
-import { ProductList } from '../components/product-list/components/product-list';
-
-const Wrapper = styled.div`
-    flex-grow: 1;
-    background: white;
-    padding-bottom: 40px;
-    min-height: 70vh;
-`;
+import { CatalogComponent } from '../components/catalog/components/catalog.component';
 
 const CatalogPage: React.FC = React.memo(function CatalogPage() {
-    let [searchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
 
     const dispatch = useDispatch();
-    const categoryNames = useSelector(getCategoryNames);
+    const categoryNameList = useSelector(getCategoryNames);
 
-    const selectedCategory: CategoryNames | undefined = useMemo(() => {
+    const category: ICategoryName | undefined = useMemo(() => {
       const currentCategory = searchParams.get('category');
 
-      if (currentCategory && categoryNames) {
-        return categoryNames.find((item) => item.category_name === currentCategory);
-      }
-
-      return undefined;
-    }, [categoryNames, searchParams]);
+      return categoryNameList.find((item) => item.name === currentCategory);
+    }, [categoryNameList, searchParams]);
 
     useEffect(() => {
-        if (selectedCategory) {
-            dispatch(SET_CATEGORY(selectedCategory));
-            dispatch(SET_FILTER_SECTIONS(undefined));
+        if (category) {
+            dispatch(SET_CATEGORY(category));
         }
-    }, [dispatch, selectedCategory]);
-
-    //TODO!!!
-    if (!selectedCategory) {
-        return null;
-    }
+    }, [dispatch, category]);
 
     return (
-        <Wrapper>
-            <ProductList category={selectedCategory} />
-        </Wrapper>
+      <CatalogComponent category={category} />
     );
 });
 

@@ -2,12 +2,12 @@ import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { SET_FILTER_SECTIONS } from '../actions';
 import { getSelectedFilters, getSelectedSort } from '../selector';
 import LinearScaleIcon from '@material-ui/icons/LinearScale';
 import { BodyText } from '../../../ui/text';
 import { TOGGLE_DRAWER } from '../../drawer/actions';
 import { FilterMobile } from './filter.mobile.component';
+import { CLEAR_FILTERS } from '../actions';
 
 const Wrapper = styled.div`
     width: 40%;
@@ -41,7 +41,7 @@ export const MobileFilter: React.FC = React.memo(function MobileFilter() {
     const selectedFilters = useSelector(getSelectedFilters);
 
     const handleCleanFilter = useCallback(() => {
-        dispatch(SET_FILTER_SECTIONS(undefined));
+        dispatch(CLEAR_FILTERS());
         dispatch(
             TOGGLE_DRAWER({
                 isShow: false,

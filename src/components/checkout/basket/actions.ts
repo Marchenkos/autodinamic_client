@@ -1,9 +1,13 @@
 import { createAction } from 'typesafe-redux-helpers';
 import { Basket, OrderProduct } from '../../../graphql/entities';
 
-export interface EditBasketParams {
-    productId: string;
+export interface EditBasketActionPayload {
+    productId: number;
     count: number;
+}
+
+export interface RemoveBasketItemActionPayload {
+  productId: number;
 }
 
 export interface LoadingDataPayload {
@@ -24,15 +28,8 @@ export const ADD_TO_BASKET = {
     COMPLETED: createAction('[Add to Basket] Completed', (payload: Basket) => payload),
 };
 
-export const REMOVE_FROM_BASKET = {
-    TRIGGER: createAction('[Remove from Basket] Trigger', (id: string) => id),
-    START: createAction('[Remove from Basket] Start', (id: string) => id),
-    COMPLETED: createAction('[Remove from Basket] Completed', (payload: Basket) => payload),
-};
+export const REMOVE_FROM_BASKET = createAction('[Remove from Basket]', (payload: RemoveBasketItemActionPayload) => payload);
 
-export const EDIT_BASKET = {
-    TRIGGER: createAction('[Edit Basket] Trigger', (payload: EditBasketParams) => payload),
-    COMPLETED: createAction('[Edit Basket] Completed', (payload: Basket) => payload),
-};
+export const EDIT_BASKET = createAction('[Edit Basket]', (payload: EditBasketActionPayload) => payload);
 
 export const CLEAN_BASKET = createAction('[CLEAN_BASKET]');

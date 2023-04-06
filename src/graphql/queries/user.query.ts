@@ -1,5 +1,5 @@
 import { gql } from 'apollo-boost';
-import { orderFields, productFields, userFields } from './fields';
+import { filterFields, orderFields, productFields, userFields } from './fields';
 
 export const accountDetailsQuery = gql`
     query {
@@ -37,18 +37,6 @@ export const sendRequestToCallbackQuery = gql`
     query ($input: RequestToCallbackPayload!) {
         sendRequestToCallback(input: $input) {
             isSuccess
-        }
-    }
-`;
-
-export const getFiltersByCategoryQuery = gql`
-    query ($category: String!) {
-        filterByCategory(category: $category) {
-            field_name
-            view_field_name
-            values
-            category
-            type
         }
     }
 `;

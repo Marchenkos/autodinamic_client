@@ -5,7 +5,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import styled from 'styled-components';
 
-import { DeliveryMethod } from '../../product-list/interfaces';
+import { DeliveryMethod } from '../../catalog/interfaces';
 import { AppTabPanel } from '../../../ui/app-tab-panel';
 import { BodyText, TextColor, TextWeight, TextSize } from '../../../ui/text';
 

@@ -8,7 +8,7 @@ export function* getFilterByCategorySaga(action: ReturnType<typeof GET_FILTER_BY
     try {
         yield put(GET_FILTER_BY_CATEGORY.STARTED(action.payload));
 
-        const response = yield call(graphqlApi.client.getFiltersByCategory, action.payload);
+        const response = yield call(graphqlApi.client.getFiltersByCategoryId, action.payload);
 
         yield put(GET_FILTER_BY_CATEGORY.COMPLETED(response));
     } catch (err) {

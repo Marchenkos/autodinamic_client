@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 
 import { Layout } from '../pages/Layout';
 import { LazyRouteElement } from './lazy-route-element';
@@ -44,7 +44,14 @@ export const AppRoutes: React.FC = () => {
           <Route path="address-list" element={<LazyRouteElement lazyComponent={AccountAddressesPage} />} />
         </Route>
 
-        <Route path="catalog" element={<LazyRouteElement lazyComponent={CatalogPage} />} />
+        <Route path="catalog" element={<LazyRouteElement lazyComponent={CatalogPage} />}
+         handle={{
+          // you can put whatever you want on a route handle
+          // here we use "crumb" and return some elements,
+          // this is what we'll render in the breadcrumbs
+          // for this route
+          crumb: () => <Link to="/catalog">Catalog</Link>,
+        }} />
         <Route path="order-confirmation" element={<LazyRouteElement lazyComponent={OrderConfirmationPage} />} />
         <Route path="basket" element={<LazyRouteElement lazyComponent={BasketPage} />} />
         <Route path="contacts" element={<LazyRouteElement lazyComponent={ContactPage} />} />

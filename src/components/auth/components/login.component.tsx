@@ -110,7 +110,7 @@ const Login: React.FC = React.memo(function Login() {
         return 'Произошла какая-то ошибка, пожалуйста, проверьте введенные данные и повторите операцию';
     }, [loginError]);
 
-    const handleSubmitPress = useMemo(() => handleSubmit(handleSubmitCallback), [handleSubmit, handleSubmitCallback]);
+    const handleSubmitPress = handleSubmit(handleSubmitCallback);
 
     const isDisableButton = useMemo(() => {
         if (!formState.isSubmitted) {
