@@ -8,9 +8,8 @@ import { TOGGLE_WISHLIST } from '../actions';
 export function* getToggleWishlistSaga(action: ReturnType<typeof TOGGLE_WISHLIST.TRIGGER>): SagaIterator {
     try {
         yield put(TOGGLE_WISHLIST.STARTED(action.payload));
-        const id = parseInt(action.payload);
 
-        const response = yield call(graphqlApi.client.toggleWishlist, id);
+        const response = yield call(graphqlApi.client.toggleWishlist, action.payload);
 
         yield put(TOGGLE_WISHLIST.COMPLETED(response));
         // yield put(SHOW_TOAST({ message: 'Товар добавлен в избранные', status: 'success'}));

@@ -75,7 +75,7 @@ export const OrderItemDetail: React.FC<OrderItemDetailProps> = React.memo(functi
                 <BasketItemImage src={product.images ? product.images[0].displayUrl : NULLABLE_IMAGE} />
             </ImageWrapper>
             <BasketItemDetails>
-                <BasketText>{product.full_name}</BasketText>
+                <BasketText>{product.name}</BasketText>
                 <div style={{ display: 'flex' }}>
                     <LabelGrayText>Количество:</LabelGrayText>
                     <LabelText>{product.count}</LabelText>

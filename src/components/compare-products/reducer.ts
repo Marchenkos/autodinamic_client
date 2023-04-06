@@ -1,10 +1,8 @@
 import { Reducer } from 'redux';
 import { createReducer } from 'typesafe-redux-helpers';
 
-import { CompareResponse } from '../../graphql/entities';
 import {
     TOGGLE_COMPARE_LIST,
-    FETCH_COMPARE_LIST,
     CLEAR_COMPARE_LIST,
     INIT_COMPARE_LIST,
     HIDE_COMPARE_TOAST,
@@ -12,7 +10,7 @@ import {
 
 export interface CompareState {
     itemsCount: number;
-    data?: CompareResponse;
+    // data?: CompareResponse;
     productIds: number[] | [];
     isFetching: boolean;
     isShow: boolean;
@@ -20,7 +18,7 @@ export interface CompareState {
 
 export const compareReducer: Reducer<CompareState> = createReducer<CompareState>({
     itemsCount: 0,
-    data: undefined,
+    // data: undefined,
     productIds: [],
     isFetching: false,
     isShow: true,
@@ -34,7 +32,7 @@ export const compareReducer: Reducer<CompareState> = createReducer<CompareState>
     .handleAction(TOGGLE_COMPARE_LIST.COMPLETED, (state: CompareState, action) => ({
         itemsCount: action.payload.length,
         productIds: action.payload,
-        data: state.data,
+        // data: state.data,
         isFetching: false,
         isShow: true,
     }))
@@ -50,22 +48,4 @@ export const compareReducer: Reducer<CompareState> = createReducer<CompareState>
     .handleAction(HIDE_COMPARE_TOAST, (state) => ({
         ...state,
         isShow: false,
-    }))
-
-    .handleAction(FETCH_COMPARE_LIST.START, (state: CompareState) => ({
-        ...state,
-        isFetching: true,
-    }))
-    .handleAction(
-        FETCH_COMPARE_LIST.COMPLETED,
-        (state: CompareState, action) => ({
-            ...state,
-            data: action.payload,
-            isFetching: false,
-        }),
-        (state: CompareState) => ({
-            ...state,
-            data: undefined,
-            isFetching: false,
-        })
-    );
+    }));

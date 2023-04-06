@@ -9,13 +9,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = merge(common, {
     mode: 'production',
     devtool: false,
-    performance: {
-        hints: false,
-    },
+ 
     plugins: [
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, 'public', 'index.html'),
-            favicon: path.resolve(__dirname, 'public', 'favicon.ico'),
+          template: path.resolve(__dirname, 'public', 'index.html'),
+          favicon: path.resolve(__dirname, 'public', 'favicon.ico'),
             minify: {
                 removeComments: true,
                 collapseWhitespace: true,
@@ -26,10 +24,6 @@ module.exports = merge(common, {
                 minifyJS: true,
                 minifyURLs: true,
             },
-        }),
-        new GenerateSW({
-            clientsClaim: true,
-            navigateFallback: path.resolve(__dirname, 'public', 'index.html'),
         }),
     ],
 });

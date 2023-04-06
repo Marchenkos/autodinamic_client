@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import useBreadcrumbs from "use-react-router-breadcrumbs";
 
 import {
     DiscountLabel,
@@ -9,27 +10,43 @@ import {
     ProductDescription,
 } from './product-description.component';
 import { ProductSpecifications } from './product-specifications.component';
-import { NULLABLE_IMAGE, ProductDetailsImage } from './product-detail-image.component';
+import { ProductDetailsImage } from './product-detail-image.component';
 import { useDispatch, useSelector } from 'react-redux';
-import { Breadcrumbs, Link, Typography } from '@material-ui/core';
+
 import { getSelectedProduct } from '../selectors';
-import { CompareToast } from '../../compare-products/components/compare-toast.component';
-import { getDeviceSize } from '../../../utils/check-device-size';
-import { getSelectedCategory } from '../../product-category/selectors';
-import { ProductImage } from '../../../graphql/entities';
-import { SimilarProductCarousel } from './similar-products.component';
+
 import { BodyText, BoldSmallText } from '../../../ui/text';
 
 const ProductDetailsWrapper = styled.div`
     width: 100%;
     margin: 0 auto;
-    background: #fff;
+    padding-top: 30px;
+`;
+
+//TODO tabled = mobile
+const ImageWrapper = styled.div`
+    display: flex;
+    width: 60%;
+    flex-direction: column;
+
+    @media (max-width: 850px) {
+        width: 100%;
+        margin-top: 30px;
+    }
+`;
+
+const DescriptionWrapper = styled.div`
+    width: 40%;
+    padding-right: 20px;
+
+    @media (max-width: 850px) {
+      width: 100%;
+    }
 `;
 
 const Wrapper = styled.div`
     display: flex;
-    padding: 0px 50px;
-    box-sizing: border-box;
+    column-gap: 30px;
 
     @media (max-width: 850px) {
         flex-direction: column;
@@ -47,7 +64,7 @@ const MobileProductHeaders = styled.div`
 `;
 
 const WarningMassage = styled(BodyText)`
-    padding: 0 50px;
+    padding: 0 80px;
     margin-top: 20px;
     font-size: 14px;
     color: #b7b7b7;
@@ -56,6 +73,7 @@ const WarningMassage = styled(BodyText)`
 
 export const ProductDetails: React.FC = React.memo(function ProductDetails() {
     const product = useSelector(getSelectedProduct);
+    const breadcrumbs = useBreadcrumbs();
 
     //ERROR UI
     if (!product) {
@@ -64,22 +82,27 @@ export const ProductDetails: React.FC = React.memo(function ProductDetails() {
 
     return (
         <ProductDetailsWrapper>
+          {breadcrumbs.map(({ breadcrumb }) => breadcrumb)}
             <Wrapper>
                 <MobileProductHeaders>
-                    {product.product.discount && <DiscountLabel>{`Скидка ${product.product.discount}%`}</DiscountLabel>}
-                    <ProductBrandText>{product.product.brand}</ProductBrandText>
+                    {product.discount && <DiscountLabel>{`Скидка ${product.discount}%`}</DiscountLabel>}
+                    <ProductBrandText>{product.brand.name}</ProductBrandText>
 
-                    <ProductHeaderText>{product.product.full_name}</ProductHeaderText>
+                    <ProductHeaderText>{product.name}</ProductHeaderText>
                     <ProductCodeText>
-                        Код товара: <BoldSmallText>{product.product.code}</BoldSmallText>
+                        Код товара: <BoldSmallText>{product.sku}</BoldSmallText>
                     </ProductCodeText>
                 </MobileProductHeaders>
 
-                <ProductDetailsImage images={product.product.images} />
-                <ProductDescription productDescription={product.product} />
+                <ImageWrapper>
+                  <ProductDetailsImage images={product.images} />
+                </ImageWrapper>
+                <DescriptionWrapper>
+                  <ProductDescription product={product} />
+                </DescriptionWrapper>
             </Wrapper>
-            <ProductSpecifications product={product.productDetails} />
-            <SimilarProductCarousel />
+            <ProductSpecifications product={product} />
+            {/* <SimilarProductCarousel /> */}
             <WarningMassage>
                 * Все характеристики товаров взаимствованы с официальных сайтов и каталогов. При отсутствие каких-либо
                 важных для Вас характеристик товара, мы настоятельно рекомендуем уточнять все детали у продавца, а также

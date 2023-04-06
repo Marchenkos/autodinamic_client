@@ -6,15 +6,15 @@ import styled from 'styled-components';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import './filter.css';
-import { FilterObject } from '../../../graphql/interfaces';
-import { FilterSwitch } from '../../../ui/controller.component';
+import { FILTER_TYPE, IFilter } from '../../../graphql/interfaces';
 import { BodyText, TextSize, TextWeight, TextColor } from '../../../ui/text';
-import { getProductList } from '../../product-list/selectors';
+import { getProductList } from '../../catalog/selectors';
 import { getFilters } from '../selector';
 import { capitalizeString } from '../utilites/formated-string';
-import { FilterCheckbox } from './filter-checkbox.component';
 import { FilterRange } from './filter-range.component';
 import { StyledButton } from '../../../ui/new-styled';
+import { FilterSelector } from './filter-selector.component';
+import { FilterSwitch } from './filter-switch.component';
 
 const Section = styled.div`
     width: 100%;
@@ -66,33 +66,27 @@ export const SimpleFilter: React.FC<FilterProps> = React.memo(function SimpleFil
     const productList = useSelector(getProductList);
     const filters = useSelector(getFilters);
 
-    const renderSectionsValues = (filter: FilterObject) => {
-        switch (filter.type) {
-            case 'multiple': {
-                return filter.values.map((value: string, index) => (
-                    <FilterCheckbox enName={filter.field_name} key={`${index}-${value}`} filterValue={value} />
-                ));
-            }
-            case 'only-one': {
-                return <FilterSwitch filter={filter} />;
-            }
-            case 'range': {
-                return (
-                    <FilterRange
-                        enName={filter.field_name}
-                        max={parseInt(filter.values[1])}
-                        min={parseInt(filter.values[0])}
-                    />
-                );
-            }
-        }
-    };
+    const renderSectionsValues = (filter: IFilter) => {
+      switch (filter.type) {
+          case FILTER_TYPE.MULTIPLE: {
+              return <FilterSelector filter={filter} />;
+          }
+          case FILTER_TYPE.SINGLE: {
+              return <FilterSwitch filter={filter} />;
+          }
+          case FILTER_TYPE.RANGE: {
+              return (
+                  <FilterRange filter={filter} />
+              );
+          }
+      }
+  };
 
     const renderSections = useCallback(() => {
         return (
             filters &&
-            filters.map((filter: FilterObject, index) => (
-                <Accordion defaultExpanded={true} key={`${index}-${filter.field_name}`}>
+            filters.map((filter: IFilter, index) => (
+                <Accordion defaultExpanded={true} key={`${index}-${filter.name}`}>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1a-content"
@@ -100,7 +94,7 @@ export const SimpleFilter: React.FC<FilterProps> = React.memo(function SimpleFil
                     >
                         <WrapperAccordionSummary>
                             <SectionTitle>
-                                {filter.view_field_name && capitalizeString(filter.view_field_name)}
+                                {capitalizeString(filter.displayName)}
                             </SectionTitle>
                             {/* <Button style={{...secondaryStyledButton, width: '20%', padding: '5px'}} variant="contained" onClick={cleanFilter} color="primary">Очистить</Button> */}
                         </WrapperAccordionSummary>

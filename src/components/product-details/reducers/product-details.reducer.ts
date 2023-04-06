@@ -1,20 +1,14 @@
 import { Reducer } from 'redux';
 import { createReducer } from 'typesafe-redux-helpers';
 
-import { GeneralProduct, ProductField } from '../../../graphql/entities';
-import { ProductCharacteristicInfo } from '../../../graphql/interfaces';
-import { FETCH_PRODUCT_BY_ID, FETCH_SIMILAR_PRODUCTS, FETCH_SPECIFIC_PRODUCT_FIELDS } from '../actions';
+import { IProduct } from '../../../graphql/entities';
+import { FETCH_PRODUCT_BY_ID, FETCH_SIMILAR_PRODUCTS } from '../actions';
 
-export interface ProductDetails {
-    product: GeneralProduct;
-    productDetails?: ProductCharacteristicInfo;
-}
 export interface SelectedProductState {
     isFetching: boolean;
     error?: Error;
-    selectedProduct?: ProductDetails;
-    similarProducts?: GeneralProduct[];
-    productFields?: ProductField[];
+    selectedProduct?: IProduct;
+    similarProducts?: IProduct[];
 }
 
 export const selectedProductReducer: Reducer<SelectedProductState> = createReducer<SelectedProductState>({
@@ -22,7 +16,6 @@ export const selectedProductReducer: Reducer<SelectedProductState> = createReduc
     error: undefined,
     selectedProduct: undefined,
     similarProducts: undefined,
-    productFields: undefined,
 })
     .handleAction(FETCH_PRODUCT_BY_ID.STARTED, (state: SelectedProductState) => ({
         ...state,
@@ -48,9 +41,4 @@ export const selectedProductReducer: Reducer<SelectedProductState> = createReduc
         isFetching: false,
         error: undefined,
         similarProducts: action.payload,
-    }))
-
-    .handleAction(FETCH_SPECIFIC_PRODUCT_FIELDS.COMPLETED, (state: SelectedProductState, action) => ({
-        ...state,
-        productFields: action.payload,
     }));

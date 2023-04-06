@@ -103,7 +103,7 @@ export const MobileBasketItem: React.FC<BasketItemProps> = React.memo(function M
     const editCount = useCallback(
         (newCount: number) => {
             dispatch(
-                EDIT_BASKET.TRIGGER({
+                EDIT_BASKET({
                     productId: product.id,
                     count: newCount,
                 })
@@ -113,7 +113,7 @@ export const MobileBasketItem: React.FC<BasketItemProps> = React.memo(function M
     );
 
     const handleRemove = useCallback(() => {
-        dispatch(REMOVE_FROM_BASKET.TRIGGER(product.id));
+        dispatch(REMOVE_FROM_BASKET({ productId: product.id }));
     }, [product.id, dispatch]);
 
     return (
@@ -121,7 +121,7 @@ export const MobileBasketItem: React.FC<BasketItemProps> = React.memo(function M
             <BasketItemWrapper>
                 <BasketItemImage src={product.images ? product.images[0].displayUrl : NULLABLE_IMAGE} />
                 <BasketItemDetails>
-                    <BasketText>{product.full_name}</BasketText>
+                    <BasketText>{product.name}</BasketText>
                     {discount ? (
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
                             <BasketCrossedBodyText>{price.toFixed(1)} BYN</BasketCrossedBodyText>

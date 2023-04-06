@@ -3,9 +3,8 @@ import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { SET_FILTER_SECTIONS } from '../components/filter/actions';
-
-import { SearchProductList } from '../components/product-list/components/search-product-list';
+import { SearchProductList } from '../components/catalog/components/search-product-list';
+import { CLEAR_FILTERS } from '../components/filter/actions';
 
 const Wrapper = styled.div`
     flex-grow: 1;
@@ -26,7 +25,7 @@ const SearchResult: React.FC = React.memo(function SearchResult() {
     }, [searchParams]);
 
     useEffect(() => {
-        dispatch(SET_FILTER_SECTIONS(undefined));
+        dispatch(CLEAR_FILTERS());
     }, [dispatch]);
 
     if (!searchTerms) {

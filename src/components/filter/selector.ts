@@ -1,20 +1,19 @@
 import { createSelector, Selector } from 'reselect';
 
 import { ApplicationState } from '../../store/ApplicationState';
-import { FilterObject } from '../../graphql/interfaces';
-import { SelectedFilterSection } from './actions';
+import { IFilter, ISelectedFilter, SORT_DIRECTION } from '../../graphql/interfaces';
 
-export const getFilters: Selector<ApplicationState, FilterObject[] | undefined> = createSelector(
+export const getFilters: Selector<ApplicationState, IFilter[] | []> = createSelector(
     (state) => state.filters,
     (filters) => filters.filters
 );
 
-export const getSelectedFilters: Selector<ApplicationState, SelectedFilterSection[] | undefined> = createSelector(
+export const getSelectedFilters: Selector<ApplicationState, ISelectedFilter[] | []> = createSelector(
     (state) => state.filters,
-    (filters) => filters.selectedFilterSections
+    (filters) => filters.selectedFilters
 );
 
-export const getSelectedSort: Selector<ApplicationState, string> = createSelector(
+export const getSelectedSort: Selector<ApplicationState, SORT_DIRECTION> = createSelector(
     (state) => state.filters,
     (filters) => filters.selectedSort
 );

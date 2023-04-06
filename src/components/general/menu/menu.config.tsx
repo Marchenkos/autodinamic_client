@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Catalog, CatalogProps } from '../../product-list/screens/catalog.component';
+import { Catalog, CatalogProps } from '../../catalog/screens/catalog.component';
 
 export interface MenuSearchParams {
   param: string;
@@ -20,12 +20,6 @@ export const menuConfig: MenuConfig[] = [
         name: 'Каталог',
         url: '/catalog',
         component: Catalog,
-        searchParams: [
-          {
-            param: 'category',
-            value: 'all'
-          }
-        ],
         subLinks: [
             {
                 name: 'Магнитолы',

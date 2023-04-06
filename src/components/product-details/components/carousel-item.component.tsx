@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 import { BodyText, TextColor, TextSize } from '../../../ui/text';
-import { GeneralProduct, OrderItem } from '../../../graphql/entities';
+import { IProduct, OrderItem } from '../../../graphql/entities';
 import { NULLABLE_IMAGE } from './product-detail-image.component';
 import { StyledButton } from '../../../ui/new-styled';
 
@@ -58,7 +58,7 @@ const FullNameText = styled(BodyText).attrs({ size: TextSize.EXTRA_SMALL, color:
 `;
 
 interface ProductListItemProps {
-    product: GeneralProduct;
+    product: IProduct;
     smallVersion?: boolean;
 }
 
@@ -87,7 +87,7 @@ export const CarouselItem: React.FC<ProductListItemProps> = React.memo(function 
             </ImageBlock>
             <ProductItemInfo>
                 <DescriptionBlock>
-                    <FullNameText>{product.full_name}</FullNameText>
+                    <FullNameText>{product.name}</FullNameText>
                     <BodyText size={TextSize.EXTRA_SMALL} color={TextColor.BLUE}>
                         {product.price} BYN
                     </BodyText>

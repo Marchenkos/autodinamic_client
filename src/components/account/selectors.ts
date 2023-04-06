@@ -1,5 +1,5 @@
 import { createSelector, Selector } from 'reselect';
-import { AddressInfo, GeneralProduct, Order } from '../../graphql/entities';
+import { AddressInfo, IProduct, Order } from '../../graphql/entities';
 import { User } from '../../graphql/interfaces';
 
 import { ApplicationState } from '../../store/ApplicationState';
@@ -40,7 +40,7 @@ export const geIsFetchingtUserDetails: Selector<ApplicationState, boolean> = cre
     (account) => account.userDetails.isFetching
 );
 
-export const getWishlist: Selector<ApplicationState, GeneralProduct[] | undefined> = createSelector(getUser, (user) =>
+export const getWishlist: Selector<ApplicationState, IProduct[] | undefined> = createSelector(getUser, (user) =>
     user ? user?.wishlist : []
 );
 

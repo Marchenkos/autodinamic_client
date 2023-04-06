@@ -2,7 +2,7 @@ import { SagaIterator } from 'redux-saga';
 import { call, put, takeLatest } from 'redux-saga/effects';
 
 import { graphqlApi } from '../../../graphql/graphqlApi';
-import { CategoryNames } from '../../../graphql/interfaces';
+import { ICategoryName } from '../../../graphql/interfaces';
 import { FETCH_PRODUCT_CATEGORY_NAMES } from '../actions';
 
 export function* fetchProductCategoryNames(
@@ -11,7 +11,7 @@ export function* fetchProductCategoryNames(
     try {
         yield put(FETCH_PRODUCT_CATEGORY_NAMES.STARTED(action.payload));
 
-        const result: CategoryNames[] = yield call(graphqlApi.client.getCategoryNames);
+        const result: ICategoryName[] = yield call(graphqlApi.client.getCategoryNames);
 
         yield put(FETCH_PRODUCT_CATEGORY_NAMES.COMPLETED(result));
     } catch (err) {

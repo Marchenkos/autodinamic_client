@@ -4,7 +4,7 @@ import Carousel, { arrowsPlugin, slidesToShowPlugin, slidesToScrollPlugin } from
 import '@brainhubeu/react-carousel/lib/style.css';
 
 import { SimilarProductItem } from '../../product-details/components/similar-product-item.component';
-import { GeneralProduct } from '../../../graphql/entities';
+import { IProduct } from '../../../graphql/entities';
 import { CarouselArrow } from '../../product-details/components/similar-products.component';
 
 const Wrapper = styled.div`
@@ -16,7 +16,7 @@ const Wrapper = styled.div`
     }
 `;
 
-export const NewestProductCarousel: React.FC<{ products: GeneralProduct[] }> = React.memo(
+export const NewestProductCarousel: React.FC<{ products: IProduct[] }> = React.memo(
     function NewestProductCarousel({ products }) {
         return (
             <Wrapper>

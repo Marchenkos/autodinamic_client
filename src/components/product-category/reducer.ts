@@ -1,36 +1,33 @@
 import { Reducer } from 'redux';
 import { createReducer } from 'typesafe-redux-helpers';
 
-import { Category, CategoryFields, PRODUCT_CATEGORY_TYPE } from '../../graphql/entities';
-import { CategoryNames } from '../../graphql/interfaces';
+import { ICategory, PRODUCT_CATEGORY_TYPE } from '../../graphql/entities';
+import { ICategoryName } from '../../graphql/interfaces';
 import { FETCH_PRODUCT_CATEGORY, FETCH_PRODUCT_CATEGORY_NAMES, SET_CATEGORY } from './actions';
 
 export interface ProductCategoryState {
     isFetching: boolean;
     error?: Error;
-    selectedCategory: CategoryNames;
-    productCategory?: Category;
-    categoryNames?: CategoryNames[];
-    categoryFields?: CategoryFields[];
+    selectedCategory?: ICategoryName;
+    productCategory?: ICategory;
+    categoryNames: ICategoryName[];
+    categoryList: ICategory[];
 }
 
-export const defaultCategory: Category = {
-    category_name: PRODUCT_CATEGORY_TYPE.ALL,
-    title: 'все товары',
-    description_sections: [],
-    description_section_fields: [],
-};
+// export const defaultCategory: Category = {
+//     category_name: PRODUCT_CATEGORY_TYPE.ALL,
+//     title: 'все товары',
+//     description_sections: [],
+//     description_section_fields: [],
+// };
 
 export const productCategoryReducer: Reducer<ProductCategoryState> = createReducer<ProductCategoryState>({
     isFetching: false,
     error: undefined,
-    selectedCategory: {
-        category_name: PRODUCT_CATEGORY_TYPE.ALL,
-        title: 'все товары',
-    },
-    categoryNames: undefined,
+    selectedCategory: undefined,
+    categoryNames: [],
     productCategory: undefined,
-    categoryFields: undefined,
+    categoryList: []
 })
     .handleAction(FETCH_PRODUCT_CATEGORY.STARTED, (state) => ({
         ...state,

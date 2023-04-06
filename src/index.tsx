@@ -8,6 +8,8 @@ import { Provider } from 'react-redux';
 import { App } from './App';
 import { useStore } from './store/useStore';
 import { DEFAULT_THEME } from './default-theme';
+import { PersistGate } from 'redux-persist/integration/react';
+import { LoadingComponent } from './components/general/components/loading-view.component';
 
 const GlobalStyles = createGlobalStyle`
   ${normalize};
@@ -23,10 +25,12 @@ export const Main: React.FC = React.memo(function Main() {
     return (
         <BrowserRouter>
             <Provider store={store.store}>
-                <ThemeProvider theme={DEFAULT_THEME}>
-                    <GlobalStyles />
-                    <App />
-                </ThemeProvider>
+                <PersistGate loading={<LoadingComponent />} persistor={store.persistor}>
+                  <ThemeProvider theme={DEFAULT_THEME}>
+                      <GlobalStyles />
+                      <App />
+                  </ThemeProvider>
+                </PersistGate>
             </Provider>
         </BrowserRouter>
     );

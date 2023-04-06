@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 import { Order } from '../../../../../graphql/entities';
-import { Button } from '@material-ui/core';
 import { ProductCarousel } from '../../../../../pages/Home.page';
 import { TitleText, TextSize, TextColor, TextWeight, BodyText } from '../../../../../ui/text';
 import { getSteps } from './order-stepper.component';

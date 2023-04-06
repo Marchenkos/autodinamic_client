@@ -17,12 +17,11 @@ import { Outlet } from 'react-router-dom';
 
 const Wrapper = styled.div`
     width: 100%;
-    background: white;
+    background: ${(props) => props.theme.colors.background.app};
     min-height: 100vh;
     position: relative;
 
     min-width: 320px;
-    max-width: 1700px;
 `;
 
 const ContentWrapper = styled.div`

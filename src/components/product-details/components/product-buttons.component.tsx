@@ -7,7 +7,7 @@ import CompareIcon from '@material-ui/icons/Compare';
 
 import { BodyText, TextColor, TextWeight, TextSize, BodyTextSpan } from '../../../ui/text';
 import { useSelector } from 'react-redux';
-import { GeneralProduct, OrderProduct } from '../../../graphql/entities';
+import { IProduct, OrderProduct } from '../../../graphql/entities';
 import { ADD_TO_BASKET } from '../../checkout/basket/actions';
 import { useNavigate } from 'react-router-dom';
 import { getBasketItems } from '../../checkout/basket/selectors';
@@ -17,12 +17,13 @@ import { getCompareItemsIds } from '../../compare-products/selectors';
 import { getUser } from '../../account/selectors';
 import { TOGGLE_WISHLIST } from '../../account/actions';
 import { StyledButton } from '../../../ui/new-styled';
+import { useIsInWishlist } from '../hooks/useIsInWishlist';
 
 const ButtonSection = styled.div`
     display: flex;
     align-items: center;
-    width: 100%;
     justify-content: flex-start;
+    flex: 1;
 `;
 
 const Separator = styled.div`
@@ -35,6 +36,15 @@ const Separator = styled.div`
 const AdditionalButtonSection = styled(ButtonSection)`
     cursor: pointer;
     justify-content: center;
+`;
+
+const AddToWishlistButton = styled.div`
+  background: black;
+  border-radius: 50%;
+  padding: 12px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ButtonText = styled(BodyText).attrs({ weight: TextWeight.BOLD, size: TextSize.EXTRA_EXTRA_SMALL })`
@@ -50,8 +60,8 @@ const ButtonText = styled(BodyText).attrs({ weight: TextWeight.BOLD, size: TextS
     }
 `;
 
-export const ProductAddToBasketButton: React.FC<{ product: GeneralProduct; isSmall?: boolean }> = React.memo(
-    function ProductAddToBasket({ product, isSmall = false }) {
+export const ProductAddToBasketButton: React.FC<{ product: IProduct; isSmall?: boolean, isSecondary?: boolean }> = React.memo(
+    function ProductAddToBasket({ product, isSmall = false, isSecondary = false }) {
         const dispatch = useDispatch();
         const basketItems = useSelector(getBasketItems);
 
@@ -64,23 +74,7 @@ export const ProductAddToBasketButton: React.FC<{ product: GeneralProduct; isSma
         }, [basketItems, product]);
 
         const handleAddToBasket = useCallback(() => {
-            const generalObject: OrderProduct = {
-                id: product.id.toString(),
-                code: product.code,
-                full_name: product.full_name,
-                part_number: product.part_number,
-                brand: product.brand,
-                type: product.type,
-                images: product.images,
-                is_in_stock: product.is_in_stock,
-                price: product.price,
-                discount: product.discount,
-                description: product.description,
-                category_name: product.category_name,
-                count: 1,
-            };
-
-            dispatch(ADD_TO_BASKET.TRIGGER(generalObject));
+            dispatch(ADD_TO_BASKET.TRIGGER({ ...product, count: 1 }));
         }, [product, dispatch]);
 
         const navigateToBasket = useCallback(() => {
@@ -88,7 +82,7 @@ export const ProductAddToBasketButton: React.FC<{ product: GeneralProduct; isSma
         }, [history]);
 
         const action = isInBasket ? navigateToBasket : handleAddToBasket;
-        const label = isInBasket ? 'Товар уже в корзине' : product.is_in_stock ? 'Добавить в корзину' : 'Нет в наличие';
+        const label = isInBasket ? 'Товар уже в корзине' : product.isInStock ? 'Добавить в корзину' : 'Нет в наличие';
 
         if (isSmall) {
             return (
@@ -101,25 +95,26 @@ export const ProductAddToBasketButton: React.FC<{ product: GeneralProduct; isSma
         return (
             <ButtonSection>
                 <StyledButton
-                    isSecondary={isInBasket}
-                    additionalStyles={{ flexGrow: 1, marginRight: '20px' }}
+                    isSecondary={isInBasket || isSecondary}
                     onClick={action}
                     label={label}
-                    disabled={!product.is_in_stock}
+                    disabled={!product.isInStock}
                 />
             </ButtonSection>
         );
     }
 );
 
-export const ProductAddToWishlistButton: React.FC<{ isInWishlist: boolean; productId: string; withLabel?: boolean }> =
-    React.memo(function ProductAddToBasket({ isInWishlist, productId, withLabel = false }) {
+export const ProductAddToWishlistButton: React.FC<{ productId: number; withLabel?: boolean }> =
+    React.memo(function ProductAddToBasket({ productId, withLabel = false }) {
+        const isInWishlist = useIsInWishlist({ productId: productId });
+
         const dispatch = useDispatch();
         const currentUser = useSelector(getUser);
         const styles = {
-            color: '#606060',
+            color: 'white',
             width: '52px',
-            fontSize: '30px',
+            fontSize: '24px',
         };
 
         const addToWishlist = useCallback(() => {
@@ -135,10 +130,12 @@ export const ProductAddToWishlistButton: React.FC<{ isInWishlist: boolean; produ
         }, [productId]);
 
         if (!withLabel) {
-            return isInWishlist ? (
-                <FavoriteIcon onClick={addToWishlist} style={styles} />
-            ) : (
-                <FavoriteBorderIcon onClick={addToWishlist} style={styles} />
+            return (
+              <AddToWishlistButton onClick={addToWishlist}>
+                {isInWishlist ? 
+                  <FavoriteIcon style={styles} />
+                : <FavoriteBorderIcon style={styles} />}
+              </AddToWishlistButton>
             );
         }
 
@@ -154,7 +151,7 @@ export const ProductAddToWishlistButton: React.FC<{ isInWishlist: boolean; produ
                 ) : (
                     <>
                         <FavoriteBorderIcon
-                            style={{ color: '#6b6b6b', marginRight: '5px', width: '22px', marginLeft: '-25px' }}
+                            style={{ color: '#6b6b6b', marginRight: '5px', width: '14px', marginLeft: '-25px' }}
                         />
                         {withLabel && <ButtonText>Добавить в избранные</ButtonText>}
                     </>
@@ -162,42 +159,3 @@ export const ProductAddToWishlistButton: React.FC<{ isInWishlist: boolean; produ
             </AdditionalButtonSection>
         );
     });
-
-export const ProductAddToCompareButton: React.FC<{ product: GeneralProduct; withLabel?: boolean }> = React.memo(
-    function ProductAddToBasket({ product, withLabel = false }) {
-        const dispatch = useDispatch();
-        const compareListIds = useSelector(getCompareItemsIds);
-
-        const isInCompareList = useMemo(() => {
-            const rez = compareListIds.indexOf(parseInt(product.id));
-
-            return rez !== -1;
-        }, [compareListIds, product]);
-
-        const addToCompare = useCallback(() => {
-            dispatch(TOGGLE_COMPARE_LIST.TRIGGER(parseInt(product.id)));
-        }, [product]);
-
-        return (
-            <AdditionalButtonSection onClick={addToCompare}>
-                {isInCompareList ? (
-                    <>
-                        <CompareIcon
-                            style={{ color: '#6b6b6b', marginRight: '5px', width: '22px', marginLeft: '-25px' }}
-                            onClick={addToCompare}
-                        />
-                        {withLabel && <ButtonText>Удалить из сравнения</ButtonText>}
-                    </>
-                ) : (
-                    <>
-                        <CompareIcon
-                            style={{ color: '#6b6b6b', marginRight: '5px', width: '22px', marginLeft: '-25px' }}
-                            onClick={addToCompare}
-                        />
-                        {withLabel && <ButtonText>Добавить в сравнение</ButtonText>}
-                    </>
-                )}
-            </AdditionalButtonSection>
-        );
-    }
-);

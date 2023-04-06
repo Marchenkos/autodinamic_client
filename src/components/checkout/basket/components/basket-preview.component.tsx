@@ -71,8 +71,6 @@ const SectionHeader = styled(BodyText).attrs({ color: TextColor.DARK })`
     color: #fff;
     font-family: 'Manrope';
     font-size: 14px;
-    
-    
 
     @media (max-width: 1350px) {
         display: none;

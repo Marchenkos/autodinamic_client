@@ -1,13 +1,13 @@
 import { Reducer } from 'redux';
 import { createReducer } from 'typesafe-redux-helpers';
-import { GeneralProduct } from '../../graphql/entities';
+import { IProduct } from '../../graphql/entities';
 
 import { FETCH_BY_SEARCH } from './actions';
 
 export interface SearchState {
     terms: string[];
     currentTerm?: string;
-    searchResult?: GeneralProduct[];
+    searchResult?: IProduct[];
     searchResultCount: number;
     isFetching: boolean;
 }

@@ -109,7 +109,7 @@ export const AppSelector: React.FC<AppSelectorProps> = React.memo(function AppSe
 });
 
 export interface AppSelectorWithoutLabelProps {
-    value: string;
+    value?: string;
     onChange: (event: any) => void;
     param: {
         value: string;
