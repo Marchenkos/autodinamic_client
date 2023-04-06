@@ -7,7 +7,6 @@ import { ProductListItem } from './product-list-item';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIsProductListFetching, getProductList, getSearchProductsCount, getProductListError } from '../selectors';
 
-import { SET_FILTER_SECTIONS } from '../../filter/actions';
 import { FilterDesktop } from '../../filter/components/filter.desktop.component';
 import { getDeviceSize } from '../../../utils/check-device-size';
 
@@ -113,10 +112,6 @@ export const SearchProductList: React.FC<SearchProductListProps> = React.memo(fu
         [currentPage, PRODUCTS_PER_PAGE_LIMIT, next]
     );
 
-    const handleCleanFilter = useCallback(() => {
-        dispatch(SET_FILTER_SECTIONS(undefined));
-    }, [dispatch]);
-
     if (error) {
         return <GenericError handleTryAgain={fetchList} />;
     }
@@ -124,7 +119,7 @@ export const SearchProductList: React.FC<SearchProductListProps> = React.memo(fu
     return (
         <ProductListWrapper>
             <ProductListContent>
-                {deviceSize > 850 ? <FilterDesktop cleanFilter={handleCleanFilter} /> : null}
+                {deviceSize > 850 ? <FilterDesktop /> : null}
                 <SearchProductListCatalog searchTerms={searchTerms} />
             </ProductListContent>
 

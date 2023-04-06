@@ -14,14 +14,13 @@ import { StyledIcons } from '../../ui/styled-icon.component';
 const HeaderWrapper = styled.div`
     width: 100%;
 
-    position: fixed;
+    position: sticky;
+    z-index: 2;
     top: 0;
-    z-index: 20;
-
     border-bottom: 1px solid #ebebeb;
 
     @media (max-width: 800px) {
-        display: none;
+      display: none;
     }
 `;
 
@@ -36,12 +35,6 @@ const FirstHeaderSection = styled(HeaderSection)`
     padding: 0 40px;
     background: #464646;
     height: 70px;
-`;
-
-const SecondHeaderSection = styled(HeaderSection)`
-    background: #ffff;
-    justify-content: flex-start;
-    padding: 20px 50px 0;
 `;
 
 const AccountPreviewWrapper = styled.div`
@@ -63,14 +56,11 @@ const SectionHeader = styled(BodyText).attrs({ color: TextColor.DARK })`
     font-family: 'Manrope';
     font-size: 14px;
 
-    @media (max-width: 800px) {
+    @media (max-width: 1200px) {
         display: none;
     }
 `;
-const ContactBodyLink = styled(BodyLink).attrs({ weight: TextWeight.BOLD, color: TextColor.BLUE })`
-    font-family: 'Manrope';
-    font-size: 14px;
-`;
+
 const Section = styled.button`
     display: flex;
     cursor: pointer;

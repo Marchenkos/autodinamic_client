@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { ICategoryName } from '../../../graphql/interfaces';
 
-import { SET_FILTER_SECTIONS } from '../../filter/actions';
 import { SET_CATEGORY } from '../../product-category/actions';
 import { getCategoryNames } from '../../product-category/selectors';
 
@@ -34,7 +33,6 @@ const NoveltyProductListScreen: React.FC = React.memo(function NoveltyProductLis
     useEffect(() => {
         if (selectedCategory) {
             dispatch(SET_CATEGORY(selectedCategory));
-            dispatch(SET_FILTER_SECTIONS(undefined));
         }
     }, [dispatch, selectedCategory]);
 

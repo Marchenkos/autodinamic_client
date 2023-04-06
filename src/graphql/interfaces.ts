@@ -11,13 +11,55 @@ export enum SORT_DIRECTION {
   DISCOUNT = "DISCOUNT"
 }
 
-export class FilterObject {
-    field_name: string;
-    view_field_name?: string;
-    values: string[];
-    category: string;
-    type: string;
+export enum FILTER_TYPE {
+  RANGE = "RANGE",
+  SINGLE = "SINGLE",
+  MULTIPLE = "MULTIPLE"
 }
+
+export interface IFilter {
+  id: number;
+  name: string;
+  displayName: string;
+  type: FILTER_TYPE;
+  values?: {
+    list?: string[];
+    max?: number;
+    min?: number
+  };
+  categoryId: number;
+  createdAt: Date;
+  updatedAt: Date;
+  isDefault: boolean;
+}
+
+export interface ISelectedFilter extends Omit<IFilter, 'values'> {
+  values: {
+    single?: boolean;
+    range?: { min: number; max: number };
+    list?: string[];
+  }
+}
+
+export interface IUpdateFilter extends Omit<IFilter, 'values'> {
+  values?: {
+    single?: boolean;
+    range?: { min: number; max: number };
+    list?: string[];
+  }
+}
+
+
+// export interface ISelectedFilter {
+//   id: number;
+//   name: string;
+//   values: {
+//     single?: boolean;
+//     range?: { min: number; max: number };
+//     list?: string[];
+//   }
+//   type: FILTER_TYPE;
+// }
 
 export class RequestToCallbackResponse {
     isSuccess: boolean;

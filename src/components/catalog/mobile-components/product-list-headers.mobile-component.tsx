@@ -7,7 +7,7 @@ import { ICategoryName } from '../../../graphql/interfaces';
 import { AppSelectorWithoutLabel } from '../../../ui/app-selector.component';
 import { AppSwitch } from '../../../ui/controller.component';
 import { BodyText, TextSize } from '../../../ui/text';
-import { SET_FILTER_SECTIONS } from '../../filter/actions';
+import { CLEAR_FILTERS } from '../../filter/actions';
 import { SimpleFilter } from '../../filter/components/filter-transition.component';
 import { getSelectedFilters, getSelectedSort } from '../../filter/selector';
 import { SET_CATEGORY } from '../../product-category/actions';
@@ -79,7 +79,7 @@ export const ProductListMobileHeaders: React.FC = React.memo(function ProductLis
     }, [dispatch, PRODUCTS_PER_PAGE_LIMIT, selectedFilters, selectedSort]);
 
     const handleCleanFilter = useCallback(() => {
-        dispatch(SET_FILTER_SECTIONS(undefined));
+        dispatch(CLEAR_FILTERS());
     }, [dispatch]);
 
     return (

@@ -1,5 +1,5 @@
 import { gql } from 'apollo-boost';
-import { SelectedFilterSection } from '../../components/filter/actions';
+import { ISelectedFilter } from '../interfaces';
 import {
     amplifierFields,
     audioSpeakerFields,
@@ -29,7 +29,7 @@ export interface SimilarProductsPayload {
 
 export interface LoadProductsWithFilterPayload {
     limit: number;
-    filters: SelectedFilterSection[];
+    filters: ISelectedFilter[];
     startId: number;
     categoryName: string;
     sort: string;

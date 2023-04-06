@@ -4,7 +4,6 @@ import { ApplicationState } from '../../store/ApplicationState';
 import { ProductState } from './reducers/product.state';
 import { IProduct } from '../../graphql/entities';
 import { ProductListState } from './reducers/product-list.reducer';
-import { SelectedFilterSection } from '../filter/actions';
 import { GetProductListError } from './sagas/get-product-list.saga';
 import { SearchProductListState } from './reducers/search-product-list.reducer';
 

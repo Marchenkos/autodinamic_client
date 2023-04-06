@@ -4,13 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import './filter.css';
 
-import { AppMultipleSelectorWithoutLabel } from '../../../ui/app-selector.component';
-import { SelectedFilterSection, SET_FILTER_SECTIONS } from '../actions';
-import { updateFilterSections } from '../helpers/update-filters-sections';
 import { getSelectedFilters } from '../selector';
 import styled from 'styled-components';
 import { Checkbox } from '@material-ui/core';
-import { BodyText, TextSize } from '../../../ui/text';
+import { BodyText, TextColor, TextSize, TextWeight } from '../../../ui/text';
+import { IFilter, ISelectedFilter } from '../../../graphql/interfaces';
+import { REMOVE_FILTER, UPDATE_FILTERS } from '../actions';
 
 const SelectorWrapper = styled.div`
     display: flex;
@@ -65,61 +64,78 @@ export const FilterCheckboxItem: React.FC<FilterCheckboxItemProps> = React.memo(
 });
 
 export interface FilterSelectorProps {
-    enName: string;
-    filterValues: any;
+  filter: IFilter;
 }
 
+
+const SectionTitle = styled(BodyText).attrs({
+  size: TextSize.EXTRA_SMALL,
+  weight: TextWeight.MEDIUM,
+  color: TextColor.DARK,
+})`
+`;
+
 export const FilterSelector: React.FC<FilterSelectorProps> = React.memo(function FilterCheckbox({
-    enName,
-    filterValues,
+  filter
 }: FilterSelectorProps) {
     const selectedFilters = useSelector(getSelectedFilters);
     const dispatch = useDispatch();
-    const selectedFiltersValues = React.useMemo(() => {
-        let values: SelectedFilterSection | undefined = undefined;
 
-        if (selectedFilters) {
-            values = selectedFilters.find((filter) => filter.name === enName);
-        }
+    const selectedValues: string[] = React.useMemo(() => {
+        const foundFilter: ISelectedFilter | undefined = selectedFilters.find(f => f.name === filter.name);
 
-        return !!values ? values.values : [];
+        return foundFilter ? (foundFilter.values.list || []) : [];
     }, [selectedFilters]);
 
-    const handleChangeMultiple = useCallback(
-        (newSelectedValues: string[]) => {
-            let updatedSelectedFilters: SelectedFilterSection[] | undefined = updateFilterSections(
-                selectedFilters || [],
-                newSelectedValues,
-                enName,
-                'multiple'
-            );
+    // const handleChangeMultiple = useCallback(
+    //     (newSelectedValues: string[]) => {
+    //         const updatedSelectedFilters: ISelectedFilter[] | undefined = updateFilterSections(
+    //             selectedFilters || [],
+    //             newSelectedValues,
+    //             enName,
+    //             'multiple'
+    //         );
 
-            dispatch(SET_FILTER_SECTIONS(updatedSelectedFilters));
-        },
-        [enName, selectedFilters, dispatch]
-    );
+    //         dispatch(SET_FILTER_SECTIONS(updatedSelectedFilters));
+    //     },
+    //     [enName, selectedFilters, dispatch]
+    // );
 
     const handleCheckboxUpdate = useCallback(
         (name: string) => {
-            let newSelectedValues = selectedFiltersValues;
+            let newSelectedValues = [...selectedValues];
 
-            if (selectedFiltersValues.indexOf(name) === -1) {
-                newSelectedValues.push(name);
+            if (selectedValues.includes(name)) {
+              newSelectedValues = selectedValues.filter((item) => item !== name);
             } else {
-                newSelectedValues = selectedFiltersValues.filter((item) => item !== name);
+              newSelectedValues.push(name);
             }
 
-            handleChangeMultiple(newSelectedValues);
+            if (newSelectedValues.length) {
+              dispatch(UPDATE_FILTERS({
+                ...filter,
+                values: {
+                  list: newSelectedValues
+                }
+              }));
+            } else {
+              dispatch(REMOVE_FILTER(filter));
+            }
         },
-        [selectedFiltersValues]
+        [selectedValues]
     );
+
+    if (!filter.values?.list) {
+      return null;
+    }
 
     return (
         <SelectorWrapper>
-            {filterValues.map((item, index) => (
+          <SectionTitle>{filter.displayName}</SectionTitle>
+            {filter.values.list.map((item, index) => (
                 <FilterCheckboxItem
                     key={`${item}-${index}`}
-                    checked={selectedFiltersValues.indexOf(item) > -1}
+                    checked={selectedValues.indexOf(item) !== -1}
                     itemName={item}
                     handleOnChange={handleCheckboxUpdate}
                 />

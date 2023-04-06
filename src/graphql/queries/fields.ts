@@ -27,6 +27,18 @@ export const productFields = `
   updatedAt
 `;
 
+export const filterFields = `
+  id
+  name
+  displayName
+  type
+  values
+  categoryId
+  isDefault
+  createdAt
+  updatedAt
+`;
+
 export const categoryFields = `
   id
   name

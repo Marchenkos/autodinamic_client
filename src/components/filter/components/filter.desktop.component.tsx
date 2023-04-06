@@ -5,19 +5,19 @@ import styled from 'styled-components';
 
 import './filter.css';
 
-import { FilterCheckbox } from './filter-checkbox.component';
 import { FilterRange } from './filter-range.component';
 
 import { FilterSelector } from './filter-selector.component';
-import { FilterObject } from '../../../graphql/interfaces';
-import { FilterSwitch } from '../../../ui/controller.component';
+import { FILTER_TYPE, IFilter } from '../../../graphql/interfaces';
 import { BodyText, TextSize, TextWeight, TextColor, TitleText } from '../../../ui/text';
 import { getFilters } from '../selector';
 import { capitalizeString } from '../utilites/formated-string';
 import { StyledButton } from '../../../ui/new-styled';
 import { getProductsCount } from '../../catalog/selectors';
 import { useDispatch } from 'react-redux';
-import { SET_FILTER_SECTIONS } from '../actions';
+import { CLEAR_FILTERS, GET_DEFAULT_FILTER } from '../actions';
+import { device } from '../../../../public/screen-sizes';
+import { FilterSwitch } from './filter-switch.component';
 
 const Section = styled.div`
     width: 100%;
@@ -48,21 +48,28 @@ const FilterTitle = styled(TitleText)`
 `;
 
 const FilterWrapper = styled.div`
-    width: 250px;
     display: flex;
     flex-direction: column;
-    padding-right: 30px;
+    padding: 0 20px;
     border-right: 1px solid #efefef;
-    min-height: 70vh;
-    position: relative;
+    max-height: 90vh;
+
+    position: sticky;
+    top: 40px;
+
+    @media ${device.tablet} { 
+      display: none;
+    }
 `;
 
-const SectionTitle = styled(BodyText).attrs({
-    size: TextSize.EXTRA_SMALL,
-    weight: TextWeight.MEDIUM,
-    color: TextColor.DARK,
-})`
-    margin: 0 0 10px;
+const FilterSectionsWrapper = styled.div`
+    height: fit-content;
+`;
+
+
+const FilterScollSectionsWrapper = styled.div`
+    overflow-y: scroll;
+    overflow-x: hidden;
 `;
 
 export const FilterDesktop: React.FC = React.memo(function SimpleFilter() {
@@ -71,49 +78,53 @@ export const FilterDesktop: React.FC = React.memo(function SimpleFilter() {
     const dispatch = useDispatch()
 
     const clearFilters = useCallback(() => {
-      dispatch(SET_FILTER_SECTIONS(undefined));
+      dispatch(CLEAR_FILTERS());
     }, [dispatch]);
 
-    const renderSectionsValues = (filter: FilterObject) => {
+    React.useEffect(() => {
+      dispatch(GET_DEFAULT_FILTER.TRIGGER());
+    }, [dispatch])
+
+    const renderSectionsValues = (filter: IFilter) => {
         switch (filter.type) {
-            case 'multiple': {
-                return <FilterSelector filterValues={filter.values} enName={filter.field_name} />;
+            case FILTER_TYPE.MULTIPLE: {
+                return <FilterSelector filter={filter} />;
             }
-            case 'only-one': {
-                return <FilterSwitch  filter={filter} />;
+            case FILTER_TYPE.SINGLE: {
+                return <FilterSwitch filter={filter} />;
             }
-            case 'range': {
+            case FILTER_TYPE.RANGE: {
                 return (
-                    <FilterRange
-                        enName={filter.field_name}
-                        max={parseInt(filter.values[1])}
-                        min={parseInt(filter.values[0])}
-                    />
+                    <FilterRange filter={filter} />
                 );
             }
         }
     };
 
     const renderSections = useCallback(() => {
-        return (
-            filters &&
-            filters.map((filter: FilterObject, index) => (
-                <div key={index}>
-                    <SectionTitle>{filter.view_field_name && capitalizeString(filter.view_field_name)}</SectionTitle>
-                    <Section>{renderSectionsValues(filter)}</Section>
-                </div>
-            ))
-        );
+      return (
+      <FilterSectionsWrapper>
+        {
+          filters.map((filter: IFilter, index) => (
+              <div key={index}>
+                  <Section>{renderSectionsValues(filter)}</Section>
+              </div>
+          ))
+          }
+        </FilterSectionsWrapper>
+      );
     }, [filters]);
-
-    console.log('productsCount   ' + productsCount);
 
     return (
         <FilterWrapper>
             <HeaderWrapper>
                 <FilterTitle>Фильтры</FilterTitle>
             </HeaderWrapper>
-            {renderSections()}
+
+            <FilterScollSectionsWrapper>
+              {renderSections()}
+            </FilterScollSectionsWrapper>
+            
             <StyledButton
                 additionalStyles={{ width: '60%', margin: '0 auto', padding: '5px', borderRadius: 4, border: '1px solid' }}
                 onClick={clearFilters}

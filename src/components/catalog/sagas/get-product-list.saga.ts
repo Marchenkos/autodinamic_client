@@ -25,9 +25,11 @@ export function* getProductListSaga(action: ReturnType<typeof FETCH_PRODUCT_LIST
             action.payload
         );
 
+
         yield put(FETCH_PRODUCT_LIST.COMPLETED(response));
     } catch (err) {
         const error = new GetProductListError(err);
+        console.error(error.message);
 
         yield put(FETCH_PRODUCT_LIST.COMPLETED.failed(error));
     }

@@ -1,6 +1,5 @@
 import { createAction } from 'typesafe-redux-helpers';
-import { IProductList } from '../../graphql/interfaces';
-import { SelectedFilterSection } from '../filter/actions';
+import { IProductList, ISelectedFilter } from '../../graphql/interfaces';
 
 export const FETCH_BY_SEARCH = {
     TRIGGER: createAction('[Fetch By Search] Trigger', (payload: string) => payload),
@@ -13,7 +12,7 @@ export interface FetchProductListBySearchParams {
     next: number;
     sort: string;
     searchTerms: string[];
-    filters?: SelectedFilterSection[];
+    filters?: ISelectedFilter[];
 }
 
 export const FETCH_PRODUCT_LIST_BY_SEARCH = {

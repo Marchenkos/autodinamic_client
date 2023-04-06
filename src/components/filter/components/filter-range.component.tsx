@@ -2,17 +2,24 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createTheme } from '@material-ui/core/styles';
-import { Slider } from '@material-ui/core';
+import Slider from '@mui/material/Slider';
 import { ThemeProvider } from '@material-ui/styles';
 import styled from 'styled-components';
 
 import './filter.css';
 
 import { FilterValueText } from './filter.desktop.component';
-import { SelectedFilterSection, SET_FILTER_SECTIONS } from '../actions';
-import { createFilterSections } from '../helpers/create-filters-sections';
-import { addFilterRangeSections } from '../helpers/update-filters-sections';
 import { getSelectedFilters } from '../selector';
+import { IFilter, ISelectedFilter } from '../../../graphql/interfaces';
+import { REMOVE_FILTER, UPDATE_FILTERS } from '../actions';
+import { BodyText, TextSize, TextWeight, TextColor } from '../../../ui/text';
+
+const SectionTitle = styled(BodyText).attrs({
+  size: TextSize.EXTRA_SMALL,
+  weight: TextWeight.MEDIUM,
+  color: TextColor.DARK,
+})`
+`;
 
 const ValueWrapper = styled.div`
     width: 100%;
@@ -21,65 +28,54 @@ const ValueWrapper = styled.div`
 `;
 
 export interface FilterRangeProps {
-    enName: string;
-    max: number;
-    min: number;
+  filter: IFilter;
 }
 
-export const FilterRange: React.FC<FilterRangeProps> = React.memo(function FilterCheckbox({
-    enName,
-    min,
-    max,
+export const FilterRange: React.FC<FilterRangeProps> = React.memo(function FilterRange({
+    filter
 }: FilterRangeProps) {
     const selectedFilters = useSelector(getSelectedFilters);
     const dispatch = useDispatch();
 
-    const [chosenValues, setChosenValues] = useState([min, max]);
 
-    const steps = useMemo(() => {
-        return max - min > 30 ? 10 : 1;
-    }, [min, max]);
+    const maxValue = filter.values?.max || 0
+    const minValue = filter.values?.min || 0
 
-    const [value, setValue] = useState([min, max]);
 
-    useEffect(() => {
-        if (!selectedFilters) {
-            setValue([min, max]);
-        } else {
-            selectedFilters.map((filter) => {
-                if (filter.name === enName) {
-                    const intValues = filter.values.map((i) => parseInt(i));
 
-                    setValue(intValues);
-                }
-            });
-        }
-    }, [selectedFilters, enName, min, max]);
+    // const [chosenValues, setChosenValues] = useState([minValue, maxValue]);
 
+    const [value, setValue] = useState([minValue, maxValue]);
+
+    const onChange = (e: any, newValue: any) => {
+      setValue(newValue)
+    }
     const handleOnChange = useCallback(
-        (e: any, value: any) => {
-            setChosenValues(value);
-            let updatedSelectedFilters: SelectedFilterSection[] | undefined = undefined;
-            setValue(value);
+        (e: any, newValue: any) => {
+            setValue(newValue);
 
-            const strValues = value.map((v: number) => v.toString());
-
-            if (!selectedFilters) {
-                updatedSelectedFilters = createFilterSections(strValues, enName, 'range');
-
-                dispatch(SET_FILTER_SECTIONS(updatedSelectedFilters));
+            if (newValue.includes(minValue) && newValue.includes(maxValue)) {
+              const isFilterExist = selectedFilters.find(f => f.id === filter.id)
+      
+              if (isFilterExist) {
+                dispatch(REMOVE_FILTER(filter))
+              }
             } else {
-                updatedSelectedFilters = addFilterRangeSections(selectedFilters, strValues, enName, 'range');
-
-                dispatch(SET_FILTER_SECTIONS(updatedSelectedFilters));
+              dispatch(UPDATE_FILTERS({ ...filter, values: { range: { max: newValue[1], min: newValue[0] }}}))
             }
         },
-        [selectedFilters, value, enName]
+        [selectedFilters, maxValue, minValue]
     );
 
     const muiTheme = createTheme({
         overrides: {
             MuiSlider: {
+              root: {
+                color: '#1c8686',
+                width: '88%',
+                display: 'block',
+                margin: '0 auto',
+              },
                 thumb: {
                     color: '#1c8686',
                 },
@@ -87,7 +83,7 @@ export const FilterRange: React.FC<FilterRangeProps> = React.memo(function Filte
                     color: '#2f9494',
                 },
                 rail: {
-                    color: '#c9c9c9',
+                    color: 'red',
                 },
             },
         },
@@ -95,19 +91,22 @@ export const FilterRange: React.FC<FilterRangeProps> = React.memo(function Filte
 
     return (
         <ThemeProvider theme={muiTheme}>
+            <SectionTitle>{filter.displayName}</SectionTitle>
             <Slider
                 value={value}
+                onChange={onChange}
                 onChangeCommitted={handleOnChange}
                 valueLabelDisplay="auto"
                 aria-labelledby="range-slider"
-                max={max}
-                marks={true}
-                step={steps}
-                min={min}
+                min={minValue}
+                max={maxValue}
+                step={maxValue - minValue > 30 ? 10 : 1}
+                marks
+                disableSwap
             />
             <ValueWrapper>
-                <FilterValueText>от {chosenValues[0]} BYN</FilterValueText>
-                <FilterValueText>до {chosenValues[1]} BYN</FilterValueText>
+                <FilterValueText>от {value[0]} BYN</FilterValueText>
+                <FilterValueText>до {value[1]} BYN</FilterValueText>
             </ValueWrapper>
         </ThemeProvider>
     );

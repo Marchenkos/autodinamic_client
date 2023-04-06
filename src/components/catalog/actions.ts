@@ -1,13 +1,12 @@
 import { createAction } from 'typesafe-redux-helpers';
 
-import { IProductList, SORT_DIRECTION } from '../../graphql/interfaces';
-import { SelectedFilterSection } from '../filter/actions';
+import { IProductList, ISelectedFilter, SORT_DIRECTION } from '../../graphql/interfaces';
 export interface FetchProductListParams {
     limit: number;
     page: number;
     categoryName?: string;
     sort?: SORT_DIRECTION;
-    filters?: SelectedFilterSection[];
+    filters?: ISelectedFilter[];
     isNew?: boolean;
     isHasDiscount?: boolean;
     searchTerms?: string[];

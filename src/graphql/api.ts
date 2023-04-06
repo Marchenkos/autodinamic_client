@@ -1,5 +1,4 @@
 import { ApolloClient } from '@apollo/client';
-import { SelectedFilterSection } from '../components/filter/actions';
 
 import {
     AddressInfo,
@@ -14,11 +13,12 @@ import {
     AuthResponse,
     OrderDetailsResponse,
     RequestToCallbackResponse,
-    FilterObject,
+    IFilter,
     ICategoryName,
     User,
     SORT_DIRECTION,
     IProductList,
+    ISelectedFilter,
 } from './interfaces';
 import {
     addAddressMutation,
@@ -32,6 +32,7 @@ import {
     setDefaultAddressMutation,
     toggleWishlistMutation,
 } from './mutations/user.mutation';
+import { defaultFiltersQuery, filtersByCategoryQuery } from './queries/filter.query';
 import {
     getCategoryByNameQuery,
     getCategoryNamesQuery,
@@ -45,7 +46,6 @@ import {
 } from './queries/products.query';
 import {
     accountDetailsQuery,
-    getFiltersByCategoryQuery,
     getOrderByIdQuery,
     getOrdersByEmailQuery,
     getProductByIdQuery,
@@ -63,7 +63,7 @@ export interface IFetchProductListAPI {
   page: number;
   categoryName?: string;
   sort?: SORT_DIRECTION;
-  filters?: SelectedFilterSection[];
+  filters?: ISelectedFilter[];
   isNew?: boolean;
   isHasDiscount?: boolean;
   searchTerms?: string[];
@@ -100,7 +100,7 @@ export class GraphQLApi {
         next: number,
         sort: string,
         searchTerms: string[],
-        filters?: SelectedFilterSection[]
+        filters?: ISelectedFilter[]
     ): Promise<IProductList> => {
         const response = await this.client.query<SimpleGQLResponse<'productsBySearchTerm', IProductList>>({
             query: getProductListByTermsQuery,
@@ -121,7 +121,7 @@ export class GraphQLApi {
 
     fetchProductListWithFilter = async (
         limit: number,
-        filters: SelectedFilterSection[],
+        filters: ISelectedFilter[],
         startId: number,
         categoryName: string,
         sort: string,
@@ -206,6 +206,8 @@ export class GraphQLApi {
     //     };
     // };
 
+
+    // USER
     login = async (email: string, password: string): Promise<AuthResponse> => {
         const response = await this.client.mutate<SimpleGQLResponse<'login', AuthResponse>>({
             mutation: loginMutation,
@@ -220,6 +222,11 @@ export class GraphQLApi {
         if (!response.data) throw new FetchMutationError('login fetch result is undefined');
 
         return response.data.login;
+    };
+
+    logout = async (): Promise<void> => {
+      await this.client.resetStore();
+      await this.client.cache.reset();
     };
 
     registration = async (first_name: string, last_name: string, email: string, password: string): Promise<Boolean> => {
@@ -247,11 +254,6 @@ export class GraphQLApi {
         });
 
         return response.data.accountDetails;
-    };
-
-    logout = async (): Promise<void> => {
-        await this.client.resetStore();
-        await this.client.cache.reset();
     };
 
     updateProfileDetails = async (
@@ -469,16 +471,25 @@ export class GraphQLApi {
         return response.data.sendRequestToCallback;
     };
 
-    getFiltersByCategory = async (category: string): Promise<FilterObject[]> => {
-        const response = await this.client.query<SimpleGQLResponse<'filterByCategory', FilterObject[]>>({
-            query: getFiltersByCategoryQuery,
-            variables: {
-                category,
-            },
+    getDefaultFilters = async (): Promise<IFilter[]> => {
+      const response = await this.client.query<SimpleGQLResponse<'defaultFilters', IFilter[]>>({
+        query: defaultFiltersQuery,
+        fetchPolicy: 'network-only',
+      });
+
+      return response.data.defaultFilters;
+    }
+
+    getFiltersByCategoryId = async (categoryId: number): Promise<IFilter[]> => {
+        const response = await this.client.query<SimpleGQLResponse<'filtersByCategory', IFilter[]>>({
+            query: filtersByCategoryQuery,
             fetchPolicy: 'network-only',
+            variables: {
+              categoryId,
+          },
         });
 
-        return response.data.filterByCategory;
+        return response.data.filtersByCategory;
     };
 
     getCategoryByName = async (name: string): Promise<ICategory> => {

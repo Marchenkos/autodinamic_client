@@ -22,7 +22,6 @@ export function* initialisationSaga(): SagaIterator {
         yield put(FETCH_CATEGORY_LIST.TRIGGER());
         // yield put(FETCH_BASKET.TRIGGER());
         // yield put(FETCH_PROMOTIONS_LIST.TRIGGER());
-        // yield put(GET_FILTER_BY_CATEGORY.TRIGGER('all'));
         // yield put(INIT_COMPARE_LIST.TRIGGER());
 
         yield spawn(automaticallyRefreshTokens);

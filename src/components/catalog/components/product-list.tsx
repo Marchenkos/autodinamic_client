@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
+import { Pagination } from '@material-ui/lab';
 
 import { ProductListItem } from './product-list-item';
 import { useSelector } from 'react-redux';
@@ -7,20 +8,13 @@ import { getProductList, getProductsCount } from '../selectors';
 import { IProduct } from '../../../graphql/entities';
 import { BodyText } from '../../../ui/text';
 import { ProductListHeader } from './product-list-header';
+import { PRODUCTS_PER_PAGE_LIMIT } from './catalog.component';
+import { ProductListPagination } from './product-list-pagination';
 
 const CatalogWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    width: 82%;
-
-    @media (max-width: 1400px) {
-        width: 75%;
-    }
-
-    @media (max-width: 850px) {
-        width: 100%;
-        justify-content: space-between;
-    }
+    padding: 0 10px;
 `;
 
 const ProductsWrapper = styled.div`
@@ -51,11 +45,13 @@ const CountText = styled(BodyText)`
 interface ProductListProps {
     isNew: boolean;
     searchTerms?: string[];
+    currentPage: number;
 }
 
 export const ProductList: React.FC<ProductListProps> = React.memo(function ProductList({
     isNew,
     searchTerms,
+    currentPage,
 }: ProductListProps) {
     const productList = useSelector(getProductList);
     const productsCount = useSelector(getProductsCount);
@@ -73,6 +69,7 @@ export const ProductList: React.FC<ProductListProps> = React.memo(function Produ
             <ProductListHeader searchTerms={searchTerms}/>
             {!searchTerms && <CountText>{`Найдено ${productsCount} товаров`}</CountText>}
             <ProductsWrapper>{renderList}</ProductsWrapper>
+          <ProductListPagination currentPage={currentPage}/>
         </CatalogWrapper>
     );
 });

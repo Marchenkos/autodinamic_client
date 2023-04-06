@@ -22,14 +22,12 @@ const Wrapper = styled.div`
     position: relative;
 
     min-width: 320px;
-    max-width: 1700px;
 `;
 
 const ContentWrapper = styled.div`
     min-height: 90vh;
     padding-top: 0px;
     box-sizing: border-box;
-    margin-top: 60px;
 
     @media (max-width: 500px) {
         padding-top: 60px;
