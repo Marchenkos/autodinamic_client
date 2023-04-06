@@ -29,10 +29,9 @@ const Section = styled.div`
 const SectionHeader = styled(BodyText).attrs({ color: TextColor.WHITE })`
     font-family: 'Manrope';
     font-size: 14px;
-
-    @media (max-width: 1200px) {
-      display: none;
-  }
+    @media (max-width: 1350px) {
+        display: none;
+    }
 `;
 
 export const AccountPreview: React.FC = React.memo(function AccountPreview() {

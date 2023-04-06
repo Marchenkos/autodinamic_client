@@ -5,6 +5,7 @@ import SumpliferImage from '../../public/assets/category/sumplifer.png';
 import SignalisationImage from '../../public/assets/category/signalisation.png';
 import VideoRegImage from '../../public/assets/category/video-registration.png';
 import SubImage from '../../public/assets/category/sub.png';
+import BannerSub from '../../public/assets/category/Sub4banner.png'
 
 export enum DELIVERY_METHODS {
     POST = 'Доставка почтой',
@@ -41,6 +42,7 @@ export const PRODUCT_CATEGORY_TO_CATEGORY_IMAGES = {
     [PRODUCT_CATEGORY_TYPE.SIGNALISATION]: SignalisationImage,
     [PRODUCT_CATEGORY_TYPE.SOUND_SPEAKER]: SoundSpeakerImage,
     [PRODUCT_CATEGORY_TYPE.SUB]: SubImage,
+    // [PRODUCT_CATEGORY_TYPE.BANNER_SUB]: BannerSub,
 };
 
 export interface ICategoryDetails {
