@@ -74,7 +74,7 @@ const SectionHeader = styled(BodyText).attrs({ color: TextColor.DARK })`
     
     
 
-    @media (max-width: 800px) {
+    @media (max-width: 1350px) {
         display: none;
     }
 `;

@@ -60,9 +60,10 @@ const SectionHeader = styled(BodyText).attrs({ color: TextColor.DARK })`
     font-family: 'Manrope';
     font-size: 14px;
 
-    @media (max-width: 800px) {
+    @media (max-width: 1350px) {
         display: none;
     }
+    
 `;
 const ContactBodyLink = styled(BodyLink).attrs({ weight: TextWeight.BOLD, color: TextColor.BLUE })`
     font-family: 'Manrope';

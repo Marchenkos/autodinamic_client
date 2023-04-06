@@ -5,6 +5,7 @@ import SumpliferImage from '../../public/assets/category/sumplifer.png';
 import SignalisationImage from '../../public/assets/category/signalisation.png';
 import VideoRegImage from '../../public/assets/category/video-registration.png';
 import SubImage from '../../public/assets/category/sub.png';
+import BannerSub from '../../public/assets/category/Sub4banner.png'
 
 export enum DELIVERY_METHODS {
     POST = 'Доставка почтой',
@@ -31,6 +32,7 @@ export enum PRODUCT_CATEGORY_TYPE {
     DVRS = 'dvrs',
     SIGNALISATION = 'signalisation',
     AUTO_AMPLIFIER = 'auto_amplifiers',
+    BANNER_SUB = 'banner_sub',
 }
 
 export const PRODUCT_CATEGORY_TO_CATEGORY_IMAGES = {
@@ -40,7 +42,10 @@ export const PRODUCT_CATEGORY_TO_CATEGORY_IMAGES = {
     [PRODUCT_CATEGORY_TYPE.SIGNALISATION]: SignalisationImage,
     [PRODUCT_CATEGORY_TYPE.SOUND_SPEAKER]: SoundSpeakerImage,
     [PRODUCT_CATEGORY_TYPE.SUB]: SubImage,
+    [PRODUCT_CATEGORY_TYPE.BANNER_SUB]: BannerSub,
 };
+
+export const imagesArray = [SumpliferImage,VideoRegImage,MagnitolsImage,SignalisationImage,SoundSpeakerImage,SubImage,BannerSub]
 
 export interface Category {
     category_name: PRODUCT_CATEGORY_TYPE;

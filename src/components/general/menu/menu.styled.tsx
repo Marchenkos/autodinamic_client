@@ -12,31 +12,29 @@ export const MenuWrapper = styled.div`
 `;
 
 export const MenuItemDropdown = styled.div`
-    position: relative;
     display: inherit;
-    // &:hover .dropdown-content {
-    //     display: flex;
-    //     flex-direction: column;
-    //     gap: 5px;
-    // }
+    background-color: #464646;
     &:has(.activeHover) .dropdown-content {
         display: flex;
-      flex-direction: column;
-       gap: 5px;
+        flex-direction: column;
+        gap: 5px;
     }
 `;
 
 export const MenuItemDropdownContent = styled.div`
     position: absolute;
-    background-color: #f9f9f9;
+    background-color: #464646;
     overflow: hidden;
     border-radius: 0px 0px 6px 6px;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 99;
+
     display: none;
-    
-    top: 60px;
+
+    left: 0;
+    right: 0;
+    top: 65px;
+    z-index: 10;
 `;
 
 export const StyledMenuItemText = styled(StyledLink).attrs({ color: TextColor.DARK })`
